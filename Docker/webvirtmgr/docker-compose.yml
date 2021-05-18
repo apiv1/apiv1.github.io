@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  app:
+    image: odivlad/webvirtmgr
+    restart: always
+    ports:
+      - 8000:8000
+    volumes:
+      - data:/data
+      - /var/run/libvirt:/var/run/libvirt
+      - /dev:/dev
+      - /opt/virt:/opt/virt
+      - /opt/images:/opt/images
+    environment:
+      WEBVIRTMGR_ADMIN_USERNAME: admin
+      WEBVIRTMGR_ADMIN_EMAIL: admin@nowo.com
+      WEBVIRTMGR_ADMIN_PASSWORD: virt@123
+volumes:
+  data:

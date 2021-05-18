@@ -1,4 +1,4 @@
-```
+```bash
 cat <<EOF > ~/.tmux.conf
 set -g default-terminal "xterm-256color"
 bind '"' split-window -c "#{pane_current_path}"

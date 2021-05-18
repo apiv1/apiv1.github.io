@@ -1,0 +1,14 @@
+version: '3'
+services:
+  web:
+    image: nginx:1.17.8-alpine
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+      - ./sites:/sites/
+      - ./ssl:/ssl/
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - NGINX_HOST=0.0.0.0
+      - NGINX_PORT=80

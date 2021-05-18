@@ -1,0 +1,12 @@
+version: '3.3'
+
+services:
+  postgres:
+    image: postgres:11.3-alpine
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+volumes:
+  pgdata:
+

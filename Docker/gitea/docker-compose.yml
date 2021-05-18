@@ -1,0 +1,36 @@
+version: '2'
+services:
+  app:
+    image: gitea/gitea:1.9.3
+    volumes:
+      - data:/data
+      - ./conf:/data/gitea/conf
+    ports:
+      - "30000:30000"
+      - "2200:22"
+    depends_on:
+      - db
+    restart: always
+    environment:
+      - SSH_PORT=2200
+      - HTTP_PORT=30000
+
+      - DB_TYPE=postgres
+      - DB_HOST=db:5432
+      - DB_NAME=gitea
+      - DB_USER=gitea
+      - DB_PASSWD=gitea
+
+      - DISABLE_REGISTRATION=true
+  db:
+    image: postgres:10.5-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=gitea
+      - POSTGRES_PASSWORD=gitea
+      - POSTGRES_DB=gitea
+    volumes:
+      - db:/var/lib/postgresql/data
+volumes:
+  data:
+  db:

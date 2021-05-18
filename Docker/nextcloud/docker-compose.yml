@@ -1,0 +1,26 @@
+version: '2'
+
+volumes:
+  nextcloud:
+  db:
+
+services:
+  db:
+    image: postgres:10.5-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=nextcloud
+      - POSTGRES_PASSWORD=nextcloud_1234
+      - POSTGRES_DB=nextcloud
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  app:
+    image: nextcloud
+    ports:
+      - 58888:80
+    links:
+      - db
+    volumes:
+      - nextcloud:/var/www/html
+    restart: always

@@ -6,8 +6,9 @@ services:
     restart: always
     environment:
       GITLAB_OMNIBUS_CONFIG: |
-        external_url 'http://0.0.0.0'
+        external_url 'https://0.0.0.0'
         gitlab_rails['gitlab_shell_ssh_port'] = 22
+        letsencrypt['enable'] = true
     ports:
       - '80:80'
       - '443:443'

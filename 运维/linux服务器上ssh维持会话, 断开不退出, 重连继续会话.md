@@ -11,7 +11,7 @@ sudo apt install tmux # ubuntu
 
 _**.reuse_session.sh**_
 ```bash
-cat <<EOF > .reuse_session.sh
+cat <<EOF > ~/.reuse_session.sh
 if [ ! -n "\$TMUX" ]; then
   tmux a -t "\$USER" > /dev/null
   if [ "\$?" -ne 0 ]; then
@@ -25,10 +25,10 @@ EOF
 3. 把脚本添加到登录脚本里
 ```bash
 #  bash用户加 .bash_profile
-echo '. ~/.reuse_session.sh' >> .bash_profile
+echo '. ~/.reuse_session.sh' >> ~/.bash_profile
 
 #  zsh用户加 .zprofile
-echo '. ~/.reuse_session.sh' >> .zprofile
+echo '. ~/.reuse_session.sh' >> ~/.zprofile
 ```
 
 4. ssh连上以后脚本自动给你套个tmux, 你终端的最下方会有个绿色的条(当前3.0a版本). 你如果意外断开了再连回去会话shell还是原来的, 如果想断开连接并保留会话, 就按 Ctrl+b 然后按d 他就断开了, 连接回去还是原来的shell. 你本来连着一个, 又从其他地方连上去, 两个地方就会共享一个会话, 这个就很厉害.

@@ -37,3 +37,15 @@ echo '. ~/.reuse_session.sh' >> .zprofile
 - % 是左右分两个终端, " 是 上下分两个终端
 - 多终端的时候 Ctrl + b后按着 上下左右可以换不同的终端, 按着alt(有的电脑是按着ctrl) 再按上下左右可以调整终端窗口大小
 - 其他的我也不知道, 可以按Ctrl + b 然后按?看帮助
+
+5. tmux配置文件  
+```bash
+cat <<EOF > ~/.tmux.conf
+set -g default-terminal "xterm-256color"
+bind '"' split-window -c "#{pane_current_path}"
+bind % split-window -h -c "#{pane_current_path}"
+bind c new-window -c "#{pane_current_path}"
+EOF
+```
+配色使用xterm-256  
+分屏保留路径  

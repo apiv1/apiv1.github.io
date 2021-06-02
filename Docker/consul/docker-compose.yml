@@ -1,0 +1,13 @@
+version: '3'
+services:
+  app:
+    command: consul agent -server -client=0.0.0.0 -data-dir=/consul/data -config-dir=/consul/config -ui -bootstrap
+    image: consul:1.9.5
+    ports:
+      - 8500:8500
+    volumes:
+      - ./data:/consul/data
+      - ./config:/consul/config
+    environment:
+      CONSUL_BIND_INTERFACE: 'eth0'
+

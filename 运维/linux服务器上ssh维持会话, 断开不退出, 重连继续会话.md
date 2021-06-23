@@ -3,7 +3,7 @@
 1. **装tmux**
 ```bash
 sudo yum -y install tmux # centos
-sudo apt install tmux # ubuntu
+sudo apt install -y tmux # ubuntu
 ```
 
 

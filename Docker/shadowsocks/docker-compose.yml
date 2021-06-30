@@ -1,8 +1,14 @@
 version: '3'
 services:
-  ss:
+  ss-server:
     image: shadowsocks/shadowsocks-libev
     restart: always
     command: ss-server -s 0.0.0.0 -p 1080 -k passwd -m rc4-md5 -u
     ports:
       - "1080:1080"
+  ss-local:
+    image: shadowsocks/shadowsocks-libev
+    restart: always
+    command: ss-local -s ss-server -p 1080 -b 0.0.0.0 -l 8964 -k passwd -m rc4-md5 -u
+    ports:
+      - "8964:8964"

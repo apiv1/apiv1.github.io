@@ -7,12 +7,18 @@ services:
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'https://0.0.0.0'
+        registry_external_url 'https://0.0.0.0/'
         gitlab_rails['gitlab_shell_ssh_port'] = 22
         letsencrypt['enable'] = false
         nginx['listen_https'] = false
         nginx['enable'] = false
         nginx['listen_port'] = 80
-        puma['listen'] = '0.0.0.0
+        puma['listen'] = '0.0.0.0'
+        gitlab_rails['dependency_proxy_enabled'] = true
+        gitlab_rails['packages_enabled'] = true
+        gitlab_rails['registry_enabled'] = true
+        registry['enable'] = true
+        registry['registry_http_addr'] = "0.0.0.0:5000"
     ports:
       - '80:80'
       - '443:443'

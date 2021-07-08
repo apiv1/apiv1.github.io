@@ -4,7 +4,7 @@
 
 **docker-compose.yml**
 ```bash
-cat <<EOF > docker-compose.yml 
+cat <<EOF > docker-compose.yml
 version: '3'
 services:
   frp:
@@ -20,6 +20,8 @@ EOF
 cat <<EOF > frps.ini
 [common]
 bind_port = 7000
+bind_udp_port = 7001
+auth_token = abcdefg
 EOF
 ```
 
@@ -27,7 +29,7 @@ EOF
 
 **docker-compose.yml**
 ```yaml
-cat <<EOF > docker-compose.yml 
+cat <<EOF > docker-compose.yml
 version: '3'
 services:
   frp:
@@ -50,8 +52,47 @@ type = tcp
 local_ip = 127.0.0.1
 local_port = 22
 remote_port = 6000
+
+[ssh-xtcp]
+type = xtcp
+sk = ssh
+
+local_ip = 127.0.0.1
+local_port = 22
+remote_port = 6001
+
+[rdp-xtcp]
+type = xtcp
+sk = rdp
+
+local_ip = 127.0.0.1
+local_port = 3389
+remote_port = 3389
 EOF
 ```
 
 5. VPS和客户机调用docker-compose -d  跑起来. 要停下来就调用docker-compose down. 他开机会随着docker自启动
-5. ssh -p 6000 用户名@<VPS的ip> 就可以连ssh了
+6. ssh -p 6000 用户名@<VPS的ip> 就可以连ssh了
+7. 使用xtcp连接
+
+```bash
+[common]
+server_addr = x.x.x.x
+server_port = 7000
+
+[rdp-visitor]
+type = xtcp
+role = visitor
+server_name = rdp-xtcp
+sk = rdp
+bind_addr = 127.0.0.1
+bind_port = 3389
+
+[p2p-ssh-visitor]
+type = xtcp
+role = visitor
+server_name = main-ssh-xtcp
+sk = ssh
+bind_addr = 127.0.0.1
+bind_port = 2222
+```

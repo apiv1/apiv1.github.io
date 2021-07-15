@@ -50,3 +50,9 @@ EOF
 ```
 配色使用xterm-256  
 分屏保留路径  
+
+6. 连接命令  
+```bash
+# 和别人共用一个账户的情况
+ssh -t xxx@xxx.com USER=<自己特定的用户名> <zsh/bash> --login
+```

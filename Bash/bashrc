@@ -1,0 +1,2 @@
+if [[ $- == *i* ]]; then bind '"\e[A": history-search-backward'; bind '"\e[B": history-search-forward'; fi
+export PS1="\n\[\033[35m\]\$(date)\n\[\033[32m\]\w\n\[\033[1;31m\]\u@\h: \[\033[1;34m\]\$(tty | sed -e 's:/dev/::'): \[\033[1;36m\]\$(ls -1 | wc -l | sed 's: ::g') files \[\033[1;33m\]\$(ls -lah | grep -m 1 total | sed 's/total //')b\[\033[0m\] -> \[\033[0m\]"

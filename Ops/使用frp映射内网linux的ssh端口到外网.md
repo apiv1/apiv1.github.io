@@ -20,8 +20,8 @@ EOF
 cat <<EOF > frps.ini
 [common]
 bind_port = 7000
-bind_udp_port = 7001
-auth_token = abcdefg
+bind_udp_port = 7000
+token = abcdefg
 EOF
 ```
 
@@ -46,6 +46,7 @@ cat <<EOF > frpc.ini
 [common]
 server_addr = x.x.x.x # 这个地方写你自己的vps的ip
 server_port = 7000
+token = abcdefg
 
 [ssh]
 type = tcp
@@ -59,7 +60,6 @@ sk = ssh
 
 local_ip = 127.0.0.1
 local_port = 22
-remote_port = 6001
 
 [rdp-xtcp]
 type = xtcp
@@ -67,7 +67,6 @@ sk = rdp
 
 local_ip = 127.0.0.1
 local_port = 3389
-remote_port = 3389
 EOF
 ```
 
@@ -79,6 +78,7 @@ EOF
 [common]
 server_addr = x.x.x.x
 server_port = 7000
+token = abcdefg
 
 [rdp-visitor]
 type = xtcp

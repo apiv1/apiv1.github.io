@@ -22,3 +22,8 @@ DOCKER_BIN=/opt/docker sh service-install.sh
 # daemon.json配置也可以放在当前目录, 如果无此配置自己生成一个空配置文件
 sh install-portable.sh
 ```
+
+4. 在线all in one 安装
+```bash
+wget -q -O - https://xxxx/all-in-one.sh | sh
+```

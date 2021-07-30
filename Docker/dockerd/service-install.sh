@@ -21,7 +21,7 @@ Documentation=https://docs.docker.com
 
 [Service]
 Type=notify
-Environment="PATH='$DOCKER_BIN'"
+Environment="PATH='$DOCKER_BIN':/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 ExecStart='$DOCKER_BIN'/dockerd '$DOCKERD_ARGS'
 ExecReload=/bin/kill -s HUP $MAINPID
 TimeoutSec=0
@@ -46,10 +46,3 @@ systemctl daemon-reload
 systemctl start docker
 systemctl enable docker.service
 systemctl status --no-pager -l docker
-
-echo '
-Put it into your shell rc file:
-
-  export PATH=$PATH:"'$DOCKER_BIN'"
-
-'

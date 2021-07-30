@@ -14,3 +14,11 @@ tar zxvf docker-${DOCKER_VERSION}.tgz && rm -rf docker-${DOCKER_VERSION}.tgz
 ```bash
 DOCKER_BIN=/opt/docker sh service-install.sh
 ```
+
+3. 或者绿色安装Docker
+```bash
+# docker.tgz解压在当前目录中
+# service-install.sh 在当前目录中
+# daemon.json配置也可以放在当前目录, 如果无此配置自己生成一个空配置文件
+sh install-portable.sh
+```

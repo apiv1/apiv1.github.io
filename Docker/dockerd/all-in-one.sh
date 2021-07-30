@@ -7,13 +7,13 @@ if [ -f "$DOCKER_SERVICE_FILE" ]; then
   exit 1
 fi
 
-if [ ! -f ./docker/dockerd ]; then
+export SCRIPT_HOME=$(cd "$(dirname "$0")";pwd)
+if [ ! -f $SCRIPT_HOME/docker/dockerd ]; then
     export DOCKER_VERSION=20.10.7
     wget https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz
     tar zxvf docker-${DOCKER_VERSION}.tgz && rm -rf docker-${DOCKER_VERSION}.tgz
 fi
 
-export SCRIPT_HOME=$(pwd)
 export DOCKER_BIN=$SCRIPT_HOME/docker
 export DOCKERD_ARGS='-H unix://'$SCRIPT_HOME'/run/docker.sock --config-file '$SCRIPT_HOME'/daemon.json --data-root '$SCRIPT_HOME'/lib/docker  --exec-root '$SCRIPT_HOME'/run/docker -p '$SCRIPT_HOME'/run/docker.pid'
 

@@ -7,7 +7,7 @@ if [ -f "$DOCKER_SERVICE_FILE" ]; then
   exit 1
 fi
 
-export SCRIPT_HOME=$(cd "$(dirname "$0")";pwd)
+export SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
 if [ ! -f "$SCRIPT_HOME/docker/dockerd" ]; then
     export DOCKER_VERSION=20.10.7
     wget https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz
@@ -21,6 +21,14 @@ if [ ! -f "$SCRIPT_HOME/daemon.json" ]; then
 cat <<EOF > "$SCRIPT_HOME/daemon.json"
 {
 }
+EOF
+fi
+
+if [ ! -f "$SCRIPT_HOME/.env" ]; then
+cat <<EOF > "$SCRIPT_HOME/.env"
+SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
+export PATH="\$SCRIPT_HOME/docker:\$PATH"
+export DOCKER_HOST="unix://\$SCRIPT_HOME/run/docker.sock"
 EOF
 fi
 
@@ -59,8 +67,5 @@ systemctl status --no-pager -l docker
 
 echo '
 Put it into your shell rc file:
-
-  export PATH="'$DOCKER_BIN':$PATH"
-  export DOCKER_HOST="'unix://$SCRIPT_HOME/run/docker.sock'"
-
+    . '$SCRIPT_HOME'/.env
 '

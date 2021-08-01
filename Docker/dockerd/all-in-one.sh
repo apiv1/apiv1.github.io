@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 DOCKER_SERVICE_FILE=${DOCKER_SERVICE_FILE:-/etc/systemd/system/docker.service}
 
 if [ -f "$DOCKER_SERVICE_FILE" ]; then
@@ -7,28 +9,20 @@ if [ -f "$DOCKER_SERVICE_FILE" ]; then
   exit 1
 fi
 
-export SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
+SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
 if [ ! -f "$SCRIPT_HOME/docker/dockerd" ]; then
-    export DOCKER_VERSION=20.10.7
+    DOCKER_VERSION=20.10.7
     wget https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz
     tar zxvf docker-${DOCKER_VERSION}.tgz && rm -rf docker-${DOCKER_VERSION}.tgz
 fi
 
-export DOCKER_BIN="$SCRIPT_HOME/docker"
-export DOCKERD_ARGS='-H unix://'$SCRIPT_HOME'/run/docker.sock --config-file '$SCRIPT_HOME'/daemon.json --data-root '$SCRIPT_HOME'/lib/docker  --exec-root '$SCRIPT_HOME'/run/docker -p '$SCRIPT_HOME'/run/docker.pid'
+DOCKER_BIN="$SCRIPT_HOME/docker"
+DOCKERD_ARGS='-H unix://'$SCRIPT_HOME'/run/docker.sock --config-file '$SCRIPT_HOME'/daemon.json --data-root '$SCRIPT_HOME'/lib/docker  --exec-root '$SCRIPT_HOME'/run/docker -p '$SCRIPT_HOME'/run/docker.pid'
 
 if [ ! -f "$SCRIPT_HOME/daemon.json" ]; then
 cat <<EOF > "$SCRIPT_HOME/daemon.json"
 {
 }
-EOF
-fi
-
-if [ ! -f "$SCRIPT_HOME/.env" ]; then
-cat <<EOF > "$SCRIPT_HOME/.env"
-SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
-export PATH="\$SCRIPT_HOME/docker:\$PATH"
-export DOCKER_HOST="unix://\$SCRIPT_HOME/run/docker.sock"
 EOF
 fi
 
@@ -64,6 +58,14 @@ systemctl daemon-reload
 systemctl start docker
 systemctl enable docker.service
 systemctl status --no-pager -l docker
+
+if [ ! -f "$SCRIPT_HOME/.env" ]; then
+cat <<EOF > "$SCRIPT_HOME/.env"
+SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
+export PATH="\$SCRIPT_HOME/docker:\$PATH"
+export DOCKER_HOST="unix://\$SCRIPT_HOME/run/docker.sock"
+EOF
+fi
 
 echo '
 Put it into your shell rc file:

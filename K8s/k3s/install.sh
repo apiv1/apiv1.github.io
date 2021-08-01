@@ -1,0 +1,97 @@
+#!/bin/sh
+
+set -e
+
+if [ "server" = "$K3S_MODE" -o "agent" = "$K3S_MODE" -a '' != "$K3S_URL" -a '' != "$K3S_TOKEN" ]; then
+  echo 'mode' $K3S_MODE
+else
+  echo 'Usage:'
+  echo '  K3S_MODE=server sh install.sh'
+  echo '  K3S_MODE=agent K3S_TOKEN=xxxxx K3S_URL=xxxxx sh install.sh'
+  exit 1
+fi
+
+SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
+K3S_BIN="$SCRIPT_HOME/bin"
+
+SYSTEMD_TYPE=exec
+
+if [ "server" = "$K3S_MODE" ]; then
+SERVER_NAME=k3s
+CONFIG_FILE="$SCRIPT_HOME/config.yaml"
+K3S_ARGS='server --config '$CONFIG_FILE' --data-dir '$SCRIPT_HOME'/lib/k3s --private-registry '$SCRIPT_HOME'/registries.yaml --default-local-storage-path '$SCRIPT_HOME'/storage --log '$SCRIPT_HOME'/log/output.log --alsologtostderr '$SCRIPT_HOME'/log/err.log'
+else
+SERVER_NAME=k3s-agent
+CONFIG_FILE="$SCRIPT_HOME/agent-config.yaml"
+K3S_ARGS='agent --server '$K3S_URL' --token '$K3S_TOKEN' --config '$CONFIG_FILE' --data-dir '$SCRIPT_HOME'/lib/k3s-agent --private-registry '$SCRIPT_HOME'/registries.yaml --log '$SCRIPT_HOME'/log-agent/output.log --alsologtostderr '$SCRIPT_HOME'/log-agent/err.log'
+fi
+
+K3S_SERVICE_FILE=${K3S_SERVICE_FILE:-/etc/systemd/system/${SERVER_NAME}.service}
+
+if [ -f "$K3S_SERVICE_FILE" ]; then
+  echo "'$K3S_SERVICE_FILE' already exist. delete or move it manually to continue install."
+  exit 1
+fi
+
+if [ ! -f "$SCRIPT_HOME/bin/k3s" ]; then
+    mkdir -p "$SCRIPT_HOME/bin"
+    wget -O "$SCRIPT_HOME/bin/k3s" https://github.com/k3s-io/k3s/releases/download/v1.21.3%2Bk3s1/k3s
+    chmod +x "$SCRIPT_HOME/bin/k3s"
+fi
+
+if [ ! -f "$CONFIG_FILE" ]; then
+  touch "$CONFIG_FILE"
+fi
+
+if [ ! -f "$SCRIPT_HOME/registries.yaml" ]; then
+  touch "$SCRIPT_HOME/registries.yaml"
+fi
+
+echo '
+[Unit]
+Description=Lightweight Kubernetes
+Documentation=https://k3s.io
+Wants=network-online.target
+After=network-online.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type='$SYSTEMD_TYPE'
+EnvironmentFile=-/etc/default/%N
+EnvironmentFile=-/etc/sysconfig/%N
+KillMode=process
+Delegate=yes
+LimitNOFILE=1048576
+LimitNPROC=infinity
+LimitCORE=infinity
+TasksMax=infinity
+TimeoutStartSec=0
+Restart=always
+RestartSec=5s
+Environment="PATH='$K3S_BIN':/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+ExecStartPre=/bin/sh -xc '"'! /usr/bin/systemctl is-enabled --quiet nm-cloud-setup.service'"'
+ExecStartPre=-/sbin/modprobe br_netfilter
+ExecStartPre=-/sbin/modprobe overlay
+ExecStart='${K3S_BIN}'/k3s '${K3S_ARGS}'
+' > $K3S_SERVICE_FILE
+
+chmod +x $K3S_SERVICE_FILE
+
+systemctl daemon-reload
+systemctl start ${SERVER_NAME}
+systemctl enable ${SERVER_NAME}.service
+systemctl status --no-pager -l ${SERVER_NAME}
+
+if [ ! -f "$SCRIPT_HOME/.env" ]; then
+cat <<EOF > "$SCRIPT_HOME/.env"
+SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
+export PATH="\$SCRIPT_HOME/bin:\$PATH"
+EOF
+fi
+
+echo '
+Put it into your shell rc file:
+    . '$SCRIPT_HOME'/.env
+'

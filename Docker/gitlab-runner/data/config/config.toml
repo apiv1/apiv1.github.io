@@ -6,10 +6,10 @@ check_interval = 0
 
 [[runners]]
   name = "<name>"
-  url = "https://git.xxx.com/"
+  url = "https://<domain>/"
   token = "<token>"
   executor = "docker"
-  environment = ['DOCKER_AUTH_CONFIG={"auths": {"git.xxx.com": {"auth": "<auth>"}}}']
+  environment = ['DOCKER_AUTH_CONFIG={"auths": {"<domain>": {"auth": "<auth>"}}}']
   [runners.custom_build_dir]
   [runners.cache]
     [runners.cache.s3]

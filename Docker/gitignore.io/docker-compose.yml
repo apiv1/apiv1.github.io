@@ -4,4 +4,6 @@ services:
     image: verynb/gitignore.io
     ports:
       - 8080:8080
+    environment:
+      HOST_ORIGIN: http://<domain>
     command: vapor run

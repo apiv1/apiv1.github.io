@@ -35,7 +35,6 @@ sh $$DOCKER_LOGOUT
 ### WEWORK_ROBOT
 - WEBHOOK_URL
 ```bash
-alias CURL='docker run --network host --rm curlimages/curl:7.77.0'
 CONTENT='{"msgtype": "text","text":{"content": "'$$*'"}}'
-CURL -sSL $$WEBHOOK_URL -H 'Content-Type: application/json' -d "$$CONTENT"
+wget -O - --method=POST --body-data="$$CONTENT" $$WEBHOOK_URL
 ```

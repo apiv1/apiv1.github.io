@@ -19,24 +19,26 @@ kubectl set image deploy -lapp=$${CI_PROJECT_NAME} '*'=$${IMAGE_NAME}
 ```
 
 ### PRE_TRIGGER
-- DOCKER_LOGIN
 - WEWORK_ROBOT
-- IMAGE_NAME
-- REF_MESSAGE
+- DEPLOY_MESSAGE
+- DOCKER_LOGIN
 ```bash
+. $$DEPLOY_MESSAGE
+sh $$WEWORK_ROBOT \
+"$${DEPLOY_MESSAGE}
+状态: 部署中"
 sh $$DOCKER_LOGIN
-. $$REF_MESSAGE
-sh $$WEWORK_ROBOT "任务地址: $${CI_JOB_URL}\n版本: $${CI_PROJECT_NAME}:$${CI_COMMIT_REF_NAME}\n镜像: $${IMAGE_NAME}\n提交者: $${CI_COMMIT_AUTHOR}\n信息: $${REF_MESSAGE}\n状态: 部署中"
 ```
 
 ### POST_TRIGGER
 - WEWORK_ROBOT
-- IMAGE_NAME
-- REF_MESSAGE
+- DEPLOY_MESSAGE
 - DOCKER_LOGOUT
 ```bash
-. $$REF_MESSAGE
-sh $$WEWORK_ROBOT "任务地址: $${CI_JOB_URL}\n版本: $${CI_PROJECT_NAME}:$${CI_COMMIT_REF_NAME}\n镜像: $${IMAGE_NAME}\n提交者: $${CI_COMMIT_AUTHOR}\n信息: $${REF_MESSAGE}\n状态: 部署完成"
+. $$DEPLOY_MESSAGE
+sh $$WEWORK_ROBOT \
+"$${DEPLOY_MESSAGE}
+状态: 部署完成"
 sh $$DOCKER_LOGOUT
 ```
 
@@ -51,4 +53,21 @@ wget -O - --no-check-certificate --method=POST --body-data="$$CONTENT" $$WEBHOOK
 ### REF_MESSAGE
 ```bash
 REF_MESSAGE=$$(git tag -l $$CI_COMMIT_TAG --format '%(contents)')
+```
+
+### DEPLOY_MESSAGE
+- REF_MESSAGE
+- IMAGE_NAME
+```bash
+. $$REF_MESSAGE
+DEPLOY_MESSAGE=$$(echo \
+"任务地址: $${CI_JOB_URL}
+版本:$${CI_PROJECT_NAME}:$${CI_COMMIT_REF_NAME}
+镜像: $${IMAGE_NAME}
+提交者: $${CI_COMMIT_AUTHOR}
+信息:
+- - - - - - - - - - - - - - - - - -
+$${REF_MESSAGE}
+- - - - - - - - - - - - - - - - - -
+")
 ```

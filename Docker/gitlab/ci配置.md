@@ -35,18 +35,24 @@ sh $$DOCKER_LOGIN
 - DEPLOY_MESSAGE
 - DOCKER_LOGOUT
 ```bash
+export DEPLOY_EXIT_CODE=$${DEPLOY_EXIT_CODE:-0}
+export DEPLOY_RESULT_MSG=$$(test "$${DEPLOY_EXIT_CODE}" = '0' && echo '成功' || echo '失败')
+
 . $$DEPLOY_MESSAGE
 sh $$WEWORK_ROBOT \
 "$${DEPLOY_MESSAGE}
-状态: 部署完成"
+状态: 部署$${DEPLOY_RESULT_MSG}"
 sh $$DOCKER_LOGOUT
+
+test "$${DEPLOY_EXIT_CODE}" = '0' && test -f "$${PROJECT_POST_TRIGGER}" && sh "$${PROJECT_POST_TRIGGER}"
 ```
 
 ### WEWORK_ROBOT
 - WEBHOOK_URL
 ```bash
 alias wget='docker run --rm mwendler/wget'
-CONTENT='{"msgtype": "text","text":{"content": "'$$*'"}}'
+CONTENT='{"msgtype": "markdown","markdown":{"content": "'$$*'"}}'
+CONTENT=$$(echo "$$CONTENT" | sed ':a;N;s/\n/\\n/;t a')
 wget -O - --no-check-certificate --method=POST --body-data="$$CONTENT" $$WEBHOOK_URL
 ```
 
@@ -61,8 +67,7 @@ REF_MESSAGE=$$(git tag -l $$CI_COMMIT_TAG --format '%(contents)')
 ```bash
 . $$REF_MESSAGE
 DEPLOY_MESSAGE=$$(echo \
-"任务地址: $${CI_JOB_URL}
-版本:$${CI_PROJECT_NAME}:$${CI_COMMIT_REF_NAME}
+"任务版本: [$${CI_PROJECT_NAME}:$${CI_COMMIT_REF_NAME}]($${CI_JOB_URL})
 镜像: $${IMAGE_NAME}
 提交者: $${CI_COMMIT_AUTHOR}
 信息:

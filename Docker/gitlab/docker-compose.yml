@@ -5,6 +5,7 @@ services:
     image: 'gitlab/gitlab-ee:latest'
     restart: always
     environment:
+      TZ: Asia/Shanghai
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'https://0.0.0.0'
         registry_external_url 'https://0.0.0.0/'
@@ -27,3 +28,5 @@ services:
       - './config:/etc/gitlab'
       - './logs:/var/log/gitlab'
       - './data:/var/opt/gitlab'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

@@ -1,0 +1,44 @@
+version: '3'
+services:
+  openldap:
+    image: osixia/openldap
+    environment:
+      - TZ=Asia/Shanghai
+      - LDAP_ORGANISATION=my-company
+      - LDAP_DOMAIN=my-company.com
+      - LDAP_ADMIN_PASSWORD=123456
+      - LDAP_TLS=false
+    ports:
+      - 389:389
+      - 636:636
+    command: [--copy-service,  --loglevel, debug]
+    volumes:
+      - ./data:/var/lib/ldap
+      - ./config:/etc/ldap/slapd.d
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "10"
+  admin:
+    image: osixia/phpldapadmin
+    environment:
+      - TZ=Asia/Shanghai
+      - PHPLDAPADMIN_HTTPS="false"
+      - PHPLDAPADMIN_LDAP_HOSTS=openldap
+    ports:
+      - 10004:80
+    depends_on:
+      - openldap
+    links:
+      - openldap
+    volumes:
+      - ./admin-data:/var/www/phpldapadmin
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+# 查询验证
+# docker-compose exec openldap ldapsearch -x -H ldap://localhost -b dc=my-company,dc=com -D "cn=admin,dc=my-company,dc=com" -w 123456

@@ -20,6 +20,42 @@ services:
         gitlab_rails['registry_enabled'] = true
         registry['enable'] = true
         registry['registry_http_addr'] = "0.0.0.0:5000"
+
+        # ldap
+        gitlab_rails['ldap_enabled'] = true
+        gitlab_rails['prevent_ldap_sign_in'] = false
+        gitlab_rails['ldap_servers'] = {
+          'main' => {
+            'label' => 'LDAP',
+            'host' =>  'host.docker.internal',
+            'port' => 389,
+            'uid' => 'uid',
+            'encryption' => 'plain',
+            'bind_dn' => 'cn=admin,dc=mycompany,dc=com',
+            'password' => 'ldapadminpassword',
+            'verify_certificates' => true,
+            'timeout' => 10,
+            'active_directory' => false,
+            'allow_username_or_email_login' => true,
+            'block_auto_created_users' => false,
+            'base' => 'ou=users,dc=mycompany,dc=com',
+            'user_filter' => '',
+            'attributes' => {
+              'username' => ['uid', 'userid', 'sAMAccountName'],
+              'email' => ['mail', 'email', 'userPrincipalName'],
+              'name' => 'cn',
+              'first_name' => 'givenName',
+              'last_name' => 'sn'
+            },
+            'lowercase_usernames' => false,
+
+            # EE Only
+            'group_base' => 'ou=groups,dc=mycompany,dc=com',
+            'admin_group' => 'cn=admin',
+            'external_groups' => [],
+            'sync_ssh_keys' => false
+          }
+        }
     ports:
       - '80:80'
       - '443:443'

@@ -8,3 +8,5 @@ services:
       - ./data/config:/etc/gitlab-runner
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    environment:
+      TZ: Asia/Shanghai

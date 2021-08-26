@@ -44,6 +44,16 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+  nginx-ldap:
+    image: bitnami/nginx-ldap-auth-daemon:0
+    ports:
+      - 10005:8888
+    environment:
+      NGINXLDAP_LDAP_URI: ldaps://<hostname>
+      NGINXLDAP_LDAP_BASE_DN: ou=users,dc=xxxx,dc=com
+      NGINXLDAP_LDAP_BIND_DN: cn=admin,dc=xxxx,dc=com
+      NGINXLDAP_LDAP_BIND_PASSWORD: <password>
+      NGINXLDAP_LDAP_FILTER: "(cn=%(username)s)"
 
 # 查询验证
 # docker-compose exec openldap ldapsearch -x -H ldap://localhost -b dc=my-company,dc=com -D "cn=admin,dc=my-company,dc=com" -w 123456

@@ -7,7 +7,11 @@ services:
       - LDAP_ORGANISATION=my-company
       - LDAP_DOMAIN=my-company.com
       - LDAP_ADMIN_PASSWORD=123456
-      - LDAP_TLS=false
+      - LDAP_TLS=true
+      - LDAP_TLS_CRT_FILENAME=live/<hostname>/cert.pem
+      - LDAP_TLS_KEY_FILENAME=live/<hostname>/privkey.pem
+      - LDAP_TLS_CA_CRT_FILENAME=live/<hostname>/fullchain.pem
+      - LDAP_TLS_VERIFY_CLIENT=try
     ports:
       - 389:389
       - 636:636
@@ -15,6 +19,7 @@ services:
     volumes:
       - ./data:/var/lib/ldap
       - ./config:/etc/ldap/slapd.d
+      - <letsencrypt-dir>:/container/service/slapd/assets/certs
     logging:
       driver: json-file
       options:

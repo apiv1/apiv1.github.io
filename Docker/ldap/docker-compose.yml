@@ -2,6 +2,7 @@ version: '3'
 services:
   openldap:
     image: osixia/openldap
+    restart: always
     environment:
       - TZ=Asia/Shanghai
       - LDAP_ORGANISATION=my-company
@@ -27,6 +28,7 @@ services:
         max-file: "10"
   admin:
     image: osixia/phpldapadmin
+    restart: always
     environment:
       - TZ=Asia/Shanghai
       - PHPLDAPADMIN_HTTPS="false"
@@ -46,6 +48,7 @@ services:
         max-file: "10"
   nginx-ldap:
     image: bitnami/nginx-ldap-auth-daemon:0
+    restart: always
     ports:
       - 10005:8888
     environment:

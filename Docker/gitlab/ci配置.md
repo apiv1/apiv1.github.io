@@ -68,6 +68,7 @@ REF_MESSAGE=$$(git tag -l $$CI_COMMIT_TAG --format '%(contents)')
 . $$REF_MESSAGE
 DEPLOY_MESSAGE=$$(echo \
 "任务版本: [$${CI_PROJECT_NAME}:$${CI_COMMIT_REF_NAME}]($${CI_JOB_URL})
+地址: [$${CI_JOB_URL}]($${CI_JOB_URL})
 镜像: $${IMAGE_NAME}
 提交者: $${CI_COMMIT_AUTHOR}
 信息:

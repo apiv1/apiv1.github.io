@@ -25,5 +25,6 @@ sh install-portable.sh
 
 4. 在线all in one 安装
 ```bash
-wget -q -O - https://xxxx/all-in-one.sh | sh
+mkdir dockerd && cd dockerd
+wget -q -O - https://apiv1.github.io/note/Docker/dockerd/all-in-one.sh | sh
 ```

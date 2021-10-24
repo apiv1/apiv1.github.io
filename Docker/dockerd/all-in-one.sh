@@ -3,6 +3,8 @@
 set -e
 
 DOCKER_SERVICE_FILE=${DOCKER_SERVICE_FILE:-/etc/systemd/system/docker.service}
+DOCKER_VERSION=${DOCKER_VERSION:-20.10.7}
+DOCKER_DOWNLOAD_URL=${DOCKER_DOWNLOAD_URL:-https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz}
 
 if [ -f "$DOCKER_SERVICE_FILE" ]; then
   echo "'$DOCKER_SERVICE_FILE' already exist. delete or move it manually to continue install."
@@ -11,8 +13,7 @@ fi
 
 SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
 if [ ! -f "$SCRIPT_HOME/docker/dockerd" ]; then
-    DOCKER_VERSION=20.10.7
-    wget https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz
+    wget "${DOCKER_VERSION}"
     tar zxvf docker-${DOCKER_VERSION}.tgz && rm -rf docker-${DOCKER_VERSION}.tgz
 fi
 

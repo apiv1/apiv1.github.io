@@ -1,0 +1,20 @@
+cat <<EOF > ~/.reuse_session.sh
+if [ ! -n "\$TMUX" ]; then
+  tmux a -t "\$USER" > /dev/null
+  if [ "\$?" -ne 0 ]; then
+    tmux new -s "\$USER"
+  fi
+  exit
+fi
+EOF
+
+cat <<EOF > ~/.tmux.conf
+set -g default-terminal "xterm-256color"
+bind '"' split-window -c "#{pane_current_path}"
+bind % split-window -h -c "#{pane_current_path}"
+bind c new-window -c "#{pane_current_path}"
+set -g mouse on
+EOF
+
+echo '. ~/.reuse_session.sh' >> ~/.bash_profile
+echo '. ~/.reuse_session.sh' >> ~/.zprofile

@@ -22,4 +22,8 @@ git clone https://github.com/myvim/.vim ~/.vim
 # neovim 配置文件
 mkdir -p ~/.config/nvim
 echo ':so $HOME/.vim/vimrc' > ~/.config/nvim/init.vim
+
+# for windows
+mkdir -p ~/AppData/Local/nvim
+echo ':so $HOME/.vim/vimrc' > ~/AppData/Local/nvim/init.vim
 ```

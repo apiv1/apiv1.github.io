@@ -44,7 +44,7 @@ sh $$WEWORK_ROBOT \
 状态: 部署$${DEPLOY_RESULT_MSG}"
 sh $$DOCKER_LOGOUT
 
-test "$${DEPLOY_EXIT_CODE}" = '0' && test -f "$${PROJECT_POST_TRIGGER}" && sh "$${PROJECT_POST_TRIGGER}"
+test "$${DEPLOY_EXIT_CODE}" = '0' && test -f "$${PROJECT_POST_TRIGGER}" && sh "$${PROJECT_POST_TRIGGER}" || :
 ```
 
 ### WEWORK_ROBOT

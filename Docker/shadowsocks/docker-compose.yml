@@ -1,14 +1,15 @@
 version: '3'
 services:
+  # docker run -d --restart always --name ss-server -p 1080:1080 shadowsocks/shadowsocks-libev ss-server -s 0.0.0.0 -p 1080 -k passwd -m xchacha20-ietf-poly1305 -u
   ss-server:
     image: shadowsocks/shadowsocks-libev
     restart: always
-    command: ss-server -s 0.0.0.0 -p 1080 -k passwd -m aes-256-gcm -u
+    command: ss-server -s 0.0.0.0 -p 1080 -k passwd -m xchacha20-ietf-poly1305 -u
     ports:
       - "1080:1080"
   ss-local:
     image: shadowsocks/shadowsocks-libev
     restart: always
-    command: ss-local -s ss-server -p 1080 -b 0.0.0.0 -l 8964 -k passwd -m aes-256-gcm -u
+    command: ss-local -s ss-server -p 1080 -b 0.0.0.0 -l 8964 -k passwd -m xchacha20-ietf-poly1305 -u
     ports:
       - "8964:8964"

@@ -13,7 +13,7 @@ fi
 
 SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
 if [ ! -f "$SCRIPT_HOME/docker/dockerd" ]; then
-    wget "${DOCKER_VERSION}"
+    wget "${DOCKER_DOWNLOAD_URL}"
     tar zxvf docker-${DOCKER_VERSION}.tgz && rm -rf docker-${DOCKER_VERSION}.tgz
 fi
 

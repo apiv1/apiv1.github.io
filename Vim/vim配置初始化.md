@@ -1,18 +1,18 @@
 ```bash
 # 国内github镜像源
+git config --global url."https://github.com/".pushInsteadOf https://github.com/
 git config --global url."https://github.com.cnpmjs.org/".insteadOf https://github.com/
 git config --global url."https://github.com.cnpmjs.org/".insteadOf https://git::@github.com/
-git config --global url."https://github.com/".pushInsteadOf https://github.com/
 
 # or
 
 cat <<EOF > ~/.gitconfig
 [url "https://github.com/"]
-	pushInsteadOf = https://github.com/
+  pushInsteadOf = https://github.com/
 [url "https://github.com.cnpmjs.org/"]
-	insteadOf = https://git::@github.com/
+  insteadOf = https://git::@github.com/
 [url "https://github.com.cnpmjs.org/"]
-	insteadOf = https://github.com/
+  insteadOf = https://github.com/
 EOF
 
 

@@ -1,8 +1,8 @@
 ```bash
 # 国内github镜像源
-git config --global url."https://github.com/".pushInsteadOf https://github.com/
+git config --global url."https://github.com.cnpmjs.org/".insteadOf https://git::@github.com/ # only for windows
 git config --global url."https://github.com.cnpmjs.org/".insteadOf https://github.com/
-git config --global url."https://github.com.cnpmjs.org/".insteadOf https://git::@github.com/
+git config --global url."https://github.com/".pushInsteadOf https://github.com/
 
 # or
 

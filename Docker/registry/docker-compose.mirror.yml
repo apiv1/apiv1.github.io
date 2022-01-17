@@ -1,0 +1,11 @@
+version: '3'
+services:
+  mirror:
+    image: registry:2.7.1
+    ports:
+      - 5000:5000
+    restart: always
+    volumes:
+      - ./data:/var/lib/registry
+    environment:
+      REGISTRY_PROXY_REMOTEURL: https://registry.docker-cn.com

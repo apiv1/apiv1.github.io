@@ -13,5 +13,7 @@ services:
       REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
       REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
 
+# daemon.json: add "insecure-registries": ["<ip>:5000"]
+
 # add user:
 # mkdir ./auth; docker run --entrypoint htpasswd httpd:2 -Bbn testuser testpassword > ./auth/htpasswd

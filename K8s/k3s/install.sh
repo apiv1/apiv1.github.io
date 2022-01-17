@@ -35,7 +35,7 @@ fi
 
 if [ ! -f "$SCRIPT_HOME/bin/k3s" ]; then
     mkdir -p "$SCRIPT_HOME/bin"
-    wget -O "$SCRIPT_HOME/bin/k3s" https://github.com/k3s-io/k3s/releases/download/v1.21.3%2Bk3s1/k3s
+    wget -O "$SCRIPT_HOME/bin/k3s" https://github.com/k3s-io/k3s/releases/download/v1.23.1%2Bk3s2/k3s
     chmod +x "$SCRIPT_HOME/bin/k3s"
 fi
 

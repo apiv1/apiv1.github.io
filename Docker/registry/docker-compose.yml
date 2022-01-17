@@ -16,4 +16,4 @@ services:
 # daemon.json: add "insecure-registries": ["<ip>:5000"]
 
 # add user:
-# mkdir ./auth; docker run --entrypoint htpasswd httpd:2 -Bbn testuser testpassword > ./auth/htpasswd
+# mkdir ./auth; docker run --rm -i httpd:2 htpasswd -Bbn testuser testpassword > ./auth/htpasswd

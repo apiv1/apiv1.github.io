@@ -10,3 +10,18 @@ ExecStart: --disable traefik --disable traefik-crd
 kubectl -n kube-system delete helmcharts.helm.cattle.io traefik
 kubectl -n kube-system delete helmcharts.helm.cattle.io traefik-crd
 ```
+
+### private-registry
+from [https://docs.rancher.cn/docs/k3s/installation/private-registry/_index/](https://docs.rancher.cn/docs/k3s/installation/private-registry/_index/)
+registries.yaml
+```
+mirrors:
+  docker.io:
+    endpoint:
+      - "http://mycustomreg.com:5000"
+configs:
+  "mycustomreg:5000":
+    auth:
+      username: xxxxxx # 这是私有镜像仓库的用户名
+      password: xxxxxx # 这是私有镜像仓库的密码
+```

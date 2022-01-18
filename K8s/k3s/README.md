@@ -18,12 +18,18 @@ from [https://docs.rancher.cn/docs/k3s/installation/private-registry/_index/](ht
 registries.yaml
 ```
 mirrors:
-  docker.io:
+  "image.registry":
     endpoint:
-      - "http://mycustomreg.com:5000"
+      - "http://image.registry"
 configs:
-  "mycustomreg:5000":
+  "image.registry":
     auth:
-      username: xxxxxx # 这是私有镜像仓库的用户名
-      password: xxxxxx # 这是私有镜像仓库的密码
+      username: $USERNAME
+      password: $PASSWORD
+```
+
+### setting image.registry ip
+```bash
+sed -i "/.*#.*SETTING.*image\.registry.*/d" /etc/hosts
+echo $IMAGE_REGISTRY_IP' image.registry # SETTING: image.registry' >> /etc/hosts
 ```

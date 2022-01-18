@@ -14,7 +14,8 @@ kubectl -n kube-system delete helmcharts.helm.cattle.io traefik-crd
 ```
 
 ### private-registry
-from [https://docs.rancher.cn/docs/k3s/installation/private-registry/_index/](https://docs.rancher.cn/docs/k3s/installation/private-registry/_index/)
+from [https://docs.rancher.cn/docs/k3s/installation/private-registry/_index/](https://docs.rancher.cn/docs/k3s/installation/private-registry/_index/)<br>
+
 registries.yaml
 ```
 mirrors:

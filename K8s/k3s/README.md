@@ -11,26 +11,8 @@ ExecStart: --disable traefik --disable traefik-crd
 ```bash
 kubectl -n kube-system delete helmcharts.helm.cattle.io traefik
 kubectl -n kube-system delete helmcharts.helm.cattle.io traefik-crd
-```
 
-### private-registry
-from [https://docs.rancher.cn/docs/k3s/installation/private-registry/_index/](https://docs.rancher.cn/docs/k3s/installation/private-registry/_index/)<br>
-
-registries.yaml
-```
-mirrors:
-  "image.registry":
-    endpoint:
-      - "http://image.registry"
-configs:
-  "image.registry":
-    auth:
-      username: $USERNAME
-      password: $PASSWORD
-```
-
-### setting image.registry ip
-```bash
-sed -i "/.*#.*SETTING.*image\.registry.*/d" /etc/hosts
-echo $IMAGE_REGISTRY_IP' image.registry # SETTING: image.registry' >> /etc/hosts
+# for k3s
+k3s kubectl -n kube-system delete helmcharts.helm.cattle.io traefik
+k3s kubectl -n kube-system delete helmcharts.helm.cattle.io traefik-crd
 ```

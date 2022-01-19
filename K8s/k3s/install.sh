@@ -20,7 +20,7 @@ SYSTEMD_TYPE=exec
 if [ "server" = "$K3S_MODE" ]; then
 SERVER_NAME=k3s
 CONFIG_FILE="$SCRIPT_HOME/config.yaml"
-K3S_ARGS='server --config '$CONFIG_FILE' --data-dir '$SCRIPT_HOME'/lib/k3s --private-registry '$SCRIPT_HOME'/registries.yaml --default-local-storage-path '$SCRIPT_HOME'/storage --log '$SCRIPT_HOME'/log/output.log --alsologtostderr '$SCRIPT_HOME'/log/err.log --no-deploy traefik --disable=traefik'
+K3S_ARGS='server --config '$CONFIG_FILE' --data-dir '$SCRIPT_HOME'/lib/k3s --private-registry '$SCRIPT_HOME'/registries.yaml --default-local-storage-path '$SCRIPT_HOME'/storage --log '$SCRIPT_HOME'/log/output.log --alsologtostderr '$SCRIPT_HOME'/log/err.log --no-deploy traefik --disable traefik --disable traefik-crd'
 else
 SERVER_NAME=k3s-agent
 CONFIG_FILE="$SCRIPT_HOME/agent-config.yaml"

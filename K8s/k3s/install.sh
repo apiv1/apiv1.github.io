@@ -11,6 +11,7 @@ else
   exit 1
 fi
 
+K3S_DOWNLOAD_URL=${K3S_DOWNLOAD_URL:-https://github.com/k3s-io/k3s/releases/download/v1.23.1%2Bk3s2/k3s}
 SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
 K3S_BIN="$SCRIPT_HOME/bin"
 
@@ -35,7 +36,7 @@ fi
 
 if [ ! -f "$SCRIPT_HOME/bin/k3s" ]; then
     mkdir -p "$SCRIPT_HOME/bin"
-    wget -O "$SCRIPT_HOME/bin/k3s" https://github.com/k3s-io/k3s/releases/download/v1.23.1%2Bk3s2/k3s
+    wget -O "$SCRIPT_HOME/bin/k3s" ${K3S_DOWNLOAD_URL}
     chmod +x "$SCRIPT_HOME/bin/k3s"
 fi
 

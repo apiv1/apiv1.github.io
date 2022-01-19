@@ -11,6 +11,11 @@ ExecStart: --disable traefik --disable traefik-crd
 ```bash
 rm lib/k3s/server/manifests/traefik.yaml
 
+kubectl -n kube-system delete helmcharts.helm.cattle.io traefik
+kubectl -n kube-system delete helmcharts.helm.cattle.io traefik-crd
+
+# or
+
 k3s kubectl -n kube-system delete helmcharts.helm.cattle.io traefik
 k3s kubectl -n kube-system delete helmcharts.helm.cattle.io traefik-crd
 ```

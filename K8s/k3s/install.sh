@@ -93,6 +93,13 @@ EOF
 fi
 
 echo '
+  systemctl stop '$SERVER_NAME'
+  systemctl disable '$SERVER_NAME'.service
+  rm '$K3S_SERVICE_FILE'
+' > $SCRIPT_HOME/uninstall-service.sh
+chmod +x $SCRIPT_HOME/uninstall-service.sh
+
+echo '
 Put it into your shell rc file:
     . '$SCRIPT_HOME'/.env
 '

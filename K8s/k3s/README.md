@@ -9,10 +9,8 @@ cat /etc/rancher/k3s/k3s.yaml # auth file
 ### Remove traefik
 ExecStart: --disable traefik --disable traefik-crd
 ```bash
-kubectl -n kube-system delete helmcharts.helm.cattle.io traefik
-kubectl -n kube-system delete helmcharts.helm.cattle.io traefik-crd
+rm lib/k3s/server/manifests/traefik.yaml
 
-# for k3s
 k3s kubectl -n kube-system delete helmcharts.helm.cattle.io traefik
 k3s kubectl -n kube-system delete helmcharts.helm.cattle.io traefik-crd
 ```

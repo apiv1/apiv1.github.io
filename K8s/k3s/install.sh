@@ -87,8 +87,8 @@ systemctl status --no-pager -l ${SERVER_NAME}
 
 if [ ! -f "$SCRIPT_HOME/.env" ]; then
 cat <<EOF > "$SCRIPT_HOME/.env"
-SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
-export PATH="\$SCRIPT_HOME/bin:\$PATH"
+K3S_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
+export PATH="\$K3S_HOME/bin:\$PATH"
 EOF
 fi
 

@@ -11,6 +11,7 @@ else
   exit 1
 fi
 
+SERVICE_ARGS=${SERVICE_ARGS:-''}
 K3S_DOWNLOAD_URL=${K3S_DOWNLOAD_URL:-https://github.com/k3s-io/k3s/releases/download/v1.23.1%2Bk3s2/k3s}
 SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
 K3S_BIN="$SCRIPT_HOME/bin"
@@ -20,11 +21,11 @@ SYSTEMD_TYPE=exec
 if [ "server" = "$K3S_MODE" ]; then
 SERVER_NAME=k3s
 CONFIG_FILE="$SCRIPT_HOME/config.yaml"
-K3S_ARGS='server --config '$CONFIG_FILE' --data-dir '$SCRIPT_HOME'/lib/k3s --private-registry '$SCRIPT_HOME'/registries.yaml --default-local-storage-path '$SCRIPT_HOME'/storage --log '$SCRIPT_HOME'/log/output.log --alsologtostderr '$SCRIPT_HOME'/log/err.log --no-deploy traefik --disable traefik --disable traefik-crd'
+K3S_ARGS='server --config '$CONFIG_FILE' --data-dir '$SCRIPT_HOME'/lib/k3s --private-registry '$SCRIPT_HOME'/registries.yaml --default-local-storage-path '$SCRIPT_HOME'/storage --log '$SCRIPT_HOME'/log/output.log --alsologtostderr '$SCRIPT_HOME'/log/err.log '$SERVICE_ARGS
 else
 SERVER_NAME=k3s-agent
 CONFIG_FILE="$SCRIPT_HOME/agent-config.yaml"
-K3S_ARGS='agent --server '$K3S_URL' --token '$K3S_TOKEN' --config '$CONFIG_FILE' --data-dir '$SCRIPT_HOME'/lib/k3s-agent --private-registry '$SCRIPT_HOME'/registries.yaml --log '$SCRIPT_HOME'/log-agent/output.log --alsologtostderr '$SCRIPT_HOME'/log-agent/err.log'
+K3S_ARGS='agent --server '$K3S_URL' --token '$K3S_TOKEN' --config '$CONFIG_FILE' --data-dir '$SCRIPT_HOME'/lib/k3s-agent --private-registry '$SCRIPT_HOME'/registries.yaml --log '$SCRIPT_HOME'/log-agent/output.log --alsologtostderr '$SCRIPT_HOME'/log-agent/err.log '$SERVICE_ARGS
 fi
 
 K3S_SERVICE_FILE=${K3S_SERVICE_FILE:-/etc/systemd/system/${SERVER_NAME}.service}

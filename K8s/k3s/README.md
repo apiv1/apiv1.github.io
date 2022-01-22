@@ -19,3 +19,34 @@ kubectl -n kube-system delete helmcharts.helm.cattle.io traefik-crd
 k3s kubectl -n kube-system delete helmcharts.helm.cattle.io traefik
 k3s kubectl -n kube-system delete helmcharts.helm.cattle.io traefik-crd
 ```
+
+### deploy_with_registries.sh
+```bash
+#!/bin/sh
+
+INSTALL_SH_URL=https://apiv1.github.io/note/K8s/k3s/install.sh
+USERNAME=<Your>
+PASSWORD=<Your>
+IMAGE_REGISTRY=<Your>
+IMAGE_REGISTRY_URL=http://${IMAGE_REGISTRY}
+
+mkdir -p /opt/k3s && cd /opt/k3s
+
+cat <<EOF > registries.yaml
+mirrors:
+  "image.registry":
+    endpoint:
+      - "${IMAGE_REGISTRY_URL}"
+configs:
+  "${IMAGE_REGISTRY}":
+    auth:
+      username: $USERNAME
+      password: $PASSWORD
+EOF
+
+wget -q -O - ${INSTALL_SH_URL} | K3S_MODE=server sh
+
+echo . /opt/k3s/.env >> /root/.bash_profile
+
+cd -
+```

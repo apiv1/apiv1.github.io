@@ -89,6 +89,7 @@ systemctl status --no-pager -l ${SERVER_NAME}
 if [ ! -f "$SCRIPT_HOME/.env" ]; then
 cat <<EOF > "$SCRIPT_HOME/.env"
 K3S_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
+alias k3s='k3s --data-dir \${K3S_HOME}/lib/k3s'
 export PATH="\$K3S_HOME/bin:\$PATH"
 EOF
 fi

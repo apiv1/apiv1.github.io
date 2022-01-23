@@ -50,3 +50,17 @@ echo . /opt/k3s/.env >> /root/.bash_profile
 
 cd -
 ```
+
+### deploy helm by kubectl
+[https://rancher.com/docs/k3s/latest/en/helm/](https://rancher.com/docs/k3s/latest/en/helm/)
+```bash
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: example
+  namespace: default
+spec:
+  set:
+    env: 'production'
+  chart: https://example.com/cahrt.tgz
+```

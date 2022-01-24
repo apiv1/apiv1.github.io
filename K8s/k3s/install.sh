@@ -30,6 +30,13 @@ fi
 
 K3S_SERVICE_FILE=${K3S_SERVICE_FILE:-/etc/systemd/system/${SERVER_NAME}.service}
 
+echo '
+  systemctl stop '$SERVER_NAME'
+  systemctl disable '$SERVER_NAME'.service
+  rm '$K3S_SERVICE_FILE'
+' > $SCRIPT_HOME/uninstall-service.sh
+chmod +x $SCRIPT_HOME/uninstall-service.sh
+
 if [ -f "$K3S_SERVICE_FILE" ]; then
   echo "'$K3S_SERVICE_FILE' already exist. delete or move it manually to continue install."
   exit 1
@@ -93,13 +100,6 @@ alias k3s='k3s --data-dir \${K3S_HOME}/lib/k3s'
 export PATH="\$K3S_HOME/bin:\$PATH"
 EOF
 fi
-
-echo '
-  systemctl stop '$SERVER_NAME'
-  systemctl disable '$SERVER_NAME'.service
-  rm '$K3S_SERVICE_FILE'
-' > $SCRIPT_HOME/uninstall-service.sh
-chmod +x $SCRIPT_HOME/uninstall-service.sh
 
 echo '
 Put it into your shell rc file:

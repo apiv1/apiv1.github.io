@@ -64,3 +64,6 @@ spec:
     env: 'production'
   chart: https://example.com/cahrt.tgz
 ```
+
+### offline install
+[https://docs.rancher.cn/docs/k3s/installation/airgap/_index](https://docs.rancher.cn/docs/k3s/installation/airgap/_index)

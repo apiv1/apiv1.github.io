@@ -8,4 +8,4 @@ services:
     volumes:
       - ./data:/var/lib/registry
     environment:
-      REGISTRY_PROXY_REMOTEURL: https://registry.docker-cn.com
+      REGISTRY_PROXY_REMOTEURL: https://docker.mirrors.ustc.edu.cn

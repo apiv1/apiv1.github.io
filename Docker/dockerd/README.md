@@ -31,5 +31,5 @@ wget -q -O - https://apiv1.github.io/note/Docker/dockerd/all-in-one.sh | sh
 
 5. daemon.json配置
 ```
-{ "registry-mirrors": ["https://registry.docker-cn.com"] }
+{ "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"] }
 ```

@@ -60,3 +60,19 @@ configs:
       username: $USERNAME
       password: $PASSWORD
 ```
+
+registries-with-mirror.yaml
+```
+mirrors:
+  "image.registry":
+    endpoint:
+      - "http://image.registry"
+  "docker.io":
+    endpoint:
+      - "http://image.registry"
+configs:
+  "image.registry":
+    auth:
+      username: $USERNAME
+      password: $PASSWORD
+```

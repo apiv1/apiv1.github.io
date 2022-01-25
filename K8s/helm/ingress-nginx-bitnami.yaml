@@ -1,0 +1,7 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: ingress-nginx
+  namespace: default
+spec:
+  chart: https://charts.bitnami.com/bitnami/nginx-ingress-controller-9.1.4.tgz

@@ -4,4 +4,4 @@ metadata:
   name: ingress-nginx
   namespace: default
 spec:
-  chart: https://charts.bitnami.com/bitnami/nginx-ingress-controller-9.1.4.tgz
+  chart: https://github.com/kubernetes/ingress-nginx/releases/download/helm-chart-4.0.16/ingress-nginx-4.0.16.tgz

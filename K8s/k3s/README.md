@@ -1,5 +1,6 @@
 ### Install Server
 ```bash
+export K3S_DOWNLOAD_URL=https://github.com/backrise/k3s/releases/download/v1.23.1%2Bk3s2-no-traefik/k3s # optional, if you don't need traefik
 mkdir -p /opt/k3s && cd /opt/k3s
 wget -q -O - https://apiv1.github.io/note/K8s/k3s/install.sh | K3S_MODE=server sh
 
@@ -62,8 +63,13 @@ metadata:
 spec:
   set:
     env: 'production'
-  chart: https://example.com/cahrt.tgz
+  chart: https://example.com/chart.tgz
 ```
 
 ### offline install
-[https://docs.rancher.cn/docs/k3s/installation/airgap/_index](https://docs.rancher.cn/docs/k3s/installation/airgap/_index)
+[Auto deploying manifests && charts](https://docs.rancher.cn/docs/k3s/helm/_index/)
+[Auto deploying images](https://docs.rancher.cn/docs/k3s/installation/airgap/_index)
+
+image: ./lib/k3s/agent/images
+manifest: ./lib/k3s/server/manifests
+charts: ./lib/k3s/server/static/charts

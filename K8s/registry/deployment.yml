@@ -92,7 +92,7 @@ spec:
         - name: REGISTRY_AUTH_HTPASSWD_REALM
           value: Registry Realm
         - name: REGISTRY_PROXY_REMOTEURL
-          value: https://docker.mirrors.ustc.edu.cn
+          value: https://registry-1.docker.io
         volumeMounts:
         - name: registry-data
           mountPath: /var/lib/registry

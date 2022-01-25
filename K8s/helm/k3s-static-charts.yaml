@@ -1,0 +1,7 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: <your-helm-release>
+  namespace: default
+spec:
+  chart: https://%{KUBERNETES_API}%/static/charts/<your-chart>.tgz # k3s

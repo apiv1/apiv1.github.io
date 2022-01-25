@@ -6,10 +6,15 @@ alias htpassgen='docker run --rm -i httpd:2 htpasswd -Bbn'
 alias htpassgen='kubectl run --rm -i --image=httpd:2 --restart=Never -q htpasswd -- htpasswd -Bbn'
 # 3 choose 1
 
+# install ingres-nginx
+kubectl apply -f https://apiv1.github.io/note/K8s/helm/ingress-nginx.yml # optional
+# or
+kubectl apply -f K8s/helm/ingress-nginx.yml
+
 # install
 kubectl apply -f https://apiv1.github.io/note/K8s/registry/deployment.yml # optional
 # or
-kubectl apply -f deployment.yml
+kubectl apply -f K8s/registry/deployment.yml
 
 # set REGISTRY_USER, REGISTRY_PASSWORD
 kubectl exec -it deploy/registry -- sh -c "echo '$(htpassgen $REGISTRY_USERNAME $REGISTRY_PASSWORD)' > /auth/htpasswd"

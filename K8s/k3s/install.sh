@@ -94,9 +94,19 @@ systemctl enable ${SERVER_NAME}.service
 systemctl status --no-pager -l ${SERVER_NAME}
 
 if [ ! -f "$SCRIPT_HOME/.env" ]; then
+
+if [ -z "$DISABLE_K3S_ALIAS" ]; then
+EXTRA_ALIAS="
+alias kubectl='k3s kubectl'
+alias ctr='k3s ctr'
+alias crictl='k3s crictl'
+"
+fi
+
 cat <<EOF > "$SCRIPT_HOME/.env"
 K3S_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
 alias k3s='k3s --data-dir \${K3S_HOME}/lib/k3s'
+${EXTRA_ALIAS}
 export PATH="\$K3S_HOME/bin:\$PATH"
 EOF
 fi

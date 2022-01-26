@@ -2,6 +2,7 @@ version: '3'
 services:
   web:
     image: nginx:stable-alpine
+    # command: nginx -g 'daemon off;'
     volumes:
       - ./conf.d:/etc/nginx/conf.d
       - ./sites:/sites/

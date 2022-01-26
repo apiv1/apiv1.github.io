@@ -8,5 +8,5 @@ do
   IMAGE_NAME=$item
   FILE_NAME=$(echo $IMAGE_NAME | sed -e 's/\//_/g' | sed -e 's/:/@/g')".tar"
   echo "export $IMAGE_NAME => $FILE_NAME"
-  k3s ctr images export $FILE_NAME $IMAGE_NAME
+  ctr images export $FILE_NAME $IMAGE_NAME
 done

@@ -1,0 +1,49 @@
+#!/bin/sh
+
+set -e
+
+COMMAND=$1
+
+if [ -z $COMMAND ];then
+  echo 'usage: '$0' <ACTION: {start|push|stop|pack}>'
+  exit 1
+fi
+
+EXPORT_DIR=$PWD/registry
+REGISTRY_IMAGE=docker.io/library/registry:2.7.1
+REGISTRY_HTTP_ADDR=${REGISTRY_HTTP_ADDR:-localhost:50101}
+
+start() {
+mkdir -p $EXPORT_DIR
+ctr images pull $REGISTRY_IMAGE
+ctr run --mount type=bind,src=$EXPORT_DIR,dst=/var/lib/registry,options=rbind:rw \
+        --rm -d --net-host --env REGISTRY_HTTP_ADDR=$REGISTRY_HTTP_ADDR $REGISTRY_IMAGE registry
+}
+
+stop() {
+ctr t kill registry
+}
+
+push() {
+if [ -z "$*" ]; then
+echo 'usage: '$0' [image1] [image2] [image3] ...'
+fi
+for item in $*
+do
+image_name=$(echo $item | sed -e 's/^[^\/]*\///g')
+image_url=$REGISTRY_HTTP_ADDR/$image_name
+echo "export $item => $image_url"
+ctr images pull --all-platforms $item
+ctr images tag $item $image_url
+ctr images push --plain-http $image_url
+ctr images rm $image_url
+done
+}
+
+pack() {
+tar zcvf registry.tar.gz registry
+}
+
+type $COMMAND >/dev/null 2>&1 || (echo "Invalid command '$COMMAND'"; exit 1)
+shift 1
+$COMMAND $*

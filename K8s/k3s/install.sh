@@ -19,20 +19,20 @@ K3S_BIN="$SCRIPT_HOME/bin"
 SYSTEMD_TYPE=exec
 
 if [ "server" = "$K3S_MODE" ]; then
-SERVER_NAME=k3s
+SERVICE_NAME=k3s
 CONFIG_FILE="$SCRIPT_HOME/config.yaml"
 K3S_ARGS='server --config '$CONFIG_FILE' --data-dir '$SCRIPT_HOME'/lib/k3s --private-registry '$SCRIPT_HOME'/registries.yaml --default-local-storage-path '$SCRIPT_HOME'/storage --log '$SCRIPT_HOME'/log/output.log --alsologtostderr '$SCRIPT_HOME'/log/err.log '$SERVICE_ARGS
 else
-SERVER_NAME=k3s-agent
+SERVICE_NAME=k3s-agent
 CONFIG_FILE="$SCRIPT_HOME/agent-config.yaml"
 K3S_ARGS='agent --server '$K3S_URL' --token '$K3S_TOKEN' --config '$CONFIG_FILE' --data-dir '$SCRIPT_HOME'/lib/k3s-agent --private-registry '$SCRIPT_HOME'/registries.yaml --log '$SCRIPT_HOME'/log-agent/output.log --alsologtostderr '$SCRIPT_HOME'/log-agent/err.log '$SERVICE_ARGS
 fi
 
-K3S_SERVICE_FILE=${K3S_SERVICE_FILE:-/etc/systemd/system/${SERVER_NAME}.service}
+K3S_SERVICE_FILE=${K3S_SERVICE_FILE:-/etc/systemd/system/${SERVICE_NAME}.service}
 
 echo '
-  systemctl stop '$SERVER_NAME'
-  systemctl disable '$SERVER_NAME'.service
+  systemctl stop '$SERVICE_NAME'
+  systemctl disable '$SERVICE_NAME'.service
   rm '$K3S_SERVICE_FILE'
 ' > $SCRIPT_HOME/uninstall-service.sh
 chmod +x $SCRIPT_HOME/uninstall-service.sh
@@ -89,9 +89,9 @@ ExecStart='${K3S_BIN}'/k3s '${K3S_ARGS}'
 chmod +x $K3S_SERVICE_FILE
 
 systemctl daemon-reload
-systemctl start ${SERVER_NAME}
-systemctl enable ${SERVER_NAME}.service
-systemctl status --no-pager -l ${SERVER_NAME}
+systemctl start ${SERVICE_NAME}
+systemctl enable ${SERVICE_NAME}.service
+systemctl status --no-pager -l ${SERVICE_NAME}
 
 if [ ! -f "$SCRIPT_HOME/.env" ]; then
 

@@ -34,8 +34,8 @@ echo '
   systemctl stop '$SERVICE_NAME'
   systemctl disable '$SERVICE_NAME'.service
   rm '$K3S_SERVICE_FILE'
-' > $SCRIPT_HOME/uninstall-service.sh
-chmod +x $SCRIPT_HOME/uninstall-service.sh
+' > $SCRIPT_HOME/uninstall.sh
+chmod +x $SCRIPT_HOME/uninstall.sh
 
 if [ -f "$K3S_SERVICE_FILE" ]; then
   echo "'$K3S_SERVICE_FILE' already exist. delete or move it manually to continue install."

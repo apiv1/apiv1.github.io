@@ -1,7 +1,5 @@
 #!/bin/sh
 
-set -e
-
 COMMAND=$1
 
 if [ -z $COMMAND ];then
@@ -22,6 +20,7 @@ ctr run --mount type=bind,src=$EXPORT_DIR,dst=/var/lib/registry,options=rbind:rw
 
 stop() {
 ctr t kill registry
+ctr c rm registry
 }
 
 push() {

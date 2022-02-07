@@ -9,5 +9,4 @@ if [ -z "${SSH_HOST}" ]; then
   exit 1
 fi
 
-CERT_FILE=${SSH_HOST}.cert.yaml
 ssh -p $SSH_PORT ${SSH_USER}@${SSH_HOST} cat /etc/rancher/k3s/k3s.yaml | sed "s/127.0.0.1/${SSH_HOST}/g"

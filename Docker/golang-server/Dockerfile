@@ -5,7 +5,7 @@ FROM ${BUILD_IMAGE} AS builder
 ARG GOPROXY="https://goproxy.cn"
 WORKDIR /app
 COPY . /app
-RUN GOPROXY=${GOPROXY} GO111MODULE=on CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags '-s -w' -o app
+RUN GOPROXY=${GOPROXY} GO111MODULE=on CGO_ENABLED=0 GOOS=linux go build -ldflags '-s -w' -o app
 
 FROM ${RUNTIME_IMAGE} AS runner
 ARG APP_NAME="app"

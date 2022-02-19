@@ -5,6 +5,6 @@ bundle config mirror.https://rubygems.org https://gems.ruby-china.com
 
 # RVM
 git clone https://github.com/rvm/rvm ~/.rvm
-./bin/rvm-installer
+~/.rvm/bin/rvm-installer
 echo "ruby_url=https://cache.ruby-china.com/pub/ruby" >> ~/.rvm/user/db
 ```

@@ -1,3 +1,11 @@
+## 变量
+
+### USE_DOCKER
+```bash
+1 # 使用 docker
+0 # 不用 docker
+```
+
 ## 文件
 
 ### DOCKER_LOGIN
@@ -27,7 +35,7 @@ kubectl set image deploy -lapp=$${CI_PROJECT_NAME} '*'=$${IMAGE_NAME}
 sh $$WEWORK_ROBOT \
 "$${DEPLOY_MESSAGE}
 状态: 部署中"
-sh $$DOCKER_LOGIN
+test "$${USE_DOCKER:-1}" = '1' && sh $$DOCKER_LOGIN
 ```
 
 ### POST_TRIGGER
@@ -42,7 +50,7 @@ export DEPLOY_RESULT_MSG=$$(test "$${DEPLOY_EXIT_CODE}" = '0' && echo '成功' |
 sh $$WEWORK_ROBOT \
 "$${DEPLOY_MESSAGE}
 状态: 部署$${DEPLOY_RESULT_MSG}"
-sh $$DOCKER_LOGOUT
+test "$${USE_DOCKER:-1}" = '1' && sh $$DOCKER_LOGOUT
 
 test "$${DEPLOY_EXIT_CODE}" = '0' && test -f "$${PROJECT_POST_TRIGGER}" && sh "$${PROJECT_POST_TRIGGER}" || :
 ```
@@ -50,7 +58,7 @@ test "$${DEPLOY_EXIT_CODE}" = '0' && test -f "$${PROJECT_POST_TRIGGER}" && sh "$
 ### WEWORK_ROBOT
 - WEBHOOK_URL
 ```bash
-alias wget='docker run --rm mwendler/wget'
+test "$${USE_DOCKER:-1}" = '1' && alias wget='docker run --rm mwendler/wget'
 CONTENT='{"msgtype": "markdown","markdown":{"content": "'$$*'"}}'
 CONTENT=$$(echo "$$CONTENT" | sed ':a;N;s/\n/\\n/;t a')
 wget -O - --no-check-certificate --method=POST --body-data="$$CONTENT" $$WEBHOOK_URL

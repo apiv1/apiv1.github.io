@@ -10,11 +10,12 @@ RUN sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_PROXY}/g" /etc/apk/repositories
 
 FROM base_private AS runner
 RUN gem install git gitlab
-RUN apk add --no-cache --update git git-lfs openssh
+RUN apk add --no-cache --update git git-lfs openssh tzdata
 COPY --from=base /etc/apk/repositories /etc/apk/repositories
 
 FROM runner AS deploy
 ENV GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 COPY ./gitlab-clone /usr/local/sbin/gitlab-clone
+RUN chmod +x /usr/local/sbin/gitlab-clone
 
 ENTRYPOINT [ "/usr/local/sbin/gitlab-clone" ]

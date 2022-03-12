@@ -7,9 +7,10 @@ services:
     command: ss-server -s 0.0.0.0 -p 1080 -k passwd -m chacha20-ietf-poly1305 -u
     ports:
       - "1080:1080"
+  # docker run -d --restart always --name ss-local -p 1086:1086 shadowsocks/shadowsocks-libev ss-local -s $SS_SERVER -p ${SS_SERVER_PORT:-1080} -b 0.0.0.0 -l 1086 -k passwd -m chacha20-ietf-poly1305 -u
   ss-local:
     image: shadowsocks/shadowsocks-libev
     restart: always
-    command: ss-local -s ss-server -p 1080 -b 0.0.0.0 -l 8964 -k passwd -m chacha20-ietf-poly1305 -u
+    command: ss-local -s $SS_SERVER -p ${SS_SERVER_PORT:-1080} -b 0.0.0.0 -l 1086 -k passwd -m chacha20-ietf-poly1305 -u
     ports:
-      - "8964:8964"
+      - "1086:1086"

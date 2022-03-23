@@ -12,7 +12,7 @@ docker rm pack-container
 docker push ${PACK_IMAGE} # 推送
 
 # 解包
-docker run --rm -v $PWD:/download ${PACK_IMAGE} sh -c 'cp -R /pack/* /download'
+docker run --rm -v $PWD:/download --entrypoint sh ${PACK_IMAGE} -c 'cp -R /pack/* /download'
 ```
 
 ##### 打包到httpserver

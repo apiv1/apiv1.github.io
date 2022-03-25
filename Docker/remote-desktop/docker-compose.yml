@@ -1,0 +1,12 @@
+version: '3.9'
+services:
+  app:
+    build: .
+    restart: always
+    environment:
+      USERNAME: user
+      PASSWORD: pass
+    volumes:
+      - ./data/home:/home
+    ports:
+      - 3389:3389

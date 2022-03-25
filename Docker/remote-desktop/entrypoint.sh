@@ -19,7 +19,7 @@ usermod -aG sudo ${USERNAME}
 /usr/sbin/xrdp-sesman
 
 # Run xrdp in foreground if no commands specified
-if [ -z "$1" ]; then
+if [ -z "$@" ]; then
     /usr/sbin/xrdp --nodaemon
 else
     /usr/sbin/xrdp

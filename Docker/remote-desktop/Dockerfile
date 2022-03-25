@@ -2,7 +2,8 @@ ARG TAG=20.04
 FROM ubuntu:$TAG as base
 
 FROM base as base_private
-RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list \
+    && sed -i 's/ports.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
 
 FROM base_private as builder
 RUN sed -i -E 's/^# deb-src /deb-src /g' /etc/apt/sources.list \
@@ -33,7 +34,6 @@ FROM base_private
 RUN apt-get update \
     && DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends \
         dbus-x11 \
-        wget \
         locales \
         pavucontrol \
         pulseaudio \
@@ -45,9 +45,8 @@ RUN apt-get update \
         xfce4-pulseaudio-plugin \
         xorgxrdp \
         xrdp \
-        xubuntu-icon-theme \
-        fonts-wqy-microhei \
         dumb-init \
+        xubuntu-icon-theme \
     && rm -rf /var/lib/apt/lists/*
 
 RUN sed -i -E 's/^; autospawn =.*/autospawn = yes/' /etc/pulse/client.conf \

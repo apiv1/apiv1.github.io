@@ -70,6 +70,6 @@ spec:
 [Auto deploying manifests && charts](https://docs.rancher.cn/docs/k3s/helm/_index/)
 [Auto deploying images](https://docs.rancher.cn/docs/k3s/installation/airgap/_index)
 
-image: ./lib/k3s/agent/images
-manifest: ./lib/k3s/server/manifests
-charts: ./lib/k3s/server/static/charts
+image: ./lib/k3s/agent/images<br>
+manifest: ./lib/k3s/server/manifests<br>
+charts: ./lib/k3s/server/static/charts<br>

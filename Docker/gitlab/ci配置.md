@@ -77,9 +77,14 @@ DEPLOY_MESSAGE=$$(echo \
 "任务版本: [$${CI_PROJECT_NAME}:$${CI_COMMIT_REF_NAME}]($${CI_JOB_URL})
 地址: [$${CI_JOB_URL}]($${CI_JOB_URL})
 提交者: $${CI_COMMIT_AUTHOR}
+阶段: $${CI_JOB_STAGE}
 信息:
 - - - - - - - - - - - - - - - - - -
 $${REF_MESSAGE}
 - - - - - - - - - - - - - - - - - -
 ")
 ```
+
+## Tips
+
+* 在windows下使用Powershell执行会中文乱码, 在 Windows 控制面板-时钟和区域-区域-管理-更改系统区域设置, 勾选<使用Unicode Utf-8提供全球语言支持>

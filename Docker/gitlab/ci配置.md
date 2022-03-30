@@ -78,6 +78,7 @@ DEPLOY_MESSAGE=$$(echo \
 地址: [$${CI_JOB_URL}]($${CI_JOB_URL})
 提交者: $${CI_COMMIT_AUTHOR}
 阶段: $${CI_JOB_STAGE}
+任务: $${CI_JOB_NAME}
 信息:
 - - - - - - - - - - - - - - - - - -
 $${REF_MESSAGE}

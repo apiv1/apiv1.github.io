@@ -1,0 +1,11 @@
+#!/bin/sh
+
+HOST_NAME=$1
+IP=$2
+
+if test -z "$IP"; then
+  echo "usage: $(basename $0) <HOST_NAME> <IP>"
+  exit
+fi
+
+sudo sh -c 'sed -i "" "/.*#.*SETTING.*'${HOST_NAME/./\\.}'.*/d" /etc/hosts && echo "'$IP' '$HOST_NAME' # SETTING: '$HOST_NAME'" >> /etc/hosts'

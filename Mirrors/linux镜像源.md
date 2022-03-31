@@ -17,3 +17,12 @@ apt-get update --allow-unauthenticated
 ```bash
 sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories
 ```
+### CentOS-Stream9
+```bash
+cp /etc/yum.repos.d/centos.repo /etc/yum.repos.d/centos.repo.bak
+sed -i "/.*#.*GENERATED.*/d" /etc/yum.repos.d/centos.repo
+sed -i "/.*\[baseos\].*/a\baseurl=https://mirror.tuna.tsinghua.edu.cn/centos-stream/9-stream/BaseOS/ # GENERATED" /etc/yum.repos.d/centos.repo
+sed -i "/.*\[appstream\].*/a\baseurl=https://mirror.tuna.tsinghua.edu.cn/centos-stream/9-stream/AppStream/ # GENERATED" /etc/yum.repos.d/centos.repo
+sed -i "/.*\[crb\].*/a\baseurl=https://mirror.tuna.tsinghua.edu.cn/centos-stream/9-stream/CRB/ # GENERATED" /etc/yum.repos.d/centos.repo
+yum update
+```

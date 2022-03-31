@@ -13,7 +13,15 @@ sudo systemctl start xrdp
 ```
 
 ```bash
-# 登录后不需要授权给管理器
+# CentOS Stream9 安装
+sudo dnf install -y epel-release
+sudo dnf install -y xrdp
+sudo systemctl enable xrdp --now
+sudo systemctl disable firewalld --now # 可能要关闭防火墙
+```
+
+```bash
+# 登录后不需要授权给管理器, 不一定需要执行这个
 cat <<EOF > /etc/polkit-1/localauthority.conf.d/02-allow-colord.conf
 polkit.addRule(function(action, subject) {
  if ((action.id == "org.freedesktop.color-manager.create-device" ||

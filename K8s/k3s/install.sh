@@ -45,8 +45,8 @@ fi
 if [ ! -f "$SCRIPT_HOME/bin/k3s" ]; then
     mkdir -p "$SCRIPT_HOME/bin"
     wget -O "$SCRIPT_HOME/bin/k3s" ${K3S_DOWNLOAD_URL}
-    chmod +x "$SCRIPT_HOME/bin/k3s"
 fi
+chmod +x "$SCRIPT_HOME/bin/k3s"
 
 if [ ! -f "$CONFIG_FILE" ]; then
   touch "$CONFIG_FILE"
@@ -88,13 +88,7 @@ ExecStart='${K3S_BIN}'/k3s '${K3S_ARGS}'
 
 chmod +x $K3S_SERVICE_FILE
 
-systemctl daemon-reload
-systemctl start ${SERVICE_NAME}
-systemctl enable ${SERVICE_NAME}.service
-systemctl status --no-pager -l ${SERVICE_NAME}
-
 if [ ! -f "$SCRIPT_HOME/.env" ]; then
-
 if [ -z "$DISABLE_K3S_ALIAS" ]; then
 EXTRA_ALIAS="
 alias kubectl='k3s kubectl'
@@ -115,3 +109,8 @@ echo '
 Put it into your shell rc file:
     . '$SCRIPT_HOME'/.env
 '
+
+systemctl daemon-reload
+systemctl start ${SERVICE_NAME}
+systemctl enable ${SERVICE_NAME}.service
+systemctl status --no-pager -l ${SERVICE_NAME}

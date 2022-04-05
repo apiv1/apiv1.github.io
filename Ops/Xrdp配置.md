@@ -7,6 +7,7 @@ sudo apt install xfce4-session
 echo xfce4-session >~/.xsession
 
 # 安装
+sudo apt-get -y install dbus-x11 # optional
 sudo apt-get -y install xrdp
 sudo systemctl enable xrdp
 sudo systemctl start xrdp

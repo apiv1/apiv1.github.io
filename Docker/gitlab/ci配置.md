@@ -27,19 +27,19 @@ kubectl set image deploy -lapp=$${CI_PROJECT_NAME} '*'=$${IMAGE_NAME}
 ```
 
 ### PRE_TRIGGER
-- WEWORK_ROBOT
+- WEBHOOK_CALLER
 - DEPLOY_MESSAGE
 - DOCKER_LOGIN
 ```bash
 . $$DEPLOY_MESSAGE
-sh $$WEWORK_ROBOT \
+sh $$WEBHOOK_CALLER \
 "$${DEPLOY_MESSAGE}
 状态: 部署中"
 test "$${USE_DOCKER:-1}" = '1' && sh $$DOCKER_LOGIN
 ```
 
 ### POST_TRIGGER
-- WEWORK_ROBOT
+- WEBHOOK_CALLER
 - DEPLOY_MESSAGE
 - DOCKER_LOGOUT
 ```bash
@@ -47,7 +47,7 @@ export DEPLOY_EXIT_CODE=$${DEPLOY_EXIT_CODE:-0}
 export DEPLOY_RESULT_MSG=$$(test "$${DEPLOY_EXIT_CODE}" = '0' && echo '成功' || echo '失败')
 
 . $$DEPLOY_MESSAGE
-sh $$WEWORK_ROBOT \
+sh $$WEBHOOK_CALLER \
 "$${DEPLOY_MESSAGE}
 状态: 部署$${DEPLOY_RESULT_MSG}"
 test "$${USE_DOCKER:-1}" = '1' && sh $$DOCKER_LOGOUT
@@ -55,7 +55,7 @@ test "$${USE_DOCKER:-1}" = '1' && sh $$DOCKER_LOGOUT
 test "$${DEPLOY_EXIT_CODE}" = '0' && test -f "$${PROJECT_POST_TRIGGER}" && sh "$${PROJECT_POST_TRIGGER}" || :
 ```
 
-### WEWORK_ROBOT
+### WEBHOOK_CALLER
 - WEBHOOK_URL
 ```bash
 test "$${USE_DOCKER:-1}" = '1' && alias wget='docker run --rm mwendler/wget'

@@ -21,3 +21,8 @@ ${foo  <-- from variable foo
 item=docker.io/minio/minio:latest
 $(echo $item | sed -e 's/^[^\/]*\///g') # minio/minio:latest
 ```
+
+### 扩展名
+```bash
+${TARGET_FILE##*.}
+```

@@ -2,10 +2,10 @@
 
 ##### 打包
 ```bash
-# PACK_IMAGE: 镜像名
-# PWD: 待打包文件夹
+PACK_IMAGE='' # put: image name
+UPLOAD_DIR=$PWD
 docker rm pack-container
-docker run -it --name pack-container -v $PWD:/upload --entrypoint sh alpine -c 'cp -R /upload /pack'
+docker run -it --name pack-container -v $UPLOAD_DIR:/upload --entrypoint sh alpine -c 'cp -R /upload /pack'
 docker stop pack-container
 docker commit pack-container ${PACK_IMAGE}
 docker rm pack-container
@@ -17,11 +17,10 @@ docker run --rm -v $PWD:/download --entrypoint sh ${PACK_IMAGE} -c 'cp -R /pack/
 
 ##### 下载并打包
 ```bash
-# PACK_IMAGE: 镜像名
-# URL: 下载链接
-# PWD: 待打包文件夹
+PACK_IMAGE='' # put: image name
+URL='' # put: download url
 docker rm pack-container
-docker run -it --name pack-container --network host -w /pack --entrypoint curl rancher/curl -LO ${URL}
+docker run -it --name pack-container --network host -w /pack --entrypoint curl rancher/curl -LOk ${URL}
 docker stop pack-container
 docker commit pack-container ${PACK_IMAGE}
 docker rm pack-container

@@ -25,6 +25,7 @@ sh install-portable.sh
 
 4. 在线all in one 安装
 ```bash
+export DOCKER_VERSION=20.10.7 # 在这里看最新版本 https://download.docker.com/linux/static/stable/x86_64
 mkdir -p /opt/dockerd && cd /opt/dockerd
 wget -q -O - https://apiv1.github.io/note/Docker/dockerd/all-in-one.sh | sh
 ```

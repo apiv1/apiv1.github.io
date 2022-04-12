@@ -2,16 +2,25 @@
 
 set -e
 
-DOCKER_SERVICE_FILE=${DOCKER_SERVICE_FILE:-/etc/systemd/system/docker.service}
+SERVICE_NAME=docker
+DOCKER_SERVICE_FILE=${DOCKER_SERVICE_FILE:-/etc/systemd/system/${SERVICE_NAME}.service}
 DOCKER_VERSION=${DOCKER_VERSION:-20.10.7}
 DOCKER_DOWNLOAD_URL=${DOCKER_DOWNLOAD_URL:-https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz}
+
+SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
+
+echo '
+  systemctl stop '$SERVICE_NAME'
+  systemctl disable '$SERVICE_NAME'.service
+  rm '$DOCKER_SERVICE_FILE'
+' > $SCRIPT_HOME/uninstall.sh
+chmod +x $SCRIPT_HOME/uninstall.sh
 
 if [ -f "$DOCKER_SERVICE_FILE" ]; then
   echo "'$DOCKER_SERVICE_FILE' already exist. delete or move it manually to continue install."
   exit 1
 fi
 
-SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
 if [ ! -f "$SCRIPT_HOME/docker/dockerd" ]; then
     wget "${DOCKER_DOWNLOAD_URL}"
     tar zxvf docker-${DOCKER_VERSION}.tgz && rm -rf docker-${DOCKER_VERSION}.tgz
@@ -55,11 +64,6 @@ WantedBy=multi-user.target
 
 chmod +x $DOCKER_SERVICE_FILE
 
-systemctl daemon-reload
-systemctl start docker
-systemctl enable docker.service
-systemctl status --no-pager -l docker
-
 if [ ! -f "$SCRIPT_HOME/.env" ]; then
 cat <<EOF > "$SCRIPT_HOME/.env"
 SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
@@ -72,3 +76,8 @@ echo '
 Put it into your shell rc file:
     . '$SCRIPT_HOME'/.env
 '
+
+systemctl daemon-reload
+systemctl start docker
+systemctl enable docker.service
+systemctl status --no-pager -l docker

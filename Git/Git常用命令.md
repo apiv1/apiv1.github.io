@@ -3,3 +3,8 @@ git config --global init.defaultBranch dev # 初始化默认分支为dev
 git config --global pull.rebase true # git pull强制使用--rebase选项
 git config --global http.postBuffer 5G # 设置提交大小上限
 ```
+
+```bash
+git config --global url."git@$DOMAIN_NAME:".insteadOf "https://$DOMAIN_NAME/" # ssh 替换 https
+git config --global url."https://$DOMAIN_NAME/".insteadOf "git@$DOMAIN_NAME:" # https 替换 ssh
+```

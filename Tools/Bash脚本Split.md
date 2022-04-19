@@ -26,3 +26,8 @@ $(echo $item | sed -e 's/^[^\/]*\///g') # minio/minio:latest
 ```bash
 ${TARGET_FILE##*.}
 ```
+
+### 去扩展名
+```bash
+$${TARGET_FILE%.*}
+```

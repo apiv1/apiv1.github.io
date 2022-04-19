@@ -1,0 +1,65 @@
+#!/bin/sh
+
+set -e
+
+if test -z "$SERVICE_NAME"; then
+  echo 'need env SERVICE_NAME'
+  exit 1
+fi
+
+SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
+
+SERVICE_BIN=${SERVICE_BIN:-${SERVICE_NAME}}
+SERVICE_FILE=${SERVICE_FILE:-/etc/systemd/system/${SERVICE_NAME}.service}
+ENV_FILE=${ENV_FILE:-.env}
+BIN_FILE_PATH=${BIN_FILE_PATH:-${SCRIPT_HOME}/${SERVICE_BIN}}
+ENV_FILE_PATH=${ENV_FILE_PATH:-${SCRIPT_HOME}/${ENV_FILE}}
+SERVICE_DESCRIPTION=${SERVICE_DESCRIPTION:-${SERVICE_NAME}}
+SERVICE_DOCUMENTATION=${SERVICE_DOCUMENTATION:-${SERVICE_NAME}}
+
+echo '
+  systemctl disable '$SERVICE_NAME' --now
+  rm '$SERVICE_FILE'
+' > $SCRIPT_HOME/uninstall.sh
+chmod +x $SCRIPT_HOME/uninstall.sh
+
+if [ -f "$SERVICE_FILE" ]; then
+  echo "'$SERVICE_FILE' already exist. delete or move it manually to continue install."
+  exit 1
+fi
+
+if [ ! -f "$ENV_FILE_PATH" ]; then
+  touch "$ENV_FILE_PATH"
+fi
+
+echo '
+[Unit]
+Description='$SERVICE_DESCRIPTION'
+Documentation='$SERVICE_DOCUMENTATION'
+
+[Service]
+Type=notify
+EnvironmentFile='$ENV_FILE_PATH'
+ExecStart='$BIN_FILE_PATH $SERVICE_ARGS'
+ExecReload=/bin/kill -s HUP $MAINPID
+TimeoutSec=0
+RestartSec=2
+Restart=always
+StartLimitBurst=3
+StartLimitInterval=60s
+LimitNOFILE=infinity
+LimitNPROC=infinity
+LimitCORE=infinity
+TasksMax=infinity
+Delegate=yes
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
+' > $SERVICE_FILE
+
+chmod +x $SERVICE_FILE
+
+systemctl daemon-reload
+systemctl enable ${SERVICE_NAME} --now
+systemctl status --no-pager -l ${SERVICE_NAME}

@@ -30,7 +30,7 @@ RUN git clone https://github.com/neutrinolabs/pulseaudio-module-xrdp.git /pulsea
 
 
 # Build the final image
-FROM base_private
+FROM base_private as deploy
 RUN apt-get update \
     && DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends \
         dbus-x11 \
@@ -60,3 +60,20 @@ COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/*
 EXPOSE 3389/tcp
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
+
+FROM deploy AS chrome_base
+
+FROM chrome_base AS chrome_base_private
+RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list \
+    && sed -i 's/ports.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+
+FROM chrome_base_private AS chrome_deploy
+RUN apt-get update \
+    && apt-get install -y \
+        wget \
+        fonts-wqy-microhei \
+    && wget --no-check-certificate https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+    && apt-get install -y ./google-chrome-stable_current_amd64.deb \
+    && rm -rf ./google-chrome-stable_current_amd64.deb \
+    && rm -rf /var/lib/apt/lists/*
+COPY --from=base /etc/apt/sources.list /etc/apt/sources.list

@@ -77,3 +77,7 @@ RUN apt-get update \
     && rm -rf ./google-chrome-stable_current_amd64.deb \
     && rm -rf /var/lib/apt/lists/*
 COPY --from=base /etc/apt/sources.list /etc/apt/sources.list
+RUN unlink /usr/bin/google-chrome && \
+    unlink /usr/bin/google-chrome-stable && \
+    echo /etc/alternatives/google-chrome --disable-dev-shm-usage > /usr/bin/google-chrome && chmod +x /usr/bin/google-chrome && \
+    echo /opt/google/chrome/google-chrome --disable-dev-shm-usage > /usr/bin/google-chrome-stable && chmod +x /usr/bin/google-chrome-stable

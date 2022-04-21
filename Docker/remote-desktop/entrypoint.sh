@@ -18,10 +18,12 @@ usermod -aG sudo ${USERNAME}
 # Start xrdp sesman service
 /usr/sbin/xrdp-sesman
 
+XRDP="/usr/sbin/xrdp ${XRDP_ARGS}"
+
 # Run xrdp in foreground if no commands specified
 if [ -z "$@" ]; then
-    /usr/sbin/xrdp --nodaemon
+    ${XRDP} --nodaemon
 else
-    /usr/sbin/xrdp
+    ${XRDP}
     exec "$@"
 fi

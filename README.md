@@ -175,6 +175,7 @@
 |--&nbsp;[Ops](./Ops)  
 |  &nbsp;|--&nbsp;[Centos8 安装Docker, Docker-Compose.md](./Ops/Centos8%20安装Docker,%20Docker-Compose.md)  
 |  &nbsp;|--&nbsp;[Docker配置代理.md](./Ops/Docker配置代理.md)  
+|  &nbsp;|--&nbsp;[Grub设置.md](./Ops/Grub设置.md)  
 |  &nbsp;|--&nbsp;[KVM共享文件夹.md](./Ops/KVM共享文件夹.md)  
 |  &nbsp;|--&nbsp;[KVM查看宿主机IP.md](./Ops/KVM查看宿主机IP.md)  
 |  &nbsp;|--&nbsp;[Xrdp配置.md](./Ops/Xrdp配置.md)  

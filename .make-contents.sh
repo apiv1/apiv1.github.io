@@ -9,7 +9,6 @@ handle() {
     PREFIX="${line%%.*}"
     PREFIX="${PREFIX//[├│]/|}"
     PREFIX="${PREFIX//[└]/+}"
-    PREFIX="${PREFIX//└/+}"
     PREFIX="${PREFIX//\ /&nbsp;}"
     PREFIX="${PREFIX//─/-}"
     URL=".${line#*.}"

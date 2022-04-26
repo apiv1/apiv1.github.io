@@ -74,8 +74,8 @@ REF_MESSAGE=$$(git tag -l $$CI_COMMIT_TAG --format '%(contents)')
 ```bash
 . $$REF_MESSAGE
 DEPLOY_MESSAGE=$$(echo \
-"任务版本: [$${CI_PROJECT_NAME}:$${CI_COMMIT_REF_NAME}]($${CI_JOB_URL})
-地址: [$${CI_JOB_URL}]($${CI_JOB_URL})
+"任务: [$${CI_JOB_URL}]($${CI_JOB_URL})
+版本: [$${CI_PROJECT_NAME}:$${CI_COMMIT_REF_NAME}]($${CI_PROJECT_URL}/-/tree/$${CI_COMMIT_REF_NAME})
 提交者: $${CI_COMMIT_AUTHOR}
 阶段: $${CI_JOB_STAGE}
 任务: $${CI_JOB_NAME}
@@ -84,6 +84,29 @@ DEPLOY_MESSAGE=$$(echo \
 $${REF_MESSAGE}
 - - - - - - - - - - - - - - - - - -
 ")
+```
+
+### UPLOAD_TARGET_FILE
+- VERSION_NAME
+- DEPLOY_ID_RSA
+- SSH_USER
+- SSH_HOST
+- WEBHOOK_CALLER
+```bash
+export TARGET_FILE=$$1
+export TARGET_NAME=$$2
+test -z "$$TARGET_FILE" && exit 1
+
+export BUILD_NAME=$$VERSION_NAME
+export BUILD_NAME=$$(echo $$BUILD_NAME | sed 's/v-//g')
+export BUILD_NAME=$$(echo $$BUILD_NAME | sed 's/i-//g')
+TARGET_PATH=$${TARGET_NAME:-$$CI_PROJECT_NAMESPACE}/$${TARGET_NAME:-$$CI_PROJECT_NAME}-$${CI_JOB_NAME}-$${BUILD_NAME}.$${TARGET_FILE##*.}
+chmod 400 $$DEPLOY_ID_RSA
+scp -i $$DEPLOY_ID_RSA -o ConnectTimeout=30 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -P 2222 $$TARGET_FILE $${SSH_USER}@$${SSH_HOST}:~/upload/$$TARGET_PATH
+
+URL="https://$${DOWNLOAD_PATH}/$${TARGET_PATH}"
+SIZE=$$(ls -lah $$TARGET_FILE | awk '{print $$5}')
+sh $$WEBHOOK_CALLER "Name: [$${TARGET_NAME:-$$CI_PROJECT_NAME}]($${CI_PROJECT_URL}/-/tree/$${CI_COMMIT_REF_NAME})\nBuild: [$${CI_JOB_NAME}]($${CI_JOB_URL})\nURL: [$$URL]($$URL)\nSize: $${SIZE}"
 ```
 
 ## Tips

@@ -195,7 +195,7 @@
 |--&nbsp;[README.md](./README.md)  
 |--&nbsp;[Tools](./Tools)  
 |  &nbsp;|--&nbsp;[Bash脚本Split.md](./Tools/Bash脚本Split.md)  
-|  &nbsp;|--&nbsp;[SSH禁用host检查.md](./Tools/SSH禁用host检查.md)  
+|  &nbsp;|--&nbsp;[SSH客户端设置.md](./Tools/SSH客户端设置.md)  
 |  &nbsp;|--&nbsp;[VsCode命令行启动.md](./Tools/VsCode命令行启动.md)  
 |  &nbsp;|--&nbsp;[frp模板.md](./Tools/frp模板.md)  
 |  &nbsp;|--&nbsp;[nvm安装.md](./Tools/nvm安装.md)  

@@ -8,3 +8,7 @@ git config --global http.postBuffer 5G # 设置提交大小上限
 git config --global url."git@$DOMAIN_NAME:".insteadOf "https://$DOMAIN_NAME/" # ssh 替换 https
 git config --global url."https://$DOMAIN_NAME/".insteadOf "git@$DOMAIN_NAME:" # https 替换 ssh
 ```
+
+```bash
+git config --global core.autocrlf false # 关闭自动替换换行符
+```

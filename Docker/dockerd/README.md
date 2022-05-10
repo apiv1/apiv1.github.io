@@ -1,18 +1,26 @@
+# Linux 在线all in one安装Docker (推荐)
+```bash
+export DOCKER_VERSION=20.10.9 # 在这里看最新版本 https://download.docker.com/linux/static/stable/x86_64
+mkdir -p /opt/dockerd && cd /opt/dockerd
+wget -q -O - https://apiv1.github.io/note/Docker/dockerd/all-in-one.sh | sh
+```
+
 # Linux手动安装Docker
 
 需要在root权限
 
 1. 手动下载解压docker程序
 ```bash
-mkdir -p /opt && cd /opt
-export DOCKER_VERSION=20.10.7
-wget https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz
-tar zxvf docker-${DOCKER_VERSION}.tgz && rm -rf docker-${DOCKER_VERSION}.tgz
+mkdir -p /opt/dockerd && cd /opt/dockerd
+export DOCKER_VERSION=20.10.9
+wget https://download.docker.com/linux/static/stable/x86_64/docker-$DOCKER_VERSION.tgz
+tar zxvf docker-$DOCKER_VERSION.tgz && rm -rf docker-$DOCKER_VERSION.tgz
+cd -
 ```
 
 2. 安装服务并启动
 ```bash
-DOCKER_BIN=/opt/docker sh service-install.sh
+DOCKER_BIN=/opt/dockerd/docker sh service-install.sh
 ```
 
 3. 或者绿色安装Docker
@@ -23,14 +31,15 @@ DOCKER_BIN=/opt/docker sh service-install.sh
 sh install-portable.sh
 ```
 
-4. 在线all in one 安装
-```bash
-export DOCKER_VERSION=20.10.7 # 在这里看最新版本 https://download.docker.com/linux/static/stable/x86_64
-mkdir -p /opt/dockerd && cd /opt/dockerd
-wget -q -O - https://apiv1.github.io/note/Docker/dockerd/all-in-one.sh | sh
-```
-
-5. daemon.json配置
+* daemon.json配置
 ```
 { "registry-mirrors": ["https://registry-1.docker.io", "https://registry.cn-hangzhou.aliyuncs.com", "https://registry.docker-cn.com", "https://docker.mirrors.ustc.edu.cn"] }
+```
+
+### 可选是否安装docker-compose
+```bash
+export DOCKER_COMPOSE_VERSION=v2.5.0
+export INSTALL_FILE_PATH=/opt/dockerd/docker/docker-compose
+wget -O $INSTALL_FILE_PATH https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-linux-x86_64
+chmod +x $INSTALL_FILE_PATH
 ```

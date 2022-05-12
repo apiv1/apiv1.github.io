@@ -36,7 +36,7 @@ docker run --rm -v $PWD:/download --entrypoint sh $PACK_IMAGE -c 'cp -R /pack/* 
 # PWD: 待打包文件夹
 # HTTP_SERVER_IMAGE: 构建自 <project>/Go/httpserver
 docker rm pack-container
-docker run -it --name pack-container -v $PWD:/upload --entrypoint sh $HTTP_SERVER_IMAGE -c 'cp -R /upload /pack'
+docker run -it --name pack-container -v $PWD:/upload --entrypoint sh apiv1/httpserver -c 'cp -R /upload /pack'
 docker stop pack-container
 docker commit pack-container $PACK_IMAGE
 docker rm pack-container

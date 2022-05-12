@@ -1,6 +1,6 @@
 run
 ```bash
-export GITLAB_CLONE_IMAGE=<image-name>
+export GITLAB_CLONE_IMAGE=apiv1/gitlab-clone
 export GITLAB_HOST=<gitlab-host>
 export GITLAB_API_PRIVATE_TOKEN=<token>
 export CI_API_V4_URL=https://$GITLAB_HOST/api/v4

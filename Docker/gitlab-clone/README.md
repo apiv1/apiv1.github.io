@@ -1,6 +1,12 @@
+build
+```bash
+docker buildx build . --platform linux/amd64,linux/arm64 --target runner --push -t apiv1/gitlab # gitlab-runner
+docker buildx build . --platform linux/amd64,linux/arm64 --push -t apiv1/gitlab:clone # gitlab-clone
+```
+
 run
 ```bash
-export GITLAB_CLONE_IMAGE=apiv1/gitlab-clone
+export GITLAB_CLONE_IMAGE=apiv1/gitlab:clone
 export GITLAB_HOST=<gitlab-host>
 export GITLAB_API_PRIVATE_TOKEN=<token>
 export CI_API_V4_URL=https://$GITLAB_HOST/api/v4

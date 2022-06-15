@@ -209,6 +209,7 @@
 |  &nbsp;|--&nbsp;[SSH客户端设置.md](./Tools/SSH客户端设置.md)  
 |  &nbsp;|--&nbsp;[VsCode命令行启动.md](./Tools/VsCode命令行启动.md)  
 |  &nbsp;|--&nbsp;[bash算md5.md](./Tools/bash算md5.md)  
+|  &nbsp;|--&nbsp;[curl.md](./Tools/curl.md)  
 |  &nbsp;|--&nbsp;[frp模板.md](./Tools/frp模板.md)  
 |  &nbsp;|--&nbsp;[nvm安装.md](./Tools/nvm安装.md)  
 |  &nbsp;|--&nbsp;[ohmyzsh安装.md](./Tools/ohmyzsh安装.md)  

@@ -211,6 +211,7 @@
 |  &nbsp;+--&nbsp;[obj_filter.rb](./Ruby/obj_filter.rb)  
 |--&nbsp;[Tools](./Tools)  
 |  &nbsp;|--&nbsp;[Bash脚本Split.md](./Tools/Bash脚本Split.md)  
+|  &nbsp;|--&nbsp;[Find.md](./Tools/Find.md)  
 |  &nbsp;|--&nbsp;[SSH客户端设置.md](./Tools/SSH客户端设置.md)  
 |  &nbsp;|--&nbsp;[VsCode命令行启动.md](./Tools/VsCode命令行启动.md)  
 |  &nbsp;|--&nbsp;[bash算md5.md](./Tools/bash算md5.md)  

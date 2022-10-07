@@ -15,27 +15,26 @@ func main() {
 		return
 	}
 	var err error
-	defer func() {
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-	}()
 	listenAddr, filePath := os.Args[1], os.Args[2]
 	tcpAddr, err := net.ResolveTCPAddr("tcp4", listenAddr)
 	if err != nil {
+		fmt.Println(err)
 		return
 	}
 	listener, err := net.ListenTCP("tcp", tcpAddr)
 	if err != nil {
+		fmt.Println(err)
 		return
 	}
 	defer listener.Close()
 	for {
 		conn, err := listener.Accept()
 		if err != nil {
+			fmt.Print("accept:")
+			fmt.Println(err)
 			return
 		}
+		fmt.Println("connect")
 		defer conn.Close()
 		options := serial.OpenOptions{
 			PortName:        filePath,
@@ -46,18 +45,21 @@ func main() {
 		}
 		f, err := serial.Open(options)
 		if err != nil {
+			fmt.Print("serial:")
+			fmt.Println(err)
 			return
 		}
-		defer f.Close()
 		done := make(chan struct{})
 		go func() {
 			io.Copy(f, conn)
-			close(done)
+			done <- struct{}{}
 		}()
 		go func() {
 			io.Copy(conn, f)
-			close(done)
+			done <- struct{}{}
 		}()
 		<-done
+		fmt.Println("done")
+		f.Close()
 	}
 }

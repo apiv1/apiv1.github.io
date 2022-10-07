@@ -30,29 +30,34 @@ func main() {
 	if err != nil {
 		return
 	}
-	conn, err := listener.Accept()
-	if err != nil {
-		return
+	defer listener.Close()
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			return
+		}
+		defer conn.Close()
+		options := serial.OpenOptions{
+			PortName:        filePath,
+			BaudRate:        115200,
+			DataBits:        8,
+			StopBits:        1,
+			MinimumReadSize: 4,
+		}
+		f, err := serial.Open(options)
+		if err != nil {
+			return
+		}
+		defer f.Close()
+		done := make(chan struct{})
+		go func() {
+			io.Copy(f, conn)
+			close(done)
+		}()
+		go func() {
+			io.Copy(conn, f)
+			close(done)
+		}()
+		<-done
 	}
-	options := serial.OpenOptions{
-		PortName:        filePath,
-		BaudRate:        115200,
-		DataBits:        8,
-		StopBits:        1,
-		MinimumReadSize: 4,
-	}
-	f, err := serial.Open(options)
-	if err != nil {
-		return
-	}
-	done := make(chan struct{})
-	go func() {
-		io.Copy(f, conn)
-		close(done)
-	}()
-	go func() {
-		io.Copy(conn, f)
-		close(done)
-	}()
-	<-done
 }

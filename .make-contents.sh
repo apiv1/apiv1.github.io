@@ -2,6 +2,8 @@
 
 set -e
 
+type tree > /dev/null 2>&1 || (echo 'please install `tree`'; exit 1)
+
 handle() {
   IFS=''
   while read line

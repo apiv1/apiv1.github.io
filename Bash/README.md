@@ -1,6 +1,6 @@
 ```bash
 # bashrc
-wget -q -O - https://apiv1.github.io/note/Bash/bashrc >> ~/.bash_profile
+wget -q -O - https://apiv1.github.io/Bash/bashrc >> ~/.bash_profile
 # tmux
-wget -q -O - https://apiv1.github.io/note/Bash/tmux | sh
+wget -q -O - https://apiv1.github.io/Bash/tmux | sh
 ```

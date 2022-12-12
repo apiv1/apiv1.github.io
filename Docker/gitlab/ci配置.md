@@ -98,7 +98,7 @@ export TARGET_NAME=$$2
 test -z "$$TARGET_FILE" && exit 1
 
 export BUILD_NAME=$$VERSION_NAME
-export BUILD_NAME=$$(echo $$BUILD_NAME | sed 's/[a-zA-Z].*-//g')
+export BUILD_TIME=$$(echo $$BUILD_TIME | sed 's/[a-zA-Z][^0-9]*-//g')
 TARGET_PATH=$${TARGET_NAME:-$$CI_PROJECT_NAMESPACE}/$${TARGET_NAME:-$$CI_PROJECT_NAME}-$${CI_JOB_NAME}-$${BUILD_NAME}.$${TARGET_FILE##*.}
 chmod 400 $$DEPLOY_ID_RSA
 scp -i $$DEPLOY_ID_RSA -o ConnectTimeout=30 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -P 2222 $$TARGET_FILE $${SSH_USER}@$${SSH_HOST}:~/upload/$$TARGET_PATH

@@ -1,0 +1,10 @@
+#!/bin/sh
+IN_FILE=$1
+OUT_FILE=$2
+
+convert $IN_FILE \
+  \( +clone -alpha extract \
+  -draw 'fill black polygon 0,0 0,30 30,0 fill white circle 30,30 30,0' \
+  \( +clone -flip \) -compose Multiply -composite \
+  \( +clone -flop \) -compose Multiply -composite \
+  \) -alpha off -compose CopyOpacity -composite $OUT_FILE

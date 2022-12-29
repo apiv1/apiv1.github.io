@@ -5,6 +5,7 @@
 |  &nbsp;|--&nbsp;[bashrc](./Bash/bashrc)  
 |  &nbsp;|--&nbsp;[ctr_image_export](./Bash/ctr_image_export)  
 |  &nbsp;|--&nbsp;[ctr_image_registry_packer](./Bash/ctr_image_registry_packer)  
+|  &nbsp;|--&nbsp;[cut_round_corner](./Bash/cut_round_corner)  
 |  &nbsp;|--&nbsp;[docker_image_export](./Bash/docker_image_export)  
 |  &nbsp;|--&nbsp;[hoster](./Bash/hoster)  
 |  &nbsp;|--&nbsp;[parse_url](./Bash/parse_url)  

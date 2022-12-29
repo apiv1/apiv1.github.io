@@ -1,11 +1,12 @@
-#!/bin/bash
-IN_FILE=$1
-OUT_FILE=$2
-CORNER=${3:-30}
+function cut_round_corner() {
+  IN_FILE=$1
+  OUT_FILE=$2
+  CORNER=${3:-30}
 
-convert $IN_FILE \
-  \( +clone -alpha extract \
-  -draw 'fill black polygon 0,0 0,'$CORNER' '$CORNER',0 fill white circle '$CORNER','$CORNER' '$CORNER',0' \
-  \( +clone -flip \) -compose Multiply -composite \
-  \( +clone -flop \) -compose Multiply -composite \
-  \) -alpha off -compose CopyOpacity -composite $OUT_FILE
+  convert $IN_FILE \
+    \( +clone -alpha extract \
+    -draw 'fill black polygon 0,0 0,'$CORNER' '$CORNER',0 fill white circle '$CORNER','$CORNER' '$CORNER',0' \
+    \( +clone -flip \) -compose Multiply -composite \
+    \( +clone -flop \) -compose Multiply -composite \
+    \) -alpha off -compose CopyOpacity -composite $OUT_FILE
+}

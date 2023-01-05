@@ -36,6 +36,7 @@ sh $$WEBHOOK_CALLER \
 "$${DEPLOY_MESSAGE}
 状态: 部署中"
 test "$${USE_DOCKER:-1}" = '1' && sh $$DOCKER_LOGIN
+test -f "$${PROJECT_PRE_TRIGGER}" && sh "$${PROJECT_PRE_TRIGGER}" || :
 ```
 
 ### POST_TRIGGER

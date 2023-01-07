@@ -15,3 +15,8 @@ or
 git clone -b v1.5.2-DockerBuilder https://github.com/backrise/skopeo
 cd skopeo; docker build . -t skopeo-images
 ```
+
+使用skopeo
+```shell
+alias skopeo='docker run -v /var/run/docker.sock:/var/run/docker.sock --rm quay.io/skopeo/stable'
+```

@@ -3,7 +3,7 @@ ARG RUNTIME_IMAGE="alpine:latest"
 
 FROM ${BUILD_IMAGE} AS garble
 ARG GOPROXY="https://goproxy.cn,https://goproxy.io,direct"
-RUN GOPROXY=${GOPROXY} go install mvdan.cc/garble@latest
+RUN GOPROXY=${GOPROXY} go install mvdan.cc/garble@v0.6.0
 
 FROM garble AS builder
 ARG GOPROXY="https://goproxy.cn,https://goproxy.io,direct"

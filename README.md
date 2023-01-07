@@ -232,7 +232,7 @@
 |  &nbsp;|--&nbsp;[frp模板.md](./Tools/frp模板.md)  
 |  &nbsp;|--&nbsp;[nvm安装.md](./Tools/nvm安装.md)  
 |  &nbsp;|--&nbsp;[ohmyzsh安装.md](./Tools/ohmyzsh安装.md)  
-|  &nbsp;+--&nbsp;[skopeo编译.md](./Tools/skopeo编译.md)  
+|  &nbsp;+--&nbsp;[skopeo.md](./Tools/skopeo.md)  
 |--&nbsp;[Vim](./Vim)  
 |  &nbsp;+--&nbsp;[vim配置初始化.md](./Vim/vim配置初始化.md)  
 +--&nbsp;[Windows](./Windows)  

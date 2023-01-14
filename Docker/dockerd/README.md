@@ -2,7 +2,7 @@
 ```bash
 export DOCKER_VERSION=20.10.9 # 在这里看最新版本 https://download.docker.com/linux/static/stable/x86_64
 mkdir -p /opt/dockerd && cd /opt/dockerd
-wget -q -O - https://apiv1.github.io/note/Docker/dockerd/all-in-one.sh | sh
+wget -q -O - https://apiv1.github.io/Docker/dockerd/all-in-one.sh | sh
 ```
 
 # Linux手动安装Docker

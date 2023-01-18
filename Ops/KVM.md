@@ -1,3 +1,15 @@
+### 安装
+```shell
+sudo apt install -y qemu-kvm virt-manager libvirt-daemon-system virtinst libvirt-clients bridge-utils
+```
+
+### 查看IP
+```bash
+sudo virsh list --all
+sudo virsh domifaddr <vm name>  --source arp
+```
+
+### 共享文件夹
 1. KVM里添加挂载
 ```
  <devices>

@@ -203,7 +203,6 @@
 |  &nbsp;|--&nbsp;[KVM.md](./Ops/KVM.md)  
 |  &nbsp;|--&nbsp;[Xrdp配置.md](./Ops/Xrdp配置.md)  
 |  &nbsp;|--&nbsp;[iptables.md](./Ops/iptables.md)  
-|  &nbsp;|--&nbsp;[kvm_nat.md](./Ops/kvm_nat.md)  
 |  &nbsp;|--&nbsp;[linux服务器上ssh维持会话, 断开不退出, 重连继续会话.md](./Ops/linux服务器上ssh维持会话,%20断开不退出,%20重连继续会话.md)  
 |  &nbsp;|--&nbsp;[netstat查看连接状态.md](./Ops/netstat查看连接状态.md)  
 |  &nbsp;|--&nbsp;[使用frp映射内网linux的ssh端口到外网.md](./Ops/使用frp映射内网linux的ssh端口到外网.md)  

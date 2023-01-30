@@ -27,5 +27,8 @@ Gitlab.projects.auto_paginate.map do |repo|
     Git.open(path).fetch
     puts 'fetch end'
   end
+rescue => e
+  puts "error: #{e}"
+ensure
   puts
 end

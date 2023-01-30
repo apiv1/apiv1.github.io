@@ -1,4 +1,4 @@
-FROM ruby:3.1.0-alpine AS base
+FROM ruby:3.2.0-alpine3.17 AS base
 
 FROM base AS base_private
 ARG ALPINE_PROXY=${ALPINE_PROXY:-"mirrors.ustc.edu.cn"}

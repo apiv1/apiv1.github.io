@@ -222,6 +222,7 @@
 |  &nbsp;|  &nbsp;+--&nbsp;[crypto.rb](./Ruby/AES加密/crypto.rb)  
 |  &nbsp;+--&nbsp;[obj_filter.rb](./Ruby/obj_filter.rb)  
 |--&nbsp;[Swift](./Swift)  
+|  &nbsp;|--&nbsp;[didRegisterForRemoteNotificationsWithDeviceToken.md](./Swift/didRegisterForRemoteNotificationsWithDeviceToken.md)  
 |  &nbsp;+--&nbsp;[hexString.swift](./Swift/hexString.swift)  
 |--&nbsp;[Tools](./Tools)  
 |  &nbsp;|--&nbsp;[Bash脚本Split.md](./Tools/Bash脚本Split.md)  

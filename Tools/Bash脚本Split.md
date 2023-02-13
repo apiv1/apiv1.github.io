@@ -47,3 +47,8 @@ ${TARGET_FILE##*.}
 ```bash
 ${TARGET_FILE%.*}
 ```
+
+### 替换换行符
+```bash
+awk '{{printf"%s\\n",$0}}'
+```

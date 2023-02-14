@@ -31,6 +31,17 @@ mount -t 9p -o trans=virtio $SHARED_FOLDER /mnt
 $SHARED_FOLDER               /mnt                9p      trans=virtio,version=9p2000.L,defaults,uid=1000,gid=1000,umask=022,dir_mode=0777,file_mode=0777   0       0
 ```
 
+### 挂载硬盘
+```
+<disk type="block" device="disk">
+  <driver name="qemu" type="raw" cache="none"/>
+  <source dev="/dev/hda"/>
+  <target dev="sda" bus="sata"/>
+  <address type="drive" controller="0" bus="0" target="0" unit="0"/>
+</disk>
+
+```
+
 ### 重置网络
 ```bash
 # 卸载

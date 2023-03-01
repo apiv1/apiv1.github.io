@@ -4,7 +4,7 @@ set -e
 
 SERVICE_NAME=docker
 DOCKER_SERVICE_FILE=${DOCKER_SERVICE_FILE:-/etc/systemd/system/${SERVICE_NAME}.service}
-DOCKER_VERSION=${DOCKER_VERSION:-20.10.9}
+DOCKER_VERSION=${DOCKER_VERSION:-23.0.1}
 DOCKER_DOWNLOAD_URL=${DOCKER_DOWNLOAD_URL:-https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz}
 
 SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
@@ -26,8 +26,9 @@ if [ ! -f "$SCRIPT_HOME/docker/dockerd" ]; then
     tar zxvf docker-${DOCKER_VERSION}.tgz && rm -rf docker-${DOCKER_VERSION}.tgz
 fi
 
+DOCKERD_TMP_DIR=/tmp/dockerd
 DOCKER_BIN="$SCRIPT_HOME/docker"
-DOCKERD_ARGS='-H unix://'$SCRIPT_HOME'/run/docker.sock --config-file '$SCRIPT_HOME'/daemon.json --data-root '$SCRIPT_HOME'/lib/docker  --exec-root '$SCRIPT_HOME'/run/docker -p '$SCRIPT_HOME'/run/docker.pid'
+DOCKERD_ARGS='-H unix://'$DOCKERD_TMP_DIR'/run/docker.sock --config-file '$SCRIPT_HOME'/daemon.json --data-root '$SCRIPT_HOME'/lib/docker  --exec-root '$SCRIPT_HOME'/run/docker -p '$DOCKERD_TMP_DIR'/run/docker.pid'
 
 if [ ! -f "$SCRIPT_HOME/daemon.json" ]; then
 cat <<EOF > "$SCRIPT_HOME/daemon.json"
@@ -68,7 +69,7 @@ if [ ! -f "$SCRIPT_HOME/.env" ]; then
 cat <<EOF > "$SCRIPT_HOME/.env"
 SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
 export PATH="\$SCRIPT_HOME/docker:\$PATH"
-export DOCKER_HOST="unix://\$SCRIPT_HOME/run/docker.sock"
+export DOCKER_HOST="unix://\$DOCKERD_TMP_DIR/run/docker.sock"
 EOF
 fi
 

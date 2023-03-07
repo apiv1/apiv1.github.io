@@ -242,5 +242,6 @@
 |  &nbsp;+--&nbsp;[vim配置初始化.md](./Vim/vim配置初始化.md)  
 +--&nbsp;[Windows](./Windows)  
 &nbsp;&nbsp;&nbsp;&nbsp;|--&nbsp;[WSL2挂载Linux分区.md](./Windows/WSL2挂载Linux分区.md)  
+&nbsp;&nbsp;&nbsp;&nbsp;|--&nbsp;[休眠.md](./Windows/休眠.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;|--&nbsp;[启动项路径.md](./Windows/启动项路径.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;+--&nbsp;[小鹤双拼.reg](./Windows/小鹤双拼.reg)  

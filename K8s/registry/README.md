@@ -7,12 +7,12 @@ alias htpassgen='kubectl run --rm -i --image=httpd:2 --restart=Never -q htpasswd
 # 3 choose 1
 
 # install ingres-nginx
-kubectl apply -f https://apiv1.github.io/note/K8s/helm/ingress-nginx.yml # optional
+kubectl apply -f https://apiv1.github.io/K8s/helm/ingress-nginx.yml # optional
 # or
 kubectl apply -f K8s/helm/ingress-nginx.yml
 
 # install
-kubectl apply -f https://apiv1.github.io/note/K8s/registry/deployment.yml # optional
+kubectl apply -f https://apiv1.github.io/K8s/registry/deployment.yml # optional
 # or
 kubectl apply -f K8s/registry/deployment.yml
 

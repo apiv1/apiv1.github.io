@@ -18,3 +18,23 @@ allprojects {
 }
 EOF
 ```
+或者
+```init.gradle
+buildscript {
+    repositories {
+        println "aliyun repositories"
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+    }
+
+    allprojects {
+        println "aliyun allprojects ${project.name}"
+        repositories {
+            maven { url 'https://maven.aliyun.com/repository/google' }
+            maven { url 'https://maven.aliyun.com/repository/central' }
+            maven { url 'https://maven.aliyun.com/repository/public' }
+        }
+    }
+}
+```

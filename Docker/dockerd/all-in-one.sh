@@ -70,7 +70,7 @@ if [ ! -f "$SCRIPT_HOME/.env" ]; then
 cat <<EOF > "$SCRIPT_HOME/.env"
 SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
 export PATH="\$SCRIPT_HOME/docker:\$PATH"
-export DOCKER_HOST="unix://\$DOCKERD_TMP_DIR/run/docker.sock"
+export DOCKER_HOST="unix://$DOCKERD_TMP_DIR/run/docker.sock"
 EOF
 fi
 

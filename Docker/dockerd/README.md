@@ -1,3 +1,14 @@
+# 安装前的设置
+仅某些机器需要设置, 大部分机器能直接执行脚本安装
+```shell
+
+# apparmor(https://github.com/docker/for-linux/issues/1199#issuecomment-1431571192)
+sudo apt install apparmor
+# 安装完成后需要重启
+
+sudo apt install iptables
+```
+
 # Linux 在线all in one安装Docker (推荐)
 ```bash
 export DOCKER_VERSION=23.0.1 # 在这里看最新版本 https://download.docker.com/linux/static/stable/x86_64

@@ -6,7 +6,7 @@ services:
       - ./docker/app/data:/data
     ports:
       - "30000:30000"
-      - "2200:22"
+      - "2200:2200"
     depends_on:
       - db
     restart: always

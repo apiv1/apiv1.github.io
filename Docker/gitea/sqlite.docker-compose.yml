@@ -1,0 +1,17 @@
+version: '3'
+services:
+  app:
+    image: gitea/gitea:1.19
+    volumes:
+      - ./docker/app/data:/data
+    ports:
+      - "30000:30000"
+      - "2200:2200"
+    restart: always
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - SSH_PORT=2200
+      - HTTP_PORT=30000
+      - DISABLE_REGISTRATION=true
+      - START_SSH_SERVER=true

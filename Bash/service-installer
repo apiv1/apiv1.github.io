@@ -7,13 +7,12 @@ if test -z "$SERVICE_NAME"; then
   exit 1
 fi
 
-SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
+# SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
+SCRIPT_HOME=$(pwd)
 
 SERVICE_BIN=${SERVICE_BIN:-${SERVICE_NAME}}
 SERVICE_FILE=${SERVICE_FILE:-/etc/systemd/system/${SERVICE_NAME}.service}
-ENV_FILE=${ENV_FILE:-.env}
 BIN_FILE_PATH=${BIN_FILE_PATH:-${SCRIPT_HOME}/${SERVICE_BIN}}
-ENV_FILE_PATH=${ENV_FILE_PATH:-${SCRIPT_HOME}/${ENV_FILE}}
 SERVICE_DESCRIPTION=${SERVICE_DESCRIPTION:-${SERVICE_NAME}}
 SERVICE_DOCUMENTATION=${SERVICE_DOCUMENTATION:-${SERVICE_NAME}}
 
@@ -28,10 +27,6 @@ if [ -f "$SERVICE_FILE" ]; then
   exit 1
 fi
 
-if [ ! -f "$ENV_FILE_PATH" ]; then
-  touch "$ENV_FILE_PATH"
-fi
-
 echo '
 [Unit]
 Description='$SERVICE_DESCRIPTION'
@@ -39,7 +34,7 @@ Documentation='$SERVICE_DOCUMENTATION'
 
 [Service]
 Type=notify
-EnvironmentFile='$ENV_FILE_PATH'
+Environment='$SERVICE_ENVS'
 ExecStart='$BIN_FILE_PATH $SERVICE_ARGS'
 ExecReload=/bin/kill -s HUP $MAINPID
 TimeoutSec=0

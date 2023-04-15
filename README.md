@@ -191,7 +191,7 @@
 |  &nbsp;|--&nbsp;[Gradle镜像源.md](./Mirrors/Gradle镜像源.md)  
 |  &nbsp;|--&nbsp;[Python镜像源.md](./Mirrors/Python镜像源.md)  
 |  &nbsp;|--&nbsp;[Ruby镜像源.md](./Mirrors/Ruby镜像源.md)  
-|  &nbsp;|--&nbsp;[Rust.镜像源配置.md](./Mirrors/Rust.镜像源配置.md)  
+|  &nbsp;|--&nbsp;[Rust镜像源配置.md](./Mirrors/Rust镜像源配置.md)  
 |  &nbsp;|--&nbsp;[brew镜像源配置.md](./Mirrors/brew镜像源配置.md)  
 |  &nbsp;|--&nbsp;[linux镜像源.md](./Mirrors/linux镜像源.md)  
 |  &nbsp;+--&nbsp;[npm镜像源.md](./Mirrors/npm镜像源.md)  

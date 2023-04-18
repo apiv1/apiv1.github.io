@@ -213,6 +213,7 @@
 |  &nbsp;|--&nbsp;[使用frp映射内网linux的ssh端口到外网.md](./Ops/使用frp映射内网linux的ssh端口到外网.md)  
 |  &nbsp;|--&nbsp;[加虚拟内存.md](./Ops/加虚拟内存.md)  
 |  &nbsp;|--&nbsp;[卸载阿里云盾.md](./Ops/卸载阿里云盾.md)  
+|  &nbsp;|--&nbsp;[命令行查外网IP.md](./Ops/命令行查外网IP.md)  
 |  &nbsp;|--&nbsp;[挂载硬盘.md](./Ops/挂载硬盘.md)  
 |  &nbsp;|--&nbsp;[树莓派装k8s.md](./Ops/树莓派装k8s.md)  
 |  &nbsp;+--&nbsp;[远程唤醒.md](./Ops/远程唤醒.md)  

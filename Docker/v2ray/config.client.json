@@ -13,7 +13,8 @@
           {
             "address": "your-server-here",
             "port": 32767,
-            "users": [{ "id": "your-uuid-here" }]
+            "users": [{ "id": "your-uuid-here" }],
+            "network": "ws"
           }
         ]
       }

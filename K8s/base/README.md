@@ -22,3 +22,10 @@ helm install ingress-nginx ingress-nginx/ingress-nginx
 vim ingress.yml #修改配置, 指向自己的service
 kubectl apply -f ingress.yml
 ```
+
+或者安装 nginx-ingress
+```bash
+helm repo add nginx https://helm.nginx.com/stable
+helm install nginx-ingress nginx/nginx-ingress
+```
+其他步骤一样, ingress.yml可能有些微调整

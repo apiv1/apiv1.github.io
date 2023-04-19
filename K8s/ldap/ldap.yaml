@@ -1,0 +1,291 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: admin-claim0
+  name: admin-claim0
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.28.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: admin
+  name: admin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: admin
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml
+        kompose.version: 1.28.0 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/ldap-default: "true"
+        io.kompose.service: admin
+    spec:
+      containers:
+        - env:
+            - name: PHPLDAPADMIN_HTTPS
+              value: '"false"'
+            - name: PHPLDAPADMIN_LDAP_HOSTS
+              value: openldap
+            - name: TZ
+              value: Asia/Shanghai
+          image: osixia/phpldapadmin
+          name: admin
+          ports:
+            - containerPort: 80
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/www/phpldapadmin
+              name: admin-claim0
+      restartPolicy: Always
+      volumes:
+        - name: admin-claim0
+          persistentVolumeClaim:
+            claimName: admin-claim0
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.28.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: admin
+  name: admin
+spec:
+  ports:
+    - name: "10004"
+      port: 10004
+      targetPort: 80
+  selector:
+    io.kompose.service: admin
+status:
+  loadBalancer: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  creationTimestamp: null
+  name: ldap-default
+spec:
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              io.kompose.network/ldap-default: "true"
+  podSelector:
+    matchLabels:
+      io.kompose.network/ldap-default: "true"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.28.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: nginx-ldap
+  name: nginx-ldap
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: nginx-ldap
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml
+        kompose.version: 1.28.0 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/ldap-default: "true"
+        io.kompose.service: nginx-ldap
+    spec:
+      containers:
+        - env:
+            - name: NGINXLDAP_LDAP_BASE_DN
+              value: ou=users,dc=xxxx,dc=com
+            - name: NGINXLDAP_LDAP_BIND_DN
+              value: cn=admin,dc=xxxx,dc=com
+            - name: NGINXLDAP_LDAP_BIND_PASSWORD
+              value: <password>
+            - name: NGINXLDAP_LDAP_FILTER
+              value: (cn=%(username)s)
+            - name: NGINXLDAP_LDAP_URI
+              value: ldaps://<hostname>
+          image: bitnami/nginx-ldap-auth-daemon:0
+          name: nginx-ldap
+          ports:
+            - containerPort: 8888
+          resources: {}
+      restartPolicy: Always
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.28.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: nginx-ldap
+  name: nginx-ldap
+spec:
+  ports:
+    - name: "10005"
+      port: 10005
+      targetPort: 8888
+  selector:
+    io.kompose.service: nginx-ldap
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: openldap-claim0
+  name: openldap-claim0
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: openldap-claim1
+  name: openldap-claim1
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.28.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: openldap
+  name: openldap
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: openldap
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml
+        kompose.version: 1.28.0 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/ldap-default: "true"
+        io.kompose.service: openldap
+    spec:
+      containers:
+        - args:
+            - --copy-service
+            - --loglevel
+            - debug
+          env:
+            - name: LDAP_ADMIN_PASSWORD
+              value: "123456"
+            - name: LDAP_DOMAIN
+              value: my-company.com
+            - name: LDAP_ORGANISATION
+              value: my-company
+            - name: LDAP_TLS
+              value: "true"
+            - name: LDAP_TLS_CA_CRT_FILENAME
+              value: live/<hostname>/fullchain.pem
+            - name: LDAP_TLS_CRT_FILENAME
+              value: live/<hostname>/cert.pem
+            - name: LDAP_TLS_KEY_FILENAME
+              value: live/<hostname>/privkey.pem
+            - name: LDAP_TLS_VERIFY_CLIENT
+              value: try
+            - name: TZ
+              value: Asia/Shanghai
+          image: osixia/openldap
+          name: openldap
+          ports:
+            - containerPort: 389
+            - containerPort: 636
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/lib/ldap
+              name: openldap-claim0
+            - mountPath: /etc/ldap/slapd.d
+              name: openldap-claim1
+      restartPolicy: Always
+      volumes:
+        - name: openldap-claim0
+          persistentVolumeClaim:
+            claimName: openldap-claim0
+        - name: openldap-claim1
+          persistentVolumeClaim:
+            claimName: openldap-claim1
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.28.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: openldap
+  name: openldap
+spec:
+  ports:
+    - name: "389"
+      port: 389
+      targetPort: 389
+    - name: "636"
+      port: 636
+      targetPort: 636
+  selector:
+    io.kompose.service: openldap
+status:
+  loadBalancer: {}
+---

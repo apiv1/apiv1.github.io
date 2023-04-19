@@ -20,7 +20,7 @@ services:
     volumes:
       - ./data:/var/lib/ldap
       - ./config:/etc/ldap/slapd.d
-      - <letsencrypt-dir>:/container/service/slapd/assets/certs
+      # - <letsencrypt-dir>:/container/service/slapd/assets/certs
     logging:
       driver: json-file
       options:

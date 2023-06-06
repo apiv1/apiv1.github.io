@@ -29,7 +29,7 @@ fi
 
 DOCKERD_TMP_DIR=/tmp/dockerd
 DOCKER_BIN="$SCRIPT_HOME/docker"
-DOCKERD_ARGS='-H unix://'$DOCKERD_TMP_DIR'/run/docker.sock --config-file '$SCRIPT_HOME'/daemon.json --data-root '$SCRIPT_HOME'/lib/docker  --exec-root '$SCRIPT_HOME'/run/docker -p '$DOCKERD_TMP_DIR'/run/docker.pid'
+DOCKERD_ARGS='-H unix://'$DOCKERD_TMP_DIR'/run/docker.sock --config-file '$SCRIPT_HOME'/daemon.json --data-root '$SCRIPT_HOME'/lib/docker  --exec-root '$DOCKERD_TMP_DIR'/run/docker -p '$DOCKERD_TMP_DIR'/run/docker.pid'
 
 if [ ! -f "$SCRIPT_HOME/daemon.json" ]; then
 cat <<EOF > "$SCRIPT_HOME/daemon.json"
@@ -45,6 +45,8 @@ Documentation=https://docs.docker.com
 
 [Service]
 Type=notify
+User=root
+Group=root
 Environment="PATH='$DOCKER_BIN':/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 ExecStart='$DOCKER_BIN'/dockerd '$DOCKERD_ARGS'
 ExecReload=/bin/kill -s HUP $MAINPID

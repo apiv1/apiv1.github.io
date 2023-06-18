@@ -11,7 +11,7 @@ sudo apt install iptables
 
 # Linux 在线all in one安装Docker (推荐)
 ```bash
-export DOCKER_VERSION=23.0.1 # 在这里看最新版本 https://download.docker.com/linux/static/stable/x86_64
+export DOCKER_VERSION=24.0.2 # 在这里看最新版本 https://download.docker.com/linux/static/stable/x86_64
 mkdir -p /opt/dockerd && cd /opt/dockerd
 wget -q -O - https://apiv1.github.io/Docker/dockerd/all-in-one.sh | sh
 ```
@@ -23,7 +23,7 @@ wget -q -O - https://apiv1.github.io/Docker/dockerd/all-in-one.sh | sh
 1. 手动下载解压docker程序
 ```bash
 mkdir -p /opt/dockerd && cd /opt/dockerd
-export DOCKER_VERSION=23.0.1
+export DOCKER_VERSION=24.0.2
 wget https://download.docker.com/linux/static/stable/x86_64/docker-$DOCKER_VERSION.tgz
 tar zxvf docker-$DOCKER_VERSION.tgz && rm -rf docker-$DOCKER_VERSION.tgz
 cd -
@@ -49,8 +49,8 @@ sh install-portable.sh
 
 ### 可选是否安装docker-compose
 ```bash
-export DOCKER_COMPOSE_VERSION=v2.16.0
+export DOCKER_COMPOSE_VERSION=v2.18.1 # https://github.com/docker/compose/releases
 export INSTALL_FILE_PATH=/opt/dockerd/docker/docker-compose
-wget -O $INSTALL_FILE_PATH https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-linux-x86_64
+wget -O $INSTALL_FILE_PATH https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-linux-$(arch)
 chmod +x $INSTALL_FILE_PATH
 ```

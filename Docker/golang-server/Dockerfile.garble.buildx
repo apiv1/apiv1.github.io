@@ -1,0 +1,17 @@
+ARG BUILD_IMAGE="golang:bullseye"
+ARG RUNTIME_IMAGE="alpine:latest"
+
+FROM ${BUILD_IMAGE} AS builder
+ARG GOPROXY="https://goproxy.cn,https://goproxy.io,direct"
+WORKDIR /app
+COPY . /app
+RUN --mount=type=cache,target=/go/pkg,id=go_pkg_${TARGETOS}_${TARGETARCH},sharing=locked \
+  --mount=type=cache,target=/go/bin,id=go_bin_${TARGETOS}_${TARGETARCH},sharing=locked \
+  GOPROXY=${GOPROXY} go install mvdan.cc/garble@latest && \
+  GOPROXY=${GOPROXY} GO111MODULE=on CGO_ENABLED=0 GOOS=linux garble -tiny -seed=random -literals build -ldflags '-s -w' -o app
+
+FROM ${RUNTIME_IMAGE} AS runner
+ARG APP_NAME="app"
+COPY --from=builder /app/app /usr/local/bin/${APP_NAME}
+RUN ln -s /usr/local/bin/${APP_NAME} /usr/local/bin/entrypoint
+ENTRYPOINT [ "entrypoint" ]

@@ -49,6 +49,7 @@
 |  &nbsp;|--&nbsp;[golang-server](./Docker/golang-server)  
 |  &nbsp;|  &nbsp;|--&nbsp;[Dockerfile](./Docker/golang-server/Dockerfile)  
 |  &nbsp;|  &nbsp;|--&nbsp;[Dockerfile.garble](./Docker/golang-server/Dockerfile.garble)  
+|  &nbsp;|  &nbsp;|--&nbsp;[Dockerfile.garble.buildx](./Docker/golang-server/Dockerfile.garble.buildx)  
 |  &nbsp;|  &nbsp;+--&nbsp;[Dockerfile.static_link](./Docker/golang-server/Dockerfile.static_link)  
 |  &nbsp;|--&nbsp;[goproxy](./Docker/goproxy)  
 |  &nbsp;|  &nbsp;+--&nbsp;[docker-compose.yml](./Docker/goproxy/docker-compose.yml)  

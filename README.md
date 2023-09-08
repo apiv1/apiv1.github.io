@@ -81,6 +81,7 @@
 |  &nbsp;|--&nbsp;[nfs](./Docker/nfs)  
 |  &nbsp;|  &nbsp;+--&nbsp;[docker-compose.yml](./Docker/nfs/docker-compose.yml)  
 |  &nbsp;|--&nbsp;[nginx](./Docker/nginx)  
+|  &nbsp;|  &nbsp;|--&nbsp;[Dockerfile](./Docker/nginx/Dockerfile)  
 |  &nbsp;|  &nbsp;|--&nbsp;[docker-compose.yml](./Docker/nginx/docker-compose.yml)  
 |  &nbsp;|  &nbsp;|--&nbsp;[example_server.conf](./Docker/nginx/example_server.conf)  
 |  &nbsp;|  &nbsp;+--&nbsp;[example_static_server.conf](./Docker/nginx/example_static_server.conf)  

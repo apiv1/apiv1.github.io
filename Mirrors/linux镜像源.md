@@ -1,7 +1,14 @@
-### Debian
+### Debian (老)
 ```bash
 cp /etc/apt/sources.list /etc/apt/sources.list.bak
 sed -i "s/deb.debian.org/ftp.cn.debian.org/g" /etc/apt/sources.list
+apt-get update --allow-unauthenticated
+```
+
+### Debian (新)
+```bash
+cp /etc/apt/sources.list.d/debian.sources /etc/apt/sources.list.d/debian.sources.bak
+sed -i "s/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g" /etc/apt/sources.list.d/debian.sources
 apt-get update --allow-unauthenticated
 ```
 

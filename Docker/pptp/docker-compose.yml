@@ -1,0 +1,14 @@
+version: '3'
+services:
+  pptp:
+    image: mmontagna/docker-vpn-pptp
+    network_mode: host
+    privileged: true
+    restart: always
+    environment:
+    - client=abc
+    - password=123
+    - server=*
+    - acceptable_local_ip_addresses=*
+    ports:
+    - 1723:1723

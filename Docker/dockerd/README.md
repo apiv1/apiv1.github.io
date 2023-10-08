@@ -50,7 +50,7 @@ sh install-portable.sh
 
 ### 可选是否安装docker-compose
 ```bash
-export DOCKER_COMPOSE_VERSION=v2.21.0 # https://github.com/docker/compose/releases
+export DOCKER_COMPOSE_VERSION=v2.22.0 # https://github.com/docker/compose/releases
 export INSTALL_FILE_PATH=/opt/dockerd/docker/docker-compose
 wget -O $INSTALL_FILE_PATH https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-linux-$(arch)
 chmod +x $INSTALL_FILE_PATH

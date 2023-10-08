@@ -1,3 +1,9 @@
+### Debian 8 (不再支持)
+```shell
+echo deb http://snapshot.debian.org/archive/debian-archive/20190328T105444Z/debian/ jessie main > /etc/apt/sources.list && \
+  apt-get update --allow-unauthenticated
+```
+
 ### Debian (老)
 ```bash
 cp /etc/apt/sources.list /etc/apt/sources.list.bak

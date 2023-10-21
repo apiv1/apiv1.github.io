@@ -7,7 +7,7 @@ echo deb http://snapshot.debian.org/archive/debian-archive/20190328T105444Z/debi
 ### Debian (老)
 ```bash
 cp /etc/apt/sources.list /etc/apt/sources.list.bak
-sed -i "s/deb.debian.org/ftp.cn.debian.org/g" /etc/apt/sources.list
+sed -i "s/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g" /etc/apt/sources.list
 apt-get update --allow-unauthenticated
 ```
 

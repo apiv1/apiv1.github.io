@@ -1,39 +1,68 @@
-```bash
-mkdir -p ~/.gradle
-cat <<EOF > ~/.gradle/init.gradle
+~/.gradle/init.gradle
+```gradle
 allprojects {
     repositories {
         def ALIYUN_REPOSITORY_URL = 'https://maven.aliyun.com/repository/public'
-        all { ArtifactRepository repo ->
-            if(repo instanceof MavenArtifactRepository){
-                def url = repo.url.toString()
-                if (url.startsWith('https://repo1.maven.org/maven2')) {
-                    project.logger.lifecycle "Repository ${repo.url} replaced by $ALIYUN_REPOSITORY_URL."
-                    remove repo
+        def ALIYUN_JCENTER_URL = 'https://maven.aliyun.com/repository/central'
+        def ALIYUN_PLUGIN_URL = 'https://maven.aliyun.com/repository/gradle-plugin'
+        def ALIYUN_SNAPSHOTS_URL = 'https://maven.aliyun.com/repository/apache-snapshots'
+        all {
+            ArtifactRepository repo ->
+                if (repo instanceof MavenArtifactRepository) {
+                    def url = repo.url.toString()
+                    if (url.startsWith('https://repo1.maven.org/maven2/')) {
+                        project.logger.lifecycle "Repository ${repo.url} replaced by $ALIYUN_REPOSITORY_URL."
+                        remove repo
+                    }
+                    if (url.startsWith('https://repo.maven.apache.org/maven2')) {
+                        project.logger.lifecycle "Repository ${repo.url} replaced by $ALIYUN_REPOSITORY_URL."
+                        remove repo
+                    }
+                    if (url.startsWith('https://jcenter.bintray.com/')) {
+                        project.logger.lifecycle "Repository ${repo.url} replaced by $ALIYUN_JCENTER_URL."
+                        remove repo
+                    }
+                    if (url.startsWith('https://plugins.gradle.org/m2')) {
+                        project.logger.lifecycle "Repository ${repo.url} replaced by $ALIYUN_PLUGIN_URL."
+                        remove repo
+                    }
+                    if (url.startsWith('https://repository.apache.org/snapshots')) {
+                        project.logger.lifecycle "Repository ${repo.url} replaced by $ALIYUN_SNAPSHOTS_URL."
+                        remove repo
+                    }
                 }
-            }
         }
-        maven { url ALIYUN_REPOSITORY_URL }
+        maven {
+            url ALIYUN_REPOSITORY_URL
+            url ALIYUN_JCENTER_URL
+            url ALIYUN_PLUGIN_URL
+            url ALIYUN_SNAPSHOTS_URL
+        }
     }
 }
-EOF
 ```
-或者
-```init.gradle
-buildscript {
+或者 项目内/settings.gradle
+```gradle
+pluginManagement {
     repositories {
         println "aliyun repositories"
         maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url 'https://maven.aliyun.com/repository/central' }
         maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        maven { url 'https://maven.aliyun.com/repository/apache-snapshots' }
     }
+}
 
-    allprojects {
+dependencyResolutionManagement {
+    repositories {
         println "aliyun allprojects ${project.name}"
         repositories {
             maven { url 'https://maven.aliyun.com/repository/google' }
             maven { url 'https://maven.aliyun.com/repository/central' }
             maven { url 'https://maven.aliyun.com/repository/public' }
+            maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+            maven { url 'https://maven.aliyun.com/repository/apache-snapshots' }
         }
     }
 }

@@ -67,3 +67,14 @@ dependencyResolutionManagement {
     }
 }
 ```
+settings.gradle.kts
+```kts
+    ...
+    maven { setUrl("https://jitpack.io") }
+    maven { setUrl("https://maven.aliyun.com/repository/releases") }
+    maven { setUrl("https://maven.aliyun.com/repository/google") }
+    maven { setUrl("https://maven.aliyun.com/repository/central") }
+    maven { setUrl("https://maven.aliyun.com/repository/gradle-plugin") }
+    maven { setUrl("https://maven.aliyun.com/repository/public") }
+    ...
+```

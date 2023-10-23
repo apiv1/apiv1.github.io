@@ -32,12 +32,10 @@ allprojects {
                     }
                 }
         }
-        maven {
-            url ALIYUN_REPOSITORY_URL
-            url ALIYUN_JCENTER_URL
-            url ALIYUN_PLUGIN_URL
-            url ALIYUN_SNAPSHOTS_URL
-        }
+        maven { url ALIYUN_REPOSITORY_URL }
+        maven { url ALIYUN_JCENTER_URL }
+        maven { url ALIYUN_PLUGIN_URL }
+        maven { url ALIYUN_SNAPSHOTS_URL }
     }
 }
 ```

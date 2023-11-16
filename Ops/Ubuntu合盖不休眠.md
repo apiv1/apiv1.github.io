@@ -20,3 +20,8 @@ lock(锁屏)
 service systemd-logind restart
 systemctl restart systemd-logind
 ```
+
+```shell
+# 停止服务
+sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+```

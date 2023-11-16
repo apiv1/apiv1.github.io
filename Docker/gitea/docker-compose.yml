@@ -19,6 +19,7 @@ services:
       - DB_NAME=gitea
       - DB_USER=gitea
       - DB_PASSWD=gitea
+      - OFFLINE_MODE=true
 
       - DISABLE_REGISTRATION=true
   db:

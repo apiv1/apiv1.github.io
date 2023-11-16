@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    image: gitea/gitea:1.19
+    image: gitea/gitea:1.21
     volumes:
       - ./docker/app/data:/data
     ports:
@@ -15,3 +15,4 @@ services:
       - HTTP_PORT=30000
       - DISABLE_REGISTRATION=true
       - START_SSH_SERVER=true
+      - OFFLINE_MODE=true

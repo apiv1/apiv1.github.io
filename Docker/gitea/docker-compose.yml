@@ -30,3 +30,8 @@ services:
       - POSTGRES_DB=gitea
     volumes:
       - ./docker/db:/var/lib/postgresql/data
+
+# 重置密码
+# useradd git
+# su git
+# gitea admin user change-password --username git --password 12345678  --config /data/gitea/conf/app.ini

@@ -218,6 +218,7 @@
 |  &nbsp;|--&nbsp;[Grub设置.md](./Ops/Grub设置.md)  
 |  &nbsp;|--&nbsp;[KVM.md](./Ops/KVM.md)  
 |  &nbsp;|--&nbsp;[Linux和Windows时间一致.md](./Ops/Linux和Windows时间一致.md)  
+|  &nbsp;|--&nbsp;[Ubuntu合盖不休眠.md](./Ops/Ubuntu合盖不休眠.md)  
 |  &nbsp;|--&nbsp;[X11Vnc.md](./Ops/X11Vnc.md)  
 |  &nbsp;|--&nbsp;[Xrdp配置.md](./Ops/Xrdp配置.md)  
 |  &nbsp;|--&nbsp;[iptables.md](./Ops/iptables.md)  

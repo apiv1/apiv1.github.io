@@ -16,3 +16,4 @@ services:
       - DISABLE_REGISTRATION=true
       - START_SSH_SERVER=true
       - OFFLINE_MODE=true
+      - MINIMUM_KEY_SIZE_CHECK=true

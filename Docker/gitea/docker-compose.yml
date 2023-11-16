@@ -20,6 +20,7 @@ services:
       - DB_USER=gitea
       - DB_PASSWD=gitea
       - OFFLINE_MODE=true
+      - MINIMUM_KEY_SIZE_CHECK=true
 
       - DISABLE_REGISTRATION=true
   db:

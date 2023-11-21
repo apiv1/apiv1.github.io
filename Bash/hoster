@@ -8,4 +8,5 @@ if test -z "$IP"; then
   exit
 fi
 
-sudo sh -c 'sed -i "" "/.*#.*SETTING.*'${HOST_NAME/./\\.}'.*/d" /etc/hosts && echo "'$IP' '$HOST_NAME' # SETTING: '$HOST_NAME'" >> /etc/hosts'
+type sudo > /dev/null && export SUDO=sudo
+$SUDO sh -c 'sed -i "/.*#.*SETTING.*'${HOST_NAME}'.*/d" /etc/hosts && echo "'$IP' '$HOST_NAME' # SETTING: '$HOST_NAME'" >> /etc/hosts'

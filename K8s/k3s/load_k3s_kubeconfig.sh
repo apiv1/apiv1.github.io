@@ -5,7 +5,7 @@ export SSH_PORT=${2:-22}
 export SSH_USER=${SSH_USER:-root}
 
 if [ -z "${SSH_HOST}" ]; then
-  echo "Usage: $0 <host>:[port]"
+  echo "Usage: $0 <host> [port]"
   exit 1
 fi
 

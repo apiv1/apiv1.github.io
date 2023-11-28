@@ -195,6 +195,7 @@
 |  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|--&nbsp;[README.md](./K8s/registry/README.md)  
 |  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+--&nbsp;[deployment.yml](./K8s/registry/deployment.yml)  
 |--&nbsp;[Mac](./Mac)  
+|  &nbsp;|--&nbsp;[删除DS_Store文件.md](./Mac/删除DS_Store文件.md)  
 |  &nbsp;|--&nbsp;[合盖不休眠.md](./Mac/合盖不休眠.md)  
 |  &nbsp;|--&nbsp;[找不到音频设备.md](./Mac/找不到音频设备.md)  
 |  &nbsp;|--&nbsp;[显示隐藏文件.md](./Mac/显示隐藏文件.md)  

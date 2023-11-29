@@ -2,11 +2,18 @@
 
 HOST_NAME=$1
 IP=$2
+HOST_FILE=${HOST_FILE:-/etc/hosts}
+
+test -n "$(echo $OSTYPE | grep '^darwin')" && export IS_MACOS=1
 
 if test -z "$IP"; then
   echo "usage: $(basename $0) <HOST_NAME> <IP>"
   exit
 fi
 
+if test -n "$IS_MACOS"; then
+  SED_ARGS='""'
+fi
+
 type sudo > /dev/null && export SUDO=sudo
-$SUDO sh -c 'sed -i "/.*#.*SETTING.*'${HOST_NAME}'.*/d" /etc/hosts && echo "'$IP' '$HOST_NAME' # SETTING: '$HOST_NAME'" >> /etc/hosts'
+$SUDO sh -c 'sed -i '${SED_ARGS}' "/.*#.*SETTING.*'${HOST_NAME}'.*/d" "'${HOST_FILE}'" && echo "'$IP' '$HOST_NAME' # SETTING: '$HOST_NAME'" >> "'${HOST_FILE}'"'

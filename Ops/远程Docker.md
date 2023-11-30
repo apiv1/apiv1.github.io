@@ -25,4 +25,7 @@ docker context use docker-server
 
 # 使用本地 docker(还原)
 docker context use default
+
+# 本地查看远程htop
+docker run -it --rm --pid=host jess/htop
 ```

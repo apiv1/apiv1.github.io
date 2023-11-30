@@ -27,9 +27,10 @@ if [ ! -f "$SCRIPT_HOME/docker/dockerd" ]; then
     tar zxvf docker-${DOCKER_VERSION}.tgz && rm -rf docker-${DOCKER_VERSION}.tgz
 fi
 
+DOCKER_UNIX_SOCK=unix:///tmp/dockerd.sock
 DOCKERD_TMP_DIR=/tmp/dockerd
 DOCKER_BIN="$SCRIPT_HOME/docker"
-DOCKERD_ARGS='-H unix://'$DOCKERD_TMP_DIR'/run/docker.sock --config-file '$SCRIPT_HOME'/daemon.json --data-root '$SCRIPT_HOME'/lib/docker  --exec-root '$DOCKERD_TMP_DIR'/run/docker -p '$DOCKERD_TMP_DIR'/run/docker.pid'
+DOCKERD_ARGS='-H '$DOCKER_UNIX_SOCK' --exec-root '$DOCKERD_TMP_DIR'/run/docker -p '$DOCKERD_TMP_DIR'/run/docker.pid --config-file '$SCRIPT_HOME'/daemon.json --data-root '$SCRIPT_HOME'/lib/docker'
 
 if [ ! -f "$SCRIPT_HOME/daemon.json" ]; then
 cat <<EOF > "$SCRIPT_HOME/daemon.json"
@@ -72,7 +73,7 @@ if [ ! -f "$SCRIPT_HOME/.env" ]; then
 cat <<EOF > "$SCRIPT_HOME/.env"
 SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
 export PATH="\$SCRIPT_HOME/docker:\$PATH"
-export DOCKER_HOST="unix://$DOCKERD_TMP_DIR/run/docker.sock"
+export DOCKER_HOST="$DOCKER_UNIX_SOCK"
 EOF
 fi
 

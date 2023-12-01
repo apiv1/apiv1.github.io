@@ -11,6 +11,7 @@ if CLONE_DIR.nil?
 end
 
 IGNORE_ARCHIVED_PROJECT = ENV['IGNORE_ARCHIVED_PROJECT']
+USE_HTTP_REPO = ENV['USE_HTTP_REPO']
 FileUtils.mkdir_p(CLONE_DIR)
 Gitlab.projects.auto_paginate.map do |repo|
   next if !IGNORE_ARCHIVED_PROJECT.nil? && repo.archived
@@ -20,7 +21,7 @@ Gitlab.projects.auto_paginate.map do |repo|
   path = File.join(CLONE_DIR, save_dir)
   if !File.directory?(path)
     puts 'clone'
-    Git.clone(repo['ssh_url_to_repo'], save_dir, path: CLONE_DIR)
+    Git.clone(repo[ USE_HTTP_REPO.nil? ? 'ssh_url_to_repo' : 'http_url_to_repo' ], save_dir, path: CLONE_DIR)
     puts 'clone end'
   else
     puts 'fetch'

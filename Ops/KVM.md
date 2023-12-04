@@ -13,7 +13,7 @@ sudo virsh domifaddr <vm name>  --source arp
 1. KVM里添加挂载
 ```
  <devices>
-   ...
+   ...Œ
    <filesystem type='mount' accessmode='passthrough'>
      <source dir='$SOURCE_DIR'/>
      <target dir='$SHARED_FOLDER'/>

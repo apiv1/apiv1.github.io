@@ -15,10 +15,7 @@ vi ~/.ssh/authorized_keys # 贴入你的公钥, 为了远程ssh访问docker
 
 本地配置
 ```shell
-docker context create \
-  --docker host=ssh://docker@docker.server \
-  --description="docker-server" \
-  docker-server
+docker context create --docker host=ssh://docker@docker.server --description="docker-server" docker-server
 
 # 使用远程docker
 docker context use docker-server

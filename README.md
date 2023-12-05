@@ -166,6 +166,7 @@
 |  &nbsp;|  &nbsp;+--&nbsp;[server.go](./Go/serialserver/server.go)  
 |  &nbsp;+--&nbsp;[火焰图.md](./Go/火焰图.md)  
 |--&nbsp;[Java](./Java)  
+|  &nbsp;|--&nbsp;[maven配置.md](./Java/maven配置.md)  
 |  &nbsp;|--&nbsp;[打印栈帧.md](./Java/打印栈帧.md)  
 |  &nbsp;+--&nbsp;[远程调试.md](./Java/远程调试.md)  
 |--&nbsp;[Javascript](./Javascript)  

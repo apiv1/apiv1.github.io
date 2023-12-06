@@ -25,7 +25,7 @@ Gitlab.projects.auto_paginate.map do |repo|
     puts 'clone end'
   else
     puts 'fetch'
-    Git.open(path).fetch
+    Git.open(path).fetch(prune: true, 'prune-tags': true, force: true)
     puts 'fetch end'
   end
 rescue => e

@@ -1,16 +1,16 @@
 #!/bin/sh
 
+if test "$#" -lt 2; then
+  echo "usage: $(basename $0) <IP> <HOST_NAME1> [HOST_NAME2] [HOST_NAME3] ..."
+  exit
+fi
+
 IP=$1
 shift 1
 HOST_NAME=$*
 HOST_FILE=${HOST_FILE:-/etc/hosts}
 
 test -n "$(echo $OSTYPE | grep '^darwin')" && export IS_MACOS=1
-
-if test -z "$IP"; then
-  echo "usage: $(basename $0) <IP> <HOST_NAME>"
-  exit
-fi
 
 if test -n "$IS_MACOS"; then
   SED_ARGS='""'

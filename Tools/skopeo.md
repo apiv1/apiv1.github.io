@@ -20,3 +20,8 @@ cd skopeo; docker build . -t skopeo-images
 ```shell
 alias skopeo='docker run -v /var/run/docker.sock:/var/run/docker.sock --rm quay.io/skopeo/stable'
 ```
+
+上传本地镜像到 hub.docker.com # 可以命令行配置代理
+```shell
+skopeo copy --dest-creds=$USER:$PASS --dest-tls-verify=false docker-daemon:$UPLOAD_IMAGE docker://$UPLOAD_IMAGE
+```

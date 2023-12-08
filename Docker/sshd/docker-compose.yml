@@ -1,0 +1,12 @@
+version: '3.9'
+services:
+  sshd:
+    image: linuxserver/openssh-server
+    ports:
+      - "2222:2222"
+    environment:
+      - PASSWORD_ACCESS=true
+      - USER_PASSWORD=password
+      - USER_NAME=username
+    volumes:
+      - ./storage:/storage

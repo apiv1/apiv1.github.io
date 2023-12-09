@@ -14,6 +14,8 @@
 |  &nbsp;|--&nbsp;[service-installer](./Bash/service-installer)  
 |  &nbsp;|--&nbsp;[skopeo](./Bash/skopeo)  
 |  &nbsp;+--&nbsp;[tmux](./Bash/tmux)  
+|--&nbsp;[C](./C)  
+|  &nbsp;+--&nbsp;[sudoku.c](./C/sudoku.c)  
 |--&nbsp;[Docker](./Docker)  
 |  &nbsp;|--&nbsp;[adminer](./Docker/adminer)  
 |  &nbsp;|  &nbsp;+--&nbsp;[docker-compose.yml](./Docker/adminer/docker-compose.yml)  

@@ -1,12 +1,33 @@
-cat <<EOF > ~/.reuse_session.sh
-if [ ! -n "\$TMUX" ]; then
-  tmux a -t "\$USER" > /dev/null
-  if [ "\$?" -ne 0 ]; then
-    tmux new -s "\$USER"
+echo '
+CHECK_FILE=~/.reuse_session.disable
+session() {
+  if test -z "$TMUX"; then
+    tmux a -t "$USER" > /dev/null
+    test "$?" -ne 0 && tmux new -s "$USER"
+    test -f "$CHECK_FILE" || exit
   fi
-  exit
+}
+if test -f "$CHECK_FILE"; then
+  session_enable() {
+    rm -rf "$CHECK_FILE"
+  }
+  session_attach() {
+    session_enable
+    session
+  }
+else
+  session_disable() {
+    touch "$CHECK_FILE"
+  }
+  session_detach() {
+    if test -n "$TMUX"; then
+      session_disable
+      exit
+    fi
+  }
+  session
 fi
-EOF
+'> ~/.reuse_session.sh
 
 cat <<EOF > ~/.tmux.conf
 set -g default-terminal "xterm-256color"

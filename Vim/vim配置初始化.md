@@ -34,4 +34,7 @@ echo ':so $HOME/.vim/vimrc' > ~/.config/nvim/init.vim
 # for windows
 mkdir -p ~/AppData/Local/nvim
 echo ':so $HOME/.vim/vimrc' > ~/AppData/Local/nvim/init.vim
+
+# coc.nvim 配置npm镜像
+npm config set coc.nvim:registry https://registry.npm.taobao.org/ # coc.nvim那个installer程序会读 ~/.npmrc, 扫描`coc.nvim:registry` 这个配置 写死成npm源. 代码非常离谱...
 ```

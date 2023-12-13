@@ -156,6 +156,7 @@
 |  &nbsp;|--&nbsp;[Git-icdiff.md](./Git/Git-icdiff.md)  
 |  &nbsp;|--&nbsp;[Git常用命令.md](./Git/Git常用命令.md)  
 |  &nbsp;|--&nbsp;[Git统计.md](./Git/Git统计.md)  
+|  &nbsp;|--&nbsp;[Git自建仓库.md](./Git/Git自建仓库.md)  
 |  &nbsp;|--&nbsp;[Git获取TagMessage.md](./Git/Git获取TagMessage.md)  
 |  &nbsp;+--&nbsp;[Git获取commitid.md](./Git/Git获取commitid.md)  
 |--&nbsp;[Go](./Go)  

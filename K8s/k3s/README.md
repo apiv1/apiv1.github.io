@@ -2,9 +2,19 @@
 ```bash
 export K3S_DOWNLOAD_URL=https://github.com/backrise/k3s/releases/download/v1.23.1%2Bk3s2-no-traefik/k3s # optional, if you don't need traefik
 mkdir -p /opt/k3s && cd /opt/k3s
-wget -q -O install.sh https://apiv1.github.io/K8s/k3s/install.sh && chmod +x install.sh && K3S_MODE=server sh install.sh
+wget -q -O install.sh https://apiv1.github.io/K8s/k3s/install.sh && chmod +x install.sh
+K3S_MODE=server sh install.sh # Server模式, 单机使用K3S
 
 cat /etc/rancher/k3s/k3s.yaml # auth file
+
+# K3S_TOKEN, 也可以在Server启动时用环境变量和参数指定
+# https://docs.k3s.io/zh/cli/token
+cat /opt/k3s/lib/k3s/server/token
+
+# 可选: 另一台主机使用Agent模式, 和Server组成多机K3S集群. TOKEN和URL填Server机器的.
+
+# K3S_URL: k3s.yaml里有写
+K3S_MODE=agent K3S_TOKEN=xxxxx K3S_URL=xxxxx sh install.sh
 ```
 
 ### Remove traefik

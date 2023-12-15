@@ -1,0 +1,10 @@
+version: '3.9'
+services:
+  xray:
+    image: teddysun/xray
+    command: xray run -c /etc/xray/config.json
+    volumes:
+      - ./config.client.json:/etc/xray/config.json
+    ports:
+      - 1080:1080
+      - 1086:1086

@@ -1,14 +1,8 @@
-```shell
-# zsh
-export PROMPT='%F{5}%n%F{1}@%F{4}(%F{3}%W %*%F{4})%F{6}=>%F{2}[%~]%F{3}'$(test $UID -eq 0 && echo '#' || echo '$')'%f ' RPROMPT='{%F{3}%?%f}'
-```
-
-```shell
 if test -n "$BASH_VERSION"; then
     # bash
+    if [[ $- == *i* ]]; then bind '"\e[A": history-search-backward'; bind '"\e[B": history-search-forward'; fi
     export PS1='\[\e[38;5;135m\]\u\[\e[0m\]@\[\e[38;5;166m\]\h\[\e[0m\] \[\e[38;5;118m\]\w\[\e[0m\] '$(test $UID -eq 0 && echo '#' || echo '$')' '
 else
     # zsh
     export PROMPT='%F{135}%n%f@%F{166}%m%f %F{118}%~%f '$(test $UID -eq 0 && echo '#' || echo '$')' '
 fi
-```

@@ -7,10 +7,10 @@ services:
       - ./config.client.json:/etc/xray/config.json
     ports:
       - 1080:1080
-      - 1086:1086
+      - 3128:3128
   redsocks:
     image: apiv1/redsocks
-    command: localhost 1086
+    command: localhost 1080
     network_mode: host
     privileged: true
     environment:

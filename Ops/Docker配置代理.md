@@ -3,6 +3,6 @@
 ```
 [Service]
 ...
-Environment="HTTP_PROXY=socks5://localhost:1086/"
+Environment="HTTP_PROXY=socks5://localhost:1080/"
 Environment="NO_PROXY=localhost,127.0.0.1,registry-1.docker.io"
 ```

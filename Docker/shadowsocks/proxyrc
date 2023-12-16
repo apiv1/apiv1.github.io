@@ -1,13 +1,14 @@
 PROXY_URL=${PROXY_URL:-socks5://localhost:1086}
+NO_PROXY_LIST=${NO_PROXY_LIST:-"0.0.0.0/8,10.0.0.0/8,127.0.0.0/8,172.0.0.0/8,169.254.0.0/16,192.168.0.0/16,224.0.0.0/4,240.0.0.0/4"}
 
 pe() {
-  export HTTP_PROXY=${PROXY_URL} HTTPS_PROXY=${PROXY_URL} http_proxy=${PROXY_URL} https_proxy=${PROXY_URL}
+  export NO_PROXY=${NO_PROXY_LIST} no_proxy=${NO_PROXY_LIST} HTTP_PROXY=${PROXY_URL} HTTPS_PROXY=${PROXY_URL} http_proxy=${PROXY_URL} https_proxy=${PROXY_URL}
 }
 
 p() {
-  HTTP_PROXY=${PROXY_URL} HTTPS_PROXY=${PROXY_URL} http_proxy=${PROXY_URL} https_proxy=${PROXY_URL} $*
+  NO_PROXY=${NO_PROXY_LIST} no_proxy=${NO_PROXY_LIST} HTTP_PROXY=${PROXY_URL} HTTPS_PROXY=${PROXY_URL} http_proxy=${PROXY_URL} https_proxy=${PROXY_URL} $*
 }
 
 pd() {
-  unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY
+  unset http_proxy https_proxy no_proxy HTTP_PROXY HTTPS_PROXY NO_PROXY
 }

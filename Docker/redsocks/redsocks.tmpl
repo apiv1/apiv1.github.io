@@ -10,18 +10,9 @@ base {
 
 redsocks {
   local_ip = 0.0.0.0;
-  local_port = 12345;
+  local_port = 59999;
 
-  type = http-relay;
-  ip = ${proxy_ip};
-  port = ${proxy_port};
-}
-
-redsocks {
-  local_ip = 0.0.0.0;
-  local_port = 12346;
-
-  type = http-connect;
+  type = socks5;
   ip = ${proxy_ip};
   port = ${proxy_port};
 }

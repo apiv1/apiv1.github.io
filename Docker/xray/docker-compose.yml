@@ -6,8 +6,8 @@ services:
     volumes:
       - ./config.client.json:/etc/xray/config.json
     ports:
-      - 1080:1080
-      - 3128:3128
+      - 127.0.0.1:1080:1080
+      - 127.0.0.1:3128:3128
   redsocks:
     image: apiv1/redsocks
     command: localhost 1080

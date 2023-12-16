@@ -13,4 +13,4 @@ services:
     restart: always
     command: ss-local -s $SS_SERVER -p ${SS_SERVER_PORT:-1080} -b 0.0.0.0 -l 1080 -k passwd -m chacha20-ietf-poly1305 -u
     ports:
-      - "1080:1080"
+      - "127.0.0.1:1080:1080"

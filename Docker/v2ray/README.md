@@ -7,7 +7,7 @@ docker run -d --name v2ray-server --restart always --network host -v $PWD/config
 
 Client
 ```shell
-docker run -d --name v2ray-client --restart always -p 1080:1080 -v $PWD/config.client.json:/etc/v2ray/config.json v2fly/v2fly-core run -c /etc/v2ray/config.json
+docker run -d --name v2ray-client --restart always -p 127.0.0.1:1080:1080 -v $PWD/config.client.json:/etc/v2ray/config.json v2fly/v2fly-core run -c /etc/v2ray/config.json
 
 docker run -d --name v2ray-client --restart always --network host -v $PWD/config.client.json:/etc/v2ray/config.json v2fly/v2fly-core run -c /etc/v2ray/config.json # linux
 ```

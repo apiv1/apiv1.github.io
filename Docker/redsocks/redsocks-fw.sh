@@ -10,19 +10,15 @@ fw_setup() {
   # Next we used "-j RETURN" rules for the networks we don’t want to use a proxy.
   while read item; do
       iptables -t nat -A REDSOCKS -d $item -j RETURN
-  done < /etc/redsocks-whitelist.txt
+  done < /etc/whitelist.txt
 
   # We then told iptables to redirect all port 80 connections to the http-relay redsocks port and all other connections to the http-connect redsocks port.
   iptables -t nat -A REDSOCKS -p tcp --dport 80 -j REDIRECT --to-ports 12345
   iptables -t nat -A REDSOCKS -p tcp -j REDIRECT --to-ports 12346
 
   # Finally we tell iptables to use the ‘REDSOCKS’ chain for all outgoing connection in the network interface ‘$DOCKER_NET′.
-  if [ -z "$DOCKER_NET" ]
-  then
-    iptables -t nat -A PREROUTING -p tcp -j REDSOCKS
-  else
-    iptables -t nat -A PREROUTING -i $DOCKER_NET -p tcp -j REDSOCKS
-  fi
+  IPTABLE_ARGS=${IPTABLE_ARGS:-'-i docker0'}
+  iptables -t nat -A PREROUTING $IPTABLE_ARGS -p tcp -j REDSOCKS
 }
 
 ##########################

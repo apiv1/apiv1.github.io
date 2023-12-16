@@ -1,6 +1,6 @@
 ### Install Server
 ```bash
-export K3S_DOWNLOAD_URL=https://github.com/backrise/k3s/releases/download/v1.23.1%2Bk3s2-no-traefik/k3s # optional, if you don't need traefik
+export K3S_DOWNLOAD_URL=https://github.com/backrise/k3s/releases/download/v1.28.4%2Bk3s2-notraefik-release/k3s # optional, if you don't need traefik
 mkdir -p /opt/k3s && cd /opt/k3s
 wget -q -O install.sh https://apiv1.github.io/K8s/k3s/install.sh && chmod +x install.sh
 K3S_MODE=server sh install.sh # Server模式, 单机使用K3S

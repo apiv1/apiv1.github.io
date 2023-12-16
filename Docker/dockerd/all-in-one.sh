@@ -4,9 +4,6 @@ set -e
 
 SERVICE_NAME=docker
 DOCKER_SERVICE_FILE=${DOCKER_SERVICE_FILE:-/etc/systemd/system/${SERVICE_NAME}.service}
-DOCKER_VERSION=${DOCKER_VERSION:-24.0.6}
-DOCKER_ARCH=${DOCKER_ARCH:-$(arch)}
-DOCKER_DOWNLOAD_URL=${DOCKER_DOWNLOAD_URL:-https://download.docker.com/linux/static/stable/${DOCKER_ARCH}/docker-${DOCKER_VERSION}.tgz}
 
 SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
 
@@ -17,14 +14,31 @@ echo '
 ' > $SCRIPT_HOME/uninstall.sh
 chmod +x $SCRIPT_HOME/uninstall.sh
 
-if [ -f "$DOCKER_SERVICE_FILE" ]; then
+if test -f "$DOCKER_SERVICE_FILE" ; then
   echo "'$DOCKER_SERVICE_FILE' already exist. delete or move it manually to continue install."
   exit 1
 fi
 
-if [ ! -f "$SCRIPT_HOME/docker/dockerd" ]; then
-    wget "${DOCKER_DOWNLOAD_URL}"
-    tar zxvf docker-${DOCKER_VERSION}.tgz && rm -rf docker-${DOCKER_VERSION}.tgz
+if test ! -f "$SCRIPT_HOME/docker/dockerd" ; then
+  if test -z $DOCKER_DOWNLOAD_URL; then
+    DOCKER_ARCH=${DOCKER_ARCH:-$(arch)}
+    case "$DOCKER_ARCH" in
+    arm64)
+        DOCKER_ARCH=aarch64
+        ;;
+    *)
+        ;;
+    esac
+    if test -z $DOCKER_VERSION; then
+      echo query DOCKER_VERSION ...
+      DOCKER_VERSION=$(wget -qO - https://download.docker.com/linux/static/stable/${DOCKER_ARCH}/ | grep -e 'docker-[0-9]' | sed 's/^.*docker-//g' | sed 's/\.tgz.*$//g' | tail -1)
+      test -z $DOCKER_VERSION && ( echo error: DOCKER_VERSION query failed ; exit 1 )
+    fi
+    DOCKER_DOWNLOAD_URL=https://download.docker.com/linux/static/stable/${DOCKER_ARCH}/docker-${DOCKER_VERSION}.tgz
+  fi
+  DOCKER_FILE_NAME=docker.tgz
+  wget -O ${DOCKER_FILE_NAME} "${DOCKER_DOWNLOAD_URL}"
+  tar zxvf ${DOCKER_FILE_NAME} && rm -rf ${DOCKER_FILE_NAME}
 fi
 
 DOCKER_UNIX_SOCK=unix:///tmp/dockerd.sock
@@ -32,7 +46,7 @@ DOCKERD_TMP_DIR=/tmp/dockerd
 DOCKER_BIN="$SCRIPT_HOME/docker"
 DOCKERD_ARGS='-H '$DOCKER_UNIX_SOCK' --exec-root '$DOCKERD_TMP_DIR'/run/docker -p '$DOCKERD_TMP_DIR'/run/docker.pid --config-file '$SCRIPT_HOME'/daemon.json --data-root '$SCRIPT_HOME'/lib/docker'
 
-if [ ! -f "$SCRIPT_HOME/daemon.json" ]; then
+if test ! -f "$SCRIPT_HOME/daemon.json" ; then
 cat <<EOF > "$SCRIPT_HOME/daemon.json"
 {
 }
@@ -69,7 +83,7 @@ WantedBy=multi-user.target
 
 chmod +x $DOCKER_SERVICE_FILE
 
-if [ ! -f "$SCRIPT_HOME/.env" ]; then
+if test ! -f "$SCRIPT_HOME/.env" ; then
 cat <<EOF > "$SCRIPT_HOME/.env"
 SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
 export PATH="\$SCRIPT_HOME/docker:\$PATH"

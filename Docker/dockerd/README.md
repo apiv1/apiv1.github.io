@@ -9,15 +9,24 @@ sudo apt install apparmor
 sudo apt install iptables
 ```
 
-# Linux 在线all in one安装Docker (推荐)
+# Linux 在线all in one安装Docker
 ```bash
-export DOCKER_VERSION=24.0.6 # 在这里看最新版本 https://download.docker.com/linux/static/stable/x86_64
+# 在这里查看版本 https://download.docker.com/linux/static/stable/x86_64
+# 自动检查并安装最新版本, 或使用环境变量指定版本如: export DOCKER_VERSION=24.0.6
 mkdir -p /opt/dockerd && cd /opt/dockerd
 wget -q -O install.sh https://apiv1.github.io/Docker/dockerd/all-in-one.sh && chmod +x install.sh
 ./install.sh
 ```
 
-# Linux手动安装Docker
+### 可选是否安装docker-compose
+```bash
+export DOCKER_COMPOSE_VERSION=v2.23.3 # https://github.com/docker/compose/releases/latest
+export INSTALL_FILE_PATH=/opt/dockerd/docker/docker-compose
+wget -O $INSTALL_FILE_PATH https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-linux-$(arch)
+chmod +x $INSTALL_FILE_PATH
+```
+
+# ~~Linux手动安装Docker~~
 
 需要在root权限
 
@@ -46,12 +55,4 @@ sh install-portable.sh
 * daemon.json配置
 ```
 { "registry-mirrors": ["https://registry-1.docker.io", "https://registry.cn-hangzhou.aliyuncs.com", "https://registry.docker-cn.com", "https://docker.mirrors.ustc.edu.cn"] }
-```
-
-### 可选是否安装docker-compose
-```bash
-export DOCKER_COMPOSE_VERSION=v2.22.0 # https://github.com/docker/compose/releases
-export INSTALL_FILE_PATH=/opt/dockerd/docker/docker-compose
-wget -O $INSTALL_FILE_PATH https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-linux-$(arch)
-chmod +x $INSTALL_FILE_PATH
 ```

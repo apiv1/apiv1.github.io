@@ -22,7 +22,7 @@ echo '
 ' > $SCRIPT_HOME/uninstall.sh
 chmod +x $SCRIPT_HOME/uninstall.sh
 
-if [ -f "$SERVICE_FILE" ]; then
+if test -f "$SERVICE_FILE"; then
   echo "'$SERVICE_FILE' already exist. delete or move it manually to continue install."
   exit 1
 fi

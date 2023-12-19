@@ -1,5 +1,10 @@
 # Git快速上手
 
+生成密钥对, 把公钥添加到自己仓库的SSH密钥里, 开通SSH权限.
+```shell
+ssh-keygen # 默认生成到 $HOME/.ssh/id_rsa.pub(公钥), $HOME/.ssh/id_rsa(私钥)
+```
+
 从仓库复制项目到本地
 ```shell
 git clone $REPO_URL

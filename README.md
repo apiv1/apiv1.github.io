@@ -27,6 +27,7 @@
 |  &nbsp;|  &nbsp;|  &nbsp;+--&nbsp;[acl.json](./Docker/consul/config/acl.json)  
 |  &nbsp;|  &nbsp;+--&nbsp;[docker-compose.yml](./Docker/consul/docker-compose.yml)  
 |  &nbsp;|--&nbsp;[dockerd](./Docker/dockerd)  
+|  &nbsp;|  &nbsp;|--&nbsp;[Docker-Tutorial.md](./Docker/dockerd/Docker-Tutorial.md)  
 |  &nbsp;|  &nbsp;|--&nbsp;[README.md](./Docker/dockerd/README.md)  
 |  &nbsp;|  &nbsp;|--&nbsp;[all-in-one.sh](./Docker/dockerd/all-in-one.sh)  
 |  &nbsp;|  &nbsp;|--&nbsp;[install-portable.sh](./Docker/dockerd/install-portable.sh)  

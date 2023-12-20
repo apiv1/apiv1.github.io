@@ -202,6 +202,8 @@
 |  &nbsp;|  &nbsp;|--&nbsp;[ingress.yml](./K8s/base/ingress.yml)  
 |  &nbsp;|  &nbsp;|--&nbsp;[metallb.yml](./K8s/base/metallb.yml)  
 |  &nbsp;|  &nbsp;+--&nbsp;[service.yml](./K8s/base/service.yml)  
+|  &nbsp;|--&nbsp;[frp](./K8s/frp)  
+|  &nbsp;|  &nbsp;+--&nbsp;[frp.yaml](./K8s/frp/frp.yaml)  
 |  &nbsp;|--&nbsp;[helm](./K8s/helm)  
 |  &nbsp;|  &nbsp;|--&nbsp;[ingress-nginx-bitnami.yml](./K8s/helm/ingress-nginx-bitnami.yml)  
 |  &nbsp;|  &nbsp;|--&nbsp;[ingress-nginx.yml](./K8s/helm/ingress-nginx.yml)  

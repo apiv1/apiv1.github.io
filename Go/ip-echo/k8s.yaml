@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: ip-echo
+  name: ip-echo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: ip-echo
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: ip-echo
+    spec:
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+        - args:
+            - :31009
+          image: apiv1/ip-echo
+          name: ip-echo
+          ports:
+            - containerPort: 31009
+          resources: {}
+      restartPolicy: Always
+status: {}

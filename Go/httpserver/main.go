@@ -10,7 +10,7 @@ type fileServerWrapper struct {
 	handler http.Handler
 }
 
-func (f fileServerWrapper) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (f *fileServerWrapper) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	println("Request: " + r.RemoteAddr + " | " + r.URL.String())
 	w.Header().Set("Content-Type", "application/octet-stream")
 	f.handler.ServeHTTP(w, r)
@@ -22,7 +22,7 @@ func main() {
 		return
 	}
 	p, _ := filepath.Abs(os.Args[1])
-	http.Handle("/", fileServerWrapper{http.FileServer(http.Dir(p))})
+	http.Handle("/", &fileServerWrapper{http.FileServer(http.Dir(p))})
 	addr := ":8088"
 	if len(os.Args) >= 3 {
 		addr = os.Args[2]
@@ -31,6 +31,6 @@ func main() {
 	defer println("Quit")
 	err := http.ListenAndServe(addr, nil)
 	if err != nil {
-		println(err)
+		println(err.Error())
 	}
 }

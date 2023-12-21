@@ -2,6 +2,7 @@ version: '3.9'
 services:
   xray:
     image: teddysun/xray
+    restart: always
     command: xray run -c /etc/xray/config.json
     volumes:
       - ./config.client.json:/etc/xray/config.json

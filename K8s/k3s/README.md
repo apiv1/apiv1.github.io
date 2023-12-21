@@ -80,8 +80,12 @@ charts: ./lib/k3s/server/static/charts<br>
 ```
 
 ### x509 证书过期, kubectl无法访问解决
-```
-rm /opt/k3s/lib/k3s/server/tls/dynamic-cert.json
+```shell
+k3s kubectl --insecure-skip-tls-verify=true delete secret k3s-serving -n kube-system
+systemctl stop k3s
+cd /opt/k3s/
+rm lib/k3s/server/tls/dynamic-cert.json
+systemctl restart k3s
 ```
 
 ### ~~Remove traefik~~

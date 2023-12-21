@@ -79,6 +79,11 @@ manifest: ./lib/k3s/server/manifests<br>
 charts: ./lib/k3s/server/static/charts<br>
 ```
 
+### x509 证书过期, kubectl无法访问解决
+```
+rm /opt/k3s/lib/k3s/server/tls/dynamic-cert.json
+```
+
 ### ~~Remove traefik~~
 (Recommend) use no-traefik k3s
 ExecStart: --disable traefik --disable traefik-crd

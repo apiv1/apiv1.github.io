@@ -24,6 +24,8 @@ K3S_MODE=agent K3S_TOKEN=xxxxx K3S_URL=xxxxx sh install.sh
 ### deploy_with_registries.sh
 一个自动安装脚本的模板, 还配置了registries.yaml 指向私有仓库, 运行Server模式.
 * [私有镜像仓库配置](https://docs.k3s.io/zh/installation/private-registry)
+
+
 ```shell
 #!/bin/sh
 
@@ -89,8 +91,8 @@ systemctl restart k3s
 ```
 
 ### ~~Remove traefik~~
-(Recommend) use no-traefik k3s
-ExecStart: --disable traefik --disable traefik-crd
+(Recommend) use no-traefik k3s<br>
+ExecStart: --disable traefik --disable traefik-crd<br>
 ```bash
 rm lib/k3s/server/manifests/traefik.yaml
 

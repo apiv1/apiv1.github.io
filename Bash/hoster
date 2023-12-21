@@ -7,7 +7,6 @@ fi
 
 IP=$1
 shift 1
-HOST_NAME=$*
 HOST_FILE=${HOST_FILE:-/etc/hosts}
 
 test -n "$(echo $OSTYPE | grep '^darwin')" && export IS_MACOS=1
@@ -17,4 +16,12 @@ if test -n "$IS_MACOS"; then
 fi
 
 (test -z "$NO_SUDO" && type sudo > /dev/null) && export SUDO=sudo
-$SUDO sh -c 'sed -i '${SED_ARGS}' "/.*#.*SETTING.*'${IP}'.*/d" "'${HOST_FILE}'" && echo "'$IP' '"$HOST_NAME"' # SETTING: '$IP'" >> "'${HOST_FILE}'"'
+
+HOST_NAMES=$*
+for HOST_NAME in $HOST_NAMES
+do
+  $SUDO sh -c '
+    sed -i '${SED_ARGS}' "/.* '${HOST_NAME}' .*#.*SETTING/d" "'${HOST_FILE}'"
+  '
+  $SUDO sh -c 'echo "'$IP' '"$HOST_NAME"' # SETTING" >> "'${HOST_FILE}'"'
+done

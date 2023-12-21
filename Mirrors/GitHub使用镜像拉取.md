@@ -9,3 +9,9 @@ gitclone
 git config --global url."https://gitclone.com/github.com/".insteadOf https://github.com/
 git config --global url."https://github.com/".pushInsteadOf https://github.com/
 ```
+
+ssh
+```bash
+git config --global url."git@github.com:".insteadOf https://github.com/
+git config --global url."https://github.com/".pushInsteadOf https://github.com/
+```

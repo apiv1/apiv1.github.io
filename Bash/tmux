@@ -1,32 +1,29 @@
 echo '
-CHECK_FILE=~/.reuse_session.disable
+SESSION_DISABLE_FILE=~/.reuse_session.disable
 session() {
   if test -z "$TMUX"; then
     tmux a -t "$USER" > /dev/null
     test "$?" -ne 0 && tmux new -s "$USER"
-    test -f "$CHECK_FILE" || exit
+    test -f "$SESSION_DISABLE_FILE" || exit
   fi
 }
-if test -f "$CHECK_FILE"; then
-  session_enable() {
-    rm -rf "$CHECK_FILE"
-  }
-  session_attach() {
-    session_enable
-    session
-  }
-else
-  session_disable() {
-    touch "$CHECK_FILE"
-  }
-  session_detach() {
-    if test -n "$TMUX"; then
-      session_disable
-      exit
-    fi
-  }
+session_enable() {
+  rm -rf "$SESSION_DISABLE_FILE"
+}
+session_attach() {
+  session_enable
   session
-fi
+}
+session_disable() {
+  touch "$SESSION_DISABLE_FILE"
+}
+session_detach() {
+  if test -n "$TMUX"; then
+    session_disable
+    exit
+  fi
+}
+test -f "$SESSION_DISABLE_FILE" || session
 '> ~/.reuse_session.sh
 
 cat <<EOF > ~/.tmux.conf

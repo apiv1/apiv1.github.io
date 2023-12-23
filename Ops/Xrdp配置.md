@@ -94,3 +94,8 @@ ResultActive=yes
 EOF
 sudo systemctl restart polkit
 ```
+
+Ubuntu命令行注销桌面, 以便xrdp远程登录
+```shell
+gnome-session-quit --no-prompt
+```

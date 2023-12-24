@@ -1,20 +1,29 @@
 ### Install Server
 简单安装, 安装Server以及Agent的说明
 ```bash
-# 裁剪编译了一个不含traefik组件的k3s, 放在这个链接, 如果有traefik组件还要特地删除一下, 一键安装比较麻烦.
+# 可选: 添加你的IP, 加入tls. (部分主机需要此配置, 否则需要kubectl --insecure-skip-tls-verify命令来跳过tls校验)
+# https://docs.k3s.io/installation/configuration#registration-options-for-the-k3s-server
+export HOST_NAME=$(wget -qO - v4.ident.me)
+export SERVICE_ARGS=$SERVICE_ARGS" --tls-san $HOST_NAME"
+
+# 推荐,可选: 裁剪编译了一个不含traefik组件的k3s, 放在这个链接, 如果有traefik组件还要特地删除一下, 一键安装比较麻烦.
 export K3S_DOWNLOAD_URL=https://github.com/backrise/k3s/releases/download/v1.28.4%2Bk3s2-notraefik-release/k3s # optional, if you don't need traefik
+
+# 安装开始, 创建目录, 下载脚本, 执行.
 mkdir -p /opt/k3s && cd /opt/k3s
 wget -q -O install.sh https://apiv1.github.io/K8s/k3s/install.sh && chmod +x install.sh
-K3S_MODE=server sh install.sh # Server模式, 单机使用K3S
 
+K3S_MODE=server sh install.sh # Server模式, 单机使用K3S
+# 安装完成
+
+# 查看
 cat /etc/rancher/k3s/k3s.yaml # auth file
 
 # K3S_TOKEN, 也可以在Server启动时用环境变量和参数指定
 # https://docs.k3s.io/zh/cli/token
 cat /opt/k3s/lib/k3s/server/token
 
-# 可选: 另一台主机使用Agent模式, 和Server组成多机K3S集群. TOKEN和URL填Server机器的.
-
+# 可选: 在另一台主机使用Agent模式, 和Server组成多机K3S集群. TOKEN和URL填Server机器的.
 # K3S_URL: k3s.yaml里有写
 K3S_MODE=agent K3S_TOKEN=xxxxx K3S_URL=xxxxx sh install.sh
 ```

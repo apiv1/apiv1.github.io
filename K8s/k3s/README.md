@@ -1,5 +1,9 @@
-### Install Server
-简单安装, 安装Server以及Agent的说明
+### K3S的安装
+##### 安装客户端
+[官方文档](https://kubernetes.io/zh-cn/docs/tasks/tools/)
+
+##### 安装服务端, 安装Server以及Agent的说明
+一键安装脚本, 比官方的更绿色
 ```bash
 # 可选: 添加你的IP, 加入tls. (部分主机需要此配置, 否则需要kubectl --insecure-skip-tls-verify命令来跳过tls校验)
 # https://docs.k3s.io/installation/configuration#registration-options-for-the-k3s-server
@@ -29,6 +33,20 @@ K3S_MODE=agent K3S_TOKEN=xxxxx K3S_URL=xxxxx sh install.sh
 ```
 ### [load_k3s_kubeconfig.sh](./load_k3s_kubeconfig.sh)
 通过SSH自动读取k3s的yaml文件作为KUBECONFIG的脚本.
+```shell
+# 下载配置文件
+export SERVER=10.10.10.10 # 假设你的主机是这个ip
+rm -rf ~/.kube/$SERVER.yaml
+load_k3s_kubeconfig.sh $SERVER > ~/.kube/$SERVER.yaml
+chmod 400 ~/.kube/$SERVER.yaml
+
+# 要使用这台主机的k3s时, 指定这个环境变量
+export KUBECONFIG=~/.kube/$SERVER.yaml
+
+kubectl get nodes # 就可以用了
+kubectl --insecure-skip-tls-verify # 跳过tls校验执行某个命令
+alias kubectl='kubectl --insecure-skip-tls-verify' # 临时跳过tls校验使用kubectl
+```
 
 ### deploy_with_registries.sh
 一个自动安装脚本的模板, 还配置了registries.yaml 指向私有仓库, 运行Server模式.

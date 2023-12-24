@@ -217,6 +217,8 @@
 |  &nbsp;|--&nbsp;[k3s](./K8s/k3s)  
 |  &nbsp;|  &nbsp;|--&nbsp;[README.md](./K8s/k3s/README.md)  
 |  &nbsp;|  &nbsp;|--&nbsp;[install.sh](./K8s/k3s/install.sh)  
+|  &nbsp;|  &nbsp;|--&nbsp;[k3s-killall.sh](./K8s/k3s/k3s-killall.sh)  
+|  &nbsp;|  &nbsp;|--&nbsp;[k3s-uninstall.sh](./K8s/k3s/k3s-uninstall.sh)  
 |  &nbsp;|  &nbsp;+--&nbsp;[load_k3s_kubeconfig.sh](./K8s/k3s/load_k3s_kubeconfig.sh)  
 |  &nbsp;|--&nbsp;[ldap](./K8s/ldap)  
 |  &nbsp;|  &nbsp;+--&nbsp;[ldap.yaml](./K8s/ldap/ldap.yaml)  

@@ -29,12 +29,140 @@ fi
 
 K3S_SERVICE_FILE=${K3S_SERVICE_FILE:-/etc/systemd/system/${SERVICE_NAME}.service}
 
-echo '
-systemctl stop '$SERVICE_NAME'
-systemctl disable '$SERVICE_NAME'.service
-rm '$K3S_SERVICE_FILE'
-' > $SCRIPT_HOME/uninstall.sh
-chmod +x $SCRIPT_HOME/uninstall.sh
+KILLALL_K3S_SH=${KILLALL_K3S_SH:-${SCRIPT_HOME}/killall.sh}
+UNINSTALL_K3S_SH=${UNINSTALL_K3S_SH:-${SCRIPT_HOME}/uninstall.sh}
+
+test $(id -u) -eq 0 || export SUDO=sudo
+
+# --- create killall script ---
+create_killall() {
+    test "${INSTALL_K3S_BIN_DIR_READ_ONLY}" = true && return
+    $SUDO tee ${KILLALL_K3S_SH} >/dev/null << \EOF
+#!/bin/sh
+test $(id -u) -eq 0 || exec sudo $0 $@
+
+set -x
+
+pschildren() {
+    ps -e -o ppid= -o pid= | \
+    sed -e 's/^\s*//g; s/\s\s*/\t/g;' | \
+    grep -w "^$1" | \
+    cut -f2
+}
+
+pstree() {
+    for pid in $@; do
+        echo $pid
+        for child in $(pschildren $pid); do
+            pstree $child
+        done
+    done
+}
+
+killtree() {
+    kill -9 $(
+        { set +x; } 2>/dev/null;
+        pstree $@;
+        set -x;
+    ) 2>/dev/null
+}
+
+remove_interfaces() {
+    # Delete network interface(s) that match 'master cni0'
+    ip link show 2>/dev/null | grep 'master cni0' | while read ignore iface ignore; do
+        iface=${iface%%@*}
+        test -z "$iface" || ip link delete $iface
+    done
+
+    # Delete cni related interfaces
+    ip link delete cni0
+    ip link delete flannel.1
+    ip link delete flannel-v6.1
+    ip link delete kube-ipvs0
+    ip link delete flannel-wg
+    ip link delete flannel-wg-v6
+
+    # Restart tailscale
+    if test -n "$(command -v tailscale)"; then
+        tailscale set --advertise-routes=
+    fi
+}
+
+getshims() {
+    ps -e -o pid= -o args= | sed -e 's/^ *//; s/\s\s*/\t/;' | grep -w 'k3s/data/[^/]*/bin/containerd-shim' | cut -f1
+}
+
+killtree $({ set +x; } 2>/dev/null; getshims; set -x)
+
+do_unmount_and_remove() {
+    set +x
+    while read -r _ path _; do
+        case "$path" in $1*) echo "$path" ;; esac
+    done < /proc/self/mounts | sort -r | xargs -r -t -n 1 sh -c 'umount -f "$0" && rm -rf "$0"'
+    set -x
+}
+
+do_unmount_and_remove '/run/k3s'
+do_unmount_and_remove '/var/lib/rancher/k3s'
+do_unmount_and_remove '/var/lib/kubelet/pods'
+do_unmount_and_remove '/var/lib/kubelet/plugins'
+do_unmount_and_remove '/run/netns/cni-'
+
+# Remove CNI namespaces
+ip netns show 2>/dev/null | grep cni- | xargs -r -t -n 1 ip netns delete
+
+remove_interfaces
+
+rm -rf /var/lib/cni/
+iptables-save | grep -v KUBE- | grep -v CNI- | grep -iv flannel | iptables-restore
+ip6tables-save | grep -v KUBE- | grep -v CNI- | grep -iv flannel | ip6tables-restore
+EOF
+    $SUDO chmod 755 ${KILLALL_K3S_SH}
+    $SUDO chown root:root ${KILLALL_K3S_SH}
+}
+
+# --- create uninstall script ---
+create_uninstall() {
+    test "${INSTALL_K3S_BIN_DIR_READ_ONLY}" = true && return
+    $SUDO tee ${UNINSTALL_K3S_SH} >/dev/null << EOF
+#!/bin/sh
+set -x
+test $(id -u) -eq 0 || exec sudo $0 $@
+
+${KILLALL_K3S_SH}
+
+if command -v systemctl; then
+    systemctl disable ${SERVICE_NAME} --now
+    systemctl reset-failed ${SERVICE_NAME}
+    systemctl daemon-reload
+fi
+
+rm -f ${K3S_SERVICE_FILE}
+rm -f ${K3S_ENV_FILE}
+
+remove_uninstall() {
+    rm -f ${UNINSTALL_K3S_SH}
+}
+trap remove_uninstall EXIT
+
+if (ls ${SYSTEMD_DIR}/k3s*.service || ls /etc/init.d/k3s*) >/dev/null 2>&1; then
+    set +x; echo 'Additional k3s services installed, skipping uninstall of k3s'; set -x
+    exit
+fi
+
+rm -rf /etc/rancher/k3s
+rm -rf /run/k3s
+rm -rf /run/flannel
+rm -rf /var/lib/rancher/k3s
+rm -rf /var/lib/kubelet
+rm -f ${KILLALL_K3S_SH}
+EOF
+    $SUDO chmod 755 ${UNINSTALL_K3S_SH}
+    $SUDO chown root:root ${UNINSTALL_K3S_SH}
+}
+
+create_killall
+create_uninstall
 
 if test -f "$K3S_SERVICE_FILE" ; then
   echo "'$K3S_SERVICE_FILE' already exist. delete or move it manually to continue install."
@@ -99,11 +227,13 @@ ExecStartPre=/bin/sh -xc '"'! /usr/bin/systemctl is-enabled --quiet nm-cloud-set
 ExecStartPre=-/sbin/modprobe br_netfilter
 ExecStartPre=-/sbin/modprobe overlay
 ExecStart='${K3S_BIN}'/k3s '${K3S_ARGS}'
+ExecStop='${KILLALL_K3S_SH}'
 ' > $K3S_SERVICE_FILE
 
 chmod +x $K3S_SERVICE_FILE
 
-if test ! -f "$SCRIPT_HOME/.env" ; then
+K3S_ENV_FILE=$SCRIPT_HOME/.env
+if test ! -f "$K3S_ENV_FILE" ; then
   if test -z "$DISABLE_K3S_ALIAS" ; then
 EXTRA_ALIAS="
 alias kubectl='k3s kubectl'
@@ -112,7 +242,7 @@ alias crictl='k3s crictl'
 "
   fi
 
-cat <<EOF > "$SCRIPT_HOME/.env"
+cat <<EOF > "$K3S_ENV_FILE"
 K3S_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
 alias k3s='k3s --data-dir \${K3S_HOME}/lib/k3s'
 ${EXTRA_ALIAS}

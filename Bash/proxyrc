@@ -1,4 +1,16 @@
-PROXY_URL=${PROXY_URL:-socks5://localhost:1080}
+export PROXY_URL_SOCKETS5=socks5://localhost:1080
+export PROXY_URL_HTTP=http://localhost:3128
+
+use_socks5_proxy() {
+  PROXY_URL=${PROXY_URL_SOCKETS5}
+}
+
+use_http_proxy() {
+  PROXY_URL=${PROXY_URL_HTTP}
+}
+
+use_socks5_proxy
+
 NO_PROXY_LIST=${NO_PROXY_LIST:-"0.0.0.0/8,10.0.0.0/8,127.0.0.0/8,172.0.0.0/8,169.254.0.0/16,192.168.0.0/16,224.0.0.0/4,240.0.0.0/4"}
 
 pe() {

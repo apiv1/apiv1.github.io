@@ -51,8 +51,8 @@ virsh net-undefine default
 
 ```bash
 # 配置
-mkdir -p /var/lib/libvirt/network
-cat <<EOF > /var/lib/libvirt/network/default.xml
+mkdir -p /var/lib/libvirt/network && cd /var/lib/libvirt/network/
+cat <<EOF > default.xml
 <network>
   <name>default</name>
   <forward mode='nat'/>
@@ -65,7 +65,7 @@ cat <<EOF > /var/lib/libvirt/network/default.xml
 </network>
 EOF
 
-virsh net-define /var/lib/libvirt/network/default.xml
+virsh net-define default.xml
 virsh net-start default
 virsh net-autostart default
 ```

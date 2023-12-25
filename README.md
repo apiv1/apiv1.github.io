@@ -265,6 +265,7 @@
 |  &nbsp;|--&nbsp;[iptables.md](./Ops/iptables.md)  
 |  &nbsp;|--&nbsp;[kodi.md](./Ops/kodi.md)  
 |  &nbsp;|--&nbsp;[linux服务器上ssh维持会话,断开不退出,重连继续会话.md](./Ops/linux服务器上ssh维持会话,断开不退出,重连继续会话.md)  
+|  &nbsp;|--&nbsp;[netplan.md](./Ops/netplan.md)  
 |  &nbsp;|--&nbsp;[netstat查看连接状态.md](./Ops/netstat查看连接状态.md)  
 |  &nbsp;|--&nbsp;[使用frp映射内网linux的ssh端口到外网.md](./Ops/使用frp映射内网linux的ssh端口到外网.md)  
 |  &nbsp;|--&nbsp;[加虚拟内存.md](./Ops/加虚拟内存.md)  

@@ -25,9 +25,11 @@ vi ~/.ssh/authorized_keys # 贴入你的公钥(生成的id_rsa.pub), 为了远�
 
 本地配置远程Docker连接
 ```shell
-ssh docker@docker.server # 测试连接,确认密钥配置生效
+export $DOCKER_SERVER=docker.server
 
-docker context create --docker host=ssh://docker@docker.server --description="docker-server" docker-server
+ssh docker@$DOCKER_SERVER # 测试连接,确认密钥配置生效
+
+docker context create --docker host=ssh://docker@$DOCKER_SERVER --description="docker-server" docker-server
 
 # 使用远程docker
 docker context use docker-server

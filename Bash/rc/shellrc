@@ -4,5 +4,7 @@ if test -n "$BASH_VERSION"; then
     export PS1='\[\e[38;5;135m\]\u\[\e[0m\]@\[\e[38;5;166m\]\h\[\e[0m\] \[\e[38;5;118m\]\w\[\e[0m\] '$(test $UID -eq 0 && echo '#' || echo '$')' '
 else
     # zsh
+    bindkey "^[[A" history-beginning-search-backward
+    bindkey "^[[B" history-beginning-search-forward
     export PROMPT='%F{135}%n%f@%F{166}%m%f %F{118}%~%f '$(test $UID -eq 0 && echo '#' || echo '$')' '
 fi

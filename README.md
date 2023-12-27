@@ -12,6 +12,7 @@
 |  &nbsp;|--&nbsp;[random](./Bash/random)  
 |  &nbsp;|--&nbsp;[rc](./Bash/rc)  
 |  &nbsp;|  &nbsp;|--&nbsp;[bashrc](./Bash/rc/bashrc)  
+|  &nbsp;|  &nbsp;|--&nbsp;[richrc](./Bash/rc/richrc)  
 |  &nbsp;|  &nbsp;|--&nbsp;[shellrc](./Bash/rc/shellrc)  
 |  &nbsp;|  &nbsp;+--&nbsp;[zshrc](./Bash/rc/zshrc)  
 |  &nbsp;|--&nbsp;[service-installer](./Bash/service-installer)  

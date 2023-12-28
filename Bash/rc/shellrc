@@ -6,5 +6,6 @@ else
     # zsh
     bindkey "^[[A" history-beginning-search-backward
     bindkey "^[[B" history-beginning-search-forward
+    setopt PROMPT_SUBST
     export PROMPT='%F{135}%n%f@%F{166}%m%f %F{118}%~%f '$(test $UID -eq 0 && echo '#' || echo '$')' '
 fi

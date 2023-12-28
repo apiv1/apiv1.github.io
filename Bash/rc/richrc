@@ -1,13 +1,24 @@
 __shellrc__git_info_env() {
     git_info_inner() {
         if type git >/dev/null; then
-            export GIT_BRANCH=$(git symbolic-ref --short HEAD)
-            export GIT_COMMIT_ID=$(git rev-parse --short HEAD)
-            export GIT_TAG=$(git describe --tags)
-            export GIT_STATUS=$(test -n "$(git status -s)" && echo '×')
+            GIT_BRANCH=$(git symbolic-ref --short HEAD)
+            GIT_COMMIT_ID=$(git rev-parse --short HEAD)
+            GIT_TAG=$(git describe --tags)
+            GIT_STATUS=$(test -n "$(git status -s)" && echo '×')
         fi
     }
     git_info_inner 2>/dev/null
+    unset -f git_info_inner
+}
+
+__shellrc__docker_context_env() {
+    docker_context_inner() {
+        if type docker >/dev/null; then
+            DOCKER_CONTEXT=$(docker context show)
+        fi
+    }
+    docker_context_inner 2>/dev/null
+    unset -f docker_context_inner
 }
 
 if test -n "$BASH_VERSION"; then
@@ -16,8 +27,11 @@ if test -n "$BASH_VERSION"; then
         printf "$1$2\e[0m"
     }
 
-    __shellrc__git_info_prompt() {
+    __shellrc__prompt() {
         __shellrc__git_info_env
+        __shellrc__docker_context_env
+
+        test -n "$DOCKER_CONTEXT" && printf " 🐳($DOCKER_CONTEXT)"
 
         GIT_INFO=''
         test -n "$GIT_BRANCH" && GIT_INFO=$GIT_INFO"$(__shellrc__color_text "\e[31m" $GIT_BRANCH)"
@@ -25,7 +39,10 @@ if test -n "$BASH_VERSION"; then
         test -n "$GIT_TAG" && GIT_INFO=$GIT_INFO":$(__shellrc__color_text "\e[36m" $GIT_TAG)"
         test -n "$GIT_STATUS" && GIT_INFO=$GIT_INFO"$(__shellrc__color_text "\e[33m" $GIT_STATUS)"
 
-        test -n "$GIT_INFO" && printf " ➜($GIT_INFO)"
+        test -n "$GIT_INFO" && printf " 🐙($GIT_INFO)"
+
+        unset DOCKER_CONTEXT GIT_BRANCH GIT_COMMIT_ID GIT_TAG GIT_STATUS GIT_INFO
+        unset -f __shellrc__prompt
     }
 
     __shellrc__symbol() {
@@ -37,7 +54,7 @@ if test -n "$BASH_VERSION"; then
     }
 
     if [[ $- == *i* ]]; then bind '"\e[A": history-search-backward'; bind '"\e[B": history-search-forward'; fi
-    export PS1="\n\[\e[35m\][\$(date '+%Y-%m-%d-%H.%M.%S')]\[\e[1;31m\] <\$(tty | sed -e 's:/dev/::')> \[\e[1;34m\]\$(ls -1 | wc -l | sed 's: ::g') files \[\e[1;33m\]\$(ls -lah | grep -m 1 total | sed 's/total //')b\[\e[0m\]\$(__shellrc__git_info_prompt)\n\[\e[38;5;135m\]\u\[\e[0m\]@\[\e[38;5;166m\]\h\[\e[0m\] \[\e[38;5;118m\]\w\[\e[0m\] {\$(__shellrc__show_exit_code)} \[\e[1;4;33m\]\n$(__shellrc__symbol) "
+    export PS1="\n\[\e[35m\][\$(date '+%Y-%m-%d-%H.%M.%S')]\[\e[1;31m\] <\$(tty | sed -e 's:/dev/::')> \[\e[1;34m\]\$(ls -1 | wc -l | sed 's: ::g') files \[\e[1;33m\]\$(ls -lah | grep -m 1 total | sed 's/total //')b\[\e[0m\]\$(__shellrc__prompt)\n\[\e[38;5;135m\]\u\[\e[0m\]@\[\e[38;5;166m\]\h\[\e[0m\] \[\e[38;5;118m\]\w\[\e[0m\] {\$(__shellrc__show_exit_code)} \[\e[1;4;33m\]\n$(__shellrc__symbol) "
     export PROMPT_COMMAND='export __LAST_CODE__=$?' RPROMPT=''
 elif test -n "$ZSH_VERSION"; then
     # zsh
@@ -45,8 +62,11 @@ elif test -n "$ZSH_VERSION"; then
         echo $1$2'%f'
     }
 
-    __shellrc__git_info_prompt() {
+    __shellrc__prompt() {
         __shellrc__git_info_env
+        __shellrc__docker_context_env
+
+        test -n "$DOCKER_CONTEXT" && echo -n " 🐳($DOCKER_CONTEXT)"
 
         GIT_INFO=''
         test -n "$GIT_BRANCH" && GIT_INFO=$GIT_INFO"$(__shellrc__color_text '%F{1}' $GIT_BRANCH)"
@@ -54,7 +74,10 @@ elif test -n "$ZSH_VERSION"; then
         test -n "$GIT_TAG" && GIT_INFO=$GIT_INFO":$(__shellrc__color_text '%F{3}' $GIT_TAG)"
         test -n "$GIT_STATUS" && GIT_INFO=$GIT_INFO"$(__shellrc__color_text '%F{3}' $GIT_STATUS)"
 
-        test -n "$GIT_INFO" && echo " ➜($GIT_INFO)"
+        test -n "$GIT_INFO" && echo -n " 🐙($GIT_INFO)"
+
+        unset DOCKER_CONTEXT GIT_BRANCH GIT_COMMIT_ID GIT_TAG GIT_STATUS GIT_INFO
+        unset -f __shellrc__prompt
     }
 
     __shellrc__symbol() {
@@ -64,5 +87,5 @@ elif test -n "$ZSH_VERSION"; then
     bindkey "^[[A" history-beginning-search-backward
     bindkey "^[[B" history-beginning-search-forward
     setopt PROMPT_SUBST
-    export PS1=$'%F{5}[$(date "+%Y-%m-%d-%H.%M.%S")]%f %F{9}<$(tty | sed -e "s:/dev/::")> %F{69}$(ls -1 | wc -l | sed "s: ::g") files %F{3}$(ls -lah | grep -m 1 total | sed "s/total //")b%f$(__shellrc__git_info_prompt)\n%F{135}%n%f@%F{166}%m%f %F{118}%~ %f{%F{3}%?%f}\n%F{3}%U$(__shellrc__symbol)%u '
+    export PS1=$'%F{5}[$(date "+%Y-%m-%d-%H.%M.%S")]%f %F{9}<$(tty | sed -e "s:/dev/::")> %F{69}$(ls -1 | wc -l | sed "s: ::g") files %F{3}$(ls -lah | grep -m 1 total | sed "s/total //")b%f$(__shellrc__prompt)\n%F{135}%n%f@%F{166}%m%f %F{118}%~ %f{%F{3}%?%f}\n%F{3}%U$(__shellrc__symbol)%u '
 fi

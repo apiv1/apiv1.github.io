@@ -69,3 +69,11 @@ virsh net-define default.xml
 virsh net-start default
 virsh net-autostart default
 ```
+
+KVM Guest 驱动下载
+```
+https://fedorapeople.org/groups/virt
+
+# windows
+https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/
+```

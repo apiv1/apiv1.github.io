@@ -26,6 +26,16 @@ wget -O $INSTALL_FILE_PATH https://github.com/docker/compose/releases/download/$
 chmod +x $INSTALL_FILE_PATH
 ```
 
+### 可选是否安装docker-buildx
+```bash
+export DOCKER_BUILDX_VERSION=v0.12.0 # https://github.com/docker/buildx/releases
+export INSTALL_FILE_PATH=/opt/dockerd/docker/docker-buildx
+wget -O $INSTALL_FILE_PATH https://github.com/docker/buildx/releases/download/$DOCKER_BUILDX_VERSION/buildx-$DOCKER_BUILDX_VERSION.linux-$(arch)
+chmod +x $INSTALL_FILE_PATH
+mkdir -p ~/.docker/cli-plugins
+ln -s $INSTALL_FILE_PATH ~/.docker/cli-plugins/docker-buildx
+```
+
 # ~~Linux手动安装Docker~~
 
 需要在root权限

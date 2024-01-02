@@ -21,7 +21,11 @@ service systemd-logind restart
 systemctl restart systemd-logind
 ```
 
+休眠服务的启停
 ```shell
 # 停止服务
 sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+
+# 启动服务
+sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
 ```

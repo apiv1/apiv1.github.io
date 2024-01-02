@@ -1,2 +1,0 @@
-#!/bin/bash
-cat /dev/urandom | base64 2>/dev/null  | tr -dc '_A-Za-z0-9' | head -c 16

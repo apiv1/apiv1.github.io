@@ -174,7 +174,7 @@ if test ! -f "$K3S_BIN/k3s" ; then
     if test -z ${K3S_DOWNLOAD_URL}; then
       K3S_DOWNLOAD_VERSION=$(wget -SqO /dev/null https://update.k3s.io/v1-release/channels/stable 2>&1 | grep -i Location | sed -e 's|.*/||')
       K3S_FILE=k3s
-      K3S_ARCH=${K3S_ARCH:-$(arch)}
+      K3S_ARCH=${K3S_ARCH:-$(uname -m)}
       case "$K3S_ARCH" in
         arm64)
             K3S_FILE=${K3S_FILE}-${K3S_ARCH}

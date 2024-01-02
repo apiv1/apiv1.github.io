@@ -1,0 +1,27 @@
+hoster() {
+  if test "$#" -lt 2; then
+    echo "usage: <IP> <HOST_NAME1> [HOST_NAME2] [HOST_NAME3] ..."
+    return 1
+  fi
+
+  IP=$1
+  shift 1
+  HOST_FILE=${HOST_FILE:-/etc/hosts}
+
+  test -n "$(echo $OSTYPE | grep '^darwin')" && export IS_MACOS=1
+
+  if test -n "$IS_MACOS"; then
+    SED_ARGS='""'
+  fi
+
+  (test -z "$NO_SUDO" && type sudo > /dev/null) && export SUDO=sudo
+
+  HOST_NAMES=$*
+  for HOST_NAME in $HOST_NAMES
+  do
+    $SUDO sh -c '
+      sed -i '${SED_ARGS}' "/.* '${HOST_NAME}' .*#.*SETTING/d" "'${HOST_FILE}'"
+    '
+    $SUDO sh -c 'echo "'$IP' '"$HOST_NAME"' # SETTING" >> "'${HOST_FILE}'"'
+  done
+}

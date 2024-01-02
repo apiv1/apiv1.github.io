@@ -7,6 +7,8 @@ DOCKER_SERVICE_FILE=${DOCKER_SERVICE_FILE:-/etc/systemd/system/${SERVICE_NAME}.s
 
 SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
 
+type arch >/dev/null 2>&1 || alias arch='uname -m'
+
 echo '
   systemctl stop '$SERVICE_NAME'
   systemctl disable '$SERVICE_NAME'.service
@@ -19,7 +21,7 @@ if test -f "$DOCKER_SERVICE_FILE" ; then
   exit 1
 fi
 
-if test ! -f "$SCRIPT_HOME/docker/dockerd" ; then
+if test ! -f "$SCRIPT_HOME/bin/dockerd" ; then
   if test -z $DOCKER_DOWNLOAD_URL; then
     DOCKER_ARCH=${DOCKER_ARCH:-$(arch)}
     case "$DOCKER_ARCH" in
@@ -39,11 +41,15 @@ if test ! -f "$SCRIPT_HOME/docker/dockerd" ; then
   DOCKER_FILE_NAME=docker.tgz
   wget -O ${DOCKER_FILE_NAME} "${DOCKER_DOWNLOAD_URL}"
   tar zxvf ${DOCKER_FILE_NAME} && rm -rf ${DOCKER_FILE_NAME}
+
+  mkdir -p bin
+  mv docker/* bin/
+  rmdir docker
 fi
 
 DOCKER_UNIX_SOCK=unix:///tmp/dockerd.sock
 DOCKERD_TMP_DIR=/tmp/dockerd
-DOCKER_BIN="$SCRIPT_HOME/docker"
+DOCKER_BIN="$SCRIPT_HOME/bin"
 DOCKERD_ARGS='-H '$DOCKER_UNIX_SOCK' --exec-root '$DOCKERD_TMP_DIR'/run/docker -p '$DOCKERD_TMP_DIR'/run/docker.pid --config-file '$SCRIPT_HOME'/daemon.json --data-root '$SCRIPT_HOME'/lib/docker'
 
 if test ! -f "$SCRIPT_HOME/daemon.json" ; then
@@ -83,13 +89,11 @@ WantedBy=multi-user.target
 
 chmod +x $DOCKER_SERVICE_FILE
 
-if test ! -f "$SCRIPT_HOME/.env" ; then
 cat <<EOF > "$SCRIPT_HOME/.env"
 SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
-export PATH="\$SCRIPT_HOME/docker:\$PATH"
+export PATH="\$SCRIPT_HOME/bin:\$PATH"
 export DOCKER_HOST="$DOCKER_UNIX_SOCK"
 EOF
-fi
 
 echo '
 Put it into your shell rc file:

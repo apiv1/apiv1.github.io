@@ -13,7 +13,7 @@ rich_shell() {
                 GIT_BRANCH=$(git symbolic-ref --short HEAD)
                 GIT_COMMIT_ID=$(git rev-parse --short HEAD)
                 GIT_TAG=$(git describe --tags)
-                GIT_STATUS=$(test -n "$(git status -s)" && echo '❌' || echo '✅')
+                GIT_STATUS=$(GIT_STATUS_RESULT=$(git status -s); test 0 -eq "$?" && (test -n "$GIT_STATUS_RESULT" && echo '❌' || echo '✅') )
             fi
         }
         git_info_inner 2>/dev/null

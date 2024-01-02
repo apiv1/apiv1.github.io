@@ -39,3 +39,9 @@ sed -i "/.*\[appstream\].*/a\baseurl=https://mirror.tuna.tsinghua.edu.cn/centos-
 sed -i "/.*\[crb\].*/a\baseurl=https://mirror.tuna.tsinghua.edu.cn/centos-stream/9-stream/CRB/ # GENERATED" /etc/yum.repos.d/centos.repo
 yum update
 ```
+
+### ArchLinux
+```shell
+mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
+echo 'Server = https://mirrors.ustc.edu.cn/manjaro/stable/$repo/$arch' > /etc/pacman.d/mirrorlist
+```

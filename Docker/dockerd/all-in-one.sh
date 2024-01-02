@@ -7,8 +7,6 @@ DOCKER_SERVICE_FILE=${DOCKER_SERVICE_FILE:-/etc/systemd/system/${SERVICE_NAME}.s
 
 SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
 
-type arch >/dev/null 2>&1 || alias arch='uname -m'
-
 echo '
   systemctl stop '$SERVICE_NAME'
   systemctl disable '$SERVICE_NAME'.service
@@ -23,7 +21,7 @@ fi
 
 if test ! -f "$SCRIPT_HOME/bin/dockerd" ; then
   if test -z $DOCKER_DOWNLOAD_URL; then
-    DOCKER_ARCH=${DOCKER_ARCH:-$(arch)}
+    DOCKER_ARCH=${DOCKER_ARCH:-$(uname -m)}
     case "$DOCKER_ARCH" in
     arm64)
         DOCKER_ARCH=aarch64

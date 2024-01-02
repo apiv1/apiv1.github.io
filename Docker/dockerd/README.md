@@ -21,16 +21,16 @@ wget -q -O install.sh https://apiv1.github.io/Docker/dockerd/all-in-one.sh && ch
 ### 可选是否安装docker-compose
 ```bash
 export DOCKER_COMPOSE_VERSION=v2.23.3 # https://github.com/docker/compose/releases/latest
-export INSTALL_FILE_PATH=/opt/dockerd/docker/docker-compose
-wget -O $INSTALL_FILE_PATH https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-linux-$(arch)
+export INSTALL_FILE_PATH=/opt/dockerd/bin/docker-compose
+wget -O $INSTALL_FILE_PATH https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-linux-$(uname -m)
 chmod +x $INSTALL_FILE_PATH
 ```
 
 ### 可选是否安装docker-buildx
 ```bash
 export DOCKER_BUILDX_VERSION=v0.12.0 # https://github.com/docker/buildx/releases
-export INSTALL_FILE_PATH=/opt/dockerd/docker/docker-buildx
-wget -O $INSTALL_FILE_PATH https://github.com/docker/buildx/releases/download/$DOCKER_BUILDX_VERSION/buildx-$DOCKER_BUILDX_VERSION.linux-$(arch)
+export INSTALL_FILE_PATH=/opt/dockerd/bin/docker-buildx
+wget -O $INSTALL_FILE_PATH https://github.com/docker/buildx/releases/download/$DOCKER_BUILDX_VERSION/buildx-$DOCKER_BUILDX_VERSION.linux-$(uname -m)
 chmod +x $INSTALL_FILE_PATH
 mkdir -p ~/.docker/cli-plugins
 ln -s $INSTALL_FILE_PATH ~/.docker/cli-plugins/docker-buildx
@@ -44,14 +44,15 @@ ln -s $INSTALL_FILE_PATH ~/.docker/cli-plugins/docker-buildx
 ```bash
 mkdir -p /opt/dockerd && cd /opt/dockerd
 export DOCKER_VERSION=24.0.6
-wget https://download.docker.com/linux/static/stable/$(arch)/docker-$DOCKER_VERSION.tgz
+wget https://download.docker.com/linux/static/stable/$(uname -m)/docker-$DOCKER_VERSION.tgz
 tar zxvf docker-$DOCKER_VERSION.tgz && rm -rf docker-$DOCKER_VERSION.tgz
+mv docker bin
 cd -
 ```
 
 2. 安装服务并启动
 ```bash
-DOCKER_BIN=/opt/dockerd/docker sh service-install.sh
+DOCKER_BIN=/opt/dockerd/bin sh service-install.sh
 ```
 
 3. 或者绿色安装Docker

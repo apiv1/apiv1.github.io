@@ -326,6 +326,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;|--&nbsp;[使用vbs隐藏命令行窗口运行bat.md](./Windows/使用vbs隐藏命令行窗口运行bat.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;|--&nbsp;[启动项路径.md](./Windows/启动项路径.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;|--&nbsp;[壁纸路径.md](./Windows/壁纸路径.md)  
+&nbsp;&nbsp;&nbsp;&nbsp;|--&nbsp;[安装Tree命令.md](./Windows/安装Tree命令.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;|--&nbsp;[小鹤双拼.reg](./Windows/小鹤双拼.reg)  
 &nbsp;&nbsp;&nbsp;&nbsp;|--&nbsp;[有线和无线同时联网.md](./Windows/有线和无线同时联网.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;|--&nbsp;[有线和无线同时联网.reg](./Windows/有线和无线同时联网.reg)  

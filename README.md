@@ -163,6 +163,7 @@
 |  &nbsp;|  &nbsp;+--&nbsp;[docker-compose.yml](./Docker/webvirtmgr/docker-compose.yml)  
 |  &nbsp;|--&nbsp;[xray](./Docker/xray)  
 |  &nbsp;|  &nbsp;|--&nbsp;[README.md](./Docker/xray/README.md)  
+|  &nbsp;|  &nbsp;|--&nbsp;[config.client.json](./Docker/xray/config.client.json)  
 |  &nbsp;|  &nbsp;+--&nbsp;[docker-compose.yml](./Docker/xray/docker-compose.yml)  
 |  &nbsp;+--&nbsp;[xxl-job-admin](./Docker/xxl-job-admin)  
 |  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+--&nbsp;[docker-compose.yml](./Docker/xxl-job-admin/docker-compose.yml)  

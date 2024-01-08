@@ -327,4 +327,6 @@
 &nbsp;&nbsp;&nbsp;&nbsp;|--&nbsp;[启动项路径.md](./Windows/启动项路径.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;|--&nbsp;[壁纸路径.md](./Windows/壁纸路径.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;|--&nbsp;[小鹤双拼.reg](./Windows/小鹤双拼.reg)  
-&nbsp;&nbsp;&nbsp;&nbsp;+--&nbsp;[有线和无线同时联网.md](./Windows/有线和无线同时联网.md)  
+&nbsp;&nbsp;&nbsp;&nbsp;|--&nbsp;[有线和无线同时联网.md](./Windows/有线和无线同时联网.md)  
+&nbsp;&nbsp;&nbsp;&nbsp;|--&nbsp;[有线和无线同时联网.reg](./Windows/有线和无线同时联网.reg)  
+&nbsp;&nbsp;&nbsp;&nbsp;+--&nbsp;[禁用更新.reg](./Windows/禁用更新.reg)  

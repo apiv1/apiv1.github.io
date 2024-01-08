@@ -13,7 +13,6 @@ end
 IGNORE_ARCHIVED_PROJECT = ENV['IGNORE_ARCHIVED_PROJECT']
 USE_HTTP_REPO = ENV['USE_HTTP_REPO']
 FileUtils.mkdir_p(CLONE_DIR)
-Git.global_config('credential.helper', 'store')
 Gitlab.projects.auto_paginate.map do |repo|
   next if !IGNORE_ARCHIVED_PROJECT.nil? && repo.archived
 

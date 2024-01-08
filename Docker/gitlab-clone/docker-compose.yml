@@ -1,0 +1,29 @@
+version: '3.9'
+services:
+  gitlab-clone:
+    image: apiv1/gitlab:clone
+    entrypoint: sh
+    command: |
+      -c '
+        if test -n "${USE_HTTP_REPO:-}"; then
+          cp /app/.git-credentials /root/.git-credentials
+          chmod 400 /root/.git-credentials
+          test -n $HTTP_PROXY && export http_proxy=$HTTP_PROXY && git config --global http.proxy $HTTP_PROXY
+          git config --global credential.helper store
+        else
+          mkdir -p /root/.ssh
+          cp .ssh/id_rsa /root/.ssh/id_rsa
+          chmod 400 /root/.ssh/id_rsa
+          export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+        fi
+        if test -n "${FOREVER:-}"; then
+          while true; do gitlab-clone $GITLAB_HOST; TZ=Asia/Shanghai date; sleep 15m; done
+        else
+          gitlab-clone $GITLAB_HOST
+        fi
+      '
+    working_dir: /app
+    env_file:
+      - .env
+    volumes:
+      - .:/app

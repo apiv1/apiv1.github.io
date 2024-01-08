@@ -47,6 +47,7 @@
 |  &nbsp;|--&nbsp;[gitlab-clone](./Docker/gitlab-clone)  
 |  &nbsp;|  &nbsp;|--&nbsp;[Dockerfile](./Docker/gitlab-clone/Dockerfile)  
 |  &nbsp;|  &nbsp;|--&nbsp;[README.md](./Docker/gitlab-clone/README.md)  
+|  &nbsp;|  &nbsp;|--&nbsp;[docker-compose.yml](./Docker/gitlab-clone/docker-compose.yml)  
 |  &nbsp;|  &nbsp;|--&nbsp;[gitlab-clone](./Docker/gitlab-clone/gitlab-clone)  
 |  &nbsp;|  &nbsp;+--&nbsp;[run.sh](./Docker/gitlab-clone/run.sh)  
 |  &nbsp;|--&nbsp;[gitlab-runner](./Docker/gitlab-runner)  

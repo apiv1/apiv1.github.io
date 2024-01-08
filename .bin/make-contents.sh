@@ -25,8 +25,3 @@ handle() {
 CONTENT_FILE=README.md
 echo '# Contents' > "$CONTENT_FILE"
 (tree --sort name -v -f --noreport | handle) >> "$CONTENT_FILE"
-if test -n "$(git status -s "$CONTENT_FILE")"; then
-  echo '[HOOK]' \'"$CONTENT_FILE"\' updated, please commit again
-  git status
-  exit 1
-fi

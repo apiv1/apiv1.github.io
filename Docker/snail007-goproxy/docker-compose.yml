@@ -1,0 +1,13 @@
+version: '3.9'
+services:
+  sim-business:
+    image: snail007/goproxy
+    entrypoint: sh
+    command: |
+      -c '
+        /proxy tcp -p ":33080" -T tcp -P "192.168.22.33:22"&
+        /proxy tcp -p ":33081" -T tcp -P "192.168.22.34:22"&
+        while true; do sleep 1s; done
+      '
+    ports:
+      - 33000-34000:33000-34000

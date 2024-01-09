@@ -1,0 +1,24 @@
+version: '3.9'
+services:
+  frpc:
+    image: snowdreamtech/frpc
+    entrypoint: sh
+    command: |
+      -c '
+        frpc -c /etc/frp/frpc.ini
+      '
+    volumes:
+      - ./frpc.ini:/etc/frp/frpc.ini
+    network_mode: host
+    restart: always
+  frps:
+    image: snowdreamtech/frps
+    entrypoint: sh
+    command: |
+      -c '
+        frps -c /etc/frp/frps.ini
+      '
+    volumes:
+      - ./frps.ini:/etc/frp/frps.ini
+    network_mode: host
+    restart: always

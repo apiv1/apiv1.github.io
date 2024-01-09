@@ -1,0 +1,104 @@
+version: '3.9'
+services:
+  xray:
+    image: teddysun/xray
+    restart: always
+    command: xray run -c /etc/xray/config.json
+    configs:
+      - source: config.json
+        target: /etc/xray/config.json
+    ports:
+      - 1080:1080
+      - 3128:3128
+configs:
+  config.json:
+    content: |
+      {
+        "log": {
+          "access": "",
+          "error": "",
+          "loglevel": "warning"
+        },
+        "inbounds": [
+          {
+            "tag": "socks",
+            "port": 1080,
+            "listen": "0.0.0.0",
+            "protocol": "socks",
+            "sniffing": {
+              "enabled": true,
+              "destOverride": [
+                "http",
+                "tls"
+              ],
+              "routeOnly": false
+            },
+            "settings": {
+              "auth": "password",
+              "accounts": [
+                  {
+                      "user": "proxy",
+                      "pass": "proxy123"
+                  }
+              ],
+              "udp": true,
+              "allowTransparent": true
+            }
+          },
+          {
+            "tag": "http",
+            "port": 3128,
+            "listen": "0.0.0.0",
+            "protocol": "http",
+            "sniffing": {
+              "enabled": true,
+              "destOverride": [
+                "http",
+                "tls"
+              ],
+              "routeOnly": false
+            },
+            "settings": {
+              "auth": "password",
+              "accounts": [
+                  {
+                      "user": "proxy",
+                      "pass": "proxy123"
+                  }
+              ],
+              "udp": true,
+              "allowTransparent": true
+            }
+          }
+        ],
+        "outbounds": [
+            {
+                "protocol": "freedom",
+                "settings": {
+                    "domainStrategy": "UseIPv4"
+                },
+                "tag": "IPv4-out"
+            },
+            {
+                "protocol": "freedom",
+                "settings": {
+                    "domainStrategy": "UseIPv6"
+                },
+                "tag": "IPv6-out"
+            },
+            {
+                "protocol": "freedom",
+                "settings": {},
+                "tag": "direct"
+            },
+            {
+                "protocol": "blackhole",
+                "tag": "blackhole-out"
+            }
+        ],
+        "dns": {
+          "servers": [
+            "8.8.8.8"
+          ]
+        }
+      }

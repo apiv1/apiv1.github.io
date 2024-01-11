@@ -12,3 +12,4 @@ services:
     - acceptable_local_ip_addresses=*
     ports:
     - 1723:1723
+    - 1723:1723/udp

@@ -199,6 +199,7 @@
 |  &nbsp;|--&nbsp;[httpserver](./Go/httpserver)  
 |  &nbsp;|  &nbsp;|--&nbsp;[Dockerfile](./Go/httpserver/Dockerfile)  
 |  &nbsp;|  &nbsp;|--&nbsp;[README.md](./Go/httpserver/README.md)  
+|  &nbsp;|  &nbsp;|--&nbsp;[docker-compose.yml](./Go/httpserver/docker-compose.yml)  
 |  &nbsp;|  &nbsp;|--&nbsp;[go.mod](./Go/httpserver/go.mod)  
 |  &nbsp;|  &nbsp;+--&nbsp;[main.go](./Go/httpserver/main.go)  
 |  &nbsp;|--&nbsp;[ip-echo](./Go/ip-echo)  

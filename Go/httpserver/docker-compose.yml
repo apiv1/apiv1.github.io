@@ -1,0 +1,10 @@
+version: '3.9'
+services:
+  httpserver:
+    image: apiv1/httpserver
+    restart: always
+    command: /data
+    volumes:
+      - ./data:/data
+    ports:
+      - 8088:8088

@@ -9,3 +9,15 @@
 ```
 2. ```C:\Program Files\RDP Wrapper```这个文件夹添加到[杀软排除目录](./自带杀软设置排除文件.md)里
 3. [RDPWrap](https://github.com/SobieskiCodes/RDPWrap) 下载这个 安装
+
+
+4. 创建用户, 并添加到远程组
+打开管理员终端
+```powershell
+# 创建并添加组
+net user $USER $PASSWORD /add
+net localgroup 'Remote Desktop Users' $USER /add
+
+# 删除用户
+net user $USER /del
+```

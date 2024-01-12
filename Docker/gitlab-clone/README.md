@@ -49,3 +49,9 @@ docker run --name gitlab_clone --restart always -d \
 -v $PWD/$GITLAB_HOST:/mirrors -v $PWD/.git-credentials:/root/.git-credentials \
 --entrypoint sh $GITLAB_CLONE_IMAGE -c 'while true; do gitlab-clone /mirrors; TZ=Asia/Shanghai date; sleep 15m; done'
 ```
+
+refs
+====
+gems:
+[Git](https://rubydoc.info/gems/git)
+[Gitlab](https://rubydoc.info/gems/gitlab)

@@ -293,6 +293,7 @@
 |--&nbsp;[MySQL](./MySQL)  
 |  &nbsp;+--&nbsp;[docker容器里mysql中文乱码.md](./MySQL/docker容器里mysql中文乱码.md)  
 |--&nbsp;[PowerShell](./PowerShell)  
+|  &nbsp;|--&nbsp;[pwsh使用Brew.md](./PowerShell/pwsh使用Brew.md)  
 |  &nbsp;|--&nbsp;[乱码.md](./PowerShell/乱码.md)  
 |  &nbsp;+--&nbsp;[历史搜索补全.md](./PowerShell/历史搜索补全.md)  
 |--&nbsp;[Python](./Python)  

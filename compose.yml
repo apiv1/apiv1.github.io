@@ -5,6 +5,8 @@ services:
     volumes:
       - home:/root
       - .:/app
+    tmpfs:
+      - /root/.ssh
     configs:
       - source: .gitconfig
         target: /root/.gitconfig
@@ -15,9 +17,17 @@ services:
 configs:
   .bash_aliases:
       content: |
-        [ -f ./Shell/richrc ] && source ./Shell/richrc
+        test -f ./Shell/richrc && source ./Shell/richrc
+        test -d .ssh && cp -R .ssh/* /root/.ssh/ && chmod -R 400 /root/.ssh/
+        export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
         myvim_install () {
           git clone https://github.com/myvim/.vim ~/.vim
+        }
+        myself_install() {
+          test -d .git && echo 'already installed' && return 1
+          git clone --no-checkout https://github.com/apiv1/apiv1.github.io /tmp/apiv1/apiv1.github.io
+          mv /tmp/apiv1/apiv1.github.io/.git .
+          git reset --hard HEAD
         }
   .gitconfig:
       content: |

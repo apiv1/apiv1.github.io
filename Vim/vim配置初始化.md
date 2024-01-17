@@ -1,7 +1,7 @@
 ```bash
 # 国内github镜像源
-git config --global url."https://gitclone.com/github.com/".insteadOf https://git::@github.com/ # only for windows
-git config --global url."https://gitclone.com/github.com/".insteadOf https://github.com/
+git config --global url."https://kkgithub.com/".insteadOf https://git::@github.com/ # only for windows
+git config --global url."https://kkgithub.com/".insteadOf https://github.com/
 git config --global url."https://github.com/".pushInsteadOf https://github.com/
 
 # or
@@ -9,9 +9,9 @@ git config --global url."https://github.com/".pushInsteadOf https://github.com/
 cat <<EOF > ~/.gitconfig
 [url "https://github.com/"]
   pushInsteadOf = https://github.com/
-[url "https://gitclone.com/github.com/"]
+[url "https://kkgithub.com/"]
   insteadOf = https://git::@github.com/
-[url "https://gitclone.com/github.com/"]
+[url "https://kkgithub.com/"]
   insteadOf = https://github.com/
 EOF
 

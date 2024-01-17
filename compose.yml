@@ -1,0 +1,33 @@
+services:
+  editor:
+    image: apiv1/myvim
+    working_dir: /app
+    volumes:
+      - home:/root
+      - .:/app
+    configs:
+      - source: .gitconfig
+        target: /root/.gitconfig
+      - source: .bash_aliases
+        target: /root/.bash_aliases
+    environment:
+      - LC_ALL=C.UTF-8
+configs:
+  .bash_aliases:
+      content: |
+        [ -f ./Shell/richrc ] && source ./Shell/richrc
+        myvim_install () {
+          git clone https://github.com/myvim/.vim ~/.vim
+        }
+  .gitconfig:
+      content: |
+        [safe]
+          directory = *
+        [credential]
+          helper = store
+        [url "https://kkgithub.com/"]
+          insteadOf = https://github.com/
+        [url "git@github.com:"]
+          pushInsteadOf = https://github.com/
+volumes:
+  home:

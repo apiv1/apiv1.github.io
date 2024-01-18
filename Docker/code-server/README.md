@@ -44,3 +44,8 @@ docker run -d \
   --restart unless-stopped \
   lscr.io/linuxserver/code-server:latest
 ```
+
+hashed password
+```shell
+echo -n "thisismypassword" | npx argon2-cli -e
+```

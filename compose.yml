@@ -16,28 +16,49 @@ services:
       - LC_ALL=C.UTF-8
 configs:
   .bash_aliases:
-      content: |
-        test -f ./Shell/richrc && source ./Shell/richrc
-        test -d .ssh && cp -R .ssh/* /root/.ssh/ && chmod -R 400 /root/.ssh/
-        export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
-        myvim_install () {
-          git clone https://github.com/myvim/.vim ~/.vim
-        }
-        myself_install() {
-          test -d .git && echo 'already installed' && return 1
-          git clone --no-checkout https://github.com/apiv1/apiv1.github.io /tmp/apiv1/apiv1.github.io
-          mv /tmp/apiv1/apiv1.github.io/.git .
-          git reset --hard HEAD
-        }
+    content: |
+      export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+      test -f ./Shell/richrc && source ./Shell/richrc
+      test -d .ssh && cp -R .ssh/* /root/.ssh/ && chmod -R 400 /root/.ssh/
+      ssh_keys_decrypt() {
+        test -d /app/.ssh.enc || return 1
+        test -z $$AES_KEY && echo -n 'password: ' && read -s AES_KEY && export AES_KEY && echo
+        for item in `ls /app/.ssh.enc`
+        do
+          cat /app/.ssh.enc/$$item | base64 -d | aes -d > ~/.ssh/$$item
+          chmod 400 ~/.ssh/$$item
+          echo "decrypt: /app/.ssh.enc/$$item => ~/.ssh/$$item"
+        done
+      }
+      ssh_keys_encrypt() {
+        test -z $$AES_KEY && echo -n 'password: ' && read -s AES_KEY && export AES_KEY && echo
+        mkdir -p /app/.ssh.enc
+        for item in `ls ~/.ssh`
+        do
+          cat ~/.ssh/$$item | aes -e | base64 -w 0 > /app/.ssh.enc/$$item
+          echo "encrypt: ~/.ssh/$$item => /app/.ssh.enc/$$item"
+        done
+      }
+      myvim_install () {
+        git clone https://github.com/myvim/.vim ~/.vim
+      }
+      myself_install() {
+        test -d .git && echo 'already installed' && return 1
+        git clone --no-checkout https://github.com/apiv1/apiv1.github.io /tmp/apiv1/apiv1.github.io
+        mv /tmp/apiv1/apiv1.github.io/.git .
+        git reset --hard HEAD
+      }
   .gitconfig:
-      content: |
-        [safe]
-          directory = *
-        [credential]
-          helper = store
-        [url "https://kkgithub.com/"]
-          insteadOf = https://github.com/
-        [url "git@github.com:"]
-          pushInsteadOf = https://github.com/
+    content: |
+      [safe]
+        directory = *
+      [credential]
+        helper = store
+      [url "https://kkgithub.com/"]
+        insteadOf = https://github.com/
+      [url "ssh://git@ssh.github.com:443/"]
+        pushInsteadOf = https://github.com/
+      [url "ssh://git@ssh.github.com:443/"]
+        insteadOf = git@github.com:
 volumes:
   home:

@@ -5,8 +5,13 @@ services:
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
-      - TZ=Asia/Shanghai
-      - DEFAULT_WORKSPACE=/workspace
+      - PASSWORD=${PASSWORD:-}
+      - HASHED_PASSWORD=${HASHED_PASSWORD:-}
+      - SUDO_PASSWORD=${SUDO_PASSWORD:-}
+      - SUDO_PASSWORD_HASH=${SUDO_PASSWORD_HASH:-}
+      - PROXY_DOMAIN=${PROXY_DOMAIN:-}
+      - TZ=${TZ:-Asia/Shanghai}
+      - DEFAULT_WORKSPACE=${DEFAULT_WORKSPACE:-/workspace}
     volumes:
       - config:/config
       - ./.workspace:/workspace
@@ -24,7 +29,7 @@ services:
         uid: ${PUID:-1000}
         gid: ${PGID:-1000}
     ports:
-      - 127.0.0.1:8443:8443
+      - ${LISTEN_ADDR:-127.0.0.1:8443}:8443
     restart: unless-stopped
 configs:
   .bash_aliases:

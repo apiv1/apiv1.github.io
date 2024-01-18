@@ -2,6 +2,9 @@
 
 set -e
 
+SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)/..";pwd)
+cd $SCRIPT_HOME
+
 type tree > /dev/null 2>&1 || (echo 'please install `tree`'; exit 1)
 
 handle() {

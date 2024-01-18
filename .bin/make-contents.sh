@@ -25,6 +25,8 @@ handle() {
   done
 }
 
+export LC_ALL=C.UTF-8
 CONTENT_FILE=README.md
 echo '# Contents' > "$CONTENT_FILE"
+
 (tree --sort name -v -f --noreport | handle) >> "$CONTENT_FILE"

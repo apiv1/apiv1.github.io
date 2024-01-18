@@ -20,27 +20,28 @@ configs:
       export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
       test -f ./Shell/richrc && source ./Shell/richrc
       test -d .ssh && cp -R .ssh/* /root/.ssh/ && chmod -R 400 /root/.ssh/
+      test -d .ssh.enc && mkdir -p /root/.ssh.enc/ && cp -R .ssh.enc/* /root/.ssh.enc/
       ssh_keys_decrypt() {
-        test -d /app/.ssh.enc || return 1
+        test -d ~/.ssh.enc || return 1
         test -z $$AES_KEY && echo -n 'password: ' && read -s AES_KEY && export AES_KEY && echo
-        for item in `ls /app/.ssh.enc`
+        for item in `ls ~/.ssh.enc`
         do
-          cat /app/.ssh.enc/$$item | base64 -d | aes -d > ~/.ssh/$$item
+          cat ~/.ssh.enc/$$item | base64 -d | aes -d > ~/.ssh/$$item
           chmod 400 ~/.ssh/$$item
-          echo "decrypt: /app/.ssh.enc/$$item => ~/.ssh/$$item"
+          echo "decrypt: ~/.ssh.enc/$$item => ~/.ssh/$$item"
         done
       }
       ssh_keys_encrypt() {
         test -z $$AES_KEY && echo -n 'password: ' && read -s AES_KEY && export AES_KEY && echo
-        mkdir -p /app/.ssh.enc
+        mkdir -p ~/.ssh.enc
         for item in `ls ~/.ssh`
         do
-          cat ~/.ssh/$$item | aes -e | base64 -w 0 > /app/.ssh.enc/$$item
-          echo "encrypt: ~/.ssh/$$item => /app/.ssh.enc/$$item"
+          cat ~/.ssh/$$item | aes -e | base64 -w 0 > ~/.ssh.enc/$$item
+          echo "encrypt: ~/.ssh/$$item => ~/.ssh.enc/$$item"
         done
       }
       ssh_keys_install () {
-        git clone https://github.com/apiv1/.ssh.enc
+        git clone https://github.com/apiv1/.ssh.enc ~/.ssh.enc
       }
       myvim_install () {
         git clone https://github.com/myvim/.vim ~/.vim

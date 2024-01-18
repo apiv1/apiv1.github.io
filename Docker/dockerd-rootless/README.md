@@ -9,7 +9,7 @@ wget -q -O install.sh https://apiv1.github.io/Docker/dockerd-rootless/install.sh
 
 ### 可选是否安装docker-compose
 ```bash
-export DOCKER_COMPOSE_VERSION=v2.23.3 # https://github.com/docker/compose/releases/latest
+export DOCKER_COMPOSE_VERSION=v2.24.0 # https://github.com/docker/compose/releases/latest
 export INSTALL_FILE_PATH=~/.dockerd/bin/docker-compose
 wget -O $INSTALL_FILE_PATH https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-linux-$(uname -m)
 chmod +x $INSTALL_FILE_PATH

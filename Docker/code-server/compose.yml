@@ -6,19 +6,25 @@ services:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
       - TZ=Asia/Shanghai
-      - DEFAULT_WORKSPACE=/config/workspace
+      - DEFAULT_WORKSPACE=/workspace
     volumes:
       - config:/config
-      - ./.workspace:/config/workspace
+      - ./.workspace:/workspace
     tmpfs:
-      - /root/.ssh
+      - /config/.ssh
     configs:
       - source: .gitconfig
         target: /config/.gitconfig
+        mode: 0400
+        uid: ${PUID:-1000}
+        gid: ${PGID:-1000}
       - source: .bash_aliases
         target: /config/.bash_aliases
+        mode: 0400
+        uid: ${PUID:-1000}
+        gid: ${PGID:-1000}
     ports:
-      - 8443:8443
+      - 127.0.0.1:8443:8443
     restart: unless-stopped
 configs:
   .bash_aliases:
@@ -26,8 +32,8 @@ configs:
       export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
       test -f ~/.richrc && . ~/.richrc
       load_local_ssh_keys() {
-        test -d .ssh && cp -R .ssh/* /root/.ssh/ && chmod -R 400 /root/.ssh/
-        test -d .ssh.enc && mkdir -p /root/.ssh.enc/ && cp -R .ssh.enc/* /root/.ssh.enc/
+        test -d .ssh && cp -R .ssh/* /config/.ssh/ && chmod -R 400 /config/.ssh/
+        test -d .ssh.enc && mkdir -p /config/.ssh.enc/ && cp -R .ssh.enc/* /config/.ssh.enc/
       }
       ssh_keys_decrypt() {
         echo "decrypt: ~/.ssh.enc => ~/.ssh"

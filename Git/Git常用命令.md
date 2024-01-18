@@ -24,6 +24,11 @@ git rm --cached -r .;git reset --hard;git rm .gitattributes;git reset .;git chec
 export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 ```
 
+```shell
+# 忽略权限 (全局设置无效)
+git config core.filemode false
+```
+
 ### ~/.ssh/config
 参考例子
 ```config

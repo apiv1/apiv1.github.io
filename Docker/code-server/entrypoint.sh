@@ -13,6 +13,8 @@ else
     PROXY_DOMAIN_ARG="--proxy-domain=${PROXY_DOMAIN}"
 fi
 
+mkdir -p /root/.code/{data,extensions}
+
 exec tini -- code-server \
   --bind-addr 0.0.0.0:8443 \
   --user-data-dir /root/.code/data \

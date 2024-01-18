@@ -16,6 +16,7 @@ services:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
       - LC_ALL=C.UTF-8
+      - LANG=C.UTF-8
       - TZ=Asia/Shanghai
 configs:
   .bash_aliases:

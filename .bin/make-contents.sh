@@ -25,7 +25,13 @@ handle() {
   done
 }
 
-export LC_ALL=C.UTF-8 LANG=C.UTF-8
+TREE_VERSION=$(tree --version|awk '{print $2}')
+if test $TREE_VERSION == 'v2.0.2'; then
+  export LC_ALL=C.UTF-8 LANG=C.UTF-8
+elif test $TREE_VERSION == 'v2.1.1'; then
+  export LC_ALL=zh_CN.UTF-8 LANG=zh_CN.UTF-8
+fi
+
 CONTENT_FILE=README.md
 echo '# Contents' > "$CONTENT_FILE"
 

@@ -9,6 +9,7 @@ services:
       - HASHED_PASSWORD=${HASHED_PASSWORD:-}
       - PROXY_DOMAIN=${PROXY_DOMAIN:-}
       - LC_ALL=C.UTF-8
+      - LANG=C.UTF-8
       - TZ=Asia/Shanghai
     volumes:
       - root:/root

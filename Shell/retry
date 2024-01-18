@@ -1,0 +1,3 @@
+retry() {
+  until $*; do ; done
+}

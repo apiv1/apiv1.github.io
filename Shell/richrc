@@ -82,7 +82,7 @@ rich_shell() {
             export __LAST_CODE__=$?
             RICH_PS1=''
             test -n "$__RICHRC__RICH_MODE" && export RICH_PS1="\n$___RICH_PREFIX___\[\e[31m\]▒▓█\[\e[37;41m\]$(__richrc__sys_info)\[\e[31;40m\]█▓▒\[\e[0m\] \[\e[32m\]🕰️  [$(__richrc__date_fmt)]\[\e[0m\]\n$___RICH_MIDDLE___\[\e[1;33m\] <$(__richrc__tty_info)> \[\e[1;34m\]📂 $(ls -1 | wc -l | sed 's: ::g') files \[\e[1;33m\]$(ls -lah | grep -m 1 total | sed 's/total //')b\[\e[0m\] $(__richrc__prompt)\n$___POOR_PREFIX___"
-            export PS1=$RICH_PS1'\[\e[40m\]\[\e[36m\](bash) \[\e[38;5;135m\]\u\[\e[0m\]@\[\e[40;38;5;166m\]\h \[\e[46;30;118m\]'$___RICH_RIGHT_ARROW___'\[\e[46;30;118m\]\w\[\e[0m\]\[\e[36;118m\]'$___RICH_RIGHT_ARROW___'\[\e[0m\] {\[\e[33m\]'$__LAST_CODE__'\[\e[0m\]}\n'$__richrc__symbol' '
+            export PS1=$RICH_PS1'\[\e[40m\]\[\e[36m\](bash) \[\e[38;5;135m\]\u\[\e[30m\]@\[\e[40;38;5;166m\]\h \[\e[46;30;118m\]'$___RICH_RIGHT_ARROW___'\[\e[46;30;118m\]\w\[\e[0m\]\[\e[36;118m\]'$___RICH_RIGHT_ARROW___'\[\e[0m\] {\[\e[33m\]'$__LAST_CODE__'\[\e[0m\]}\n'$__richrc__symbol' '
         }
         export PROMPT_COMMAND='___richrc__update_ps1' RPROMPT=''
     elif test -n "$ZSH_VERSION"; then

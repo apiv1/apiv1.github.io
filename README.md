@@ -325,6 +325,7 @@
 |  &nbsp;|--&nbsp;[hoster](./Shell/hoster)  
 |  &nbsp;|--&nbsp;[proxyrc](./Shell/proxyrc)  
 |  &nbsp;|--&nbsp;[random](./Shell/random)  
+|  &nbsp;|--&nbsp;[retry](./Shell/retry)  
 |  &nbsp;+--&nbsp;[richrc](./Shell/richrc)  
 |--&nbsp;[Swift](./Swift)  
 |  &nbsp;|--&nbsp;[didRegisterForRemoteNotificationsWithDeviceToken.md](./Swift/didRegisterForRemoteNotificationsWithDeviceToken.md)  

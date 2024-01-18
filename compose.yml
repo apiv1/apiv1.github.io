@@ -39,6 +39,9 @@ configs:
           echo "encrypt: ~/.ssh/$$item => /app/.ssh.enc/$$item"
         done
       }
+      ssh_keys_install () {
+        git clone https://github.com/apiv1/.ssh.enc
+      }
       myvim_install () {
         git clone https://github.com/myvim/.vim ~/.vim
       }

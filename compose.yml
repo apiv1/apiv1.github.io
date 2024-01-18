@@ -13,6 +13,8 @@ services:
       - source: .bash_aliases
         target: /root/.bash_aliases
     environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
       - LC_ALL=C.UTF-8
       - TZ=Asia/Shanghai
 configs:

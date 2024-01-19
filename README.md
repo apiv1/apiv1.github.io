@@ -230,6 +230,7 @@
 |  &nbsp;|--&nbsp;[circular_references](./Javascript/circular_references)  
 |  &nbsp;|  &nbsp;|--&nbsp;[deepcopy.js](./Javascript/circular_references/deepcopy.js)  
 |  &nbsp;|  &nbsp;+--&nbsp;[detect.js](./Javascript/circular_references/detect.js)  
+|  &nbsp;|--&nbsp;[npm包相关.md](./Javascript/npm包相关.md)  
 |  &nbsp;+--&nbsp;[random.js](./Javascript/random.js)  
 |--&nbsp;[K8s](./K8s)  
 |  &nbsp;|--&nbsp;[base](./K8s/base)  

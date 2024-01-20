@@ -114,6 +114,8 @@
 |  &nbsp;|  &nbsp;|--&nbsp;[docker-compose.yml](./Docker/nginx-certbot/docker-compose.yml)  
 |  &nbsp;|  &nbsp;|--&nbsp;[example_server.conf](./Docker/nginx-certbot/example_server.conf)  
 |  &nbsp;|  &nbsp;+--&nbsp;[nginx.conf](./Docker/nginx-certbot/nginx.conf)  
+|  &nbsp;|--&nbsp;[nvm](./Docker/nvm)  
+|  &nbsp;|  &nbsp;+--&nbsp;[Dockerfile](./Docker/nvm/Dockerfile)  
 |  &nbsp;|--&nbsp;[openldap](./Docker/openldap)  
 |  &nbsp;|  &nbsp;+--&nbsp;[docker-compose.yml](./Docker/openldap/docker-compose.yml)  
 |  &nbsp;|--&nbsp;[pack](./Docker/pack)  

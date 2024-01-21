@@ -284,6 +284,7 @@
 |  &nbsp;|--&nbsp;[netstat查看连接状态.md](./Linux/netstat查看连接状态.md)  
 |  &nbsp;|--&nbsp;[使用frp映射内网linux的ssh端口到外网.md](./Linux/使用frp映射内网linux的ssh端口到外网.md)  
 |  &nbsp;|--&nbsp;[加虚拟内存.md](./Linux/加虚拟内存.md)  
+|  &nbsp;|--&nbsp;[卸载腾讯云的服务.md](./Linux/卸载腾讯云的服务.md)  
 |  &nbsp;|--&nbsp;[卸载阿里云盾.md](./Linux/卸载阿里云盾.md)  
 |  &nbsp;|--&nbsp;[命令行查外网IP.md](./Linux/命令行查外网IP.md)  
 |  &nbsp;|--&nbsp;[挂载硬盘.md](./Linux/挂载硬盘.md)  

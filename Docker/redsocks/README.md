@@ -37,4 +37,5 @@ docker-compose exec redsocks redsocks-fw.sh stop
 验证代理生效
 ```shell
 docker run --rm -it rancher/curl ipinfo.io
+docker run --rm -it netdata/wget wget -O - ipinfo.io
 ```

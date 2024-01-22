@@ -45,6 +45,11 @@ yum update
 wget -O /etc/yum.repos.d/CentOS-hwcloud.repo https://repo.huaweicloud.com/repository/conf/CentOS-8-reg.repo
 ```
 
+### CentOS tencent cloud
+```shell
+wget -O /etc/yum.repos.d/CentOS-Tencent.repo https://mirrors.cloud.tencent.com/repo/centos7_base.repo
+```
+
 ### ArchLinux
 ```shell
 mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak

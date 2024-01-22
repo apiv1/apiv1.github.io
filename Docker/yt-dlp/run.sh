@@ -1,0 +1,1 @@
+yt-dlp () { docker run --rm -it -w /workspace -v $PWD/.workspace:/workspace --net host --add-host host.docker.internal:host-gateway jauderho/yt-dlp $*; }

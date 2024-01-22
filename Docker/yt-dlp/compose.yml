@@ -1,0 +1,9 @@
+service:
+  yt-dlp:
+    image: jauderho/yt-dlp
+    working_dir: /workspace
+    volumes:
+      - ./.workspace:/workspace
+    network_mode: host
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

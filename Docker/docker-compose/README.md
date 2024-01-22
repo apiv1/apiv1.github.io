@@ -7,18 +7,20 @@ docker build . --build-arg DOCKER_COMPOSE_VERSION=$DOCKER_COMPOSE_VERSION  -t ap
 docker buildx build . --platform linux/amd64,linux/arm64 --build-arg DOCKER_COMPOSE_VERSION=$DOCKER_COMPOSE_VERSION --push -t apiv1/docker-compose -t apiv1/docker-compose:$DOCKER_COMPOSE_VERSION
 ```
 
-### 打包 compose.yml 到镜像 示例
+### 打包配置到镜像 示例
+
 ```shell
-export DOCKER_COMPOSE_IMAGE=docker-compose-image # 指定镜像名称
+export DOCKER_COMPOSE_IMAGE=<docker-compose-image> # 指定镜像名称
 cp $DOCKER_COMPOSE_FILE compose.yml
 docker build . -f ./Dockerfile.compose -t $DOCKER_COMPOSE_IMAGE
 docker buildx build . -f ./Dockerfile.compose --platform linux/amd64,linux/arm64 --push -t $DOCKER_COMPOSE_IMAGE
 rm compose.yml
 ```
 
-### 使用 compose.yml 打包镜像
+### compose-image 使用镜像
 
-##### 可以使用函数,也可以把执行部分的镜像变量写死, 直接运行.
+##### 可以使用函数,也可以把执行部分的镜像变量写死, 直接运行
+
 ```shell
 compose-image () {
   if test "$#" -lt 1; then
@@ -28,7 +30,11 @@ compose-image () {
   DOCKER_COMPOSE_IMAGE=$1
   shift 1
 
-  DOCKER_SOCK=${DOCKER_SOCK:-${DOCKER_HOST//^unix:\/\//}} docker run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -w "$PWD" -v "$PWD:$PWD" $DOCKER_COMPOSE_IMAGE --project-directory "$PWD" $*
+  PUID=$(id -u)
+  PGID=$(id -g)
+  test $PUID -eq 0 || export SUDO=sudo
+  test -n "$DOCKER_HOST" -a -z "$DOCKER_SOCK" && export DOCKER_SOCK=${DOCKER_HOST//unix:\/\//}
+  $SUDO $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PWD:$PWD" -w "$PWD" -e DOCKER_SOCK="${DOCKER_SOCK}" -e PUID=$PUID -e PGID=$PGID $DOCKER_COMPOSE_IMAGE --project-directory "$PWD" $*
 }
 ```
 
@@ -45,17 +51,27 @@ docker contaienr remove docker-compose-container
 bash/zsh
 
 ###### 直接mount $PWD, 在$PWD中读取compose.yml
+
 ```shell
 docker-compose() {
-  DOCKER_SOCK=${DOCKER_SOCK:-${DOCKER_HOST//^unix:\/\//}} docker run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PWD:$PWD" -w "$PWD" apiv1/docker-compose $*
+  PUID=$(id -u)
+  PGID=$(id -g)
+  test $PUID -eq 0 || export SUDO=sudo
+  test -n "$DOCKER_HOST" -a -z "$DOCKER_SOCK" && export DOCKER_SOCK=${DOCKER_HOST//unix:\/\//}
+  $SUDO $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PWD:$PWD" -w "$PWD" -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" apiv1/docker-compose $*
 }
 ```
 
 ###### 把compose.yml mount到指定路径，不从$PWD中读取compose.yml
+
 ```shell
 docker-compose () {
+  PUID=$(id -u)
+  PGID=$(id -g)
+  test $PUID -eq 0 || export SUDO=sudo
   DOCKER_COMPOSE_FILE=${DOCKER_COMPOSE_FILE:-$PWD/compose.yml}
-  DOCKER_SOCK=${DOCKER_SOCK:-${DOCKER_HOST//^unix:\/\//}} docker run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PWD:$PWD" -v $DOCKER_COMPOSE_FILE:/compose.yml -w "$PWD" apiv1/docker-compose -f /compose.yml --project-directory "$PWD" $*
+  test -n "$DOCKER_HOST" -a -z "$DOCKER_SOCK" && export DOCKER_SOCK=${DOCKER_HOST//unix:\/\//}
+  $SUDO $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PWD:$PWD" -w "$PWD" -v $DOCKER_COMPOSE_FILE:/compose.yml -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" apiv1/docker-compose -f /compose.yml --project-directory "$PWD" $*
 }
 ```
 

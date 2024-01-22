@@ -23,6 +23,7 @@
 |  &nbsp;|  &nbsp;|--&nbsp;[Dockerfile](./Docker/code-server/Dockerfile)  
 |  &nbsp;|  &nbsp;|--&nbsp;[README.md](./Docker/code-server/README.md)  
 |  &nbsp;|  &nbsp;|--&nbsp;[compose.yml](./Docker/code-server/compose.yml)  
+|  &nbsp;|  &nbsp;|--&nbsp;[dind.yml](./Docker/code-server/dind.yml)  
 |  &nbsp;|  &nbsp;+--&nbsp;[entrypoint.sh](./Docker/code-server/entrypoint.sh)  
 |  &nbsp;|--&nbsp;[consul](./Docker/consul)  
 |  &nbsp;|  &nbsp;|--&nbsp;[config](./Docker/consul/config)  

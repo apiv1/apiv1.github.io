@@ -1,4 +1,7 @@
 ARG CODE_SERVER_IMAGE=code-server
+ARG CODE_SERVER_DAEMON_IMAGE=daemon
+ARG DIND_IMAGE=apiv1/dind:25.0.0
+ARG DOCKER_COMPOSE_IMAGE=apiv1/docker-compose:v2.24.0
 
 FROM ubuntu:22.04 AS code-server
 ARG TARGETOS
@@ -32,3 +35,9 @@ RUN ln -s /code-server/bin/code-server /bin/code-server && \
 EXPOSE 8443
 
 ENTRYPOINT [ "/entrypoint.sh" ]
+
+FROM ${DIND_IMAGE} AS dind
+FROM ${DOCKER_COMPOSE_IMAGE} AS docker-compose
+FROM ${CODE_SERVER_DAEMON_IMAGE} AS daemon-dind
+COPY --from=dind /docker /usr/local/bin/docker
+COPY --from=docker-compose /docker-compose /usr/local/bin/docker-compose

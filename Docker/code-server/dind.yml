@@ -1,0 +1,6 @@
+---
+services:
+  code-server:
+    image: apiv1/code-server:daemon-dind
+    volumes:
+      - ${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock

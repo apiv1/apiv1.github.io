@@ -7,6 +7,14 @@ docker build . --build-arg DOCKER_COMPOSE_VERSION=$DOCKER_COMPOSE_VERSION  -t ap
 docker buildx build . --platform linux/amd64,linux/arm64 --build-arg DOCKER_COMPOSE_VERSION=$DOCKER_COMPOSE_VERSION --push -t apiv1/docker-compose -t apiv1/docker-compose:$DOCKER_COMPOSE_VERSION
 ```
 
+### Linux下安装docker-compose (从容器里拷贝到当前目录)
+
+```shell
+docker container create --name docker-compose-container apiv1/docker-compose
+docker container cp docker-compose-container:/docker-compose .
+docker contaienr remove docker-compose-container
+```
+
 ### 打包配置到镜像 示例
 
 ```shell
@@ -26,23 +34,27 @@ compose-image () {
     echo "usage: <COMPOSE_IMAGE> [ARG1] [ARG2] ..."
     return 1
   fi
-  PROJECT_DIRECTORY=${PROJECT_DIRECTORY:-$PWD}
   DOCKER_COMPOSE_IMAGE=$1
   shift 1
 
+  PROJECT_DIRECTORY=${PROJECT_DIRECTORY:-$PWD}
   PUID=$(id -u)
   PGID=$(id -g)
   test -n "$DOCKER_HOST" -a -z "$DOCKER_SOCK" && export DOCKER_SOCK=${DOCKER_HOST//unix:\/\//}
-  $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -e DOCKER_SOCK="${DOCKER_SOCK}" -e PUID=$PUID -e PGID=$PGID $DOCKER_ARGS $DOCKER_COMPOSE_IMAGE --project-directory "$PROJECT_DIRECTORY" $*
+  $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" $DOCKER_ARGS $DOCKER_COMPOSE_IMAGE --project-directory "$PROJECT_DIRECTORY" $*
 }
-```
 
-Linux下安装docker-compose (从容器里拷贝到当前目录)
+# 作为docker-compose使用
+docker-compose () {
+  compose-image apiv1/docker-compose $*
+}
 
-```shell
-docker container create --name docker-compose-container apiv1/docker-compose
-docker container cp docker-compose-container:/docker-compose .
-docker contaienr remove docker-compose-container
+# (可选) 指定路径 mount compose.yml
+docker-compose () {
+  DOCKER_COMPOSE_FILE=${DOCKER_COMPOSE_FILE:-$PROJECT_DIRECTORY/compose.yml}
+  DOCKER_ARGS=$DOCKER_ARGS" -v $DOCKER_COMPOSE_FILE:/compose.yml"
+  compose-image apiv1/docker-compose $*
+}
 ```
 
 #### 终端: 使用 docker内的docker-compose
@@ -57,7 +69,7 @@ docker-compose() {
   PUID=$(id -u)
   PGID=$(id -g)
   test -n "$DOCKER_HOST" -a -z "$DOCKER_SOCK" && export DOCKER_SOCK=${DOCKER_HOST//unix:\/\//}
-  $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" $DOCKER_ARGS apiv1/docker-compose $*
+  $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" $DOCKER_ARGS apiv1/docker-compose --project-directory "$PROJECT_DIRECTORY" $*
 }
 ```
 
@@ -69,8 +81,9 @@ docker-compose () {
   PUID=$(id -u)
   PGID=$(id -g)
   DOCKER_COMPOSE_FILE=${DOCKER_COMPOSE_FILE:-$PROJECT_DIRECTORY/compose.yml}
+  DOCKER_ARGS=$DOCKER_ARGS" -v $DOCKER_COMPOSE_FILE:/compose.yml"
   test -n "$DOCKER_HOST" -a -z "$DOCKER_SOCK" && export DOCKER_SOCK=${DOCKER_HOST//unix:\/\//}
-  $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -v $DOCKER_COMPOSE_FILE:/compose.yml -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" $DOCKER_ARGS apiv1/docker-compose -f /compose.yml --project-directory "$PROJECT_DIRECTORY" $*
+  $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" $DOCKER_ARGS apiv1/docker-compose --project-directory "$PROJECT_DIRECTORY" -f /compose.yml $*
 }
 ```
 

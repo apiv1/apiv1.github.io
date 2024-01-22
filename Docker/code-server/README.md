@@ -37,7 +37,8 @@ cd ../docker-compose
 
 ```shell
 code-server () {
-  compose-image apiv1/code-server:dind $*
+  DOCKER_ARGS="-e PROXY_DOMAIN=$PROXY_DOMAIN -e LISTEN_ADDR=$LISTEN_ADDR -e PASSWORD=$PASSWORD -e HASHED_PASSWORD=$HASHED_PASSWORD"
+  compose-image apiv1/code-server:dind  --project-name code-server $*
 }
 ```
 

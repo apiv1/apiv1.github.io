@@ -40,6 +40,11 @@ sed -i "/.*\[crb\].*/a\baseurl=https://mirror.tuna.tsinghua.edu.cn/centos-stream
 yum update
 ```
 
+### CentOS huawei cloud
+```shell
+wget -O /etc/yum.repos.d/CentOS-hwcloud.repo https://repo.huaweicloud.com/repository/conf/CentOS-8-reg.repo
+```
+
 ### ArchLinux
 ```shell
 mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak

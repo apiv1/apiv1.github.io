@@ -71,10 +71,12 @@ configs:
       export PATH=~/.bin/:"$PATH"
       mkdir -p ~/.env.d
       load_envs() {
-        for item in `ls ~/.env.d/* 2>/dev/null`
+        cd ~/.env.d || return 1
+        for item in `ls -A 2>/dev/null`
         do
           . $$item
         done
+        cd -
       }
       load_local_ssh_keys() {
         test -d .ssh && cp -R .ssh/* ~/.ssh/ && chmod -R 400 ~/.ssh/

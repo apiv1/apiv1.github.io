@@ -64,6 +64,8 @@ services:
     ports:
       - ${LISTEN_ADDR:-127.0.0.1:8443}:8443
     restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 configs:
   .bash_aliases:
     content: |

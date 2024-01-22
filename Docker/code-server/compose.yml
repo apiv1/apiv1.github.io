@@ -13,7 +13,7 @@ services:
       - TZ=Asia/Shanghai
     volumes:
       - root:/root
-      - ./.workspace:/workspace
+      - .:/workspace
     tmpfs:
       - /root/.ssh
     configs:

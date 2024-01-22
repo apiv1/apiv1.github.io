@@ -33,7 +33,7 @@ compose-image () {
   PUID=$(id -u)
   PGID=$(id -g)
   test -n "$DOCKER_HOST" -a -z "$DOCKER_SOCK" && export DOCKER_SOCK=${DOCKER_HOST//unix:\/\//}
-  $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -e DOCKER_SOCK="${DOCKER_SOCK}" -e PUID=$PUID -e PGID=$PGID $DOCKER_COMPOSE_IMAGE --project-directory "$PROJECT_DIRECTORY" $*
+  $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -e DOCKER_SOCK="${DOCKER_SOCK}" -e PUID=$PUID -e PGID=$PGID $DOCKER_ARGS $DOCKER_COMPOSE_IMAGE --project-directory "$PROJECT_DIRECTORY" $*
 }
 ```
 
@@ -57,7 +57,7 @@ docker-compose() {
   PUID=$(id -u)
   PGID=$(id -g)
   test -n "$DOCKER_HOST" -a -z "$DOCKER_SOCK" && export DOCKER_SOCK=${DOCKER_HOST//unix:\/\//}
-  $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" apiv1/docker-compose $*
+  $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" $DOCKER_ARGS apiv1/docker-compose $*
 }
 ```
 
@@ -70,7 +70,7 @@ docker-compose () {
   PGID=$(id -g)
   DOCKER_COMPOSE_FILE=${DOCKER_COMPOSE_FILE:-$PROJECT_DIRECTORY/compose.yml}
   test -n "$DOCKER_HOST" -a -z "$DOCKER_SOCK" && export DOCKER_SOCK=${DOCKER_HOST//unix:\/\//}
-  $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -v $DOCKER_COMPOSE_FILE:/compose.yml -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" apiv1/docker-compose -f /compose.yml --project-directory "$PROJECT_DIRECTORY" $*
+  $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -v $DOCKER_COMPOSE_FILE:/compose.yml -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" $DOCKER_ARGS apiv1/docker-compose -f /compose.yml --project-directory "$PROJECT_DIRECTORY" $*
 }
 ```
 

@@ -21,11 +21,11 @@ docker buildx build . --target daemon-dind --build-arg CODE_SERVER_DAEMON_IMAGE=
 
 ```shell
 # 生成 .dind.compose.yml
-yq eval-all 'select(fileIndex == 0) *+ select(fileIndex == 1)' compose.yml dind.yml > .dind.compose.yml
+yq eval-all 'select(fileIndex == 0) *+ select(fileIndex == 1)' compose.yml dind.yml > .compose.yml
 
 # 准备打包
 export DOCKER_COMPOSE_IMAGE=apiv1/code-server:dind
-export DOCKER_COMPOSE_FILE=$PWD/../docker-compose/.compose.yml
+export DOCKER_COMPOSE_FILE=$PWD/.compose.yml
 cd ../docker-compose
 ```
 

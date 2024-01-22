@@ -28,7 +28,7 @@ cp .dind.compose.yml ../docker-compose
 cd ../docker-compose
 ```
 
-执行: [`打包 compose.yml 到镜像`](../docker-compose/README.md#打包)
+执行: [`打包 compose.yml 到镜像`](../docker-compose/README.md#打包配置到镜像-示例)
 
 ```shell
 # 镜像名字是这个
@@ -37,7 +37,7 @@ export DOCKER_COMPOSE_IMAGE=apiv1/code-server:dind
 
 #### 使用code-server dind
 
-执行: [`使用打包镜像`](../docker-compose/README.md#compose-image)
+执行: [`使用打包镜像`](../docker-compose/README.md#compose-image-使用镜像)
 
 ```shell
 code-server () {

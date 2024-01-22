@@ -27,6 +27,7 @@ compose-image () {
     echo "usage: <COMPOSE_IMAGE> [ARG1] [ARG2] ..."
     return 1
   fi
+  PROJECT_DIRECTORY=${PROJECT_DIRECTORY:-$PWD}
   DOCKER_COMPOSE_IMAGE=$1
   shift 1
 
@@ -34,7 +35,7 @@ compose-image () {
   PGID=$(id -g)
   test $PUID -eq 0 || export SUDO=sudo
   test -n "$DOCKER_HOST" -a -z "$DOCKER_SOCK" && export DOCKER_SOCK=${DOCKER_HOST//unix:\/\//}
-  $SUDO $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PWD:$PWD" -w "$PWD" -e DOCKER_SOCK="${DOCKER_SOCK}" -e PUID=$PUID -e PGID=$PGID $DOCKER_COMPOSE_IMAGE --project-directory "$PWD" $*
+  $SUDO $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -e DOCKER_SOCK="${DOCKER_SOCK}" -e PUID=$PUID -e PGID=$PGID $DOCKER_COMPOSE_IMAGE --project-directory "$PROJECT_DIRECTORY" $*
 }
 ```
 
@@ -54,11 +55,12 @@ bash/zsh
 
 ```shell
 docker-compose() {
+  PROJECT_DIRECTORY=${PROJECT_DIRECTORY:-$PWD}
   PUID=$(id -u)
   PGID=$(id -g)
   test $PUID -eq 0 || export SUDO=sudo
   test -n "$DOCKER_HOST" -a -z "$DOCKER_SOCK" && export DOCKER_SOCK=${DOCKER_HOST//unix:\/\//}
-  $SUDO $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PWD:$PWD" -w "$PWD" -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" apiv1/docker-compose $*
+  $SUDO $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" apiv1/docker-compose $*
 }
 ```
 
@@ -66,12 +68,13 @@ docker-compose() {
 
 ```shell
 docker-compose () {
+  PROJECT_DIRECTORY=${PROJECT_DIRECTORY:-$PWD}
   PUID=$(id -u)
   PGID=$(id -g)
   test $PUID -eq 0 || export SUDO=sudo
-  DOCKER_COMPOSE_FILE=${DOCKER_COMPOSE_FILE:-$PWD/compose.yml}
+  DOCKER_COMPOSE_FILE=${DOCKER_COMPOSE_FILE:-$PROJECT_DIRECTORY/compose.yml}
   test -n "$DOCKER_HOST" -a -z "$DOCKER_SOCK" && export DOCKER_SOCK=${DOCKER_HOST//unix:\/\//}
-  $SUDO $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PWD:$PWD" -w "$PWD" -v $DOCKER_COMPOSE_FILE:/compose.yml -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" apiv1/docker-compose -f /compose.yml --project-directory "$PWD" $*
+  $SUDO $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -v $DOCKER_COMPOSE_FILE:/compose.yml -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" apiv1/docker-compose -f /compose.yml --project-directory "$PROJECT_DIRECTORY" $*
 }
 ```
 

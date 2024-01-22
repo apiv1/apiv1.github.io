@@ -23,17 +23,13 @@ docker buildx build . --target daemon-dind --build-arg CODE_SERVER_DAEMON_IMAGE=
 # 生成 .dind.compose.yml
 yq eval-all 'select(fileIndex == 0) *+ select(fileIndex == 1)' compose.yml dind.yml > .dind.compose.yml
 
-# 拷贝到../docker-compose, 准备打包
-cp .dind.compose.yml ../docker-compose
+# 准备打包
+export DOCKER_COMPOSE_IMAGE=apiv1/code-server:dind
+export DOCKER_COMPOSE_FILE=$PWD/../docker-compose/.compose.yml
 cd ../docker-compose
 ```
 
 执行: [`打包 compose.yml 到镜像`](../docker-compose/README.md#打包配置到镜像-示例)
-
-```shell
-# 镜像名字是这个
-export DOCKER_COMPOSE_IMAGE=apiv1/code-server:dind
-```
 
 #### 使用code-server dind
 

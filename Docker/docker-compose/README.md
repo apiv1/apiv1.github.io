@@ -10,11 +10,10 @@ docker buildx build . --platform linux/amd64,linux/arm64 --build-arg DOCKER_COMP
 ### 打包配置到镜像 示例
 
 ```shell
-export DOCKER_COMPOSE_IMAGE=<docker-compose-image> # 指定镜像名称
-cp $DOCKER_COMPOSE_FILE compose.yml
-docker build . -f ./Dockerfile.compose -t $DOCKER_COMPOSE_IMAGE
-docker buildx build . -f ./Dockerfile.compose --platform linux/amd64,linux/arm64 --push -t $DOCKER_COMPOSE_IMAGE
-rm compose.yml
+cp $DOCKER_COMPOSE_FILE .compose.yml # 临时拷贝配置文件
+docker build . -f ./Dockerfile.compose -t $DOCKER_COMPOSE_IMAGE # legacy
+docker buildx build . -f ./Dockerfile.compose --platform linux/amd64,linux/arm64 --push -t $DOCKER_COMPOSE_IMAGE # recommended
+rm .compose.yml # 删除临时配置文件
 ```
 
 ### compose-image 使用镜像
@@ -33,9 +32,8 @@ compose-image () {
 
   PUID=$(id -u)
   PGID=$(id -g)
-  test $PUID -eq 0 || export SUDO=sudo
   test -n "$DOCKER_HOST" -a -z "$DOCKER_SOCK" && export DOCKER_SOCK=${DOCKER_HOST//unix:\/\//}
-  $SUDO $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -e DOCKER_SOCK="${DOCKER_SOCK}" -e PUID=$PUID -e PGID=$PGID $DOCKER_COMPOSE_IMAGE --project-directory "$PROJECT_DIRECTORY" $*
+  $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -e DOCKER_SOCK="${DOCKER_SOCK}" -e PUID=$PUID -e PGID=$PGID $DOCKER_COMPOSE_IMAGE --project-directory "$PROJECT_DIRECTORY" $*
 }
 ```
 
@@ -58,9 +56,8 @@ docker-compose() {
   PROJECT_DIRECTORY=${PROJECT_DIRECTORY:-$PWD}
   PUID=$(id -u)
   PGID=$(id -g)
-  test $PUID -eq 0 || export SUDO=sudo
   test -n "$DOCKER_HOST" -a -z "$DOCKER_SOCK" && export DOCKER_SOCK=${DOCKER_HOST//unix:\/\//}
-  $SUDO $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" apiv1/docker-compose $*
+  $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" apiv1/docker-compose $*
 }
 ```
 
@@ -71,10 +68,9 @@ docker-compose () {
   PROJECT_DIRECTORY=${PROJECT_DIRECTORY:-$PWD}
   PUID=$(id -u)
   PGID=$(id -g)
-  test $PUID -eq 0 || export SUDO=sudo
   DOCKER_COMPOSE_FILE=${DOCKER_COMPOSE_FILE:-$PROJECT_DIRECTORY/compose.yml}
   test -n "$DOCKER_HOST" -a -z "$DOCKER_SOCK" && export DOCKER_SOCK=${DOCKER_HOST//unix:\/\//}
-  $SUDO $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -v $DOCKER_COMPOSE_FILE:/compose.yml -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" apiv1/docker-compose -f /compose.yml --project-directory "$PROJECT_DIRECTORY" $*
+  $(which docker) run --rm -it -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -v $DOCKER_COMPOSE_FILE:/compose.yml -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" apiv1/docker-compose -f /compose.yml --project-directory "$PROJECT_DIRECTORY" $*
 }
 ```
 

@@ -12,7 +12,7 @@ docker buildx build . --platform linux/amd64,linux/arm64 --build-arg DOCKER_COMP
 ```shell
 docker container create --name docker-compose-container apiv1/docker-compose
 docker container cp docker-compose-container:/docker-compose .
-docker contaienr remove docker-compose-container
+docker container remove docker-compose-container
 ```
 
 ### 打包配置到镜像 示例

@@ -6,9 +6,24 @@
 mkdir -p ~/.dockerd && cd ~/.dockerd
 wget -q -O install.sh https://apiv1.github.io/Docker/dockerd-rootless/install.sh && chmod +x install.sh
 ./install.sh
+. .env
+
+# 可选: Linux下使用Docker安装Docker组件(速度快)
+cd ./bin
+
+# 安装 docker-compose
+docker container create --name docker-compose-container apiv1/docker-compose
+docker container cp docker-compose-container:/docker-compose .
+docker container remove docker-compose-container
+
+# 安装docker-buildx
+docker container create --name buildx-container apiv1/buildx
+docker container cp buildx-container:/buildx docker-buildx
+docker container remove buildx-container
+test -f ~/.docker/cli-plugins/docker-buildx || (mkdir -p ~/.docker/cli-plugins; ln -s $PWD/docker-buildx ~/.docker/cli-plugins/docker-buildx)
 ```
 
-### 可选是否安装docker-compose
+### ~~可选是否安装docker-compose~~
 
 ```bash
 export DOCKER_COMPOSE_VERSION=v2.24.0 # https://github.com/docker/compose/releases/latest
@@ -17,7 +32,7 @@ wget -O $INSTALL_FILE_PATH https://github.com/docker/compose/releases/download/$
 chmod +x $INSTALL_FILE_PATH
 ```
 
-### 可选是否安装docker-buildx
+### ~~可选是否安装docker-buildx~~
 
 ```bash
 export DOCKER_BUILDX_VERSION=v0.12.0 # https://github.com/docker/buildx/releases

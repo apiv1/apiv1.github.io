@@ -68,7 +68,7 @@ configs:
   .bash_aliases:
     content: |
       export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
-      export PATH=~/.bin/:"$PATH"
+      export PATH=~/.bin/:"$$PATH"
       mkdir -p ~/.env.d
       load_envs() {
         cd ~/.env.d || return 1

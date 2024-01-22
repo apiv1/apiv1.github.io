@@ -20,12 +20,9 @@ docker buildx build . --target daemon-dind --build-arg CODE_SERVER_DAEMON_IMAGE=
 #### 打包dind镜像
 
 ```shell
-# 生成 .dind.compose.yml
-yq eval-all 'select(fileIndex == 0) *+ select(fileIndex == 1)' compose.yml dind.yml > .compose.yml
-
 # 准备打包
 export DOCKER_COMPOSE_IMAGE=apiv1/code-server:dind
-export DOCKER_COMPOSE_FILE=$PWD/.compose.yml
+export DOCKER_COMPOSE_FILE=$PWD/compose.yml
 cd ../docker-compose
 ```
 
@@ -37,8 +34,12 @@ cd ../docker-compose
 
 ```shell
 code-server () {
-  DOCKER_ARGS="-e PROXY_DOMAIN=$PROXY_DOMAIN -e LISTEN_ADDR=$LISTEN_ADDR -e PASSWORD=$PASSWORD -e HASHED_PASSWORD=$HASHED_PASSWORD"
+  DOCKER_ARGS="$DOCKER_ARGS -e INSTALL_DOCKER=$INSTALL_DOCKER -e PROXY_DOMAIN=$PROXY_DOMAIN -e LISTEN_ADDR=$LISTEN_ADDR -e PASSWORD=$PASSWORD -e HASHED_PASSWORD=$HASHED_PASSWORD"
   compose-image apiv1/code-server:dind  --project-name code-server $*
+}
+
+code-server-install-docker () {
+  INSTALL_DOCKER=1 code-server run --rm --build docker
 }
 ```
 

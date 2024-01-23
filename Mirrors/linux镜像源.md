@@ -42,12 +42,14 @@ yum update
 
 ### CentOS huawei cloud
 ```shell
+wget -O /etc/yum.repos.d/CentOS-hwcloud.repo https://repo.huaweicloud.com/repository/conf/CentOS-7-reg.repo
 wget -O /etc/yum.repos.d/CentOS-hwcloud.repo https://repo.huaweicloud.com/repository/conf/CentOS-8-reg.repo
 ```
 
 ### CentOS tencent cloud
 ```shell
 wget -O /etc/yum.repos.d/CentOS-Tencent.repo https://mirrors.cloud.tencent.com/repo/centos7_base.repo
+wget -O /etc/yum.repos.d/CentOS-Tencent.repo https://mirrors.cloud.tencent.com/repo/centos8_base.repo
 ```
 
 ### ArchLinux

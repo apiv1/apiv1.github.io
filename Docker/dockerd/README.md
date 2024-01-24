@@ -31,8 +31,8 @@ docker container remove docker-compose-container
 test -f ~/.docker/cli-plugins/docker-compose || (mkdir -p ~/.docker/cli-plugins; ln -s $PWD/docker-compose ~/.docker/cli-plugins/docker-compose)
 
 # 安装docker-buildx
-docker container create --name buildx-container apiv1/buildx
-docker container cp buildx-container:/buildx docker-buildx
+docker container create --name buildx-container apiv1/docker-buildx
+docker container cp buildx-container:/docker-buildx docker-buildx
 docker container remove buildx-container
 test -f ~/.docker/cli-plugins/docker-buildx || (mkdir -p ~/.docker/cli-plugins; ln -s $PWD/docker-buildx ~/.docker/cli-plugins/docker-buildx)
 ```

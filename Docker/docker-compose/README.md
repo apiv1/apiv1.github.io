@@ -34,10 +34,9 @@ compose-image () {
     echo "usage: <COMPOSE_IMAGE> [ARG1] [ARG2] ..."
     return 1
   fi
-  DOCKER_COMPOSE_IMAGE=$1
+  local DOCKER_COMPOSE_IMAGE=$1
   shift 1
-
-  PROJECT_DIRECTORY=${PROJECT_DIRECTORY:-$PWD}
+  local PROJECT_DIRECTORY=${PROJECT_DIRECTORY:-$PWD}
   PUID=$(id -u)
   PGID=$(id -g)
   test -n "$DOCKER_HOST" -a -z "$DOCKER_SOCK" && export DOCKER_SOCK=${DOCKER_HOST//unix:\/\//}
@@ -50,8 +49,8 @@ docker-compose () {
 
 # (可选) 指定路径 mount compose.yml
 docker-compose () {
-  DOCKER_COMPOSE_FILE=${DOCKER_COMPOSE_FILE:-$PROJECT_DIRECTORY/compose.yml}
-  DOCKER_ARGS="$DOCKER_ARGS -v $DOCKER_COMPOSE_FILE:/compose.yml"
+  local DOCKER_COMPOSE_FILE=${DOCKER_COMPOSE_FILE:-$PROJECT_DIRECTORY/compose.yml}
+  local DOCKER_ARGS="$DOCKER_ARGS -v $DOCKER_COMPOSE_FILE:/compose.yml"
   compose-image apiv1/docker-compose $*
 }
 ```
@@ -64,9 +63,9 @@ bash/zsh
 
 ```shell
 docker-compose() {
-  PROJECT_DIRECTORY=${PROJECT_DIRECTORY:-$PWD}
-  PUID=$(id -u)
-  PGID=$(id -g)
+  local PROJECT_DIRECTORY=${PROJECT_DIRECTORY:-$PWD}
+  local PUID=$(id -u)
+  local PGID=$(id -g)
   test -n "$DOCKER_HOST" -a -z "$DOCKER_SOCK" && export DOCKER_SOCK=${DOCKER_HOST//unix:\/\//}
   $(which docker) run --rm -it --tmpfs /tmp -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" $DOCKER_ARGS apiv1/docker-compose --project-directory "$PROJECT_DIRECTORY" $*
 }
@@ -76,11 +75,11 @@ docker-compose() {
 
 ```shell
 docker-compose () {
-  PROJECT_DIRECTORY=${PROJECT_DIRECTORY:-$PWD}
-  PUID=$(id -u)
-  PGID=$(id -g)
-  DOCKER_COMPOSE_FILE=${DOCKER_COMPOSE_FILE:-$PROJECT_DIRECTORY/compose.yml}
-  DOCKER_ARGS="$DOCKER_ARGS -v $DOCKER_COMPOSE_FILE:/compose.yml"
+  local PROJECT_DIRECTORY=${PROJECT_DIRECTORY:-$PWD}
+  local PUID=$(id -u)
+  local PGID=$(id -g)
+  local DOCKER_COMPOSE_FILE=${DOCKER_COMPOSE_FILE:-$PROJECT_DIRECTORY/compose.yml}
+  local DOCKER_ARGS="$DOCKER_ARGS -v $DOCKER_COMPOSE_FILE:/compose.yml"
   test -n "$DOCKER_HOST" -a -z "$DOCKER_SOCK" && export DOCKER_SOCK=${DOCKER_HOST//unix:\/\//}
   $(which docker) run --rm -it --tmpfs /tmp -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" $DOCKER_ARGS apiv1/docker-compose --project-directory "$PROJECT_DIRECTORY" -f /compose.yml $*
 }

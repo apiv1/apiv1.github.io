@@ -28,9 +28,8 @@ docker run --rm -it leplusorg/hash sh -c 'echo -n thisismypassword | argon2 this
 ```shell
 # 准备打包
 export DOCKER_COMPOSE_IMAGE=apiv1/code-server:dind
-export DOCKER_COMPOSE_FILE=$PWD/compose.yml
+cp *compose*.yml ../docker-compose/
 cd ../docker-compose
-cp $DOCKER_COMPOSE_FILE ./compose.yml
 ```
 
 执行: [`打包 compose.yml 到镜像`](../docker-compose/README.md#打包配置到镜像-示例)
@@ -41,8 +40,7 @@ cp $DOCKER_COMPOSE_FILE ./compose.yml
 
 ```shell
 code-server () {
-  DOCKER_ARGS="$DOCKER_ARGS -e INSTALL_DOCKER=$INSTALL_DOCKER -e NETWORK_MODE=$NETWORK_MODE -e PROXY_DOMAIN=$PROXY_DOMAIN -e LISTEN_ADDR=$LISTEN_ADDR -e CODE_SERVER_BIND_ADDR=$CODE_SERVER_BIND_ADDR -e PASSWORD=$PASSWORD -e HASHED_PASSWORD=$HASHED_PASSWORD"
-  compose-image apiv1/code-server:dind  --project-name code-server $*
+  DOCKER_ARGS="$DOCKER_ARGS -e NETWORK_MODE=$NETWORK_MODE -e PROXY_DOMAIN=$PROXY_DOMAIN -e LISTEN_ADDR=$LISTEN_ADDR -e CODE_SERVER_BIND_ADDR=$CODE_SERVER_BIND_ADDR -e PASSWORD=$PASSWORD -e HASHED_PASSWORD=$HASHED_PASSWORD" compose-image apiv1/code-server:dind  --project-name code-server $*
 }
 
 code-server-up () {
@@ -54,7 +52,7 @@ code-server-up-host () {
 }
 
 code-server-install-docker () {
-  NETWORK_MODE=none INSTALL_DOCKER=1 code-server run --rm --build docker
+  NETWORK_MODE=none code-server -f /compose.install-docker.yml run --rm --build install-docker
 }
 
 code-server-hashed-passwd () {

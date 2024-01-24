@@ -1,0 +1,35 @@
+services:
+  install-docker:
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM apiv1/code-server:daemon
+        COPY --from=apiv1/dind /docker /docker
+        COPY --from=apiv1/docker-compose /docker-compose /docker-compose
+        COPY --from=apiv1/buildx /buildx /buildx
+    entrypoint: sh
+    command: |
+      -c '
+        echo "install docker..."
+        mkdir -p /dst/root/.bin
+        mkdir -p /dst/root/.docker/cli-plugins
+        test -f /dst/root/.bin/docker || cp /docker /dst/root/.bin/docker
+        test -f /dst/root/.bin/docker-compose || cp /docker-compose /dst/root/.bin/docker-compose
+        test -f /dst/root/.bin/docker-buildx || cp /buildx /dst/root/.bin/docker-buildx
+        test -f /dst/root/.docker/cli-plugins/docker-compose || ln -s /dst/root/.bin/docker-compose /dst/root/.docker/cli-plugins/docker-compose
+        test -f /dst/root/.docker/cli-plugins/docker-buildx || ln -s /dst/root/.bin/docker-buildx /dst/root/.docker/cli-plugins/docker-buildx
+      '
+    volumes:
+      - root:/dst/root
+    depends_on:
+      - dind
+      - docker-compose
+      - buildx
+  dind:
+    image: apiv1/dind
+  docker-compose:
+    image: apiv1/docker-compose
+  buildx:
+    image: apiv1/buildx
+volumes:
+  root:

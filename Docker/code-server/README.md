@@ -9,10 +9,16 @@ docker buildx build . --target code-server --platform linux/amd64,linux/arm64 --
 # apiv1/code-server:daemon
 docker build . --target daemon --build-arg CODE_SERVER_IMAGE=apiv1/code-server:$CODE_SERVER_VERSION -t apiv1/code-server:daemon -t apiv1/code-server:daemon-$CODE_SERVER_VERSION
 docker buildx build . --target daemon --build-arg CODE_SERVER_IMAGE=apiv1/code-server:$CODE_SERVER_VERSION --platform linux/amd64,linux/arm64 --push -t apiv1/code-server:daemon -t apiv1/code-server:daemon-$CODE_SERVER_VERSION
+```
 
-# apiv1/code-server:daemon-dind
-docker build . --target daemon-dind --build-arg CODE_SERVER_DAEMON_IMAGE=apiv1/code-server:daemon-$CODE_SERVER_VERSION -t apiv1/code-server:daemon-dind -t apiv1/code-server:daemon-dind-$CODE_SERVER_VERSION
-docker buildx build . --target daemon-dind --build-arg CODE_SERVER_DAEMON_IMAGE=apiv1/code-server:daemon-$CODE_SERVER_VERSION --platform linux/amd64,linux/arm64 --push -t apiv1/code-server:daemon-dind -t apiv1/code-server:daemon-dind-$CODE_SERVER_VERSION
+### hashed password
+
+```shell
+# in zsh (echo -n without '\n')
+echo -n "thisismypassword" | npx argon2-cli -e
+
+# in docker(recommend)
+docker run --rm -it leplusorg/hash sh -c 'echo -n thisismypassword | argon2 thisissalt -e'
 ```
 
 ### dind
@@ -24,6 +30,7 @@ docker buildx build . --target daemon-dind --build-arg CODE_SERVER_DAEMON_IMAGE=
 export DOCKER_COMPOSE_IMAGE=apiv1/code-server:dind
 export DOCKER_COMPOSE_FILE=$PWD/compose.yml
 cd ../docker-compose
+cp $DOCKER_COMPOSE_FILE ./compose.yml
 ```
 
 执行: [`打包 compose.yml 到镜像`](../docker-compose/README.md#打包配置到镜像-示例)
@@ -34,23 +41,26 @@ cd ../docker-compose
 
 ```shell
 code-server () {
-  DOCKER_ARGS="$DOCKER_ARGS -e INSTALL_DOCKER=$INSTALL_DOCKER -e PROXY_DOMAIN=$PROXY_DOMAIN -e LISTEN_ADDR=$LISTEN_ADDR -e PASSWORD=$PASSWORD -e HASHED_PASSWORD=$HASHED_PASSWORD"
+  DOCKER_ARGS="$DOCKER_ARGS -e INSTALL_DOCKER=$INSTALL_DOCKER -e NETWORK_MODE=$NETWORK_MODE -e PROXY_DOMAIN=$PROXY_DOMAIN -e LISTEN_ADDR=$LISTEN_ADDR -e CODE_SERVER_BIND_ADDR=$CODE_SERVER_BIND_ADDR -e PASSWORD=$PASSWORD -e HASHED_PASSWORD=$HASHED_PASSWORD"
   compose-image apiv1/code-server:dind  --project-name code-server $*
 }
 
+code-server-up () {
+  code-server up -d code-server
+}
+
+code-server-up-host () {
+  NETWORK_MODE=host code-server up -d code-server
+}
+
 code-server-install-docker () {
-  INSTALL_DOCKER=1 code-server run --rm --build docker
+  NETWORK_MODE=host INSTALL_DOCKER=1 code-server run --rm --build docker
+}
+
+code-server-hashed-passwd () {
+  /bin/echo -n 'password:' && read -s PASSWORD && /bin/echo 'saved to env HASHED_PASSWORD'
+  export HASHED_PASSWORD=$(docker run --rm -it leplusorg/hash sh -c 'echo -n '$PASSWORD' | argon2 thisissalt -e')
 }
 ```
 
 以上使用配置贴在终端里或者放```.bashrc/.zshrc```里
-
-### hashed password
-
-```shell
-# in zsh (echo -n without '\n')
-echo -n "thisismypassword" | npx argon2-cli -e
-
-# in docker(recommend)
-docker run --rm -it leplusorg/hash sh -c 'echo -n thisismypassword | argon2 thisissalt -e'
-```

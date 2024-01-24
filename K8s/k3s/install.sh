@@ -232,7 +232,7 @@ ExecStop='${KILLALL_K3S_SH}'
 
 chmod +x $K3S_SERVICE_FILE
 
-K3S_ENV_FILE=$SCRIPT_HOME/.env
+K3S_ENV_FILE=$SCRIPT_HOME/.envrc
 if test ! -f "$K3S_ENV_FILE" ; then
   if test -z "$DISABLE_K3S_ALIAS" ; then
 EXTRA_ALIAS="
@@ -252,7 +252,7 @@ fi
 
 echo '
 Put it into your shell rc file:
-    . '$SCRIPT_HOME'/.env
+    . '$SCRIPT_HOME'/.envrc
 '
 
 systemctl daemon-reload

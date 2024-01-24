@@ -35,9 +35,3 @@ RUN ln -s /code-server/bin/code-server /bin/code-server && \
 EXPOSE 8443
 
 ENTRYPOINT [ "/entrypoint.sh" ]
-
-FROM ${DIND_IMAGE} AS dind
-FROM ${DOCKER_COMPOSE_IMAGE} AS docker-compose
-FROM ${CODE_SERVER_DAEMON_IMAGE} AS daemon-dind
-COPY --from=dind /docker /usr/local/bin/docker
-COPY --from=docker-compose /docker-compose /usr/local/bin/docker-compose

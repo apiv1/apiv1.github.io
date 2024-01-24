@@ -18,10 +18,10 @@ docker container remove docker-compose-container
 ### 打包配置到镜像 示例
 
 ```shell
-cp $DOCKER_COMPOSE_FILE .compose.yml # 临时拷贝配置文件
+# 放置临时配置文件, 名字格式为 *compose*.yml
 docker build . -f ./Dockerfile.compose -t $DOCKER_COMPOSE_IMAGE # legacy
 docker buildx build . -f ./Dockerfile.compose --platform linux/amd64,linux/arm64 --push -t $DOCKER_COMPOSE_IMAGE # recommended
-rm .compose.yml # 删除临时配置文件
+rm *compose*.yml # 删除临时配置文件
 ```
 
 ### compose-image 使用镜像
@@ -44,7 +44,6 @@ compose-image () {
   $(which docker) run --rm -it --tmpfs /tmp -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" $DOCKER_ARGS $DOCKER_COMPOSE_IMAGE --project-directory "$PROJECT_DIRECTORY" $*
 }
 
-# 作为docker-compose使用
 docker-compose () {
   compose-image apiv1/docker-compose $*
 }

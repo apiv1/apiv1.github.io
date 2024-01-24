@@ -79,7 +79,7 @@ EOF
 wget -q -O install.sh ${INSTALL_SH_URL} && chmod +x install.sh
 K3S_MODE=server sh install.sh
 
-echo . /opt/k3s/.env >> /root/.bashrc
+echo . /opt/k3s/.envrc >> /root/.bashrc
 
 cd -
 ```

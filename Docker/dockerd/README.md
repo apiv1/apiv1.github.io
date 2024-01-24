@@ -19,7 +19,7 @@ sudo apt install iptables
 mkdir -p /opt/dockerd && cd /opt/dockerd
 wget -q -O install.sh https://apiv1.github.io/Docker/dockerd/all-in-one.sh && chmod +x install.sh
 ./install.sh
-. .env
+. .envrc
 
 # 可选: Linux下使用Docker安装Docker组件(速度快)
 cd ./bin

@@ -22,9 +22,13 @@ cd ../docker-compose
 [`安装docker-dind`](../dind/README.md#docker-dind)
 
 ```shell
-myvim () {
-  docker-dind apiv1/myvim:dind $*
-}
+cd $DOCKER_HOME/.envrc.d
+echo \
+'myvim () {
+  docker-dind apiv1/myvim:dind --project-directory "$PWD" $*
+}'\
+> myvim.envrc
+cd -
 ```
 
 #### 安装richrc

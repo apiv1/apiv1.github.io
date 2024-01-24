@@ -50,9 +50,9 @@ cd ../docker-compose
 cd $DOCKER_HOME/.envrc.d
 echo \
 'code-server () {
-  DOCKER_ARGS="$DOCKER_ARGS -e NETWORK_MODE=$NETWORK_MODE -e PROXY_DOMAIN=$PROXY_DOMAIN -e LISTEN_ADDR=$LISTEN_ADDR -e CODE_SERVER_BIND_ADDR=$CODE_SERVER_BIND_ADDR -e PASSWORD=$PASSWORD -e HASHED_PASSWORD=$HASHED_PASSWORD" docker-dind apiv1/code-server:dind -f /compose.yml $*
+  DOCKER_ARGS="$DOCKER_ARGS -e NETWORK_MODE=$NETWORK_MODE -e PROXY_DOMAIN=$PROXY_DOMAIN -e LISTEN_ADDR=$LISTEN_ADDR -e CODE_SERVER_BIND_ADDR=$CODE_SERVER_BIND_ADDR -e PASSWORD=$PASSWORD -e HASHED_PASSWORD=$HASHED_PASSWORD" docker-dind apiv1/code-server:dind --project-directory "$PWD" -f /compose.yml $*
 }'\
-> code-server.env
+> code-server.envrc
 cd -
 ```
 可选: code-server服务中安装docker组件

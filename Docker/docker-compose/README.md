@@ -72,7 +72,7 @@ docker-compose () {
 docker-compose () {
   local DOCKER_COMPOSE_FILE=${DOCKER_COMPOSE_FILE:-$PROJECT_DIRECTORY/compose.yml}
   local DOCKER_ARGS="$DOCKER_ARGS -v $DOCKER_COMPOSE_FILE:/compose.yml"
-  docker-dind apiv1/docker-compose $*
+  docker-dind apiv1/docker-compose --project-directory "$PWD" $*
 }
 ```
 

@@ -54,7 +54,7 @@ code-server-up-host () {
 }
 
 code-server-install-docker () {
-  NETWORK_MODE=host INSTALL_DOCKER=1 code-server run --rm --build docker
+  NETWORK_MODE=none INSTALL_DOCKER=1 code-server run --rm --build docker
 }
 
 code-server-hashed-passwd () {

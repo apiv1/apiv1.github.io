@@ -17,3 +17,25 @@ cd $DOCKER_HOME/.envrc.d
 wget https://apiv1.github.io/Docker/dind/docker-dind.envrc
 cd -
 ```
+
+### docker hook
+* 将docker工具作为docker子命令调用
+  * docker compose -> docker-compose
+  * docker buildx -> docker-buildx
+
+安装
+```shell
+cd $DOCKER_HOME/.envrc.d
+echo \
+'docker() {
+  local COMMAND=$1
+  shift 1
+  if type "docker-$COMMAND" >/dev/null 2>&1; then
+    "docker-$COMMAND" $*
+  else
+    $(which docker) $COMMAND $*
+  fi
+}'\
+> docker.envrc
+cd -
+```

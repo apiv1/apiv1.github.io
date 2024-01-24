@@ -1,4 +1,4 @@
----
+name: code-server
 services:
   code-server:
     image: apiv1/code-server:daemon
@@ -41,14 +41,6 @@ configs:
     content: |
       export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
       export PATH=~/.bin:"$$PATH"
-      load_envs() {
-        cd ~/.envrc.d >/dev/null 2>&1 || return 1
-        for item in `ls -A 2>/dev/null`
-        do
-          . $$item
-        done
-        cd - >/dev/null 2>&1
-      }
       load_local_ssh_keys() {
         test -d .ssh && cp -R .ssh/* ~/.ssh/ && chmod -R 400 ~/.ssh/
         test -d .ssh.enc && mkdir -p ~/.ssh.enc/ && cp -R .ssh.enc/* ~/.ssh.enc/
@@ -88,6 +80,14 @@ configs:
         mkdir -p ~/.envrc.d
         wget -qO ~/.envrc.d/.richrc https://apiv1.github.io/Shell/richrc
         load_envs
+      }
+      load_envs() {
+        cd ~/.envrc.d >/dev/null 2>&1 || return 1
+        for item in `ls -A 2>/dev/null`
+        do
+          . $$item
+        done
+        cd - >/dev/null 2>&1
       }
       load_envs
   .gitconfig:

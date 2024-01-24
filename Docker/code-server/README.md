@@ -19,6 +19,13 @@ echo -n "thisismypassword" | npx argon2-cli -e
 
 # in docker(recommend)
 docker run --rm -it leplusorg/hash sh -c 'echo -n thisismypassword | argon2 thisissalt -e'
+
+# function
+hashed-passwd () {
+  local SALT=${SALT:-thisissalt}
+  /bin/echo -n 'password:' && read -s PASSWORD && /bin/echo 'saved to env HASHED_PASSWORD'
+  export HASHED_PASSWORD=$(docker run --rm -it leplusorg/hash sh -c 'echo -n '$PASSWORD' | argon2 '$SALT' -e')
+}
 ```
 
 ### dind
@@ -36,29 +43,18 @@ cd ../docker-compose
 
 #### 使用code-server dind
 
-执行: [`使用打包镜像`](../docker-compose/README.md#compose-image-使用镜像)
+[`安装dind-image`](../docker-compose/README.md#dind-image)
 
+安装code-server命令
 ```shell
+
+echo '\
 code-server () {
-  DOCKER_ARGS="$DOCKER_ARGS -e NETWORK_MODE=$NETWORK_MODE -e PROXY_DOMAIN=$PROXY_DOMAIN -e LISTEN_ADDR=$LISTEN_ADDR -e CODE_SERVER_BIND_ADDR=$CODE_SERVER_BIND_ADDR -e PASSWORD=$PASSWORD -e HASHED_PASSWORD=$HASHED_PASSWORD" compose-image apiv1/code-server:dind  --project-name code-server $*
-}
-
-code-server-up () {
-  code-server up -d code-server
-}
-
-code-server-up-host () {
-  NETWORK_MODE=host code-server up -d code-server
-}
-
-code-server-install-docker () {
-  NETWORK_MODE=none code-server -f /compose.install-docker.yml run --rm --build install-docker
-}
-
-code-server-hashed-passwd () {
-  /bin/echo -n 'password:' && read -s PASSWORD && /bin/echo 'saved to env HASHED_PASSWORD'
-  export HASHED_PASSWORD=$(docker run --rm -it leplusorg/hash sh -c 'echo -n '$PASSWORD' | argon2 thisissalt -e')
-}
+  DOCKER_ARGS="$DOCKER_ARGS -e NETWORK_MODE=$NETWORK_MODE -e PROXY_DOMAIN=$PROXY_DOMAIN -e LISTEN_ADDR=$LISTEN_ADDR -e CODE_SERVER_BIND_ADDR=$CODE_SERVER_BIND_ADDR -e PASSWORD=$PASSWORD -e HASHED_PASSWORD=$HASHED_PASSWORD" dind-image apiv1/code-server:dind -f /compose.yml $*
+}\
+' > $DOCKER_HOME/.envrc.d/code-server.env
 ```
-
-以上使用配置贴在终端里或者放```.bashrc/.zshrc```里
+可选: code-server服务中安装docker组件
+```shell
+wget https://apiv1.github.io/Docker/code-server/install-docker.yml | NO_TTY=1 dind-image apiv1/code-server:dind -f - run --rm --build install-docker
+```

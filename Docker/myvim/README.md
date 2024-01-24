@@ -11,8 +11,8 @@ docker buildx build . --platform linux/amd64,linux/arm64 --push -t apiv1/myvim
 
 ```shell
 # 准备打包
-export DOCKER_COMPOSE_FILE=$PWD/../../compose.yml
 export DOCKER_COMPOSE_IMAGE=apiv1/myvim:dind
+cp ../../compose.yml ../docker-compose/
 cd ../docker-compose
 ```
 
@@ -20,12 +20,32 @@ cd ../docker-compose
 
 #### 使用myvim dind
 
-执行: [`使用打包镜像`](../docker-compose/README.md#compose-image-使用镜像)
+执行: [`使用打包镜像`](../docker-compose/README.md#dind-image)
 
 ```shell
 myvim () {
-  compose-image apiv1/myvim:dind --project-name myvim $*
+  dind-image apiv1/myvim:dind $*
 }
 ```
 
 以上使用配置贴在终端里或者放```.bashrc/.zshrc```里
+
+#### 安装richrc
+```shell
+echo '
+name: myvim
+services:
+  install_richrc:
+    image: netdata/wget
+    command: |
+      sh -c "
+        mkdir -p /dst/root/.envrc.d
+        wget -O /dst/root/.envrc.d/.richrc https://apiv1.github.io/Shell/richrc
+      "
+    volumes:
+      - home:/dst/root
+    network_mode: host
+volumes:
+  home:
+' | NO_TTY=1 dind-image apiv1/myvim:dind -f - run -iT --rm install_richrc
+```

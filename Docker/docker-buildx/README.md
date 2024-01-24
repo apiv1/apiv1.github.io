@@ -15,3 +15,14 @@ docker container create --name buildx-container apiv1/docker-buildx
 docker container cp buildx-container:/docker-buildx docker-buildx
 docker container remove buildx-container
 ```
+
+### 函数式安装docker-buildx
+[`安装dind-image`](../dind/README.md#dind-image)
+```shell
+# 安装docker-buildx
+echo \
+'docker-buildx () {
+  dind-image apiv1/docker-buildx $*
+}'\
+ > $DOCKER_HOME/.envrc.d/docker-buildx.envrc
+```

@@ -15,6 +15,17 @@ docker container cp docker-compose-container:/docker-compose .
 docker container remove docker-compose-container
 ```
 
+### 函数式安装docker-compose
+[`安装dind-image`](../dind/README.md#dind-image)
+```shell
+# 安装docker-compose
+echo \
+'docker-compose () {
+  dind-image apiv1/docker-compose $*
+}'\
+ > $DOCKER_HOME/.envrc.d/docker-compose.envrc
+```
+
 ### 打包配置到镜像 示例
 
 ```shell
@@ -23,24 +34,6 @@ docker container remove docker-compose-container
 docker build . --build-arg DOCKER_COMPOSE_STAGE=apiv1/docker-compose --target docker-compose-pack -t $DOCKER_COMPOSE_IMAGE # legacy
 docker buildx build . --build-arg DOCKER_COMPOSE_STAGE=apiv1/docker-compose --target docker-compose-pack --platform linux/amd64,linux/arm64 --push -t $DOCKER_COMPOSE_IMAGE # recommended
 rm *compose*.yml # 删除临时配置文件
-```
-
-### dind-image
-
-[dind-image.envrc](./dind-image.envrc)
-* dind-image: 在容器里使用docker的命令
-
-示例, 安装命令
-```shell
-# 安装 dind-image
-wget -qO $DOCKER_HOME/.envrc.d/dind-image.envrc https://apiv1.github.io/Docker/docker-compose/dind-image.envrc
-
-# 可选安装docker-compose
-echo \
-'docker-compose () {
-  dind-image apiv1/docker-compose $*
-}'\
- > $DOCKER_HOME/.envrc.d/docker-compose.envrc
 ```
 
 #### ~~终端: 使用 docker内的docker-compose~~

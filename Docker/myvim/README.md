@@ -18,17 +18,14 @@ cd ../docker-compose
 
 执行: [`打包 compose.yml 到镜像`](../docker-compose/README.md#打包配置到镜像-示例)
 
-#### 使用myvim dind
-
-执行: [`使用打包镜像`](../docker-compose/README.md#dind-image)
+### 函数式安装myvim
+[`安装dind-image`](../dind/README.md#dind-image)
 
 ```shell
 myvim () {
   dind-image apiv1/myvim:dind $*
 }
 ```
-
-以上使用配置贴在终端里或者放```.bashrc/.zshrc```里
 
 #### 安装richrc
 ```shell

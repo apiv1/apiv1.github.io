@@ -41,7 +41,7 @@ cd ../docker-compose
 
 执行: [`打包 compose.yml 到镜像`](../docker-compose/README.md#打包配置到镜像-示例)
 
-#### 使用code-server dind
+#### 函数式安装code-server
 
 [`安装dind-image`](../docker-compose/README.md#dind-image)
 

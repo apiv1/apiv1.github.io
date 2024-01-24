@@ -16,12 +16,12 @@ docker container remove docker-compose-container
 ```
 
 ### 函数式安装docker-compose
-[`安装dind-image`](../dind/README.md#dind-image)
+[`安装docker-dind`](../dind/README.md#docker-dind)
 ```shell
 # 安装docker-compose
 echo \
 'docker-compose () {
-  dind-image apiv1/docker-compose $*
+  docker-dind apiv1/docker-compose $*
 }'\
  > $DOCKER_HOME/.envrc.d/docker-compose.envrc
 ```
@@ -65,11 +65,11 @@ docker-compose () {
   $(which docker) run --rm -it --tmpfs /tmp -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" $DOCKER_ARGS apiv1/docker-compose --project-directory "$PROJECT_DIRECTORY" -f /compose.yml $*
 }
 
-# (可选, 使用dind-image)
+# (可选, 使用docker-dind)
 docker-compose () {
   local DOCKER_COMPOSE_FILE=${DOCKER_COMPOSE_FILE:-$PROJECT_DIRECTORY/compose.yml}
   local DOCKER_ARGS="$DOCKER_ARGS -v $DOCKER_COMPOSE_FILE:/compose.yml"
-  dind-image apiv1/docker-compose $*
+  docker-dind apiv1/docker-compose $*
 }
 ```
 

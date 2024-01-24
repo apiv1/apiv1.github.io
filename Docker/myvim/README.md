@@ -19,11 +19,11 @@ cd ../docker-compose
 执行: [`打包 compose.yml 到镜像`](../docker-compose/README.md#打包配置到镜像-示例)
 
 ### 函数式安装myvim
-[`安装dind-image`](../dind/README.md#dind-image)
+[`安装docker-dind`](../dind/README.md#docker-dind)
 
 ```shell
 myvim () {
-  dind-image apiv1/myvim:dind $*
+  docker-dind apiv1/myvim:dind $*
 }
 ```
 
@@ -44,5 +44,5 @@ services:
     network_mode: host
 volumes:
   home:
-' | NO_TTY=1 dind-image apiv1/myvim:dind -f - run -iT --rm install_richrc
+' | NO_TTY=1 docker-dind apiv1/myvim:dind -f - run -iT --rm install_richrc
 ```

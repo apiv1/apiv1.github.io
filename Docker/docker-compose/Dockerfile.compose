@@ -1,5 +1,0 @@
-ARG DOCKER_COMPOSE_STAGE=apiv1/docker-compose
-
-FROM ${DOCKER_COMPOSE_STAGE} AS compose-pack
-COPY *compose*.yml /
-ENTRYPOINT [ "/docker-compose" ]

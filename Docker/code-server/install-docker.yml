@@ -17,8 +17,8 @@ services:
         test -f /dst/root/.bin/docker || cp /docker /dst/root/.bin/docker
         test -f /dst/root/.bin/docker-compose || cp /docker-compose /dst/root/.bin/docker-compose
         test -f /dst/root/.bin/docker-buildx || cp /docker-buildx /dst/root/.bin/docker-buildx
-        test -f /dst/root/.docker/cli-plugins/docker-compose || ln -s /dst/root/.bin/docker-compose /dst/root/.docker/cli-plugins/docker-compose
-        test -f /dst/root/.docker/cli-plugins/docker-buildx || ln -s /dst/root/.bin/docker-buildx /dst/root/.docker/cli-plugins/docker-buildx
+        test -f /dst/root/.docker/cli-plugins/docker-compose || ln -s /root/.bin/docker-compose /dst/root/.docker/cli-plugins/docker-compose
+        test -f /dst/root/.docker/cli-plugins/docker-buildx || ln -s /root/.bin/docker-buildx /dst/root/.docker/cli-plugins/docker-buildx
       '
     volumes:
       - root:/dst/root

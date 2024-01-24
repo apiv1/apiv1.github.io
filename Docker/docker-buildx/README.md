@@ -18,11 +18,14 @@ docker container remove buildx-container
 
 ### 函数式安装docker-buildx
 [`安装dind-image`](../dind/README.md#dind-image)
+
+安装docker-buildx
 ```shell
-# 安装docker-buildx
+cd $DOCKER_HOME/.envrc.d
 echo \
 'docker-buildx () {
   dind-image apiv1/docker-buildx $*
 }'\
- > $DOCKER_HOME/.envrc.d/docker-buildx.envrc
+> docker-buildx.envrc
+cd -
 ```

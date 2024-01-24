@@ -17,13 +17,16 @@ docker container remove docker-compose-container
 
 ### 函数式安装docker-compose
 [`安装docker-dind`](../dind/README.md#docker-dind)
+
+安装docker-compose
 ```shell
-# 安装docker-compose
+cd $DOCKER_HOME/.envrc.d
 echo \
 'docker-compose () {
   docker-dind apiv1/docker-compose $*
 }'\
- > $DOCKER_HOME/.envrc.d/docker-compose.envrc
+ > docker-compose.envrc
+cd -
 ```
 
 ### 打包配置到镜像 示例

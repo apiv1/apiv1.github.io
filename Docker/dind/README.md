@@ -11,7 +11,9 @@ docker buildx build . --platform linux/amd64,linux/arm64 --build-arg DOCKER_VERS
 [docker-dind.envrc](./docker-dind.envrc)
 * docker-dind: 在容器里使用docker的命令
 
+安装 docker-dind
 ```shell
-# 安装 docker-dind
-wget -O $DOCKER_HOME/.envrc.d/docker-dind.envrc https://apiv1.github.io/Docker/dind/docker-dind.envrc
+cd $DOCKER_HOME/.envrc.d
+wget https://apiv1.github.io/Docker/dind/docker-dind.envrc
+cd -
 ```

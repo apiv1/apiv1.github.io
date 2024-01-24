@@ -44,5 +44,5 @@ services:
     network_mode: host
 volumes:
   home:
-' | NO_TTY=1 docker-dind apiv1/myvim:dind -f - run -iT --rm install_richrc
+' | NO_TTY=1 docker-dind apiv1/myvim:dind -f - run --rm install_richrc
 ```

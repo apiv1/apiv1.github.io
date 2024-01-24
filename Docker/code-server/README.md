@@ -47,14 +47,15 @@ cd ../docker-compose
 
 安装code-server命令
 ```shell
-
-echo '\
-code-server () {
+cd $DOCKER_HOME/.envrc.d
+echo \
+'code-server () {
   DOCKER_ARGS="$DOCKER_ARGS -e NETWORK_MODE=$NETWORK_MODE -e PROXY_DOMAIN=$PROXY_DOMAIN -e LISTEN_ADDR=$LISTEN_ADDR -e CODE_SERVER_BIND_ADDR=$CODE_SERVER_BIND_ADDR -e PASSWORD=$PASSWORD -e HASHED_PASSWORD=$HASHED_PASSWORD" docker-dind apiv1/code-server:dind -f /compose.yml $*
-}\
-' > $DOCKER_HOME/.envrc.d/code-server.env
+}'\
+> code-server.env
+cd -
 ```
 可选: code-server服务中安装docker组件
 ```shell
-wget https://apiv1.github.io/Docker/code-server/install-docker.yml | NO_TTY=1 docker-dind apiv1/code-server:dind -f - run --rm --build install-docker
+wget -O - https://apiv1.github.io/Docker/code-server/install-docker.yml | NO_TTY=1 docker-dind apiv1/code-server:dind -f - run --rm --build install-docker
 ```

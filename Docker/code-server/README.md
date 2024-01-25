@@ -1,6 +1,7 @@
 ### build
 
 ```bash
+# https://github.com/coder/code-server/releases
 export CODE_SERVER_VERSION=4.20.0
 # apiv1/code-server
 docker build . --target code-server --build-arg CODE_SERVER_VERSION=$CODE_SERVER_VERSION  -t apiv1/code-server -t apiv1/code-server:$CODE_SERVER_VERSION

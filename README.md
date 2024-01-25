@@ -365,6 +365,7 @@
 |  &nbsp;|--&nbsp;[skopeo.md](./Tools/skopeo.md)  
 |  &nbsp;+--&nbsp;[yq.md](./Tools/yq.md)  
 |--&nbsp;[Vim](./Vim)  
+|  &nbsp;|--&nbsp;[vim替换^M.md](./Vim/vim替换^M.md)  
 |  &nbsp;+--&nbsp;[vim配置初始化.md](./Vim/vim配置初始化.md)  
 |--&nbsp;[Windows](./Windows)  
 |  &nbsp;|--&nbsp;[Flutter构建设置.md](./Windows/Flutter构建设置.md)  

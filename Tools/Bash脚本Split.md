@@ -61,7 +61,19 @@ awk '{{printf"%s\\n",$0}}'
 ```
 
 ### 字符串split成数组
+按照特定字符分割, 不分割空格
+```shell
+my_string="Ubuntu;Linux Mint;Debian;Arch;Fedora"
+IFS=';' read -ra my_array <<< "$my_string"
 
+#Print the split string
+for i in "${my_array[@]}"
+do
+    echo $i
+done
+```
+
+遇到空格会分割
 ```shell
 my_string="Ubuntu;Linux Mint;Debian;Arch;Fedora"
 my_array=($(echo $my_string | tr ";" "\n"))

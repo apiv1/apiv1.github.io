@@ -3,7 +3,7 @@ ARG CODE_SERVER_DAEMON_IMAGE=daemon
 ARG DIND_IMAGE=apiv1/dind:25.0.0
 ARG DOCKER_COMPOSE_IMAGE=apiv1/docker-compose:v2.24.0
 
-FROM ubuntu:22.04 AS code-server
+FROM ubuntu:24.04 AS code-server
 ARG TARGETOS
 ARG TARGETARCH
 ARG CODE_SERVER_VERSION=4.20.0
@@ -17,6 +17,7 @@ RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list &&
   sed -i 's/ports.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
   apt-get update --allow-unauthenticated && \
   apt install -y \
+    busybox \
     tini \
     curl \
     wget \
@@ -25,13 +26,12 @@ RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list &&
     git-lfs \
     git-extras \
     vim \
-    tree
-COPY --from=apiv1/aes /usr/local/bin/aes /usr/local/bin/aes
+    tree && \
+  busybox --install /usr/local/bin
+COPY --from=apiv1/aes /aes /usr/local/sbin/aes
 
 COPY entrypoint.sh /entrypoint.sh
 RUN ln -s /code-server/bin/code-server /bin/code-server && \
   chmod +x /entrypoint.sh
-
-EXPOSE 8443
 
 ENTRYPOINT [ "/entrypoint.sh" ]

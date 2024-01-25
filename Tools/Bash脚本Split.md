@@ -1,4 +1,5 @@
 ### 说明
+
 1. ${variable#pattern}
 如果pattern匹配variable的开始部分，从variable的开始处删除字符直到第一个匹配的位置，包括匹配部分，返回剩余部分。
 
@@ -17,14 +18,16 @@
 ### 取最后一块
 
 You can use string operators:
-```bash
+
+```shell
 $ foo=1:2:3:4:5
 $ echo ${foo##*:}
 5
 ```
+
 This trims everything from the front until a ':', greedily.
 
-```bash
+```shell
 ${foo  <-- from variable foo
   ##   <-- greedy front trim
   *    <-- matches anything
@@ -33,22 +36,39 @@ ${foo  <-- from variable foo
 ```
 
 ### 取去掉主机名的镜像路径
-```bash
+
+```shell
 item=docker.io/minio/minio:latest
 $(echo $item | sed -e 's/^[^\/]*\///g') # minio/minio:latest
 ```
 
 ### 扩展名
-```bash
+
+```shell
 ${TARGET_FILE##*.}
 ```
 
 ### 去扩展名
-```bash
+
+```shell
 ${TARGET_FILE%.*}
 ```
 
 ### 替换换行符
-```bash
+
+```shell
 awk '{{printf"%s\\n",$0}}'
+```
+
+### 字符串split成数组
+
+```shell
+my_string="Ubuntu;Linux Mint;Debian;Arch;Fedora"
+my_array=($(echo $my_string | tr ";" "\n"))
+
+#Print the split string
+for i in "${my_array[@]}"
+do
+    echo $i
+done
 ```

@@ -9,7 +9,8 @@ RUN wget -O /usr/local/bin/docker-compose https://github.com/docker/compose/rele
 
 FROM scratch AS docker-compose
 COPY --from=base /usr/local/bin/docker-compose /docker-compose
-ENTRYPOINT [ "/docker-compose" ]
+ENV PATH /
+ENTRYPOINT [ "docker-compose" ]
 
 FROM ${DOCKER_COMPOSE_STAGE} AS docker-compose-pack
 COPY *compose*.yml /

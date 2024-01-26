@@ -14,15 +14,15 @@ ssh
 github_mirror "git@github.com:"
 ```
 
-镜像源
+镜像源 (结尾的/不能少, 否则会有问题)
 ```
-https://kkgithub.com
-https://hub.njuu.cf
-https://hub.nuaa.cf
-https://hub.yzuu.cf
-https://gh.sb250.gq
+https://kkgithub.com/
+https://hub.njuu.cf/
+https://hub.nuaa.cf/
+https://hub.yzuu.cf/
+https://gh.sb250.gq/
 
-https://gitclone.com
-https://ghproxy.com
-https://github.ur1.fun
+https://gitclone.com/
+https://ghproxy.com/
+https://github.ur1.fun/
 ```

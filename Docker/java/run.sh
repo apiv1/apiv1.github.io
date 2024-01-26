@@ -1,0 +1,2 @@
+# tags: https://hub.docker.com/_/openjdk/tags
+docker run --rm -it -w $PWD -v $PWD:$PWD -e GRADLE_USER_HOME=/gradle -e PUID=$(id -u) -e PGID=$(id -g) --user $(id -u) --net host -v ~/.gradle:/gradle openjdk:23-slim bash

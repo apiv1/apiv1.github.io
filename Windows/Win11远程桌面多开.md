@@ -14,8 +14,9 @@
 4. 创建用户, 并添加到远程组
 打开管理员终端
 ```powershell
-# 创建并添加组
-net user $USER $PASSWORD /add
+# 创建并添加组, 设置用户名密码, 并添加到远程组
+$USER='';$PASS=''
+net user $USER $PASS /add
 net localgroup 'Remote Desktop Users' $USER /add
 
 # 删除用户

@@ -22,8 +22,23 @@ vi ~/.ssh/authorized_keys # 贴入你的公钥(生成的id_rsa.pub), 为了远�
 # 1. 重启docker
 # 2. 检查能否有docker.sock的访问权限(他的文件夹可能都没有访问权限)
 ```
+本地配置远程Docker连接(临时)
+```shell
+export $DOCKER_HOST=ssh://docker@docker.server:22
 
-本地配置远程Docker连接
+ssh $DOCKER_HOST # 测试连接,确认密钥配置生效
+
+# 查看docker entrypoint配置
+docker context ls
+
+# 愉快的使用远程docker
+docker ps -a
+
+# 使用本地 docker(还原)
+unset $DOCKER_HOST
+```
+
+本地配置远程Docker连接(永久)
 ```shell
 export $DOCKER_SERVER=docker.server
 
@@ -36,7 +51,9 @@ docker context use docker-server
 
 # 使用本地 docker(还原)
 docker context use default
+```
 
-# 本地查看远程htop
+本地查看远程htop
+```shell
 docker run -it --rm --pid=host jess/htop
 ```

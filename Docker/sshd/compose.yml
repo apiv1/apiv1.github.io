@@ -1,3 +1,4 @@
+name: sshd
 version: '3.9'
 services:
   sshd:
@@ -9,4 +10,5 @@ services:
       - USER_PASSWORD=password
       - USER_NAME=username
     volumes:
-      - ./storage:/storage
+      - ./.storage:/storage
+      - ./.ssh:/root/.ssh/

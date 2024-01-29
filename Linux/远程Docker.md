@@ -40,11 +40,11 @@ unset $DOCKER_HOST
 
 本地配置远程Docker连接(永久)
 ```shell
-export $DOCKER_SERVER=docker.server
+export $DOCKER_HOST=ssh://docker@docker.server:22
 
-ssh docker@$DOCKER_SERVER # 测试连接,确认密钥配置生效
+ssh $DOCKER_HOST # 测试连接,确认密钥配置生效
 
-docker context create --docker host=ssh://docker@$DOCKER_SERVER --description="docker-server" docker-server
+docker context create --docker host=$DOCKER_HOST --description="docker-server" docker-server
 
 # 使用远程docker
 docker context use docker-server

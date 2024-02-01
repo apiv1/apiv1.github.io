@@ -1,0 +1,28 @@
+name: sshd-dind
+version: '3.9'
+services:
+  sshd:
+    build:
+      dockerfile_inline: |
+        FROM linuxserver/openssh-server
+        WORKDIR /usr/local/sbin
+        COPY --from=apiv1/dind /docker .
+    command: |
+      sudo sh -c '
+        chown docker:docker /var/run/docker.sock
+        sleep infinity
+      '
+    ports:
+      - "2222:2222"
+    environment:
+      - SUDO_ACCESS=true
+      - USER_NAME=docker
+      - PUBLIC_KEY_DIR=/public/.ssh
+    volumes:
+      - ${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock:rw
+      - ./.ssh:/public/.ssh/
+    restart: always
+    depends_on:
+      - dind
+  dind:
+    image: apiv1/dind

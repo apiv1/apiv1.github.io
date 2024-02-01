@@ -1,5 +1,10 @@
 version: '3.9'
 services:
+  # docker内网络全局代理.
+  # 开启代理, 默认服务运行后自己启动, 也可关闭后手动启动:
+  # docker-compose exec redsocks redsocks-fw.sh start
+  # 停止代理, 退出需手动执行, 否则网络异常:
+  # docker-compose exec redsocks redsocks-fw.sh stop
   redsocks:
     image: apiv1/redsocks
     command: $SOCKS5_PROXY_IP $SOCKS5_PROXY_PORT
@@ -7,3 +12,4 @@ services:
     privileged: true
     environment:
       START_FW: $START_FW
+      IPTABLE_ARGS: $IPTABLE_ARGS

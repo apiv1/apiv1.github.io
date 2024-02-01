@@ -15,7 +15,5 @@ docker run -d --name xray-client --restart always -p 127.0.0.1:3128:3128 -p 127.
 docker-compose up -d xray
 ```
 
-启动xray并启动[redsocks](../redsocks/README.md)为docker内网提供全局代理
-```
-docker-compose up -d xray redsocks
-```
+为docker内网提供全局代理
+* 联合[redsocks](../redsocks/README.md)使用

@@ -2,7 +2,6 @@ name: code-server
 services:
   install-docker:
     build:
-      context: .
       dockerfile_inline: |
         FROM apiv1/code-server:daemon
         COPY --from=apiv1/dind /docker /docker

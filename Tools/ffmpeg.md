@@ -24,3 +24,8 @@ ffmpeg -i sample.mp4 -q:a 0 -map a sample.mp3 # 提取完整音频#
 ffmpeg -i sample.mp4 -ss 00:03:05 -t 00:00:45.0 -q:a 0 -map a sample.mp3 # 提取指定时间段的音频
 ffmpeg -i input-video.avi -vn -acodec copy output-audio.aac # 只提取音频流而不进行重新编码
 ```
+
+### concat
+```shell
+ffmpeg -i concat:"1.mp3|2.mp3|3.mp3|4.mp3|5.mp3|6.mp3" -c copy output.mp3
+```

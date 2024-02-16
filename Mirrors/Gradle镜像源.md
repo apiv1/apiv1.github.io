@@ -76,3 +76,8 @@ settings.gradle.kts
     maven { setUrl("https://maven.aliyun.com/repository/public") }
     ...
 ```
+
+gradle dist 镜像源
+```
+https://mirrors.cloud.tencent.com/gradle/
+```

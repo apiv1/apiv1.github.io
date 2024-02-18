@@ -25,9 +25,10 @@ handle() {
   done
 }
 
-export LC_ALL=C.UTF-8 LANG=C.UTF-8
-elif test $TREE_VERSION == 'v2.1.1'; then
+if test -n "$(locale -a | grep zh_CN)"; then
   export LC_ALL=zh_CN.UTF-8 LANG=zh_CN.UTF-8
+else
+  export LC_ALL=C.UTF-8 LANG=C.UTF-8
 fi
 
 CONTENT_FILE=README.md

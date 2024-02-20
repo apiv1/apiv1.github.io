@@ -14,7 +14,7 @@ handle() {
     PREFIX="${line%%.*}"
     PREFIX="${PREFIX//[├│]/|}"
     PREFIX="${PREFIX//[└]/+}"
-    PREFIX="${PREFIX//\ /\&nbsp;}"
+    PREFIX="$(echo ${PREFIX//\ /_nbsp;} | tr '_' '&')"
     PREFIX="${PREFIX//─/-}"
     URL=".${line#*.}"
     URL="${URL// /%20}"

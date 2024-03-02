@@ -10,8 +10,14 @@
 export HOST_NAME=$(wget -qO - v4.ident.me)
 export SERVICE_ARGS=$SERVICE_ARGS" --tls-san $HOST_NAME"
 
-# 推荐,可选: 裁剪编译了一个不含traefik组件的k3s, 放在这个链接, 如果有traefik组件还要特地删除一下, 一键安装比较麻烦.
+# (废弃, 已经可以传参数禁用了): 裁剪编译了一个不含traefik组件的k3s, 放在这个链接, 如果有traefik组件还要特地删除一下, 一键安装比较麻烦.
 export K3S_DOWNLOAD_URL=https://github.com/backrise/k3s/releases/download/v1.29.0%2Bk3s1-no-traefik/k3s # optional, if you don't need traefik
+
+# 指定url下载(可选)
+export K3S_DOWNLOAD_URL=https://rancher-mirror.rancher.cn/k3s/v1.28.7-k3s1/k3s
+
+# 使用国内镜像下载(推荐)
+export INSTALL_K3S_MIRROR=cn
 
 # 安装开始, 创建目录, 下载脚本, 执行.
 mkdir -p /opt/k3s && cd /opt/k3s

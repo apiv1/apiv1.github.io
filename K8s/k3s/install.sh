@@ -20,11 +20,11 @@ SYSTEMD_TYPE=exec
 if test "server" = "$K3S_MODE" ; then
   SERVICE_NAME=k3s
   CONFIG_FILE="$SCRIPT_HOME/config.yaml"
-  K3S_ARGS='server --config '$CONFIG_FILE' --data-dir '$SCRIPT_HOME'/lib/k3s --private-registry '$SCRIPT_HOME'/registries.yaml --default-local-storage-path '$SCRIPT_HOME'/storage --log '$SCRIPT_HOME'/log/output.log --alsologtostderr '$SCRIPT_HOME'/log/err.log '$SERVICE_ARGS
+  K3S_ARGS='server '$SERVICE_ARGS' --config '$CONFIG_FILE' --data-dir '$SCRIPT_HOME'/lib/k3s --private-registry '$SCRIPT_HOME'/registries.yaml --default-local-storage-path '$SCRIPT_HOME'/storage --log '$SCRIPT_HOME'/log/output.log --alsologtostderr '$SCRIPT_HOME'/log/err.log'
 else
   SERVICE_NAME=k3s-agent
   CONFIG_FILE="$SCRIPT_HOME/agent-config.yaml"
-  K3S_ARGS='agent --server '$K3S_URL' --token '$K3S_TOKEN' --config '$CONFIG_FILE' --data-dir '$SCRIPT_HOME'/lib/k3s-agent --private-registry '$SCRIPT_HOME'/registries.yaml --log '$SCRIPT_HOME'/log-agent/output.log --alsologtostderr '$SCRIPT_HOME'/log-agent/err.log '$SERVICE_ARGS
+  K3S_ARGS='agent --server '$K3S_URL' --token '$K3S_TOKEN' '$SERVICE_ARGS'  --config '$CONFIG_FILE' --data-dir '$SCRIPT_HOME'/lib/k3s-agent --private-registry '$SCRIPT_HOME'/registries.yaml --log '$SCRIPT_HOME'/log-agent/output.log --alsologtostderr '$SCRIPT_HOME'/log-agent/err.log'
 fi
 
 K3S_SERVICE_FILE=${K3S_SERVICE_FILE:-/etc/systemd/system/${SERVICE_NAME}.service}
@@ -185,7 +185,11 @@ if test ! -f "$K3S_BIN/k3s" ; then
         *)
             ;;
       esac
-      K3S_DOWNLOAD_URL=https://github.com/k3s-io/k3s/releases/download/${K3S_DOWNLOAD_VERSION}/${K3S_FILE}
+      if test "${INSTALL_K3S_MIRROR}" == "cn"; then
+        K3S_DOWNLOAD_URL=http://rancher-mirror.rancher.cn/k3s/${K3S_DOWNLOAD_VERSION//+/-}/${K3S_FILE}
+      else
+        K3S_DOWNLOAD_URL=https://github.com/k3s-io/k3s/releases/download/${K3S_DOWNLOAD_VERSION}/${K3S_FILE}
+      fi
     fi
     wget -O "$K3S_BIN/k3s" ${K3S_DOWNLOAD_URL}
 fi

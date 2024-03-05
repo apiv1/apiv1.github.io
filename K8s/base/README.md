@@ -9,8 +9,12 @@ kubectl apply -f metallb.yml
 2. 安装 cert-manager, 配置cluster-issuer
 
 ```bash
+# https://artifacthub.io/packages/helm/cert-manager/cert-manager
+# https://github.com/cert-manager/cert-manager/releases
+export CERT_MANAGER_VERSION=1.14.3
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v${CERT_MANAGER_VERSION}/cert-manager.crds.yaml
 helm repo add cert-manager https://charts.jetstack.io
-helm install cert-manager cert-manager/cert-manager
+helm install cert-manager cert-manager/cert-manager --version ${CERT_MANAGER_VERSION}
 vim cluster-issuer-<env>.yml # 修改配置, 设置邮箱
 kubectl apply -f cluster-issuer-<env>.yml
 ```

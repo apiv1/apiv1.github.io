@@ -25,7 +25,7 @@ cd ../docker-compose
 cd $DOCKER_HOME/.envrc.d
 echo \
 'myvim-compose () {
-  docker-dind apiv1/myvim:dind --project-directory "$PWD" $*
+  docker-dind apiv1/myvim:dind --project-directory "$PWD" -f /compose.yml $*
 }
 myvim-env () {
   myvim-compose run --rm editor $*

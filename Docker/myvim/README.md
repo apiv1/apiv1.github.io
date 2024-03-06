@@ -24,14 +24,26 @@ cd ../docker-compose
 ```shell
 cd $DOCKER_HOME/.envrc.d
 echo \
-'myvim () {
+'myvim-compose () {
   docker-dind apiv1/myvim:dind --project-directory "$PWD" $*
+}
+myvim-env () {
+  myvim-compose run --rm editor $*
+}
+myvim () {
+  myvim-env vim $*
 }'\
 > myvim.envrc
 cd -
 ```
 
 #### 安装richrc
+容器内安装
+```shell
+mkdir -p /dst/root/.envrc.d
+wget -O /dst/root/.envrc.d/.richrc https://apiv1.github.io/Shell/richrc
+```
+外部安装(已废弃, 因为容器内也装wget了)
 ```shell
 echo '
 name: myvim

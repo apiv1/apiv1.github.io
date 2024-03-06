@@ -18,6 +18,8 @@ useradd -m -s /bin/bash docker
 vi ~/.ssh/authorized_keys # 贴入你的公钥(生成的id_rsa.pub), 为了远程ssh访问docker
 # 配置好后在本机用ssh连接一下远程机器, 确认密钥, 避免使用ssh-docker时"确认密钥"流程阻塞住操作.
 
+vi ~/.bashrc # 非登录shell会加载此文件，如果需要配置docker相关的环境变量，在这里配置。其他地方配置没有用。
+
 # 若在docker用户下使用docker还是提示无权限
 # 1. 重启docker
 # 2. 检查能否有docker.sock的访问权限(他的文件夹可能都没有访问权限)

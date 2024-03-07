@@ -1,3 +1,5 @@
+# [Chrome完整包下载地址](https://www.google.cn/chrome/?standalone=1&extra=stablechannel)
+
 # 插件手动安装方法
 1. 点开[chrome://extensions](chrome://extensions)插件页面, 勾选```开发者模式```.
 2. crx文件下载下来后改扩展名成zip, 拖到插件页面安装.

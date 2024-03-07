@@ -1,3 +1,16 @@
+### 1. gradle dist 镜像源
+
+gradle/wrapper/gradle-wrapper.properties
+```properties
+# 镜像源网站 http://mirrors.cloud.tencent.com/gradle
+# distributionUrl=https\://services.gradle.org/distributions/gradle-<versions>.zip
+# 改成
+distributionUrl=https\://mirrors.cloud.tencent.com/gradle/gradle-<versions>.zip
+```
+
+### 2. 配置maven镜像源
+* 全局配置
+
 ~/.gradle/init.gradle
 ```gradle
 allprojects {
@@ -39,11 +52,15 @@ allprojects {
     }
 }
 ```
-或者 项目内/settings.gradle
+* 项目内配置
+
+settings.gradle
 ```gradle
 pluginManagement {
     repositories {
         println "aliyun repositories"
+        maven { url 'https://mirrors.cloud.tencent.com/maven' }
+        maven { url 'https://mirrors.cloud.tencent.com/maven2' }
         maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url 'https://maven.aliyun.com/repository/central' }
         maven { url 'https://maven.aliyun.com/repository/public' }
@@ -56,6 +73,8 @@ dependencyResolutionManagement {
     repositories {
         println "aliyun allprojects ${project.name}"
         repositories {
+            maven { url 'https://mirrors.cloud.tencent.com/maven' }
+            maven { url 'https://mirrors.cloud.tencent.com/maven2' }
             maven { url 'https://maven.aliyun.com/repository/google' }
             maven { url 'https://maven.aliyun.com/repository/central' }
             maven { url 'https://maven.aliyun.com/repository/public' }
@@ -65,9 +84,12 @@ dependencyResolutionManagement {
     }
 }
 ```
+
 settings.gradle.kts
 ```kts
     ...
+    maven { setUrl("https://mirrors.cloud.tencent.com/maven") }
+    maven { setUrl("https://mirrors.cloud.tencent.com/maven2") }
     maven { setUrl("https://jitpack.io") }
     maven { setUrl("https://maven.aliyun.com/repository/releases") }
     maven { setUrl("https://maven.aliyun.com/repository/google") }
@@ -75,9 +97,4 @@ settings.gradle.kts
     maven { setUrl("https://maven.aliyun.com/repository/gradle-plugin") }
     maven { setUrl("https://maven.aliyun.com/repository/public") }
     ...
-```
-
-gradle dist 镜像源
-```
-https://mirrors.cloud.tencent.com/gradle/
 ```

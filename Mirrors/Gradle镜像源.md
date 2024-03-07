@@ -60,7 +60,6 @@ pluginManagement {
     repositories {
         println "aliyun repositories"
         maven { url 'https://mirrors.cloud.tencent.com/maven' }
-        maven { url 'https://mirrors.cloud.tencent.com/maven2' }
         maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url 'https://maven.aliyun.com/repository/central' }
         maven { url 'https://maven.aliyun.com/repository/public' }

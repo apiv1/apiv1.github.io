@@ -19,12 +19,20 @@ pom.xml
             </plugin>
 ```
 
-* maven指定本地仓库
+* maven指定本地仓库和镜像仓库参考
+
 ~/.m2/settings.xml
 
 ```xml
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
   <localRepository>C:\local_respository</localRepository>
+  <mirrors>
+    <mirror>
+      <id>tencent</id>
+      <url>https://mirrors.cloud.tencent.com/maven</url>
+      <mirrorOf>*</mirrorOf>
+    </mirror>
+  </mirrors>
 </settings>
 ```

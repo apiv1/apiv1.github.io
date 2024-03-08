@@ -385,6 +385,7 @@
 |  &nbsp;|--&nbsp;[WSL2挂载Linux分区.md](./Windows/WSL2挂载Linux分区.md)  
 |  &nbsp;|--&nbsp;[Win11离线装系统.md](./Windows/Win11离线装系统.md)  
 |  &nbsp;|--&nbsp;[Win11远程桌面多开.md](./Windows/Win11远程桌面多开.md)  
+|  &nbsp;|--&nbsp;[host文件路径.md](./Windows/host文件路径.md)  
 |  &nbsp;|--&nbsp;[休眠.md](./Windows/休眠.md)  
 |  &nbsp;|--&nbsp;[使用vbs隐藏命令行窗口运行bat.md](./Windows/使用vbs隐藏命令行窗口运行bat.md)  
 |  &nbsp;|--&nbsp;[启动项路径.md](./Windows/启动项路径.md)  

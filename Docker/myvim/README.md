@@ -21,6 +21,7 @@ cd ../docker-compose
 ### 函数式安装myvim
 [`安装docker-dind`](../dind/README.md#docker-dind)
 
+bash
 ```shell
 cd $DOCKER_HOME/.envrc.d
 echo \
@@ -35,6 +36,18 @@ myvim () {
 }'\
 > myvim.envrc
 cd -
+```
+powershell
+```powershell
+function myvim-compose () {
+  invoke-expression ("docker-dind apiv1/myvim:dind --project-directory " + $PWD.Path + " -f /compose.yml $($args -join ' ')")
+}
+function myvim-env () {
+  invoke-expression ("myvim-compose run --rm editor $($args -join ' ')")
+}
+function myvim () {
+  invoke-expression ("myvim-env vim $($args -join ' ')")
+}
 ```
 
 #### 安装richrc

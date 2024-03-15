@@ -17,6 +17,8 @@ cd $DOCKER_HOME/.envrc.d
 wget https://apiv1.github.io/Docker/dind/docker-dind.envrc
 cd -
 ```
+[bash/zsh版本](./docker-dind.envrc)
+[powershell版本](./docker-dind.ps1)
 
 ### docker hook
 * 将docker工具作为docker子命令调用

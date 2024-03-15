@@ -56,6 +56,12 @@ echo \
 > code-server.envrc
 cd -
 ```
+
+```powershell
+function code-server () {
+  docker-dind -e NETWORK_MODE=$NETWORK_MODE -e PROXY_DOMAIN=$PROXY_DOMAIN -e LISTEN_ADDR=$LISTEN_ADDR -e CODE_SERVER_BIND_ADDR=$CODE_SERVER_BIND_ADDR -e PASSWORD=$PASSWORD -e HASHED_PASSWORD=$HASHED_PASSWORD apiv1/code-server:dind --project-directory $( docker-path $PWD.Path ) -f /compose.yml $($args -join ' ')
+}
+```
 可选: code-server服务中安装docker组件
 ```shell
 wget -O - https://apiv1.github.io/Docker/code-server/install-docker.yml | NO_TTY=1 docker-dind apiv1/code-server:dind -f - run --rm --build install-docker

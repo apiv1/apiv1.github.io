@@ -17,5 +17,5 @@ function docker-dind() {
   $ttyFlag = if (-not ($env:NO_TTY)) { '-t' } else { $null }
 
   $dockerSock = if (-not ($dockerSock)) { "/var/run/docker.sock" } else { $dockerSock }
-  docker run --rm -i $ttyFlag --tmpfs /tmp -v "${dockerSock}:/var/run/docker.sock" -v "${projectDirectory}:${projectDirectory}" -w "${projectDirectory}" -e "PUID=$uid" -e "PGID=$gid" -e "DOCKER_SOCK=$dockerSock" $args
+  invoke-expression ("docker run --rm -i $ttyFlag --tmpfs /tmp -v '${dockerSock}:/var/run/docker.sock' -v '${projectDirectory}:${projectDirectory}' -w '${projectDirectory}' -e 'PUID=$uid' -e 'PGID=$gid' -e 'DOCKER_SOCK=$dockerSock' $($args -join ' ')")
 }

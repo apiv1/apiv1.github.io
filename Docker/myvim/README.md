@@ -19,9 +19,11 @@ cd ../docker-compose
 执行: [`打包 compose.yml 到镜像`](../docker-compose/README.md#打包配置到镜像-示例)
 
 ### 函数式安装myvim
+
 [`安装docker-dind`](../dind/README.md#docker-dind)
 
 bash
+
 ```shell
 cd $DOCKER_HOME/.envrc.d
 echo \
@@ -37,26 +39,32 @@ myvim () {
 > myvim.envrc
 cd -
 ```
+
 powershell
+
 ```powershell
 function myvim-compose () {
-  invoke-expression ("docker-dind apiv1/myvim:dind --project-directory $( docker-path $PWD.Path ) -f /compose.yml $($args -join ' ')")
+  docker-dind apiv1/myvim:dind --project-directory $( docker-path $PWD.Path ) -f /compose.yml $($args -join ' ')
 }
 function myvim-env () {
-  invoke-expression ("myvim-compose run --rm editor $($args -join ' ')")
+  myvim-compose run --rm editor $($args -join ' ')
 }
 function myvim () {
-  invoke-expression ("myvim-env vim $($args -join ' ')")
+  myvim-env vim $($args -join ' ')
 }
 ```
 
 #### 安装richrc
+
 容器内安装
+
 ```shell
 mkdir -p /root/.envrc.d
 wget -O /root/.envrc.d/.richrc https://apiv1.github.io/Shell/richrc
 ```
+
 外部安装(已废弃, 因为容器内也装wget了)
+
 ```shell
 echo '
 name: myvim

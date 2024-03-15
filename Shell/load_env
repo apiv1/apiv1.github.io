@@ -1,0 +1,9 @@
+load_envs() {
+  cd ~/.envrc.d >/dev/null 2>&1 || return 1
+  for item in `ls -A 2>/dev/null`
+  do
+    . $item
+  done
+  cd - >/dev/null 2>&1
+}
+load_envs

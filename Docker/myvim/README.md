@@ -40,7 +40,7 @@ cd -
 powershell
 ```powershell
 function myvim-compose () {
-  invoke-expression ("docker-dind apiv1/myvim:dind --project-directory " + $PWD.Path + " -f /compose.yml $($args -join ' ')")
+  invoke-expression ("docker-dind apiv1/myvim:dind --project-directory $( docker-path $PWD.Path ) -f /compose.yml $($args -join ' ')")
 }
 function myvim-env () {
   invoke-expression ("myvim-compose run --rm editor $($args -join ' ')")
@@ -53,8 +53,8 @@ function myvim () {
 #### 安装richrc
 容器内安装
 ```shell
-mkdir -p /dst/root/.envrc.d
-wget -O /dst/root/.envrc.d/.richrc https://apiv1.github.io/Shell/richrc
+mkdir -p /root/.envrc.d
+wget -O /root/.envrc.d/.richrc https://apiv1.github.io/Shell/richrc
 ```
 外部安装(已废弃, 因为容器内也装wget了)
 ```shell

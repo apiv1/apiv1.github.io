@@ -51,7 +51,7 @@ docker-compose() {
   local PUID=$(id -u)
   local PGID=$(id -g)
   test -n "$DOCKER_HOST" -a -z "$DOCKER_SOCK" && export DOCKER_SOCK=${DOCKER_HOST//unix:\/\//}
-  $(which docker) run --rm -it --tmpfs /tmp -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" $DOCKER_ARGS apiv1/docker-compose --project-directory "$PROJECT_DIRECTORY" $*
+  $(which docker) run --rm -it --tmpfs /tmp -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" apiv1/docker-compose --project-directory "$PROJECT_DIRECTORY" $*
 }
 ```
 
@@ -63,16 +63,14 @@ docker-compose () {
   local PUID=$(id -u)
   local PGID=$(id -g)
   local DOCKER_COMPOSE_FILE=${DOCKER_COMPOSE_FILE:-$PROJECT_DIRECTORY/compose.yml}
-  local DOCKER_ARGS="$DOCKER_ARGS -v $DOCKER_COMPOSE_FILE:/compose.yml"
   test -n "$DOCKER_HOST" -a -z "$DOCKER_SOCK" && export DOCKER_SOCK=${DOCKER_HOST//unix:\/\//}
-  $(which docker) run --rm -it --tmpfs /tmp -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" $DOCKER_ARGS apiv1/docker-compose --project-directory "$PROJECT_DIRECTORY" -f /compose.yml $*
+  $(which docker) run --rm -it --tmpfs /tmp -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" -v $DOCKER_COMPOSE_FILE:/compose.yml apiv1/docker-compose --project-directory "$PROJECT_DIRECTORY" -f /compose.yml $*
 }
 
 # (可选, 使用docker-dind)
 docker-compose () {
   local DOCKER_COMPOSE_FILE=${DOCKER_COMPOSE_FILE:-$PROJECT_DIRECTORY/compose.yml}
-  local DOCKER_ARGS="$DOCKER_ARGS -v $DOCKER_COMPOSE_FILE:/compose.yml"
-  docker-dind apiv1/docker-compose --project-directory "$PWD" $*
+  docker-dind -v $DOCKER_COMPOSE_FILE:/compose.yml apiv1/docker-compose --project-directory "$PWD" $*
 }
 ```
 

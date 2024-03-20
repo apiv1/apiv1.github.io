@@ -47,6 +47,8 @@ cd ../docker-compose
 [`安装docker-dind`](../docker-compose/README.md#docker-dind)
 
 安装code-server命令
+
+bash
 ```shell
 cd $DOCKER_HOME/.envrc.d
 echo \
@@ -57,9 +59,10 @@ echo \
 cd -
 ```
 
+powershell
 ```powershell
 function code-server () {
-  docker-dind -e NETWORK_MODE=$NETWORK_MODE -e PROXY_DOMAIN=$PROXY_DOMAIN -e LISTEN_ADDR=$LISTEN_ADDR -e CODE_SERVER_BIND_ADDR=$CODE_SERVER_BIND_ADDR -e PASSWORD=$PASSWORD -e HASHED_PASSWORD=$HASHED_PASSWORD apiv1/code-server:dind --project-directory $( docker-path $PWD.Path ) -f /compose.yml $($args -join ' ')
+  docker-dind -e "NETWORK_MODE='$NETWORK_MODE'" -e "PROXY_DOMAIN='$PROXY_DOMAIN'" -e "LISTEN_ADDR='$LISTEN_ADDR'" -e "CODE_SERVER_BIND_ADDR='$CODE_SERVER_BIND_ADDR'" -e "PASSWORD='$PASSWORD'" -e "HASHED_PASSWORD='$HASHED_PASSWORD'" apiv1/code-server:dind --project-directory $( docker-path $PWD.Path ) -f /compose.yml $($args -join ' ')
 }
 ```
 可选: code-server服务中安装docker组件

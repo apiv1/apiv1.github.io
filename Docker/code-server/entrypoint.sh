@@ -19,4 +19,4 @@ exec tini -- code-server \
   --auth "${AUTH}" \
   "${PROXY_DOMAIN_ARG}" \
   "${CODE_SERVER_ARGS}" \
-  /workspace
+  ${CODE_SERVER_WORKSPACE:-/}

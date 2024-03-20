@@ -2,10 +2,10 @@ name: myvim
 services:
   editor:
     image: apiv1/myvim
-    working_dir: /workspace
+    working_dir: ${PWD:-/workspace}
     volumes:
       - home:/root
-      - .:/workspace
+      - .:${PWD:-/workspace}
     tmpfs:
       - /root/.ssh
     configs:

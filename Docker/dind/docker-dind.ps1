@@ -15,14 +15,16 @@ function docker-dind() {
     Write-Output "usage: <DIND_IMAGE> [ARG1] [ARG2] ..."
     return
   }
-  $projectDirectory = if (-not ($env:PROJECT_DIRECTORY)) { $PWD.Path } else { $env:PROJECT_DIRECTORY }
+  $projectDirectory = if (-not ($PROJECT_DIRECTORY)) { $PWD.Path } else { $PROJECT_DIRECTORY }
   $projectDirectory = docker-path $projectDirectory
 
-  $dockerSock = if ($null -ne $env:DOCKER_HOST -and ($null -eq $env:DOCKER_SOCK)) { $env:DOCKER_HOST.Replace('unix://', '') } else { $null }
-  $ttyFlag = if (-not ($env:NO_TTY)) { '-t' } else { $null }
+  $dockerSock = if ($null -ne $DOCKER_HOST -and ($null -eq $DOCKER_SOCK)) { $DOCKER_HOST.Replace('unix://', '') } else { $null }
+  $ttyFlag = if (-not ($NO_TTY)) { '-t' } else { $null }
 
   $dockerSock = if (-not ($dockerSock)) { "/var/run/docker.sock" } else { $dockerSock }
-  invoke-expression ("&'$DOCKER_BIN' run --rm -i $ttyFlag --tmpfs /tmp -v '${dockerSock}:/var/run/docker.sock' -v '${projectDirectory}:${projectDirectory}' -w '${projectDirectory}' -e 'PUID=$uid' -e 'PGID=$gid' -e 'DOCKER_SOCK=$dockerSock' $($args -join ' ')")
+
+  Set-Alias -Name doInvoke -Value $(if (-not ($NO_EXEC)) { 'Invoke-Expression' } else { 'Write-Output' } )
+  doInvoke ("&'$DOCKER_BIN' run --rm -i $ttyFlag --tmpfs /tmp -v '${dockerSock}:/var/run/docker.sock' -v '${projectDirectory}:${projectDirectory}' -w '${projectDirectory}' -e 'PUID=$uid' -e 'PGID=$gid' -e 'DOCKER_SOCK=$dockerSock' -e 'PWD=$projectDirectory' $($args -join ' ')")
 }
 
 function docker-compose() {

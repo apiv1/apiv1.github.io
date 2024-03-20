@@ -1,5 +1,4 @@
 ARG CODE_SERVER_IMAGE=code-server
-ARG CODE_SERVER_DAEMON_IMAGE=daemon
 ARG DIND_IMAGE=apiv1/dind:25.0.0
 ARG DOCKER_COMPOSE_IMAGE=apiv1/docker-compose:v2.24.0
 

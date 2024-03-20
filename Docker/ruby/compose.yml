@@ -1,0 +1,19 @@
+name: 'ruby'
+version: '3.9'
+services:
+  ruby:
+    image: ${RUBY_IMAGE:-ruby:alpine}
+    working_dir: ${PWD:-/workspace}
+    volumes:
+      - .:${PWD:-/workspace}
+      - bundle:/usr/local/bundle
+      - root:/root
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - LC_ALL=C.UTF-8
+      - LANG=C.UTF-8
+      - TZ=Asia/Shanghai
+volumes:
+  bundle:
+  root:

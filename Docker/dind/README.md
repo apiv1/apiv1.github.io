@@ -8,7 +8,7 @@ docker buildx build . --platform linux/amd64,linux/arm64 --build-arg DOCKER_VERS
 ```
 
 ### docker-dind
-[docker-dind.envrc](./docker-dind.envrc)
+
 * docker-dind: 在容器里使用docker的命令
 * docker-buildx: 在容器里使用docker-buildx的命令
 * docker-compose: 在容器里使用docker-compose的命令

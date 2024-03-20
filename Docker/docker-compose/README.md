@@ -18,7 +18,7 @@ docker container remove docker-compose-container
 ### 函数式安装docker-compose
 [`安装docker-dind`](../dind/README.md#docker-dind)
 
-安装docker-compose
+~~安装docker-compose~~ docker-dind脚本内现在自带
 ```shell
 cd $DOCKER_HOME/.envrc.d
 echo \

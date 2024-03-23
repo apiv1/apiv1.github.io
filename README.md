@@ -311,6 +311,8 @@
 |  &nbsp;|--&nbsp;[linux服务器上ssh维持会话,断开不退出,重连继续会话.md](./Linux/linux服务器上ssh维持会话,断开不退出,重连继续会话.md)  
 |  &nbsp;|--&nbsp;[netplan.md](./Linux/netplan.md)  
 |  &nbsp;|--&nbsp;[netstat查看连接状态.md](./Linux/netstat查看连接状态.md)  
+|  &nbsp;|--&nbsp;[ssh设置不超时断开.md](./Linux/ssh设置不超时断开.md)  
+|  &nbsp;|--&nbsp;[从stdin执行source.md](./Linux/从stdin执行source.md)  
 |  &nbsp;|--&nbsp;[使用frp映射内网linux的ssh端口到外网.md](./Linux/使用frp映射内网linux的ssh端口到外网.md)  
 |  &nbsp;|--&nbsp;[加虚拟内存.md](./Linux/加虚拟内存.md)  
 |  &nbsp;|--&nbsp;[卸载腾讯云的服务.md](./Linux/卸载腾讯云的服务.md)  

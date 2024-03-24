@@ -21,7 +21,7 @@ cd $DOCKER_HOME/.envrc.d
 echo \
 'RUBY_IMAGE=ruby:alpine
 ruby-compose () {
-  docker-dind apiv1/ruby:dind --project-directory "$PWD" -f /compose.yml $*
+  dind-run apiv1/ruby:dind --project-directory "$PWD" -f /compose.yml $*
 }
 ruby-env () {
   ruby-compose run --rm --entrypoint sh ruby $*
@@ -37,7 +37,7 @@ powershell
 ```powershell
 $RUBY_IMAGE='ruby:alpine'
 function ruby-compose () {
-  docker-dind apiv1/ruby:dind --project-directory $( docker-path $PWD.Path ) -f /compose.yml $($args -join ' ')
+  dind-run apiv1/ruby:dind --project-directory $( docker-path $PWD.Path ) -f /compose.yml $($args -join ' ')
 }
 function ruby-env () {
   ruby-compose run --rm --entrypoint sh ruby $($args -join ' ')

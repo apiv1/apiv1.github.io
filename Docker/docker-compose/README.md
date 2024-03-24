@@ -23,7 +23,7 @@ docker container remove docker-compose-container
 cd $DOCKER_HOME/.envrc.d
 echo \
 'docker-compose () {
-  docker-dind apiv1/docker-compose $*
+  dind-run apiv1/docker-compose $*
 }'\
  > docker-compose.envrc
 cd -
@@ -70,7 +70,7 @@ docker-compose () {
 # (可选, 使用docker-dind)
 docker-compose () {
   local DOCKER_COMPOSE_FILE=${DOCKER_COMPOSE_FILE:-$PROJECT_DIRECTORY/compose.yml}
-  docker-dind -v $DOCKER_COMPOSE_FILE:/compose.yml apiv1/docker-compose --project-directory "$PWD" $*
+  dind-run -v $DOCKER_COMPOSE_FILE:/compose.yml apiv1/docker-compose --project-directory "$PWD" $*
 }
 ```
 

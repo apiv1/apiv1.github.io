@@ -28,7 +28,7 @@ bash
 cd $DOCKER_HOME/.envrc.d
 echo \
 'myvim-compose () {
-  docker-dind apiv1/myvim:dind --project-directory "$PWD" -f /compose.yml $*
+  dind-run apiv1/myvim:dind --project-directory "$PWD" -f /compose.yml $*
 }
 myvim-env () {
   myvim-compose run --rm editor $*
@@ -44,7 +44,7 @@ powershell
 
 ```powershell
 function myvim-compose () {
-  docker-dind apiv1/myvim:dind --project-directory $( docker-path $PWD.Path ) -f /compose.yml $($args -join ' ')
+  dind-run apiv1/myvim:dind --project-directory $( docker-path $PWD.Path ) -f /compose.yml $($args -join ' ')
 }
 function myvim-env () {
   myvim-compose run --rm editor $($args -join ' ')
@@ -81,5 +81,5 @@ services:
     network_mode: host
 volumes:
   home:
-' | NO_TTY=1 docker-dind apiv1/myvim:dind -f - run --rm install_richrc
+' | NO_TTY=1 dind-run apiv1/myvim:dind -f - run --rm install_richrc
 ```

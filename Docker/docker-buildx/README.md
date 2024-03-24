@@ -24,7 +24,7 @@ docker container remove buildx-container
 cd $DOCKER_HOME/.envrc.d
 echo \
 'docker-buildx () {
-  docker-dind apiv1/docker-buildx $*
+  dind-run apiv1/docker-buildx $*
 }'\
 > docker-buildx.envrc
 cd -

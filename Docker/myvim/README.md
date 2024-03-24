@@ -22,37 +22,8 @@ cd ../docker-compose
 
 [`安装docker-dind`](../dind/README.md#docker-dind)
 
-bash
-
-```shell
-cd $DOCKER_HOME/.envrc.d
-echo \
-'myvim-compose () {
-  dind-run -e NETWORK_MODE=host apiv1/myvim:dind --project-directory "$PWD" -f /compose.yml $*
-}
-myvim-env () {
-  myvim-compose run --rm editor $*
-}
-myvim () {
-  myvim-env vim $*
-}'\
-> myvim.envrc
-cd -
-```
-
-powershell
-
-```powershell
-function myvim-compose () {
-  dind-run apiv1/myvim:dind --project-directory $( docker-path $PWD.Path ) -f /compose.yml $($args -join ' ')
-}
-function myvim-env () {
-  myvim-compose run --rm editor $($args -join ' ')
-}
-function myvim () {
-  myvim-env vim $($args -join ' ')
-}
-```
+[bash/zsh版本](./myvim.envrc)
+[powershell版本](./myvim.ps1)
 
 #### 安装richrc
 

@@ -15,34 +15,5 @@ cd ../docker-compose
 
 安装ruby环境
 
-bash
-```shell
-cd $DOCKER_HOME/.envrc.d
-echo \
-'RUBY_IMAGE=ruby:alpine
-ruby-compose () {
-  dind-run apiv1/ruby:dind --project-directory "$PWD" -f /compose.yml $*
-}
-ruby-env () {
-  ruby-compose run --rm --entrypoint sh ruby $*
-}
-ruby-cli () {
-  ruby-compose run --rm ruby $*
-}'\
-> ruby.envrc
-cd -
-```
-
-powershell
-```powershell
-$RUBY_IMAGE='ruby:alpine'
-function ruby-compose () {
-  dind-run apiv1/ruby:dind --project-directory $( docker-path $PWD.Path ) -f /compose.yml $($args -join ' ')
-}
-function ruby-env () {
-  ruby-compose run --rm --entrypoint sh ruby $($args -join ' ')
-}
-function ruby-cli () {
-  ruby-compose run --rm ruby $($args -join ' ')
-}
-```
+[bash/zsh版本](./ruby.envrc)
+[powershell版本](./ruby.ps1)

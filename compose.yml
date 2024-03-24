@@ -2,6 +2,7 @@ name: myvim
 services:
   editor:
     image: apiv1/myvim
+    network_mode: ${NETWORK_MODE:-default}
     working_dir: ${PWD:-/workspace}
     volumes:
       - home:/root

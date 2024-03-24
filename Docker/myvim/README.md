@@ -28,7 +28,7 @@ bash
 cd $DOCKER_HOME/.envrc.d
 echo \
 'myvim-compose () {
-  dind-run apiv1/myvim:dind --project-directory "$PWD" -f /compose.yml $*
+  dind-run -e NETWORK_MODE=host apiv1/myvim:dind --project-directory "$PWD" -f /compose.yml $*
 }
 myvim-env () {
   myvim-compose run --rm editor $*

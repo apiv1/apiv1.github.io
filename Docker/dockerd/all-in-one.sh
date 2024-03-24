@@ -20,24 +20,27 @@ if test -f "$DOCKER_SERVICE_FILE" ; then
 fi
 
 if test ! -f "$SCRIPT_HOME/bin/dockerd" ; then
-  if test -z $DOCKER_DOWNLOAD_URL; then
-    DOCKER_ARCH=${DOCKER_ARCH:-$(uname -m)}
-    case "$DOCKER_ARCH" in
-    arm64)
-        DOCKER_ARCH=aarch64
-        ;;
-    *)
-        ;;
-    esac
-    if test -z $DOCKER_VERSION; then
-      echo query DOCKER_VERSION ...
-      DOCKER_VERSION=$(wget -qO - https://download.docker.com/linux/static/stable/${DOCKER_ARCH}/ | grep -e 'docker-[0-9]' | sed 's/^.*docker-//g' | sed 's/\.tgz.*$//g' | tail -1)
-      test -z $DOCKER_VERSION && ( echo error: DOCKER_VERSION query failed ; exit 1 )
-    fi
-    DOCKER_DOWNLOAD_URL=https://download.docker.com/linux/static/stable/${DOCKER_ARCH}/docker-${DOCKER_VERSION}.tgz
-  fi
+  alias wget='wget --no-check-certificate'
   DOCKER_FILE_NAME=docker.tgz
-  wget -O ${DOCKER_FILE_NAME} "${DOCKER_DOWNLOAD_URL}"
+  if test ! -f $DOCKER_FILE_NAME; then
+    if test -z $DOCKER_DOWNLOAD_URL; then
+      DOCKER_ARCH=${DOCKER_ARCH:-$(uname -m)}
+      case "$DOCKER_ARCH" in
+      arm64)
+          DOCKER_ARCH=aarch64
+          ;;
+      *)
+          ;;
+      esac
+      if test -z $DOCKER_VERSION; then
+        echo query DOCKER_VERSION ...
+        DOCKER_VERSION=$(wget -qO - https://download.docker.com/linux/static/stable/${DOCKER_ARCH}/ | grep -e 'docker-[0-9]' | sed 's/^.*docker-//g' | sed 's/\.tgz.*$//g' | tail -1)
+        test -z $DOCKER_VERSION && ( echo error: DOCKER_VERSION query failed ; exit 1 )
+      fi
+      DOCKER_DOWNLOAD_URL=https://download.docker.com/linux/static/stable/${DOCKER_ARCH}/docker-${DOCKER_VERSION}.tgz
+    fi
+    wget -O ${DOCKER_FILE_NAME} "${DOCKER_DOWNLOAD_URL}"
+  fi
   tar zxvf ${DOCKER_FILE_NAME} && rm -rf ${DOCKER_FILE_NAME}
 
   mkdir -p bin
@@ -110,4 +113,4 @@ Put it into your shell rc file:
 systemctl daemon-reload
 systemctl start docker
 systemctl enable docker.service
-systemctl status --no-pager -l docker
+systemctl status --no-pager docker

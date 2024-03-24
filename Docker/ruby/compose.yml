@@ -3,9 +3,9 @@ version: '3.9'
 services:
   ruby:
     image: ${RUBY_IMAGE:-ruby:alpine}
-    working_dir: ${PWD:-/workspace}
+    working_dir: ${PATH_PREFIX:-/_}${PWD}
     volumes:
-      - .:${PWD:-/workspace}
+      - .:${PATH_PREFIX:-/_}${PWD}
       - bundle:/usr/local/bundle
       - root:/root
     environment:

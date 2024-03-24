@@ -3,10 +3,10 @@ services:
   editor:
     image: apiv1/myvim
     network_mode: ${NETWORK_MODE:-default}
-    working_dir: ${PWD:-/workspace}
+    working_dir: ${PATH_PREFIX:-/_}${PWD}
     volumes:
       - home:/root
-      - .:${PWD:-/workspace}
+      - .:${PATH_PREFIX:-/_}${PWD}
     tmpfs:
       - /root/.ssh
     configs:

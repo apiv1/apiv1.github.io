@@ -23,7 +23,10 @@ rich_shell() {
     __richrc__docker_context_env() {
         docker_context_inner() {
             if type docker >/dev/null; then
-                DOCKER_CONTEXT=$(docker context show)
+                DOCKER_CONTEXT=$(docker version -f '{{.Client.Version}}')
+                if test -n "$(docker 2>&1 | grep context)" ; then
+                    DOCKER_CONTEXT="$DOCKER_CONTEXT@$(docker context show)"
+                fi
             fi
         }
         docker_context_inner 2>/dev/null

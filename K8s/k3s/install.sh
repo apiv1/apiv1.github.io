@@ -132,6 +132,7 @@ test $(id -u) -eq 0 || exec sudo $0 $@
 ${KILLALL_K3S_SH}
 
 if command -v systemctl; then
+    systemctl stop ${SERVICE_NAME}
     systemctl disable ${SERVICE_NAME} --now
     systemctl reset-failed ${SERVICE_NAME}
     systemctl daemon-reload
@@ -171,6 +172,7 @@ fi
 
 if test ! -f "$K3S_BIN/k3s" ; then
     mkdir -p "$K3S_BIN"
+    alias wget='wget --no-check-certificate'
     if test -z ${K3S_DOWNLOAD_URL}; then
       K3S_DOWNLOAD_VERSION=$(wget -SqO /dev/null https://update.k3s.io/v1-release/channels/stable 2>&1 | grep -i Location | sed -e 's|.*/||')
       K3S_FILE=k3s
@@ -262,4 +264,4 @@ Put it into your shell rc file:
 systemctl daemon-reload
 systemctl start ${SERVICE_NAME}
 systemctl enable ${SERVICE_NAME}.service
-systemctl status --no-pager -l ${SERVICE_NAME}
+systemctl status --no-pager ${SERVICE_NAME}

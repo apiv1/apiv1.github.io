@@ -13,6 +13,9 @@ export SERVICE_ARGS=$SERVICE_ARGS" --tls-san $HOST_NAME"
 # (废弃, 已经可以传参数禁用了): 裁剪编译了一个不含traefik组件的k3s, 放在这个链接, 如果有traefik组件还要特地删除一下, 一键安装比较麻烦.
 export K3S_DOWNLOAD_URL=https://github.com/backrise/k3s/releases/download/v1.29.0%2Bk3s1-no-traefik/k3s # optional, if you don't need traefik
 
+# 禁用traefik(推荐)
+export SERVICE_ARGS=$SERVICE_ARGS" --disable traefik"
+
 # 指定url下载(可选)
 export K3S_DOWNLOAD_URL=https://rancher-mirror.rancher.cn/k3s/v1.28.7-k3s1/k3s
 

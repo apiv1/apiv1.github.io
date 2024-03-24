@@ -27,12 +27,16 @@ function docker-dind() {
   doInvoke ("&'$DOCKER_BIN' run --rm -i $ttyFlag --tmpfs /tmp -v '${dockerSock}:/var/run/docker.sock' -v '${projectDirectory}:${projectDirectory}' -w '${projectDirectory}' -e 'PUID=$uid' -e 'PGID=$gid' -e 'DOCKER_SOCK=$dockerSock' -e 'PWD=$projectDirectory' $($args -join ' ')")
 }
 
+function docker-dind-login() {
+  docker-dind -v docker-dind-context:/.docker apiv1/dind login $($args -join ' ')
+}
+
 function docker-compose() {
-  docker-dind apiv1/docker-compose $($args -join ' ')
+  docker-dind -v docker-dind-context:/root/.docker apiv1/docker-compose $($args -join ' ')
 }
 
 function docker-buildx() {
-  docker-dind apiv1/docker-buildx $($args -join ' ')
+  docker-dind -v docker-dind-context:/root/.docker apiv1/docker-buildx $($args -join ' ')
 }
 
 function docker() {

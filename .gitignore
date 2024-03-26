@@ -2,3 +2,7 @@
 .env*
 .ssh*
 .workspace
+.exe
+.dll
+.o
+.app

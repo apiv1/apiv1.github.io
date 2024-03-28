@@ -1,3 +1,6 @@
+# Dind (docker in docker)
+在容器里调用宿主机Docker服务实现功能
+
 ### build
 
 ```shell
@@ -44,4 +47,26 @@ echo \
 }'\
 > docker.envrc
 cd -
+```
+
+### 在其他的compose project中安装docker组件, 实现dind
+* 把docker客户端等二进制文件安装在容器内/root/.bin, /root/.docker/cli-plugins 等目录中实现dind
+* 可以使用docker,docker-compose, docker-buildx等功能
+* 需持久化/root目录
+* 需映射docker.sock
+
+配置compose.yml例子
+```yml
+volumes:
+  - root:/root
+  - ${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock
+```
+
+制作dind镜像: [`打包 compose.yml 到镜像`](../docker-compose/README.md#打包配置到镜像-示例)
+
+执行
+```shell
+# DIND_IMAGE: 打包了compose文件的镜像
+export DIND_IMAGE=<镜像名称>
+wget -O - https://apiv1.github.io/Docker/dind/install-docker.yml | NO_TTY=1 dind-run $DIND_IMAGE -f - run --rm --build install-docker
 ```

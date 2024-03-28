@@ -54,3 +54,6 @@ volumes:
   home:
 ' | NO_TTY=1 dind-run apiv1/myvim:dind -f - run --rm install_richrc
 ```
+
+可选: myvim服务中安装dind组件
+[`容器环境内安装dind`](../dind/README.md#在其他的compose-project中安装docker组件,-实现dind)

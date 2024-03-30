@@ -67,5 +67,6 @@ function code-server () {
 ```
 可选: code-server服务中安装docker组件
 ```shell
+dind-run apiv1/code-server:dind -f /compose.yml up -d # 若从未启动过环境, 需要先启动一次, 初始化卷数据
 wget -O - https://apiv1.github.io/Docker/code-server/install-docker.yml | NO_TTY=1 dind-run apiv1/code-server:dind -f - run --rm --build install-docker
 ```

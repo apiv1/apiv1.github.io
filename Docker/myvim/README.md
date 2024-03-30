@@ -54,3 +54,9 @@ volumes:
   home:
 ' | NO_TTY=1 dind-run apiv1/myvim:dind -f - run --rm install_richrc
 ```
+
+可选: myvim服务中安装docker组件
+```shell
+dind-run apiv1/myvim:dind -f /compose.yml up -d # 若从未启动过环境, 需要先启动一次, 初始化卷数据
+wget -O - https://apiv1.github.io/Docker/myvim/install-docker.yml | NO_TTY=1 dind-run apiv1/myvim:dind -f - run --rm --build install-docker
+```

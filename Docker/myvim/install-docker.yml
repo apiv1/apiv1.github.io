@@ -1,9 +1,9 @@
-name: code-server
+name: myvim
 services:
   install-docker:
     build:
       dockerfile_inline: |
-        FROM apiv1/code-server:daemon
+        FROM apiv1/myvim
         COPY --from=apiv1/dind /docker /docker
         COPY --from=apiv1/docker-compose /docker-compose /docker-compose
         COPY --from=apiv1/docker-buildx /usr/local/bin/docker-buildx /docker-buildx
@@ -20,7 +20,7 @@ services:
         test -f /_/root/.docker/cli-plugins/docker-buildx || ln -s /root/.bin/docker-buildx /_/root/.docker/cli-plugins/docker-buildx
       '
     volumes:
-      - root:/_/root
+      - home:/_/root
     depends_on:
       - dind
       - docker-compose
@@ -32,4 +32,4 @@ services:
   docker-buildx:
     image: apiv1/docker-buildx
 volumes:
-  root:
+  home:

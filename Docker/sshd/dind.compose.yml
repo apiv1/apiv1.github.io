@@ -1,5 +1,4 @@
 name: sshd-dind
-version: '3.9'
 services:
   sshd:
     build:

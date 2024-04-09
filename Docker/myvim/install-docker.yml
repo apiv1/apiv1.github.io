@@ -21,15 +21,5 @@ services:
       '
     volumes:
       - home:/_/root
-    depends_on:
-      - docker
-      - docker-compose
-      - docker-buildx
-  docker:
-    image: apiv1/docker
-  docker-compose:
-    image: apiv1/docker-compose
-  docker-buildx:
-    image: apiv1/docker-buildx
 volumes:
   home:

@@ -7,14 +7,17 @@ ARG DOCKER_VERSION=26.0.0
 RUN wget -O /docker.tgz https://download.docker.com/${TARGETOS}/static/stable/$(uname -m)/docker-$DOCKER_VERSION.tgz && \
   tar zxvf /docker.tgz && rm /docker.tgz
 
-FROM scratch AS full
-COPY --from=base /docker /docker
-ENV PATH /docker
-ENTRYPOINT [ "docker" ]
+FROM alpine AS runner
+ARG ALPINE_PROXY=${ALPINE_PROXY:-"mirrors.ustc.edu.cn"}
+RUN sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_PROXY}/g" /etc/apk/repositories
+
+FROM runner AS full
+RUN apk add --no-cache --update iptables
+COPY --from=base /docker/* /usr/local/bin/
+ENTRYPOINT [ "dockerd" ]
 
 FROM ${DOCKER_FULL_STAGE} AS full-image
 
-FROM scratch AS cli
-COPY --from=full-image /docker/docker /docker
-ENV PATH /
+FROM runner AS cli
+COPY --from=full-image /usr/local/bin/docker /usr/local/bin/docker
 ENTRYPOINT [ "docker" ]

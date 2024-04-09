@@ -1,5 +1,4 @@
 name: sshd
-version: '3.9'
 services:
   sshd:
     image: linuxserver/openssh-server

@@ -22,13 +22,13 @@ docker buildx build . --platform linux/amd64,linux/arm64 --build-arg DOCKER_VERS
 * docker-compose: 在容器里使用docker-compose的命令
 * docker: 重定向docker子命令
 
-[bash/zsh版本](./docker-dind.envrc)
-[powershell版本](./docker-dind.ps1)
+[bash/zsh版本](./docker.envrc)
+[powershell版本](./docker.ps1)
 
 * [Dockered](../dockerd/README.md) 环境中安装 docker-dind
 ```shell
 cd $DOCKER_HOME/.envrc.d
-wget https://apiv1.github.io/Docker/dind/docker-dind.envrc
+wget https://apiv1.github.io/Docker/dind/docker.envrc
 cd -
 ```
 

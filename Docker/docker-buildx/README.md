@@ -17,7 +17,7 @@ docker container remove buildx-container
 ```
 
 ### 函数式安装docker-buildx
-[`安装docker-dind`](../dind/README.md#docker-dind)
+[`安装docker-dind`](../docker/README.md#docker-dind)
 
 ~~安装docker-buildx~~ docker-dind脚本内现在自带
 ```shell

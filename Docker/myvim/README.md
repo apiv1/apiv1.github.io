@@ -20,7 +20,7 @@ cd ../docker-compose
 
 ### 函数式安装myvim
 
-[`安装docker-dind`](../dind/README.md#docker-dind)
+[`安装docker-dind`](../docker/README.md#docker-dind)
 
 [bash/zsh版本](./myvim.envrc)
 [powershell版本](./myvim.ps1)

@@ -1,5 +1,5 @@
 function global:myvim-compose () {
-  dind-run apiv1/myvim:dind --project-directory $( docker-path $PWD.Path ) -f /compose.yml $($args -join ' ')
+  dood-run apiv1/myvim:compose --project-directory $( docker-path $PWD.Path ) -f /compose.yml $($args -join ' ')
 }
 function global:myvim-env () {
   myvim-compose run --rm editor $($args -join ' ')

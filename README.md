@@ -194,7 +194,7 @@
 |  &nbsp;|  &nbsp;+--&nbsp;[docker-compose.yml](./Docker/snail007-goproxy/docker-compose.yml)  
 |  &nbsp;|--&nbsp;[sshd](./Docker/sshd)  
 |  &nbsp;|  &nbsp;|--&nbsp;[compose.yml](./Docker/sshd/compose.yml)  
-|  &nbsp;|  &nbsp;|--&nbsp;[dind.compose.yml](./Docker/sshd/dind.compose.yml)  
+|  &nbsp;|  &nbsp;|--&nbsp;[dood.compose.yml](./Docker/sshd/dood.compose.yml)  
 |  &nbsp;|  &nbsp;+--&nbsp;[recommended.compose.yml](./Docker/sshd/recommended.compose.yml)  
 |  &nbsp;|--&nbsp;[v2ray](./Docker/v2ray)  
 |  &nbsp;|  &nbsp;|--&nbsp;[README.md](./Docker/v2ray/README.md)  

@@ -8,13 +8,13 @@ function global:docker-path() {
   }
   return $result
 }
-function global:dind-run() {
+function global:dood-run() {
   if ($args.Count -lt 1) {
-    Write-Output "usage: <DIND_IMAGE> [ARG1] [ARG2] ..."
+    Write-Output "usage: <DOOD_IMAGE> [ARG1] [ARG2] ..."
     return
   }
-  if (-not ($DIND_QUIET)) {
-    Write-Output '[DIND] Running...'
+  if (-not ($DOOD_QUIET)) {
+    Write-Output '[DOOD] Running...'
   }
   $projectDirectory = if (-not ($PROJECT_DIRECTORY)) { $PWD.Path } else { $PROJECT_DIRECTORY }
   $projectDirectory = docker-path $projectDirectory
@@ -27,21 +27,21 @@ function global:dind-run() {
   Set-Alias -Name doInvoke -Value $(if (-not ($NO_EXEC)) { 'Invoke-Expression' } else { 'Write-Output' } )
   doInvoke ("&'$DOCKER_BIN' run --rm -i $ttyFlag --tmpfs /tmp -v '${dockerSock}:/var/run/docker.sock' -v '${projectDirectory}:${PATH_PREFIX:-/_}${projectDirectory}' -w '${PATH_PREFIX:-/_}${projectDirectory}' -e 'PUID=$uid' -e 'PGID=$gid' -e 'DOCKER_SOCK=$dockerSock' -e 'PWD=$projectDirectory' $($args -join ' ')")
 }
-function global:dind-docker-compose() {
-  dind-run -v docker-dind-context:/root/.docker apiv1/docker-compose $($args -join ' ')
+function global:dood-docker-compose() {
+  dood-run -v docker-context:/root/.docker apiv1/docker-compose $($args -join ' ')
 }
-function global:dind-compose() {
-  dind-docker-compose $($args -join ' ')
-}
-
-function global:dind-docker-buildx() {
-  dind-run -v docker-dind-context:/root/.docker apiv1/docker-buildx $($args -join ' ')
-}
-function global:dind-buildx() {
-  dind-docker-buildx $($args -join ' ')
+function global:dood-compose() {
+  dood-docker-compose $($args -join ' ')
 }
 
-function global:dind-docker() {
+function global:dood-docker-buildx() {
+  dood-run -v docker-context:/root/.docker apiv1/docker-buildx $($args -join ' ')
+}
+function global:dood-buildx() {
+  dood-docker-buildx $($args -join ' ')
+}
+
+function global:dood-docker() {
   if ($args.Count -lt 1) {
     invoke-expression("&'$DOCKER_BIN'")
     return
@@ -54,26 +54,26 @@ function global:dind-docker() {
   }
 }
 
-function global:dind-enable() {
-  Set-Alias -Name docker-compose -Value dind-docker-compose -Scope Global
-  Set-Alias -Name docker-buildx -Value dind-docker-buildx -Scope Global
-  Set-Alias -Name docker -Value dind-docker -Scope Global
+function global:dood-enable() {
+  Set-Alias -Name docker-compose -Value dood-docker-compose -Scope Global
+  Set-Alias -Name docker-buildx -Value dood-docker-buildx -Scope Global
+  Set-Alias -Name docker -Value dood-docker -Scope Global
 }
-function global:dind-disable() {
+function global:dood-disable() {
   Remove-Alias -Name docker-compose -Scope Global
   Remove-Alias -Name docker-buildx -Scope Global
   Remove-Alias -Name docker -Scope Global
 }
 
-function global:dind() {
+function global:dood() {
   if ($args.Count -lt 1) {
-    Write-Output "usage: <docker command in dind>"
+    Write-Output "usage: <docker command in dood>"
     return
   }
-  if (Get-Command -ErrorAction SilentlyContinue ("dind-" + $args[0])) {
-    invoke-expression ("dind-$($args -join ' ')")
+  if (Get-Command -ErrorAction SilentlyContinue ("dood-" + $args[0])) {
+    invoke-expression ("dood-$($args -join ' ')")
   }
   else {
-    dind-run -v docker-dind-context:/.docker apiv1/docker $($args -join ' ')
+    dood-run -v docker-context:/.docker apiv1/docker $($args -join ' ')
   }
 }

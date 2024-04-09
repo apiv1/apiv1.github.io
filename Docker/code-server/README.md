@@ -29,13 +29,13 @@ hashed-passwd () {
 }
 ```
 
-### dind
+### Dood
 
-#### 打包dind镜像
+#### 打包compose镜像
 
 ```shell
 # 准备打包
-export DOCKER_COMPOSE_IMAGE=apiv1/code-server:dind
+export DOCKER_COMPOSE_IMAGE=apiv1/code-server:compose
 cp *compose*.yml ../docker-compose/
 cd ../docker-compose
 ```
@@ -44,7 +44,7 @@ cd ../docker-compose
 
 #### 函数式安装code-server
 
-[`安装docker-dind`](../docker-compose/README.md#docker-dind)
+[`安装dood`](../docker/README.md#dood)
 
 安装code-server命令
 
@@ -53,7 +53,7 @@ bash
 cd $DOCKER_HOME/.envrc.d
 echo \
 'code-server () {
-  dind-run -e NETWORK_MODE=$NETWORK_MODE -e PROXY_DOMAIN=$PROXY_DOMAIN -e LISTEN_ADDR=$LISTEN_ADDR -e CODE_SERVER_BIND_ADDR=$CODE_SERVER_BIND_ADDR -e PASSWORD=$PASSWORD -e HASHED_PASSWORD=$HASHED_PASSWORD apiv1/code-server:dind --project-directory "$PWD" -f /compose.yml $*
+  dood-run -e NETWORK_MODE=$NETWORK_MODE -e PROXY_DOMAIN=$PROXY_DOMAIN -e LISTEN_ADDR=$LISTEN_ADDR -e CODE_SERVER_BIND_ADDR=$CODE_SERVER_BIND_ADDR -e PASSWORD=$PASSWORD -e HASHED_PASSWORD=$HASHED_PASSWORD apiv1/code-server:compose --project-directory "$PWD" -f /compose.yml $*
 }'\
 > code-server.envrc
 cd -
@@ -62,11 +62,11 @@ cd -
 powershell
 ```powershell
 function code-server () {
-  dind-run -e "NETWORK_MODE='$NETWORK_MODE'" -e "PROXY_DOMAIN='$PROXY_DOMAIN'" -e "LISTEN_ADDR='$LISTEN_ADDR'" -e "CODE_SERVER_BIND_ADDR='$CODE_SERVER_BIND_ADDR'" -e "PASSWORD='$PASSWORD'" -e "HASHED_PASSWORD='$HASHED_PASSWORD'" apiv1/code-server:dind --project-directory $( docker-path $PWD.Path ) -f /compose.yml $($args -join ' ')
+  dood-run -e "NETWORK_MODE='$NETWORK_MODE'" -e "PROXY_DOMAIN='$PROXY_DOMAIN'" -e "LISTEN_ADDR='$LISTEN_ADDR'" -e "CODE_SERVER_BIND_ADDR='$CODE_SERVER_BIND_ADDR'" -e "PASSWORD='$PASSWORD'" -e "HASHED_PASSWORD='$HASHED_PASSWORD'" apiv1/code-server:compose --project-directory $( docker-path $PWD.Path ) -f /compose.yml $($args -join ' ')
 }
 ```
 可选: code-server服务中安装docker组件
 ```shell
-dind-run apiv1/code-server:dind -f /compose.yml up -d # 若从未启动过环境, 需要先启动一次, 初始化卷数据
-wget -O - https://apiv1.github.io/Docker/code-server/install-docker.yml | NO_TTY=1 dind-run apiv1/code-server:dind -f - run --rm --build install-docker
+dood-run apiv1/code-server:compose -f /compose.yml up -d # 若从未启动过环境, 需要先启动一次, 初始化卷数据
+wget -O - https://apiv1.github.io/Docker/code-server/install-docker.yml | NO_TTY=1 dood-run apiv1/code-server:compose -f - run --rm --build install-docker
 ```

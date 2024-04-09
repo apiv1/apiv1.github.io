@@ -8,13 +8,13 @@ RUN wget -O /docker.tgz https://download.docker.com/${TARGETOS}/static/stable/$(
   tar zxvf /docker.tgz && rm /docker.tgz
 
 FROM scratch AS full
-COPY --from=base /docker/* /
-ENV PATH /
-ENTRYPOINT [ "/docker" ]
+COPY --from=base /docker /docker
+ENV PATH /docker
+ENTRYPOINT [ "docker" ]
 
 FROM ${DOCKER_FULL_STAGE} AS full-image
 
 FROM scratch AS cli
-COPY --from=full-image /docker /docker
+COPY --from=full-image /docker/docker /docker
 ENV PATH /
-ENTRYPOINT [ "/docker" ]
+ENTRYPOINT [ "docker" ]

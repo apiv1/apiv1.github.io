@@ -1,4 +1,4 @@
-name: sshd-dind
+name: sshd-dood
 version: '3.9'
 services:
   sshd:
@@ -23,6 +23,6 @@ services:
       - ./.ssh:/public/.ssh/
     restart: always
     depends_on:
-      - dind
-  dind:
+      - docker
+  docker:
     image: apiv1/docker

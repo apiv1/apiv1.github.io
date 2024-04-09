@@ -16,18 +16,7 @@ docker container remove docker-compose-container
 ```
 
 ### 函数式安装docker-compose
-[`安装docker-dind`](../docker/README.md#docker-dind)
-
-~~安装docker-compose~~ docker-dind脚本内现在自带
-```shell
-cd $DOCKER_HOME/.envrc.d
-echo \
-'docker-compose () {
-  dind-run apiv1/docker-compose $*
-}'\
- > docker-compose.envrc
-cd -
-```
+[`安装dood`](../docker/README.md#dood)
 
 ### 打包配置到镜像 示例
 
@@ -67,10 +56,10 @@ docker-compose () {
   $(which docker) run --rm -it --tmpfs /tmp -v "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" -v "$PROJECT_DIRECTORY:$PROJECT_DIRECTORY" -w "$PROJECT_DIRECTORY" -e PUID=$PUID -e PGID=$PGID -e DOCKER_SOCK="${DOCKER_SOCK}" -v $DOCKER_COMPOSE_FILE:/compose.yml apiv1/docker-compose --project-directory "$PROJECT_DIRECTORY" -f /compose.yml $*
 }
 
-# (可选, 使用docker-dind)
+# (可选, 使用dood-run)
 docker-compose () {
   local DOCKER_COMPOSE_FILE=${DOCKER_COMPOSE_FILE:-$PROJECT_DIRECTORY/compose.yml}
-  dind-run -v $DOCKER_COMPOSE_FILE:/compose.yml apiv1/docker-compose --project-directory "$PWD" $*
+  dood-run -v $DOCKER_COMPOSE_FILE:/compose.yml apiv1/docker-compose --project-directory "$PWD" $*
 }
 ```
 

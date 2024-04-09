@@ -1,8 +1,8 @@
-#### 打包dind镜像
+#### 打包compose镜像
 
 ```shell
 # 准备打包
-export DOCKER_COMPOSE_IMAGE=apiv1/ruby:dind
+export DOCKER_COMPOSE_IMAGE=apiv1/ruby:compose
 cp *compose*.yml ../docker-compose/
 cd ../docker-compose
 ```
@@ -11,7 +11,7 @@ cd ../docker-compose
 
 #### 函数式安装ruby
 
-[`安装docker-dind`](../docker-compose/README.md#docker-dind)
+[`安装dood`](../docker/README.md#dood)
 
 安装ruby环境
 

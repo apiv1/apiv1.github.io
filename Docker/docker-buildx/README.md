@@ -17,15 +17,4 @@ docker container remove buildx-container
 ```
 
 ### 函数式安装docker-buildx
-[`安装docker-dind`](../docker/README.md#docker-dind)
-
-~~安装docker-buildx~~ docker-dind脚本内现在自带
-```shell
-cd $DOCKER_HOME/.envrc.d
-echo \
-'docker-buildx () {
-  dind-run apiv1/docker-buildx $*
-}'\
-> docker-buildx.envrc
-cd -
-```
+[`安装dood`](../docker/README.md#dood)

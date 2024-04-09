@@ -5,13 +5,13 @@ docker build . -t apiv1/myvim
 docker buildx build . --platform linux/amd64,linux/arm64 --push -t apiv1/myvim
 ```
 
-### dind
+### Dood
 
-#### 打包dind镜像
+#### 打包compose镜像
 
 ```shell
 # 准备打包
-export DOCKER_COMPOSE_IMAGE=apiv1/myvim:dind
+export DOCKER_COMPOSE_IMAGE=apiv1/myvim:compose
 cp ../../compose.yml ../docker-compose/
 cd ../docker-compose
 ```
@@ -20,7 +20,7 @@ cd ../docker-compose
 
 ### 函数式安装myvim
 
-[`安装docker-dind`](../docker/README.md#docker-dind)
+[`安装dood`](../docker/README.md#dood)
 
 [bash/zsh版本](./myvim.envrc)
 [powershell版本](./myvim.ps1)
@@ -52,11 +52,11 @@ services:
     network_mode: host
 volumes:
   home:
-' | NO_TTY=1 dind-run apiv1/myvim:dind -f - run --rm install_richrc
+' | NO_TTY=1 dood-run apiv1/myvim:compose -f - run --rm install_richrc
 ```
 
 可选: myvim服务中安装docker组件
 ```shell
-dind-run apiv1/myvim:dind -f /compose.yml up -d # 若从未启动过环境, 需要先启动一次, 初始化卷数据
-wget -O - https://apiv1.github.io/Docker/myvim/install-docker.yml | NO_TTY=1 dind-run apiv1/myvim:dind -f - run --rm --build install-docker
+dood-run apiv1/myvim:compose -f /compose.yml up -d # 若从未启动过环境, 需要先启动一次, 初始化卷数据
+wget -O - https://apiv1.github.io/Docker/myvim/install-docker.yml | NO_TTY=1 dood-run apiv1/myvim:compose -f - run --rm --build install-docker
 ```

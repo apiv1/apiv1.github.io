@@ -22,10 +22,10 @@ services:
     volumes:
       - root:/_/root
     depends_on:
-      - dind
+      - docker
       - docker-compose
       - docker-buildx
-  dind:
+  docker:
     image: apiv1/docker
   docker-compose:
     image: apiv1/docker-compose

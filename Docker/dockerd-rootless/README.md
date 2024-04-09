@@ -7,8 +7,10 @@ mkdir -p ~/.dockerd && cd ~/.dockerd
 wget -q -O install.sh https://apiv1.github.io/Docker/dockerd-rootless/install.sh && chmod +x install.sh
 ./install.sh
 . .envrc
+```
 
-# 可选: Linux下使用Docker安装Docker组件(速度快)
+### ~~~可选: Linux下使用Docker安装Docker组件(速度快)~~~
+```shell
 cd ./bin
 
 # 安装 docker-compose

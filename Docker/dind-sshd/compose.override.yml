@@ -1,5 +1,5 @@
 services:
-  sshd:
+  dind:
     configs:
       - source: authorized_keys
         target: /public/.ssh/authorized_keys

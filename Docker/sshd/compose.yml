@@ -13,5 +13,7 @@ services:
     volumes:
       - ./.storage:/storage
       - ssh:/public/.ssh/
+      - logs:/config/logs
 volumes:
   ssh:
+  logs:

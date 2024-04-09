@@ -1,6 +1,6 @@
-name: sshd-dood
+name: dood-sshd
 services:
-  sshd:
+  dood:
     build:
       dockerfile_inline: |
         FROM linuxserver/openssh-server
@@ -20,6 +20,8 @@ services:
     volumes:
       - ${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock:rw
       - ssh:/public/.ssh/
+      - logs:/config/logs
     restart: always
 volumes:
   ssh:
+  logs:

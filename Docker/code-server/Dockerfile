@@ -1,5 +1,5 @@
 ARG CODE_SERVER_IMAGE=code-server
-ARG DIND_IMAGE=apiv1/dind:25.0.0
+ARG DIND_IMAGE=apiv1/docker:26.0.0
 ARG DOCKER_COMPOSE_IMAGE=apiv1/docker-compose:v2.24.0
 
 FROM ubuntu:24.04 AS code-server

@@ -6,7 +6,7 @@ services:
       dockerfile_inline: |
         FROM linuxserver/openssh-server
         WORKDIR /usr/local/sbin
-        COPY --from=apiv1/dind /docker .
+        COPY --from=apiv1/docker /docker .
     command: |
       sudo sh -c '
         chown docker:docker /var/run/docker.sock
@@ -25,4 +25,4 @@ services:
     depends_on:
       - dind
   dind:
-    image: apiv1/dind
+    image: apiv1/docker

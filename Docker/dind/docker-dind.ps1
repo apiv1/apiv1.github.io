@@ -74,6 +74,6 @@ function global:dind() {
     invoke-expression ("dind-$($args -join ' ')")
   }
   else {
-    dind-run -v docker-dind-context:/.docker apiv1/dind $($args -join ' ')
+    dind-run -v docker-dind-context:/.docker apiv1/docker $($args -join ' ')
   }
 }

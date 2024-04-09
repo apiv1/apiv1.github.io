@@ -4,10 +4,15 @@
 ### build
 
 ```shell
-export DOCKER_VERSION=25.0.0
-# apiv1/dind
-docker build . --build-arg DOCKER_VERSION=$DOCKER_VERSION  -t apiv1/dind -t apiv1/dind:$DOCKER_VERSION
-docker buildx build . --platform linux/amd64,linux/arm64 --build-arg DOCKER_VERSION=$DOCKER_VERSION --push -t apiv1/dind -t apiv1/dind:$DOCKER_VERSION
+export DOCKER_VERSION=26.0.0
+
+# apiv1/docker:full
+docker build . --build-arg DOCKER_VERSION=$DOCKER_VERSION --target full -t apiv1/docker:full -t apiv1/docker:full-$DOCKER_VERSION
+docker buildx build . --platform linux/amd64,linux/arm64 --build-arg DOCKER_VERSION=$DOCKER_VERSION --target full --push -t apiv1/docker:full -t apiv1/docker:full-$DOCKER_VERSION
+
+# apiv1/docker
+docker build . --build-arg DOCKER_VERSION=$DOCKER_VERSION --build-arg DOCKER_FULL_STAGE=apiv1/docker:full-$DOCKER_VERSION  -t apiv1/docker -t apiv1/docker:$DOCKER_VERSION
+docker buildx build . --platform linux/amd64,linux/arm64 --build-arg DOCKER_VERSION=$DOCKER_VERSION --build-arg DOCKER_FULL_STAGE=apiv1/docker:full-$DOCKER_VERSION --push -t apiv1/docker -t apiv1/docker:$DOCKER_VERSION
 ```
 
 ### docker-dind

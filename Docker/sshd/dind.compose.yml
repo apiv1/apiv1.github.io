@@ -4,7 +4,7 @@ services:
     build:
       dockerfile_inline: |
         FROM apiv1/sshd
-        COPY --from=apiv1/docker:full /docker/* /usr/local/sbin/
+        COPY --from=apiv1/docker:full /usr/local/bin/* /usr/local/bin/
     command: |
       sudo sh -c '
         dockerd --data-root /dockerd/lib/docker --exec-root /dockerd/run/docker $${DOCKERD_OPT:-}

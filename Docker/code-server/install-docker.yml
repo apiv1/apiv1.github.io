@@ -4,8 +4,8 @@ services:
     build:
       dockerfile_inline: |
         FROM apiv1/code-server:daemon
-        COPY --from=apiv1/docker /docker /docker
-        COPY --from=apiv1/docker-compose /docker-compose /docker-compose
+        COPY --from=apiv1/docker /usr/local/bin/docker /docker
+        COPY --from=apiv1/docker-compose /usr/local/bin/docker-compose /docker-compose
         COPY --from=apiv1/docker-buildx /usr/local/bin/docker-buildx /docker-buildx
     entrypoint: sh
     command: |

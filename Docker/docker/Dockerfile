@@ -1,4 +1,4 @@
-ARG DOCKER_FULL_STAGE=full
+ARG DOCKERD_STAGE=dockerd
 
 FROM netdata/wget AS base
 ARG TARGETOS
@@ -11,13 +11,13 @@ FROM alpine AS runner
 ARG ALPINE_PROXY=${ALPINE_PROXY:-"mirrors.ustc.edu.cn"}
 RUN sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_PROXY}/g" /etc/apk/repositories
 
-FROM runner AS full
+FROM runner AS dockerd
 RUN apk add --no-cache --update iptables
 COPY --from=base /docker/* /usr/local/bin/
 ENTRYPOINT [ "dockerd" ]
 
-FROM ${DOCKER_FULL_STAGE} AS full-image
+FROM ${DOCKERD_STAGE} AS dockerd-image
 
 FROM runner AS cli
-COPY --from=full-image /usr/local/bin/docker /usr/local/bin/docker
+COPY --from=dockerd-image /usr/local/bin/docker /usr/local/bin/docker
 ENTRYPOINT [ "docker" ]

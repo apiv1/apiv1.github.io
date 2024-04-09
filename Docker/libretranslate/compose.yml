@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  libretranslate:
+    image: libretranslate/libretranslate
+    restart: unless-stopped
+    ports:
+      - "50000:5000"
+    tty: true
+    healthcheck:
+      test: ['CMD-SHELL', './venv/bin/python scripts/healthcheck.py']
+    command: --ssl --ga-id MY-GA-ID --req-limit 100 --char-limit 500
+    environment:
+      - LT_API_KEYS=true
+      - LT_API_KEYS_DB_PATH=/app/db/api_keys.db
+      - LT_UPDATE_MODELS=true
+      - LT_LOAD_ONLY=zh,en
+    volumes:
+      - libretranslate_api_keys:/app/db
+      - libretranslate_models:/home/libretranslate/.local:rw
+
+volumes:
+  libretranslate_api_keys:
+  libretranslate_models:

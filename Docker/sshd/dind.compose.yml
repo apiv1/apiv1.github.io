@@ -1,0 +1,28 @@
+name: sshd-dind
+version: '3.9'
+services:
+  sshd:
+    build:
+      dockerfile_inline: |
+        FROM apiv1/sshd
+        COPY --from=apiv1/docker:full /docker/* /usr/local/sbin/
+    command: |
+      sudo sh -c '
+        dockerd --data-root /dockerd/lib/docker --exec-root /dockerd/run/docker $${DOCKERD_OPT:-}
+        sleep infinity
+      '
+    privileged: true
+    network_mode: host
+    environment:
+      - DOCKERD_OPT=
+      - LISTEN_PORT=${LISTEN_PORT:-2222}
+      - SUDO_ACCESS=true
+      - USER_NAME=docker
+      - PUBLIC_KEY_DIR=/public/.ssh
+    volumes:
+      - ssh:/public/.ssh/
+      - dockerd:/dockerd
+    restart: always
+volumes:
+  dockerd:
+  ssh:

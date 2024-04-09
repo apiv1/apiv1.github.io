@@ -5,8 +5,7 @@ services:
     build:
       dockerfile_inline: |
         FROM linuxserver/openssh-server
-        WORKDIR /usr/local/sbin
-        COPY --from=apiv1/docker /docker .
+        COPY --from=apiv1/docker /docker /usr/local/sbin/
     command: |
       sudo sh -c '
         chown docker:docker /var/run/docker.sock
@@ -15,14 +14,13 @@ services:
     ports:
       - "2222:2222"
     environment:
+      - LISTEN_PORT=2222
       - SUDO_ACCESS=true
       - USER_NAME=docker
       - PUBLIC_KEY_DIR=/public/.ssh
     volumes:
       - ${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock:rw
-      - ./.ssh:/public/.ssh/
+      - ssh:/public/.ssh/
     restart: always
-    depends_on:
-      - docker
-  docker:
-    image: apiv1/docker
+volumes:
+  ssh:

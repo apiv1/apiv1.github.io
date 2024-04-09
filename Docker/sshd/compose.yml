@@ -6,9 +6,13 @@ services:
     ports:
       - "2222:2222"
     environment:
+      - LISTEN_PORT=${LISTEN_PORT:-2222}
       - PASSWORD_ACCESS=true
       - USER_PASSWORD=password
       - USER_NAME=username
+      - PUBLIC_KEY_DIR=/public/.ssh
     volumes:
       - ./.storage:/storage
-      - ./.ssh:/root/.ssh/
+      - ssh:/public/.ssh/
+volumes:
+  ssh:

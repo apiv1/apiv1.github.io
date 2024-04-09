@@ -1,0 +1,8 @@
+services:
+  sshd:
+    configs:
+      - source: id_rsa.pub
+        target: /public/.ssh/id_rsa.pub
+configs:
+  id_rsa.pub:
+    content: |

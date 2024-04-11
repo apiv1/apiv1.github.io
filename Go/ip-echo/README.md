@@ -6,6 +6,6 @@ docker buildx build . --build-arg APP_NAME=ip-echo --platform linux/amd64,linux/
 
 ### run
 ```bash
-docker run --rm -v $PWD:/data -p 8089:8089 apiv1/ip-echo
-docker run --rm -v $PWD:/data --network host apiv1/ip-echo
+docker run --rm -p 8089:8089 apiv1/ip-echo
+docker run --rm --network host apiv1/ip-echo
 ```

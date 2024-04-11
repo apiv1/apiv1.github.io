@@ -20,3 +20,7 @@ services:
       - db:/var/lib/mysql
 volumes:
   db:
+
+# 导出数据
+# docker run --rm -it -v "${PWD}:/app" -w "/app" --network host mysql:8.2.0 bash
+# mysqldump --host=localhost -p --port=3306 --default-character-set=utf8 --user=root --protocol=tcp --hex-blob=TRUE --all-databases

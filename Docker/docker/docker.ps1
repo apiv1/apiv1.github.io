@@ -25,7 +25,7 @@ function global:dood-run() {
   $dockerSock = if (-not ($dockerSock)) { "/var/run/docker.sock" } else { $dockerSock }
 
   Set-Alias -Name doInvoke -Value $(if (-not ($NO_EXEC)) { 'Invoke-Expression' } else { 'Write-Output' } )
-  doInvoke ("&'$DOCKER_BIN' run --rm -i $ttyFlag --tmpfs /tmp -v '${dockerSock}:/var/run/docker.sock' -v '${projectDirectory}:${PATH_PREFIX:-/_}${projectDirectory}' -w '${PATH_PREFIX:-/_}${projectDirectory}' -e 'PUID=$uid' -e 'PGID=$gid' -e 'DOCKER_SOCK=$dockerSock' -e 'PWD=$projectDirectory' $($args -join ' ')")
+  doInvoke ("&'$DOCKER_BIN' run --rm -i $ttyFlag --tmpfs /tmp -v '${dockerSock}:/var/run/docker.sock' -v '${projectDirectory}:${PATH_PREFIX:-}${projectDirectory}' -w '${PATH_PREFIX:-}${projectDirectory}' -e 'PUID=$uid' -e 'PGID=$gid' -e 'DOCKER_SOCK=$dockerSock' -e 'PWD=$projectDirectory' $($args -join ' ')")
 }
 function global:dood-docker-compose() {
   dood-run -v docker-context:/root/.docker apiv1/docker-compose $($args -join ' ')

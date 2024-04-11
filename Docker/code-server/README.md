@@ -50,18 +50,14 @@ cd ../docker-compose
 
 bash
 ```shell
-cd $DOCKER_HOME/.envrc.d
-echo \
-'code-server () {
+code-server () {
   dood-run -e NETWORK_MODE=$NETWORK_MODE -e PROXY_DOMAIN=$PROXY_DOMAIN -e LISTEN_ADDR=$LISTEN_ADDR -e CODE_SERVER_BIND_ADDR=$CODE_SERVER_BIND_ADDR -e PASSWORD=$PASSWORD -e HASHED_PASSWORD=$HASHED_PASSWORD apiv1/code-server:compose --project-directory "$PWD" -f /compose.yml $*
-}'\
-> code-server.envrc
-cd -
+}
 ```
 
 powershell
 ```powershell
-function code-server () {
+function global:code-server () {
   dood-run -e "NETWORK_MODE='$NETWORK_MODE'" -e "PROXY_DOMAIN='$PROXY_DOMAIN'" -e "LISTEN_ADDR='$LISTEN_ADDR'" -e "CODE_SERVER_BIND_ADDR='$CODE_SERVER_BIND_ADDR'" -e "PASSWORD='$PASSWORD'" -e "HASHED_PASSWORD='$HASHED_PASSWORD'" apiv1/code-server:compose --project-directory $( docker-path $PWD.Path ) -f /compose.yml $($args -join ' ')
 }
 ```

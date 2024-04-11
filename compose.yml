@@ -3,10 +3,10 @@ services:
   editor:
     image: apiv1/myvim
     network_mode: ${NETWORK_MODE:-default}
-    working_dir: ${PATH_PREFIX:-/_}${PWD}
+    working_dir: ${PATH_PREFIX:-}${PWD}
     volumes:
       - home:/root
-      - .:${PATH_PREFIX:-/_}${PWD}
+      - .:${PATH_PREFIX:-}${PWD}
       - ${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock
     tmpfs:
       - /root/.ssh

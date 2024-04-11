@@ -1,5 +1,12 @@
+name: dind-sshd
 services:
   dind:
+    # network_mode: default
+    # ports:
+    #   - ${LISTEN_PORT:-2222}:${LISTEN_PORT:-2222}
+    environment:
+      - DOCKERD_OPT=${DOCKERD_OPT:-}
+      - LISTEN_PORT=${LISTEN_PORT:-2222}
     configs:
       - source: authorized_keys
         target: /public/.ssh/authorized_keys

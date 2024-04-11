@@ -13,8 +13,8 @@ services:
     privileged: true
     network_mode: host
     environment:
-      - DOCKERD_OPT=
-      - LISTEN_PORT=2222
+      - DOCKERD_OPT=${DOCKERD_OPT:-}
+      - LISTEN_PORT=${LISTEN_PORT:-2222}
       - SUDO_ACCESS=true
       - USER_NAME=docker
       - PUBLIC_KEY_DIR=/public/.ssh

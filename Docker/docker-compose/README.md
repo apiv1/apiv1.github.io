@@ -66,7 +66,7 @@ docker-compose () {
 Powershell
 
 ```powershell
-function docker-compose() {
+function global:docker-compose() {
   docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock -v "${PWD}:${PWD}" -w "${PWD}" apiv1/docker-compose $args
 }
 ```
@@ -74,7 +74,7 @@ function docker-compose() {
 Windows Powershell
 
 ```powershell
-function docker-compose() {
+function global:docker-compose() {
   docker run --rm -it -e COMPOSE_CONVERT_WINDOWS_PATHS=1 -v //var/run/docker.sock:/var/run/docker.sock -v "${PWD}:/workspace" -w "/workspace" apiv1/docker-compose $args
 }
 ```

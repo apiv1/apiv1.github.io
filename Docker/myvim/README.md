@@ -30,8 +30,8 @@ cd ../docker-compose
 容器内安装
 
 ```shell
-mkdir -p /root/.envrc.d
-wget -O /root/.envrc.d/.richrc https://apiv1.github.io/Shell/richrc
+mkdir -p ~/.envrc.d
+wget -O ~/.envrc.d/.richrc https://apiv1.github.io/Shell/richrc
 ```
 
 外部安装(已废弃, 因为容器内也装wget了)

@@ -58,5 +58,5 @@ volumes:
 可选: myvim服务中安装docker组件
 ```shell
 dood-run apiv1/myvim:compose -f /compose.yml up -d # 若从未启动过环境, 需要先启动一次, 初始化卷数据
-wget -O - https://apiv1.github.io/Docker/myvim/install-docker.yml | NO_TTY=1 dood-run apiv1/myvim:compose -f - run --rm --build install-docker
+wget -O - https://apiv1.github.io/Docker/myenv/install-docker.yml | NO_TTY=1 dood-run apiv1/myvim:compose -f - run --rm --build install-docker
 ```

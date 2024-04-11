@@ -64,5 +64,5 @@ function global:code-server () {
 可选: code-server服务中安装docker组件
 ```shell
 dood-run apiv1/code-server:compose -f /compose.yml up -d # 若从未启动过环境, 需要先启动一次, 初始化卷数据
-wget -O - https://apiv1.github.io/Docker/code-server/install-docker.yml | NO_TTY=1 dood-run apiv1/code-server:compose -f - run --rm --build install-docker
+wget -O - https://apiv1.github.io/Docker/myenv/install-docker.yml | NO_TTY=1 dood-run apiv1/code-server:compose -f - run --rm --build install-docker
 ```

@@ -1,4 +1,4 @@
-name: myvim
+name: myenv
 services:
   editor:
     image: apiv1/myvim

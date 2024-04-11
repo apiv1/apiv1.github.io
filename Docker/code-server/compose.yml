@@ -1,4 +1,4 @@
-name: code-server
+name: myenv
 services:
   code-server:
     image: apiv1/code-server:daemon
@@ -16,7 +16,7 @@ services:
       - TZ=Asia/Shanghai
     network_mode: ${NETWORK_MODE:-default}
     volumes:
-      - root:/root
+      - home:/root
       - .:${CODE_SERVER_WORKSPACE:-${PATH_PREFIX:-}${PWD}}
       - ${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock
     tmpfs:
@@ -46,4 +46,4 @@ configs:
       }
       load_envs
 volumes:
-  root:
+  home:

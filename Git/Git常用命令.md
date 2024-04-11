@@ -29,6 +29,16 @@ export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChec
 git config core.filemode false
 ```
 
+```shell
+# 安全目录
+git config --global safe.directory '*'
+```
+
+```shell
+# 证书设置存储
+git config --global credential.helper store
+```
+
 ### ~/.ssh/config
 参考例子
 ```config

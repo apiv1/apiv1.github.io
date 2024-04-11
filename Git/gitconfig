@@ -1,0 +1,10 @@
+[safe]
+  directory = *
+[credential]
+  helper = store
+[url "https://github.com/"] # 可改为github镜像源
+  insteadOf = https://github.com/
+[url "ssh://git@ssh.github.com:443/"]
+  pushInsteadOf = https://github.com/
+[url "ssh://git@ssh.github.com:443/"]
+  insteadOf = git@github.com:

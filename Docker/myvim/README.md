@@ -27,7 +27,7 @@ cd ../docker-compose
 
 #### 安装richrc
 
-容器内安装
+容器内安装(已废弃, 命令内置了)
 
 ```shell
 mkdir -p ~/.envrc.d

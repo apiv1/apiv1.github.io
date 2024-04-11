@@ -95,12 +95,11 @@ DOCKER_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
 export PATH="\$DOCKER_HOME/bin:\$PATH"
 export DOCKER_HOST="$DOCKER_UNIX_SOCK"
 load_docker_envs() {
-  cd \$DOCKER_HOME/.envrc.d >/dev/null 2>&1 || return 1
-  for item in \`ls -A 2>/dev/null\`
+  local ENV_PATH="\$DOCKER_HOME/.envrc.d"
+  for item in \$(ls -A \${ENV_PATH} 2>/dev/null)
   do
-    . \$item
+    . "\$ENV_PATH/\$item"
   done
-  cd - >/dev/null 2>&1
 }
 load_docker_envs
 EOF

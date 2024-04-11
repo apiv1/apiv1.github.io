@@ -1,9 +1,8 @@
 load_envs() {
-  cd ~/.envrc.d >/dev/null 2>&1 || return 1
-  for item in `ls -A 2>/dev/null`
+  local ENV_PATH=~/.envrc.d
+  for item in $(ls -A ${ENV_PATH} 2>/dev/null)
   do
-    . $item
+    . "$ENV_PATH/$item"
   done
-  cd - >/dev/null 2>&1
 }
 load_envs

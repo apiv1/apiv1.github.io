@@ -8,7 +8,7 @@ if [ -z $COMMAND ];then
 fi
 
 EXPORT_DIR=$PWD/registry
-REGISTRY_IMAGE=docker.io/library/registry:2.7.1
+REGISTRY_IMAGE=docker.io/library/registry:2.8.3
 REGISTRY_HTTP_ADDR=${REGISTRY_HTTP_ADDR:-localhost:50101}
 
 start() {

@@ -1,7 +1,6 @@
-version: '3'
 services:
   mirror:
-    image: registry:2.7.1
+    image: registry:2.8.3
     ports:
       - 5000:5000
     restart: always
@@ -9,3 +8,5 @@ services:
       - ./data:/var/lib/registry
     environment:
       REGISTRY_PROXY_REMOTEURL: https://registry-1.docker.io
+
+# daemon.json: add "insecure-registries": ["<ip>:5000"]

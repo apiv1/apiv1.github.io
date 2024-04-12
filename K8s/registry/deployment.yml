@@ -78,7 +78,7 @@ spec:
     spec:
       containers:
       - name: registry
-        image: registry:2.7.1
+        image: registry:2.8.3
         resources: {}
         env:
         - name: REGISTRY_HTTP_ADDR

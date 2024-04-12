@@ -1,7 +1,6 @@
-version: '3'
 services:
   registry:
-    image: registry:2.7.1
+    image: registry:2.8.3
     ports:
       - 5000:5000
     restart: always
@@ -13,7 +12,11 @@ services:
       REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
       REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
 
-# daemon.json: add "insecure-registries": ["<ip>:5000"]
+# daemon.json
+#{
+#  insecure-registries": ["<ip>:5000"],
+#  registry-mirrors": ["http://<ip>:5000"]
+#}
 
 # add user:
 # mkdir ./auth; docker run --rm -i httpd:2 htpasswd -Bbn testuser testpassword > ./auth/htpasswd

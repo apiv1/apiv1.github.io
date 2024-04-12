@@ -6,6 +6,7 @@ services:
     privileged: true
     network_mode: host
     entrypoint: sh
+    init: true
     command: |
       -c '
         groupadd --gid $${PGID} $${USERNAME}
@@ -15,7 +16,7 @@ services:
         chown -R $${USERNAME}:$${USERNAME} /home/$${USERNAME}
         chmod 400 /home/$${USERNAME}/.ssh/authorized_keys
         export DOCKERD_OPT="--data-root /dockerd/lib/docker --exec-root /tmp/dockerd/run/docker -p /tmp/dockerd/run/docker.pid $${DOCKERD_OPT}"
-        /entrypoint.sh
+        exec /entrypoint.sh
       '
     environment:
       - PUID=${PUID:-2000}
@@ -25,6 +26,8 @@ services:
       - PASSWORD=${PASSWORD:-passwd654321!}
     volumes:
       - dockerd:/dockerd
+      - ssh:/etc/ssh
     restart: always
 volumes:
   dockerd:
+  ssh:

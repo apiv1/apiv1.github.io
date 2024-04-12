@@ -2,6 +2,7 @@ name: myenv
 services:
   code-server:
     image: apiv1/code-server:daemon
+    init: true
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}

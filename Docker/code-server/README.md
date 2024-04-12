@@ -2,7 +2,7 @@
 
 ```bash
 # https://github.com/coder/code-server/releases
-export CODE_SERVER_VERSION=4.20.0
+export CODE_SERVER_VERSION=4.23.0
 # apiv1/code-server
 docker build . --target code-server --build-arg CODE_SERVER_VERSION=$CODE_SERVER_VERSION  -t apiv1/code-server -t apiv1/code-server:$CODE_SERVER_VERSION
 docker buildx build . --target code-server --platform linux/amd64,linux/arm64 --build-arg CODE_SERVER_VERSION=$CODE_SERVER_VERSION --push -t apiv1/code-server -t apiv1/code-server:$CODE_SERVER_VERSION

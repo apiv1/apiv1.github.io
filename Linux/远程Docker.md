@@ -42,7 +42,8 @@ unset $DOCKER_HOST
 
 本地配置远程Docker连接(永久)
 ```shell
-export $DOCKER_HOST=ssh://docker@docker.server:22
+export DOCKER_HOST=ssh://docker@docker.server:22
+$env:DOCKER_HOST="ssh://docker@docker.server:22" # powershell
 
 ssh $DOCKER_HOST # 测试连接,确认密钥配置生效
 

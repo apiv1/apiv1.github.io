@@ -1,15 +1,34 @@
 name: dind-sshd
 services:
   dind:
-    # network_mode: default
-    # ports:
-    #   - ${LISTEN_PORT:-2222}:${LISTEN_PORT:-2222}
+    network_mode: default
+    ports:
+      - 2222:2222
     environment:
       - DOCKERD_OPT=${DOCKERD_OPT:-}
-      - LISTEN_PORT=${LISTEN_PORT:-2222}
+      - USERNAME=${USERNAME:-docker}
+      - PASSWORD=${PASSWORD:-passwd654321!}
     configs:
       - source: authorized_keys
-        target: /public/.ssh/authorized_keys
+        target: /home/${USERNAME:-docker}/.ssh/authorized_keys
+      - source: ssh.conf
+        target: /etc/ssh/ssh_config.d/ssh.conf
+      - source: sshd.conf
+        target: /etc/ssh/sshd_config.d/sshd.conf
+      - source: docker-daemon.json
+        target: /etc/docker/daemon.json
 configs:
   authorized_keys:
     content: |
+
+  ssh.conf:
+    content: |
+
+  sshd.conf:
+    content: |
+      ListenAddress 0.0.0.0
+      Port 2222
+  docker-daemon.json:
+    content: |
+      {
+      }

@@ -12,8 +12,8 @@ ARG ALPINE_PROXY=${ALPINE_PROXY:-"mirrors.ustc.edu.cn"}
 RUN sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_PROXY}/g" /etc/apk/repositories
 
 FROM runner AS dockerd
-RUN apk add --no-cache --update iptables
 COPY --from=base /docker/* /usr/local/bin/
+RUN apk add --no-cache --update iptables fuse-overlayfs
 ENTRYPOINT [ "dockerd" ]
 
 FROM ${DOCKERD_STAGE} AS dockerd-image

@@ -1,29 +1,30 @@
 name: dind-sshd
 services:
   dind:
-    build:
-      dockerfile_inline: |
-        FROM apiv1/sshd
-        COPY --from=apiv1/dockerd /usr/local/bin/* /usr/local/bin/
-    command: |
-      sudo sh -c '
-        dockerd --data-root /dockerd/lib/docker --exec-root /tmp/dockerd/run/docker -p /tmp/dockerd/run/docker.pid $${DOCKERD_OPT:-}
-      '
+    image: apiv1/sshd:docker
     tmpfs: /tmp
     privileged: true
     network_mode: host
+    entrypoint: sh
+    command: |
+      -c '
+        groupadd --gid $${PGID} $${USERNAME}
+        useradd --shell /bin/sh --uid $${PUID} --gid $${PGID} --password $$(openssl passwd $${PASSWORD}) --create-home --home-dir /home/$${USERNAME} $${USERNAME}
+        usermod -aG docker $${USERNAME}
+
+        chown -R $${USERNAME}:$${USERNAME} /home/$${USERNAME}
+        chmod 400 /home/$${USERNAME}/.ssh/authorized_keys
+        export DOCKERD_OPT="--data-root /dockerd/lib/docker --exec-root /tmp/dockerd/run/docker -p /tmp/dockerd/run/docker.pid $${DOCKERD_OPT}"
+        /entrypoint.sh
+      '
     environment:
+      - PUID=${PUID:-2000}
+      - PGID=${PGID:-2000}
       - DOCKERD_OPT=${DOCKERD_OPT:-}
-      - LISTEN_PORT=${LISTEN_PORT:-2222}
-      - SUDO_ACCESS=true
-      - USER_NAME=docker
-      - PUBLIC_KEY_DIR=/public/.ssh
+      - USERNAME=${USERNAME:-docker}
+      - PASSWORD=${PASSWORD:-passwd654321!}
     volumes:
-      - ssh:/public/.ssh/
       - dockerd:/dockerd
-      - logs:/config/logs
     restart: always
 volumes:
   dockerd:
-  ssh:
-  logs:

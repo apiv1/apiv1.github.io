@@ -23,7 +23,7 @@ RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list &&
     git-lfs \
     git-extras \
     vim \
-    tree && \
+    tree && apt clean && \
   busybox --install /usr/local/bin
 COPY --from=apiv1/aes /aes /usr/local/sbin/aes
 

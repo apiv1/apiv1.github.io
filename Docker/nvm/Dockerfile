@@ -5,7 +5,8 @@ RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list &&
   sed -i 's/ports.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
   apt-get update --allow-unauthenticated
 RUN apt install -y \
-  git wget curl
+  git wget curl && \
+  apt clean
 RUN (/bin/echo -e '[url "https://kkgithub.com/"]\n  insteadOf = https://github.com/\n[url "https://github.com/"]\n  pushInsteadOf = https://github.com/' | tee ~/.gitconfig) && \
   (/bin/echo -e 'export NVM_DIR="$HOME/.nvm"\n[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm\n[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion' | tee /etc/profile.d/nvm.sh)
 RUN git clone --depth=1 https://github.com/nvm-sh/nvm ~/.nvm

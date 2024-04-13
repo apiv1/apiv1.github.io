@@ -4,7 +4,6 @@ services:
     image: apiv1/sshd:dockerd
     tmpfs: /tmp
     privileged: true
-    network_mode: host
     init: true
     entrypoint: sh
     command: |

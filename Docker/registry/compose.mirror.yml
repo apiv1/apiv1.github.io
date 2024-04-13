@@ -9,4 +9,8 @@ services:
     environment:
       REGISTRY_PROXY_REMOTEURL: https://registry-1.docker.io
 
-# daemon.json: add "insecure-registries": ["<ip>:5000"]
+# daemon.json
+#{
+#  insecure-registries": ["<ip>:5000"],
+#  registry-mirrors": ["http://<ip>:5000"]
+#}

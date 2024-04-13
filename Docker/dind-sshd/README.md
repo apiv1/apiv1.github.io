@@ -45,3 +45,10 @@ function global:dind-sshd-config-file() {
   docker rm -f dind-sshd
 }
 ```
+
+#### 使用
+```shell
+dind-sshd-config-file # 在当前目录生成配置文件 compose.override.yml, 编辑 compose.override.yml 放入配置,密钥,变更项目名称等
+dind-sshd up -d # 使用compose命令, 可以启动和停止服务等
+```
+compose.override.yml 配置可以参考 [这里](./compose.override.yml)

@@ -16,6 +16,7 @@ docker container remove docker-compose-container
 ```
 
 ### 函数式安装docker-compose
+
 [`安装dood`](../docker/README.md#dood)
 
 ### 打包配置到镜像 示例

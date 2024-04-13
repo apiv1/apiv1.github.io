@@ -45,3 +45,10 @@ function global:dood-sshd-config-file() {
   docker rm -f dood-sshd
 }
 ```
+
+#### 使用
+```shell
+dood-sshd-config-file # 在当前目录生成配置文件 compose.override.yml, 编辑 compose.override.yml 放入配置,密钥,变更项目名称等
+dood-sshd up -d # 使用compose命令, 可以启动和停止服务等
+```
+compose.override.yml 配置可以参考 [这里](./compose.override.yml)

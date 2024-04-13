@@ -2,7 +2,6 @@ name: dood-sshd
 services:
   dood:
     image: apiv1/sshd:docker
-    network_mode: host
     init: true
     entrypoint: sh
     command: |

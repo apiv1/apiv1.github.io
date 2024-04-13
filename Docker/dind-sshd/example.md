@@ -1,7 +1,9 @@
 #### 部署独立的dockerd服务, 拥有独立ip, 并提供一个可以支持远程docker的sshd服务
 
-可以同时部署多个dockerd服务到不同的局域网内独立ip,充分利用服务器资源.
+可以同时部署多个互不冲突的<dockerd服务>到不同的<局域网内独立ip地址>,充分利用服务器资源.
 - - - - - -
+
+##### 准备工作
 
 先创建macvlan类型的docker network
 
@@ -20,6 +22,8 @@ docker network create -d macvlan --subnet=$SUB_NET --gateway=$GATEWAY -o parent=
 vim compose.yml # registry部署配置
 docker compose up -d
 ```
+
+##### 开始配置
 
 compose.override.yml
 
@@ -82,5 +86,8 @@ AUTHORIZED_KEYS='
 # 指定的局域网ip
 BIND_IP=
 ```
+
+* 新建文件夹, 进入文件夹, 将以下文件放入, 然后使用```dind-sshd```命令启动
+* 可以将文件夹复制多份, 编辑```.env```内项目名等变量, 启动多个dockerd服务
 
 - - - - - -

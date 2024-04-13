@@ -44,5 +44,6 @@ AUTHORIZED_KEYS='
   <secrets>
 '
 ```
+* 新建文件夹, 进入文件夹, 将以下文件放入, 然后使用```dood-sshd```命令启动
 
 - - - - - -

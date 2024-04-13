@@ -1,8 +1,29 @@
+name: dood-sshd
 services:
   dood:
+    network_mode: default
+    ports:
+      - 2222:2222
+    environment:
+      - PUID=2000
+      - PGID=2000
+      - USERNAME=${USERNAME:-docker}
+      - PASSWORD=${PASSWORD:-passwd654321!}
     configs:
       - source: authorized_keys
-        target: /public/.ssh/authorized_keys
+        target: /home/${USERNAME:-docker}/.ssh/authorized_keys
+      - source: ssh.conf
+        target: /etc/ssh/ssh_config.d/ssh.conf
+      - source: sshd.conf
+        target: /etc/ssh/sshd_config.d/sshd.conf
 configs:
   authorized_keys:
     content: |
+
+  ssh.conf:
+    content: |
+
+  sshd.conf:
+    content: |
+      ListenAddress 0.0.0.0
+      Port 2222

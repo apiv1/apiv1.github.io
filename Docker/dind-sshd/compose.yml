@@ -1,12 +1,12 @@
 name: dind-sshd
 services:
   dind:
-    image: apiv1/sshd:docker
+    image: apiv1/sshd:dockerd
     tmpfs: /tmp
     privileged: true
     network_mode: host
-    entrypoint: sh
     init: true
+    entrypoint: sh
     command: |
       -c '
         groupadd --gid $${PGID} $${USERNAME}

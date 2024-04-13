@@ -1,27 +1,29 @@
 name: dood-sshd
 services:
   dood:
-    build:
-      dockerfile_inline: |
-        FROM linuxserver/openssh-server
-        COPY --from=apiv1/docker /usr/local/bin/docker /usr/local/bin/docker
+    image: apiv1/sshd:docker
+    network_mode: host
+    init: true
+    entrypoint: sh
     command: |
-      sudo sh -c '
-        chown docker:docker /var/run/docker.sock
-        sleep infinity
+      -c '
+        groupadd --gid $${PGID} $${USERNAME}
+        useradd --shell /bin/sh --uid $${PUID} --gid $${PGID} --password $$(openssl passwd $${PASSWORD}) --create-home --home-dir /home/$${USERNAME} $${USERNAME}
+        usermod -aG docker $${USERNAME}
+
+        chown -R $${USERNAME}:$${USERNAME} /home/$${USERNAME}
+        chown -R $${USERNAME}:$${USERNAME} /var/run/docker.sock
+        chmod 400 /home/$${USERNAME}/.ssh/authorized_keys
+        exec /entrypoint.sh
       '
-    ports:
-      - "2222:2222"
     environment:
-      - LISTEN_PORT=2222
-      - SUDO_ACCESS=true
-      - USER_NAME=docker
-      - PUBLIC_KEY_DIR=/public/.ssh
+      - PUID=${PUID:-2000}
+      - PGID=${PGID:-2000}
+      - USERNAME=${USERNAME:-docker}
+      - PASSWORD=${PASSWORD:-passwd654321!}
     volumes:
       - ${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock:rw
-      - ssh:/public/.ssh/
-      - logs:/config/logs
+      - ssh:/etc/ssh
     restart: always
 volumes:
   ssh:
-  logs:

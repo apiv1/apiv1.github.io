@@ -1,5 +1,3 @@
-### Dood
-
 #### 打包compose镜像
 
 ```shell
@@ -21,8 +19,8 @@ bash
 
 ```shell
 dind-sshd () {
-  test -f compose.override.yml && local RUN_OPT="$RUN_OPT -f ./compose.override.yml"
-  dood-run -e DOCKERD_OPT=$DOCKERD_OPT -e LISTEN_PORT=$LISTEN_PORT apiv1/dind-sshd:compose --project-directory "$PWD"  -f /compose.yml $RUN_OPT $*
+  test -f compose.override.yml && local RUN_OPT="$RUN_OPT -f ./compose.override.yml" || local RUN_OPT="$RUN_OPT -f /compose.override.yml"
+  dood-run apiv1/dind-sshd:compose --project-directory "$PWD"  -f /compose.yml $RUN_OPT $*
 }
 dind-sshd-config-file () {
   docker rm -f dind-sshd
@@ -36,8 +34,8 @@ powershell
 
 ```powershell
 function global:dind-sshd () {
-  if(Test-Path compose.override.yml) { $RUN_OPT="$RUN_OPT -f ./compose.override.yml" }
-  dood-run -e "DOCKERD_OPT='$DOCKERD_OPT'" -e "LISTEN_PORT='$LISTEN_PORT'" apiv1/dind-sshd:compose --project-directory $( docker-path $PWD.Path ) -f /compose.yml $RUN_OPT $($args -join ' ')
+  if(Test-Path compose.override.yml) { $RUN_OPT="$RUN_OPT -f ./compose.override.yml" } else { $RUN_OPT="$RUN_OPT -f /compose.override.yml" }
+  dood-run apiv1/dind-sshd:compose --project-directory $( docker-path $PWD.Path ) -f /compose.yml $RUN_OPT $($args -join ' ')
 }
 
 function global:dind-sshd-config-file() {

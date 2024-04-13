@@ -5,6 +5,8 @@ services:
     ports:
       - 2222:2222
     environment:
+      - PUID=2000
+      - PGID=2000
       - DOCKERD_OPT=${DOCKERD_OPT:-}
       - USERNAME=${USERNAME:-docker}
       - PASSWORD=${PASSWORD:-passwd654321!}

@@ -1,0 +1,15 @@
+services:
+  remote-desktop:
+    image: apiv1/remote-desktop
+    restart: always
+    environment:
+      USERNAME: ${RDP_USER:-user}
+      PASSWORD: ${RDP_PASSWD:-pass}
+    privileged: true
+    init: true
+    ports:
+      - 33389:3389
+    volumes:
+      - home:/home
+volumes:
+  home:

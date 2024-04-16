@@ -193,6 +193,8 @@
 |  &nbsp;|--&nbsp;[remote-desktop](./Docker/remote-desktop)  
 |  &nbsp;|  &nbsp;|--&nbsp;[Dockerfile](./Docker/remote-desktop/Dockerfile)  
 |  &nbsp;|  &nbsp;|--&nbsp;[README.md](./Docker/remote-desktop/README.md)  
+|  &nbsp;|  &nbsp;|--&nbsp;[chrome.Dockerfile](./Docker/remote-desktop/chrome.Dockerfile)  
+|  &nbsp;|  &nbsp;|--&nbsp;[compose.yml](./Docker/remote-desktop/compose.yml)  
 |  &nbsp;|  &nbsp;+--&nbsp;[entrypoint.sh](./Docker/remote-desktop/entrypoint.sh)  
 |  &nbsp;|--&nbsp;[rocket.chat](./Docker/rocket.chat)  
 |  &nbsp;|  &nbsp;+--&nbsp;[run.sh](./Docker/rocket.chat/run.sh)  

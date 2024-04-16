@@ -1,29 +1,5 @@
 ### Build
 ```bash
-```
-
-### Chrome
-
-cli
-```bash
-docker run --rm -d --network=host -e PASSWORD=${RDP_PASSWD:-pass} -v $PWD/data/home:/home -v /dev/shm:/dev/shm --privileged ${IMAGE_NAME}
-```
-
-docker-compose
-```bash
-echo "
-version: '3.9'
-services:
-  app:
-    image: ${IMAGE_NAME}
-    restart: always
-    environment:
-      USERNAME: user
-      PASSWORD: ${RDP_PASSWD}
-    privileged: true
-    volumes:
-      - ./data/home:/home
-      - /dev/shm:/dev/shm
-    network_mode: host
-" | docker-compose -f -
+docker build . --target deploy -t apiv1/remote-desktop --push
+docker buildx build . --target deploy --platform linux/amd64,linux/arm64 --push -t apiv1/remote-desktop
 ```

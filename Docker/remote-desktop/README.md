@@ -6,7 +6,7 @@
 
 cli
 ```bash
-docker run --rm -d --network=host -e PASSWORD=${RDP_PASSWD:-pass} -v $PWD/data/home:/home -v /dev/shm:/dev/shmq --privileged ${IMAGE_NAME}
+docker run --rm -d --network=host -e PASSWORD=${RDP_PASSWD:-pass} -v $PWD/data/home:/home -v /dev/shm:/dev/shm --privileged ${IMAGE_NAME}
 ```
 
 docker-compose
@@ -23,7 +23,7 @@ services:
     privileged: true
     volumes:
       - ./data/home:/home
-      - /dev/shm:/dev/shmq
+      - /dev/shm:/dev/shm
     network_mode: host
 " | docker-compose -f -
 ```

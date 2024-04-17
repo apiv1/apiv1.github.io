@@ -11,8 +11,10 @@ export PASSWORD=${PASSWORD:-$(random)}
 echo 'USERNAME='${USERNAME}
 echo 'PASSWORD='${PASSWORD}
 
-groupadd --gid 1020 ${USERNAME}
-useradd --shell /bin/bash --uid 1020 --gid 1020 --password $(openssl passwd ${PASSWORD}) --create-home --home-dir /home/${USERNAME} ${USERNAME}
+export PGID=${PGID:-2000}
+export PUID=${PUID:-2000}
+groupadd --gid ${PGID} ${USERNAME}
+useradd --shell /bin/bash --uid ${PUID} --gid ${PGID} --password $(openssl passwd ${PASSWORD}) --create-home --home-dir /home/${USERNAME} ${USERNAME}
 usermod -aG sudo ${USERNAME}
 
 # Start xrdp sesman service

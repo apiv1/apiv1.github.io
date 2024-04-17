@@ -9,12 +9,12 @@ fi
 
 test -z ${PROXY_DOMAIN} || PROXY_DOMAIN_ARG="--proxy-domain=${PROXY_DOMAIN}"
 
-mkdir -p /root/.code/{data,extensions}
+mkdir -p ~/.code/{data,extensions}
 
 exec code-server \
   --bind-addr ${CODE_SERVER_BIND_ADDR:-0.0.0.0:8443} \
-  --user-data-dir /root/.code/data \
-  --extensions-dir /root/.code/extensions \
+  --user-data-dir ~/.code/data \
+  --extensions-dir ~/.code/extensions \
   --disable-telemetry \
   --auth "${AUTH}" \
   "${PROXY_DOMAIN_ARG}" \

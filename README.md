@@ -356,6 +356,7 @@
 |  &nbsp;|--&nbsp;[卸载腾讯云的服务.md](./Linux/卸载腾讯云的服务.md)  
 |  &nbsp;|--&nbsp;[卸载阿里云盾.md](./Linux/卸载阿里云盾.md)  
 |  &nbsp;|--&nbsp;[命令行查外网IP.md](./Linux/命令行查外网IP.md)  
+|  &nbsp;|--&nbsp;[字体.md](./Linux/字体.md)  
 |  &nbsp;|--&nbsp;[挂载硬盘.md](./Linux/挂载硬盘.md)  
 |  &nbsp;|--&nbsp;[树莓派装k8s.md](./Linux/树莓派装k8s.md)  
 |  &nbsp;|--&nbsp;[远程Docker.md](./Linux/远程Docker.md)  

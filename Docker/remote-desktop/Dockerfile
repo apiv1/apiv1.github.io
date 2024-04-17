@@ -2,7 +2,8 @@ FROM ubuntu:20.04 as builder
 RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list \
     && sed -i 's/ports.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list \
     && sed -i -E 's/^# deb-src /deb-src /g' /etc/apt/sources.list \
-    && DEBIAN_FRONTEND="noninteractive" apt-get install --update -y --no-install-recommends \
+    && apt-get update --allow-unauthenticated \
+    && DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends \
         build-essential \
         dpkg-dev \
         git \

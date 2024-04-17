@@ -23,9 +23,9 @@ usermod -aG sudo ${USERNAME}
 XRDP="/usr/sbin/xrdp ${XRDP_ARGS}"
 
 # Run xrdp in foreground if no commands specified
-if [ -z "$@" ]; then
+if test -z "$*"; then
     ${XRDP} --nodaemon
 else
     ${XRDP}
-    exec "$@"
+    exec "$*"
 fi

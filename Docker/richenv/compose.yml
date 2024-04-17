@@ -1,0 +1,52 @@
+name: ${COMPOSE_PROJECT_NAME:-richenv}
+services:
+  richenv:
+    image: apiv1/richenv
+    restart: always
+    environment:
+      DOCKERD_OPT: --data-root /dockerd/lib/docker --exec-root /tmp/dockerd/run/docker -p /tmp/dockerd/run/docker.pid
+      USERNAME: ${USERNAME:-docker}
+      PASSWORD: ${PASSWORD:-passwd654321!}
+      PUID: 2000
+      PGID: 2000
+      CODE_SERVER_WORKSPACE: ${CODE_SERVER_WORKSPACE:-}
+      CODE_SERVER_HASHED_PASSWORD: ${CODE_SERVER_HASHED_PASSWORD:-}
+      CODE_SERVER_PROXY_DOMAIN: ${CODE_SERVER_PROXY_DOMAIN:-}
+      CODE_SERVER_PASSWORD: ${CODE_SERVER_PASSWORD:-}
+      CODE_SERVER_BIND_ADDR: ${CODE_SERVER_BIND_ADDR:-}
+      CODE_SERVER_ARGS: ${CODE_SERVER_ARGS:-}
+      LC_ALL: C.UTF-8
+      LANG: C.UTF-8
+      TZ: Asia/Shanghai
+    privileged: true
+    init: true
+    tmpfs: /tmp:exec,rw
+    volumes:
+      - home:/home
+      - dockerd:/dockerd
+    configs:
+      - source: authorized_keys
+        target: /home/${USERNAME:-docker}/.ssh/authorized_keys
+      - source: ssh.conf
+        target: /etc/ssh/ssh_config.d/ssh.conf
+      - source: sshd.conf
+        target: /etc/ssh/sshd_config.d/sshd.conf
+      - source: docker-daemon.json
+        target: /etc/docker/daemon.json
+volumes:
+  home:
+  dockerd:
+  storage:
+configs:
+  authorized_keys:
+    content: |
+      ${AUTH_KEYS}
+  ssh.conf:
+    content: |
+      ${SSH_CONF}
+  sshd.conf:
+    content: |
+      ${SSHD_CONF}
+  docker-daemon.json:
+    content: |
+      ${DOCKER_DAEMON_JSON}

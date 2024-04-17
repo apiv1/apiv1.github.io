@@ -2,7 +2,7 @@ name: dind-sshd
 services:
   dind:
     image: apiv1/sshd:dockerd
-    tmpfs: /tmp
+    tmpfs: /tmp:exec,rw
     privileged: true
     init: true
     entrypoint: sh

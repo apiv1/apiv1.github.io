@@ -10,9 +10,8 @@ RUN wget -O /tmp/code-server.tar.gz https://github.com/coder/code-server/release
 FROM ${CODE_SERVER_IMAGE} AS stage-code-server
 
 FROM ubuntu:24.04 AS daemon
-COPY --from=stage-code-server /code-server /code-server
-RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
-  sed -i 's/ports.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
+RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/ubuntu.sources && \
+  sed -i 's/ports.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/ubuntu.sources && \
   apt-get update --allow-unauthenticated && \
   apt install -y \
     busybox \
@@ -27,6 +26,7 @@ RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list &&
   busybox --install /usr/local/bin
 COPY --from=apiv1/aes /aes /usr/local/sbin/aes
 
+COPY --from=stage-code-server /code-server /code-server
 COPY entrypoint.sh /entrypoint.sh
 RUN ln -s /code-server/bin/code-server /bin/code-server && \
   chmod +x /entrypoint.sh

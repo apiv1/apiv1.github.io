@@ -1,3 +1,4 @@
+ARG STAGE_BUILDER=builder
 FROM ubuntu:20.04 as builder
 RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list \
     && sed -i 's/ports.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list \
@@ -23,10 +24,14 @@ RUN git clone https://github.com/neutrinolabs/pulseaudio-module-xrdp.git /pulsea
     && make \
     && make install
 
+FROM ${STAGE_BUILDER} as stage-builder
 
 # Build the final image
 FROM ubuntu:24.04 as deploy
-RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/ubuntu.sources && \
+ARG TARGETOS
+ARG TARGETARCH
+RUN --mount=type=cache,target=/var/lib/apt/lists,id=apt_${TARGETOS}_${TARGETARCH} \
+    sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/ubuntu.sources && \
     sed -i 's/ports.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/ubuntu.sources && \
     DEBIAN_FRONTEND="noninteractive" apt-get install --update -y --no-install-recommends \
         dbus-x11 \
@@ -42,15 +47,14 @@ RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/
         xorgxrdp \
         xrdp \
         xubuntu-icon-theme \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    ;
 
 RUN sed -i -E 's/^; autospawn =.*/autospawn = yes/' /etc/pulse/client.conf \
     && [ -f /etc/pulse/client.conf.d/00-disable-autospawn.conf ] && sed -i -E 's/^(autospawn=.*)/# \1/' /etc/pulse/client.conf.d/00-disable-autospawn.conf || : \
     && locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 
-COPY --from=builder /usr/lib/pulse-*/modules/module-xrdp-sink.so /usr/lib/pulse-*/modules/module-xrdp-source.so /var/lib/xrdp-pulseaudio-installer/
+COPY --from=stage-builder /usr/lib/pulse-*/modules/module-xrdp-sink.so /usr/lib/pulse-*/modules/module-xrdp-source.so /var/lib/xrdp-pulseaudio-installer/
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/*
 EXPOSE 3389/tcp

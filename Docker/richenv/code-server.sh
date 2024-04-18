@@ -9,12 +9,13 @@ fi
 
 test -z ${PROXY_DOMAIN} || PROXY_DOMAIN_ARG="--proxy-domain=${PROXY_DOMAIN}"
 
-mkdir -p ~/.code/{data,extensions}
+mkdir -p ~/.vscode-server/data
+mkdir -p ~/.vscode-server/extensions
 
 exec code-server \
   --bind-addr ${CODE_SERVER_BIND_ADDR:-0.0.0.0:8443} \
-  --user-data-dir ~/.code/data \
-  --extensions-dir ~/.code/extensions \
+  --user-data-dir ~/.vscode-server/data \
+  --extensions-dir ~/.vscode-server/extensions \
   --disable-telemetry \
   --auth "${AUTH}" \
   "${PROXY_DOMAIN_ARG}" \

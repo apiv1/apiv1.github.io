@@ -38,6 +38,11 @@ richrc_install() {
   wget -qO ~/.envrc.d/.richrc https://apiv1.github.io/Shell/richrc
   load_envs
 }
+tmuxrc_install() {
+  mkdir -p ~/.envrc.d
+  wget -qO ~/.envrc.d/tmuxrc https://apiv1.github.io/Shell/tmuxrc
+  load_envs
+}
 git_config_install() {
   wget -qO ~/.gitconfig https://apiv1.github.io/Git/gitconfig
 }

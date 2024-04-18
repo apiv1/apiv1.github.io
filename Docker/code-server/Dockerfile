@@ -10,10 +10,12 @@ RUN wget -O /tmp/code-server.tar.gz https://github.com/coder/code-server/release
 FROM ${CODE_SERVER_IMAGE} AS stage-code-server
 
 FROM ubuntu:24.04 AS daemon
-RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/ubuntu.sources && \
+ARG TARGETOS
+ARG TARGETARCH
+RUN --mount=type=cache,target=/var/lib/apt/lists,id=apt_${TARGETOS}_${TARGETARCH} \
+  sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/ubuntu.sources && \
   sed -i 's/ports.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/ubuntu.sources && \
-  apt-get update --allow-unauthenticated && \
-  apt install -y \
+  apt-get install --update -y \
     busybox \
     curl \
     wget \
@@ -22,7 +24,9 @@ RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/
     git-lfs \
     git-extras \
     vim \
-    tree && apt clean && \
+    tree \
+    tmux \
+    && \
   busybox --install /usr/local/bin
 COPY --from=apiv1/aes /aes /usr/local/sbin/aes
 

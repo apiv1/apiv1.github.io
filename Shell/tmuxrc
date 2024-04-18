@@ -1,0 +1,17 @@
+tmux_session() {
+  local SESSION_NAME=${1:-$(whoami)}
+  if type tmux > /dev/null 2>&1 && test -z "$TMUX"; then
+    tmux a -t "$SESSION_NAME" > /dev/null 2>&1
+    test "$?" -ne 0 && tmux new -s "$SESSION_NAME" > /dev/null 2>&1
+  fi
+}
+
+tmux_conf_install() {
+cat <<EOF > ~/.tmux.conf
+set -g default-terminal "xterm-256color"
+bind '"' split-window -c "#{pane_current_path}"
+bind % split-window -h -c "#{pane_current_path}"
+bind c new-window -c "#{pane_current_path}"
+set -g mouse on
+EOF
+}

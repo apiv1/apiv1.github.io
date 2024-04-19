@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 random() {
     cat /dev/urandom | base64 | tr -dc '_A-Za-z0-9' | head -c 15

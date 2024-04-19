@@ -1,8 +1,8 @@
 export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 export PATH=$HOME/.bin:"$PATH"
-export ENVRC_HOME="$HOME/.envrc.d"
+export __ENVRC_HOME__="${ENVRC_HOME:-$HOME/.envrc.d}"
 load_envs() {
-  local ENV_PATH="${ENVRC_HOME}"
+  local ENV_PATH="${__ENVRC_HOME__}"
   for item in $(ls -A ${ENV_PATH} 2>/dev/null)
   do
     . "$ENV_PATH/$item"
@@ -11,18 +11,18 @@ load_envs() {
 test -z "$__ENVS_LOADED__" && export __ENVS_LOADED__=1 && load_envs
 
 envrc_install() {
-  mkdir -p "${ENVRC_HOME}"
-  wget -qO "${ENVRC_HOME}"/.envrc https://apiv1.github.io/Shell/envrc
+  mkdir -p "${__ENVRC_HOME__}"
+  wget -qO "${__ENVRC_HOME__}"/.envrc https://apiv1.github.io/Shell/envrc
   load_envs
 }
 richrc_install() {
-  mkdir -p "${ENVRC_HOME}"
-  wget -qO "${ENVRC_HOME}"/.richrc https://apiv1.github.io/Shell/richrc
+  mkdir -p "${__ENVRC_HOME__}"
+  wget -qO "${__ENVRC_HOME__}"/.richrc https://apiv1.github.io/Shell/richrc
   load_envs
 }
 tmuxrc_install() {
-  mkdir -p "${ENVRC_HOME}"
-  wget -qO "${ENVRC_HOME}"/tmuxrc https://apiv1.github.io/Shell/tmuxrc
+  mkdir -p "${__ENVRC_HOME__}"
+  wget -qO "${__ENVRC_HOME__}"/tmuxrc https://apiv1.github.io/Shell/tmuxrc
   load_envs
 }
 git_config_install() {

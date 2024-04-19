@@ -1,6 +1,6 @@
-export ENVRC_HOME="$HOME/.envrc.d"
+export __ENVRC_HOME__="${ENVRC_HOME:-$HOME/.envrc.d}"
 load_envs() {
-  local ENV_PATH="${ENVRC_HOME}"
+  local ENV_PATH="${__ENVRC_HOME__}"
   for item in $(ls -A ${ENV_PATH} 2>/dev/null)
   do
     . "$ENV_PATH/$item"

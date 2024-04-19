@@ -1,9 +1,10 @@
 #!/bin/sh
-set -e
 
 random() {
     cat /dev/urandom | base64 | tr -dc '_A-Za-z0-9' | head -c 15
 }
+
+set +e
 
 # Create the user account
 export USERNAME=${USERNAME:-user}
@@ -20,6 +21,8 @@ usermod -aG sudo ${USERNAME}
 
 groupadd docker
 usermod -aG docker ${USERNAME}
+
+set -e
 
 test -n "$*" && $*
 

@@ -19,6 +19,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,id=apt_${TARGETOS}_${TARGETARCH
   ;
 COPY --from=apiv1/dockerd /usr/local/bin/* /usr/local/bin/
 COPY --from=apiv1/code-server /code-server /code-server
+COPY --from=apiv1/aes /aes /usr/local/sbin/aes
 COPY init.d /init.d
 COPY init.sh /init.sh
 RUN rm /usr/local/bin/entrypoint.sh && \

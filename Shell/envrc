@@ -28,6 +28,9 @@ tmuxrc_install() {
 git_config_install() {
   wget -qO ~/.gitconfig https://apiv1.github.io/Git/gitconfig
 }
+myvim_install () {
+  git clone https://github.com/myvim/.vim ~/.vim
+}
 
 ssh_keys_decrypt() {
   echo "decrypt: ~/.ssh.enc => ~/.ssh"
@@ -52,7 +55,4 @@ ssh_keys_encrypt() {
 }
 ssh_keys_install () {
   git clone https://github.com/apiv1/.ssh.enc ~/.ssh.enc
-}
-myvim_install () {
-  git clone https://github.com/myvim/.vim ~/.vim
 }

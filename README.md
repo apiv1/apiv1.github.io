@@ -418,6 +418,7 @@
 |  &nbsp;|--&nbsp;[OpenSSL使用相关.md](./Tools/OpenSSL使用相关.md)  
 |  &nbsp;|--&nbsp;[SSH客户端设置.md](./Tools/SSH客户端设置.md)  
 |  &nbsp;|--&nbsp;[VsCode命令行启动.md](./Tools/VsCode命令行启动.md)  
+|  &nbsp;|--&nbsp;[asdf安装.md](./Tools/asdf安装.md)  
 |  &nbsp;|--&nbsp;[bash算md5.md](./Tools/bash算md5.md)  
 |  &nbsp;|--&nbsp;[curl.md](./Tools/curl.md)  
 |  &nbsp;|--&nbsp;[du命令.md](./Tools/du命令.md)  

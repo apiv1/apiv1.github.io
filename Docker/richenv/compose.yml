@@ -3,6 +3,13 @@ services:
   richenv:
     image: apiv1/richenv
     restart: always
+    command: |
+      sh -c '
+        if test -f /config/.ssh/authorized_keys ; then
+          cp /config/.ssh/authorized_keys /home/$${USERNAME}/.ssh/authorized_keys
+          chmod 400 /home/$${USERNAME}/.ssh/authorized_keys
+        fi
+      '
     environment:
       DOCKERD_OPT: --data-root /dockerd/lib/docker --exec-root /tmp/dockerd/run/docker -p /tmp/dockerd/run/docker.pid
       USERNAME: ${USERNAME:-docker}
@@ -26,7 +33,7 @@ services:
       - dockerd:/dockerd
     configs:
       - source: authorized_keys
-        target: /home/${USERNAME:-docker}/.ssh/authorized_keys
+        target: /config/.ssh/authorized_keys
       - source: ssh.conf
         target: /etc/ssh/ssh_config.d/ssh.conf
       - source: sshd.conf

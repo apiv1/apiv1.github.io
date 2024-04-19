@@ -19,6 +19,9 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,id=apt_${TARGETOS}_${TARGETARCH
   ;
 COPY --from=apiv1/dockerd /usr/local/bin/* /usr/local/bin/
 COPY --from=apiv1/code-server /code-server /code-server
-COPY docker.sh code-server.sh init.sh /init.d/
-RUN ln -s /code-server/bin/code-server /bin/code-server && chmod +x /init.d/*.sh
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh", "/init.d/init.sh"]
+COPY init.d /init.d
+COPY init.sh /init.sh
+RUN rm /usr/local/bin/entrypoint.sh && \
+    ln -s /code-server/bin/code-server /bin/code-server && \
+    chmod +x /init.d/*.sh /init.sh
+ENTRYPOINT ["/init.sh"]

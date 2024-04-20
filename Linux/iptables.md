@@ -33,3 +33,19 @@ iptables -L INPUT --line-numbers
 # -- 删除一条规则
 iptables -D INPUT 11 （注意，这个11是行号，是iptables -L INPUT --line-numbers 所打印出来的行号）
 ```
+
+#### 主机A使用主机B的子网收发数据
+
+```bash
+IP=192.168.1.101 # 主机B IP
+SUB_NET=192.168.2.0/24 # 目标子网网段
+
+# 主机A, 配置路由: 发给子网的数据, 把B主机当做网关.
+sudo ip route add $SUB_NET via $IP
+# --------------------------------------------------------------
+
+# 主机B 设置
+# 配置IP伪装, 转发过来的数据包, 源地址将重写成子网地址
+sudo iptables -t nat -A POSTROUTING -j MASQUERADE
+sudo iptables -t nat -L POSTROUTING # 检查
+```

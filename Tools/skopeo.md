@@ -18,7 +18,10 @@ cd skopeo; docker build . -t skopeo-images
 
 使用skopeo
 ```shell
-alias skopeo='docker run -v /var/run/docker.sock:/var/run/docker.sock --rm quay.io/skopeo/stable'
+skopeo() {
+  local DOCKER_SOCK=${DOCKER_HOST//unix:\/\//}
+  docker run -it --rm -v ${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock quay.io/skopeo/stable $*
+}
 ```
 
 上传本地镜像到 hub.docker.com # 可以命令行配置代理

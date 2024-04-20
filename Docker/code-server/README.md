@@ -48,19 +48,10 @@ cd ../docker-compose
 
 安装code-server命令
 
-bash
-```shell
-code-server () {
-  dood-run -e NETWORK_MODE=$NETWORK_MODE -e PROXY_DOMAIN=$PROXY_DOMAIN -e LISTEN_ADDR=$LISTEN_ADDR -e CODE_SERVER_BIND_ADDR=$CODE_SERVER_BIND_ADDR -e PASSWORD=$PASSWORD -e HASHED_PASSWORD=$HASHED_PASSWORD apiv1/code-server:compose --project-directory "$PWD" -f /compose.yml $*
-}
-```
+[bash](./code-server.envrc)
 
-powershell
-```powershell
-function global:code-server () {
-  dood-run -e "NETWORK_MODE='$NETWORK_MODE'" -e "PROXY_DOMAIN='$PROXY_DOMAIN'" -e "LISTEN_ADDR='$LISTEN_ADDR'" -e "CODE_SERVER_BIND_ADDR='$CODE_SERVER_BIND_ADDR'" -e "PASSWORD='$PASSWORD'" -e "HASHED_PASSWORD='$HASHED_PASSWORD'" apiv1/code-server:compose --project-directory $( docker-path $PWD.Path ) -f /compose.yml $($args -join ' ')
-}
-```
+[powershell](./code-server.ps1)
+
 可选: code-server服务中安装docker组件
 ```shell
 dood-run apiv1/code-server:compose -f /compose.yml up -d # 若从未启动过环境, 需要先启动一次, 初始化卷数据

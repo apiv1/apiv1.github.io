@@ -25,6 +25,13 @@ tmuxrc_install() {
   wget -qO "${__ENVRC_HOME__}"/tmuxrc https://apiv1.github.io/Shell/tmuxrc
   load_envs
 }
+dood_install() {
+  mkdir -p "${__ENVRC_HOME__}"
+  wget -qO "${__ENVRC_HOME__}"/docker.envrc https://apiv1.github.io/Docker/docker/docker.envrc
+  wget -qO "${__ENVRC_HOME__}"/myvim.envrc https://apiv1.github.io/Docker/myvim/myvim.envrc
+  wget -qO "${__ENVRC_HOME__}"/code-server.envrc https://apiv1.github.io/Docker/code-server/code-server.envrc
+  load_envs
+}
 git_config_install() {
   wget -qO ~/.gitconfig https://apiv1.github.io/Git/gitconfig
 }

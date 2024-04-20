@@ -1,5 +1,5 @@
 .DS_Store
-.env*
+.env
 .ssh*
 .workspace
 .exe

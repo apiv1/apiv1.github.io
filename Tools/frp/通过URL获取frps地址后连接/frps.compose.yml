@@ -1,0 +1,17 @@
+services:
+  frp:
+    image: snowdreamtech/frps
+    entrypoint: frps
+    command: -c /config.toml
+    configs:
+      - source: config.toml
+        target: /config.toml
+    network_mode: host
+    restart: always
+configs:
+  config.toml:
+    content: |
+      bindPort = ${FRPS_BIND_PORT}
+
+      auth.method = "token"
+      auth.token = "${FRPS_TOKEN}"

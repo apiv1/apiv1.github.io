@@ -1,0 +1,37 @@
+services:
+  frpc:
+    image: apiv1/frpc-ex
+    # FRPC_SERVER_HOST_ADDR: 获取主机地址的命令
+    # FRPC_SERVER_HOST_ADDR_FROM_URL: 返回主机地址的GET-URL
+    entrypoint: sh
+    command: |
+      -c '
+        HOST_ADDR=${FRPC_SERVER_HOST_ADDR:-$(wget -qO - ${FRPC_SERVER_HOST_ADDR_FROM_URL:-})}
+        cp /config.toml /tmp/config.toml
+        sed -i "s/\$$SERVER_ADDR/$$HOST_ADDR/g" /tmp/config.toml
+        if test -n "${DEBUG:-}"; then
+          echo -------------------------
+          cat /tmp/config.toml
+          echo -------------------------
+        fi
+        frpc-ex -c /tmp/config.toml
+      '
+    tmpfs:
+      - /tmp
+    configs:
+      - source: config.toml
+        target: /config.toml
+    restart: always
+    # 为主机设置域名以访问主机端口
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+configs:
+  config.toml:
+    content: |
+      auth.method = "token"
+      auth.token = "${FRPS_TOKEN}"
+
+      serverAddr = "$$SERVER_ADDR"
+      serverPort = ${FRPS_BIND_PORT}
+
+      ${FRPC_PROXIES:-}

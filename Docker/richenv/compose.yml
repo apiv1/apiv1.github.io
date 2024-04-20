@@ -39,7 +39,6 @@ services:
 volumes:
   home:
   dockerd:
-  storage:
 configs:
   config.sh:
     content: |

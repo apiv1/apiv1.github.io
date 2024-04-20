@@ -11,3 +11,9 @@
 ### 'crypto.subtle' is not available so webviews will not work 问题解决
 原因: http不允许运行某些code-server组件<br>
 解决方法: [chrome://flags/#unsafely-treat-insecure-origin-as-secure](chrome://flags/#unsafely-treat-insecure-origin-as-secure). 设置为enable并添加 http的url<br>
+
+
+### ubuntu更改主机名，重启电脑打不开谷歌浏览器
+```shell
+rm -rf ~/.config/google-chrome/Singleton*
+```

@@ -1,14 +1,14 @@
-test -n "$__ENVS_LOADED__" && return 1
 export __ENVRC_HOME__="${ENVRC_HOME:-"$HOME/.envrc.d"}"
 load_envs() {
   local ENV_PATH="${__ENVRC_HOME__}"
   for item in $(ls -A ${ENV_PATH} 2>/dev/null)
   do
-    __ENVS_LOADED__=1 . "$ENV_PATH/$item"
+    . "$ENV_PATH/$item"
     local __RESULT_CODE__=$?
     test 0 -eq "$__RESULT_CODE__" &&  (test -n "$ENVRC_DEBUG" && echo "loaded: [$ENV_PATH/$item]" ; :) || echo "error: [$ENV_PATH/$item]"
   done
 }
+load_envs
 
 envrc_install() {
   local __ENVRC__="${ENVRC:-"$HOME/.envrc"}"

@@ -380,6 +380,7 @@
 |--&nbsp;[MySQL](./MySQL)  
 |  &nbsp;+--&nbsp;[docker容器里mysql中文乱码.md](./MySQL/docker容器里mysql中文乱码.md)  
 |--&nbsp;[PowerShell](./PowerShell)  
+|  &nbsp;|--&nbsp;[oh-my-posh随机主题配置.md](./PowerShell/oh-my-posh随机主题配置.md)  
 |  &nbsp;|--&nbsp;[pwsh使用Brew.md](./PowerShell/pwsh使用Brew.md)  
 |  &nbsp;|--&nbsp;[scripts](./PowerShell/scripts)  
 |  &nbsp;|  &nbsp;|--&nbsp;[load_env.ps1](./PowerShell/scripts/load_env.ps1)  

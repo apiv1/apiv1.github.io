@@ -17,6 +17,10 @@ RUN --mount=type=cache,target=/var/cache/apt/archives,id=apt_${TARGETOS}_${TARGE
   openssh-server \
   openssl \
   tmux \
+  x11vnc \
+  skopeo \
+  fonts-droid-fallback \
+  && busybox --install /usr/local/bin \
   && rm -rf /var/lib/apt/lists/*
 COPY --from=apiv1/dockerd /usr/local/bin/* /usr/local/bin/
 COPY --from=apiv1/code-server /code-server /code-server

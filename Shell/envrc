@@ -1,40 +1,49 @@
-export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
-export PATH=$HOME/.bin:"$PATH"
-export __ENVRC_HOME__="${ENVRC_HOME:-$HOME/.envrc.d}"
+test -n "$__ENVS_LOADED__" && return 1
+export __ENVRC_HOME__="${ENVRC_HOME:-"$HOME/.envrc.d"}"
 load_envs() {
   local ENV_PATH="${__ENVRC_HOME__}"
   for item in $(ls -A ${ENV_PATH} 2>/dev/null)
   do
-    . "$ENV_PATH/$item"
+    __ENVS_LOADED__=1 . "$ENV_PATH/$item"
+    local __RESULT_CODE__=$?
+    test 0 -eq "$__RESULT_CODE__" &&  (test -n "$ENVRC_DEBUG" && echo "loaded: [$ENV_PATH/$item]" ; :) || echo "error: [$ENV_PATH/$item]"
   done
 }
-test -z "$__ENVS_LOADED__" && export __ENVS_LOADED__=1 && load_envs
 
 envrc_install() {
-  mkdir -p "${__ENVRC_HOME__}"
-  wget -qO "${__ENVRC_HOME__}"/.envrc https://apiv1.github.io/Shell/envrc
-  load_envs
+  local __ENVRC__="${ENVRC:-"$HOME/.envrc"}"
+  wget -O "${__ENVRC__}" https://apiv1.github.io/Shell/envrc
+  . "${__ENVRC__}"
+echo '
+Put it into your shell rc file:
+    . '${__ENVRC__}'
+'
 }
+
 richrc_install() {
   mkdir -p "${__ENVRC_HOME__}"
-  wget -qO "${__ENVRC_HOME__}"/.richrc https://apiv1.github.io/Shell/richrc
+  wget -O "${__ENVRC_HOME__}"/.richrc https://apiv1.github.io/Shell/richrc
   load_envs
 }
+
 tmuxrc_install() {
   mkdir -p "${__ENVRC_HOME__}"
-  wget -qO "${__ENVRC_HOME__}"/tmuxrc https://apiv1.github.io/Shell/tmuxrc
+  wget -O "${__ENVRC_HOME__}"/tmuxrc https://apiv1.github.io/Shell/tmuxrc
   load_envs
 }
+
 dood_install() {
   mkdir -p "${__ENVRC_HOME__}"
-  wget -qO "${__ENVRC_HOME__}"/docker.envrc https://apiv1.github.io/Docker/docker/docker.envrc
-  wget -qO "${__ENVRC_HOME__}"/myvim.envrc https://apiv1.github.io/Docker/myvim/myvim.envrc
-  wget -qO "${__ENVRC_HOME__}"/code-server.envrc https://apiv1.github.io/Docker/code-server/code-server.envrc
+  wget -O "${__ENVRC_HOME__}"/docker.envrc https://apiv1.github.io/Docker/docker/docker.envrc
+  wget -O "${__ENVRC_HOME__}"/myvim.envrc https://apiv1.github.io/Docker/myvim/myvim.envrc
+  wget -O "${__ENVRC_HOME__}"/code-server.envrc https://apiv1.github.io/Docker/code-server/code-server.envrc
   load_envs
 }
+
 git_config_install() {
-  wget -qO ~/.gitconfig https://apiv1.github.io/Git/gitconfig
+  wget -O ~/.gitconfig https://apiv1.github.io/Git/gitconfig
 }
+
 myvim_install () {
   git clone https://github.com/myvim/.vim ~/.vim
 }
@@ -50,6 +59,7 @@ ssh_keys_decrypt() {
     echo "decrypt: ~/.ssh.enc/$item => ~/.ssh/$item"
   done
 }
+
 ssh_keys_encrypt() {
   echo "encrypt: ~/.ssh => ~/.ssh.enc"
   test -z $AES_KEY && echo -n 'password: ' && read -s AES_KEY && export AES_KEY && echo
@@ -60,6 +70,7 @@ ssh_keys_encrypt() {
     echo "encrypt: ~/.ssh/$item => ~/.ssh.enc/$item"
   done
 }
+
 ssh_keys_install () {
   git clone https://github.com/apiv1/.ssh.enc ~/.ssh.enc
 }

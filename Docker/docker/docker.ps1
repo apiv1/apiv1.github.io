@@ -27,23 +27,23 @@ function global:dood-run() {
   Set-Alias -Name doInvoke -Value $(if (-not ($NO_EXEC)) { 'Invoke-Expression' } else { 'Write-Output' } )
   doInvoke ("&'$DOCKER_BIN' run --rm -i $ttyFlag --tmpfs /tmp -v '${dockerSock}:/var/run/docker.sock' -v '${projectDirectory}:${PATH_PREFIX:-}${projectDirectory}' -w '${PATH_PREFIX:-}${projectDirectory}' -e 'PUID=$uid' -e 'PGID=$gid' -e 'DOCKER_SOCK=$dockerSock' -e 'PWD=$projectDirectory' $($args -join ' ')")
 }
-function global:dood-docker-compose() {
+function global:dood_docker-compose() {
   dood-run -v docker-context:/root/.docker apiv1/docker-compose $($args -join ' ')
 }
-function global:dood-compose() {
-  dood-docker-compose $($args -join ' ')
+function global:dood_compose() {
+  dood_docker-compose $($args -join ' ')
 }
 
-function global:dood-docker-buildx() {
+function global:dood_docker-buildx() {
   dood-run -v docker-context:/root/.docker apiv1/docker-buildx $($args -join ' ')
 }
-function global:dood-buildx() {
-  dood-docker-buildx $($args -join ' ')
+function global:dood_buildx() {
+  dood_docker-buildx $($args -join ' ')
 }
 
-function global:dood-docker() {
-  if (Get-Command -ErrorAction SilentlyContinue ("dood-docker-" + $args[0])) {
-    invoke-expression ("dood-docker-$($args -join ' ')")
+function global:dood_docker() {
+  if (Get-Command -ErrorAction SilentlyContinue ("dood_docker-" + $args[0])) {
+    invoke-expression ("dood_docker-$($args -join ' ')")
   } elseif (Get-Command -ErrorAction SilentlyContinue ("docker-" + $args[0])) {
     invoke-expression ("docker-$($args -join ' ')")
   } else {
@@ -51,12 +51,12 @@ function global:dood-docker() {
   }
 }
 
-function global:dood-enable() {
-  Set-Alias -Name docker-compose -Value dood-docker-compose -Scope Global
-  Set-Alias -Name docker-buildx -Value dood-docker-buildx -Scope Global
-  Set-Alias -Name docker -Value dood-docker -Scope Global
+function global:dood_enable() {
+  Set-Alias -Name docker-compose -Value dood_docker-compose -Scope Global
+  Set-Alias -Name docker-buildx -Value dood_docker-buildx -Scope Global
+  Set-Alias -Name docker -Value dood_docker -Scope Global
 }
-function global:dood-disable() {
+function global:dood_disable() {
   Remove-Alias -Name docker-compose -Scope Global
   Remove-Alias -Name docker-buildx -Scope Global
   Remove-Alias -Name docker -Scope Global
@@ -67,8 +67,8 @@ function global:dood() {
     Write-Output "usage: <docker command in dood>"
     return
   }
-  if (Get-Command -ErrorAction SilentlyContinue ("dood-" + $args[0])) {
-    invoke-expression ("dood-$($args -join ' ')")
+  if (Get-Command -ErrorAction SilentlyContinue ("dood_" + $args[0])) {
+    invoke-expression ("dood_$($args -join ' ')")
   }
   else {
     dood-run -v docker-context:/.docker apiv1/docker $($args -join ' ')

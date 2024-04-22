@@ -42,14 +42,11 @@ function global:dood-buildx() {
 }
 
 function global:dood-docker() {
-  if ($args.Count -lt 1) {
-    invoke-expression("&'$DOCKER_BIN'")
-    return
-  }
-  if (Get-Command -ErrorAction SilentlyContinue ("docker-" + $args[0])) {
+  if (Get-Command -ErrorAction SilentlyContinue ("dood-docker-" + $args[0])) {
+    invoke-expression ("dood-docker-$($args -join ' ')")
+  } elseif (Get-Command -ErrorAction SilentlyContinue ("docker-" + $args[0])) {
     invoke-expression ("docker-$($args -join ' ')")
-  }
-  else {
+  } else {
     invoke-expression ("&'$DOCKER_BIN' $($args -join ' ')")
   }
 }

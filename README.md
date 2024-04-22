@@ -464,6 +464,7 @@
 |  &nbsp;|--&nbsp;[壁纸路径.md](./Windows/壁纸路径.md)  
 |  &nbsp;|--&nbsp;[安装Tree命令.md](./Windows/安装Tree命令.md)  
 |  &nbsp;|--&nbsp;[小鹤双拼.reg](./Windows/小鹤双拼.reg)  
+|  &nbsp;|--&nbsp;[开启IP转发.md](./Windows/开启IP转发.md)  
 |  &nbsp;|--&nbsp;[有线和无线同时联网.md](./Windows/有线和无线同时联网.md)  
 |  &nbsp;|--&nbsp;[有线和无线同时联网.reg](./Windows/有线和无线同时联网.reg)  
 |  &nbsp;|--&nbsp;[禁用更新.reg](./Windows/禁用更新.reg)  

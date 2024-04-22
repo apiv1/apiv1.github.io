@@ -60,7 +60,7 @@ docker-compose () {
 # (可选, 使用dood-run)
 docker-compose () {
   local DOCKER_COMPOSE_FILE=${DOCKER_COMPOSE_FILE:-$PROJECT_DIRECTORY/compose.yml}
-  dood-run -v $DOCKER_COMPOSE_FILE:/compose.yml apiv1/docker-compose --project-directory "$PWD" $*
+  dood-run -v $DOCKER_COMPOSE_FILE:/compose.yml apiv1/docker-compose --project-directory "$PWD" "$@"
 }
 ```
 

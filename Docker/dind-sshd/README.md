@@ -20,7 +20,7 @@ bash
 ```shell
 dind-sshd () {
   test -f compose.override.yml && local RUN_OPT="$RUN_OPT -f ./compose.override.yml" || local RUN_OPT="$RUN_OPT -f /compose.override.yml"
-  dood-run apiv1/dind-sshd:compose --project-directory "$PWD"  -f /compose.yml $RUN_OPT $*
+  dood-run apiv1/dind-sshd:compose --project-directory "$PWD"  -f /compose.yml $RUN_OPT "$@"
 }
 dind-sshd-config-file () {
   docker rm -f dind-sshd

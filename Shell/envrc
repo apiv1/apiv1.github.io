@@ -20,40 +20,36 @@ Put it into your shell rc file:
 '
 }
 
-richrc_install() {
+__envrc_install__() {
   mkdir -p "${__ENVRC_HOME__}"
-  wget -O "${__ENVRC_HOME__}"/.richrc https://apiv1.github.io/Shell/richrc
+  cd "${__ENVRC_HOME__}"
+  wget $1
+  cd -
   load_envs
+}
+
+richrc_install() {
+  __envrc_install__ https://apiv1.github.io/Shell/richrc
 }
 
 tmuxrc_install() {
-  mkdir -p "${__ENVRC_HOME__}"
-  wget -O "${__ENVRC_HOME__}"/tmuxrc https://apiv1.github.io/Shell/tmuxrc
-  load_envs
+  __envrc_install__ https://apiv1.github.io/Shell/tmuxrc
 }
 
 dood_install() {
-  mkdir -p "${__ENVRC_HOME__}"
-  wget -O "${__ENVRC_HOME__}"/docker.envrc https://apiv1.github.io/Docker/docker/docker.envrc
-  load_envs
+  __envrc_install__ https://apiv1.github.io/Docker/docker/docker.envrc
 }
 
 myvim_install() {
-  mkdir -p "${__ENVRC_HOME__}"
-  wget -O "${__ENVRC_HOME__}"/myvim.envrc https://apiv1.github.io/Docker/myvim/myvim.envrc
-  load_envs
+  __envrc_install__ https://apiv1.github.io/Docker/myvim/myvim.envrc
 }
 
 code_server_install() {
-  mkdir -p "${__ENVRC_HOME__}"
-  wget -O "${__ENVRC_HOME__}"/code-server.envrc https://apiv1.github.io/Docker/code-server/code-server.envrc
-  load_envs
+  __envrc_install__ https://apiv1.github.io/Docker/code-server/code-server.envrc
 }
 
 dict_install() {
-  mkdir -p "${__ENVRC_HOME__}"
-  wget -O "${__ENVRC_HOME__}"/node-dict.envrc https://apiv1.github.io/Docker/node-dict/node-dict.envrc
-  load_envs
+  __envrc_install__ https://apiv1.github.io/Docker/node-dict/node-dict.envrc
 }
 
 git_config_install() {

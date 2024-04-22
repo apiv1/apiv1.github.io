@@ -37,6 +37,7 @@ dood_install() {
   wget -O "${__ENVRC_HOME__}"/docker.envrc https://apiv1.github.io/Docker/docker/docker.envrc
   wget -O "${__ENVRC_HOME__}"/myvim.envrc https://apiv1.github.io/Docker/myvim/myvim.envrc
   wget -O "${__ENVRC_HOME__}"/code-server.envrc https://apiv1.github.io/Docker/code-server/code-server.envrc
+  wget -O "${__ENVRC_HOME__}"/node-dict.envrc https://apiv1.github.io/Docker/node-dict/node-dict.envrc
   load_envs
 }
 

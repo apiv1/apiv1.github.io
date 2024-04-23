@@ -14,3 +14,5 @@ route add -p 2.2.2.2 192.168.1.100
 route delete 1.1.1.1
 route delete 2.2.2.2
 ```
+
+Windows route命令无法设置 mtu值, 设置mtu值参考[这里](./netsh设置.md)

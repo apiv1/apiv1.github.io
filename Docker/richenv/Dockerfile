@@ -20,9 +20,7 @@ RUN --mount=type=cache,target=/var/cache/apt/archives,id=apt_${TARGETOS}_${TARGE
   x11vnc \
   skopeo \
   fonts-droid-fallback \
-  software-properties-common \
-  && apt-add-repository ppa:remmina-ppa-team/remmina-next \
-  && apt-get install -y remmina remmina-plugin-rdp remmina-plugin-secret \
+  remmina remmina-plugin-rdp remmina-plugin-secret \
   && rm -rf /var/lib/apt/lists/*
 COPY --from=apiv1/dockerd /usr/local/bin/* /usr/local/bin/
 COPY --from=apiv1/code-server /code-server /code-server

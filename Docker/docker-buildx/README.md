@@ -11,9 +11,13 @@ docker buildx build . --platform linux/amd64,linux/arm64 --build-arg DOCKER_BUIL
 ### Linux下安装docker-buildx (从容器里拷贝到当前目录)
 
 ```shell
+cd /bin # 可选 安装到 /bin
+
 docker container create --name buildx-container apiv1/docker-buildx
-docker container cp buildx-container:/docker-buildx docker-buildx
+docker container cp buildx-container:/usr/local/bin/docker-buildx .
 docker container remove buildx-container
+
+type docker-buildx && ln -s $(which docker-buildx) ~/.docker/cli-plugins/
 ```
 
 ### 函数式安装docker-buildx

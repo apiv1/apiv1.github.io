@@ -428,6 +428,7 @@
 |  &nbsp;|--&nbsp;[du命令.md](./Tools/du命令.md)  
 |  &nbsp;|--&nbsp;[ffmpeg.md](./Tools/ffmpeg.md)  
 |  &nbsp;|--&nbsp;[frp](./Tools/frp)  
+|  &nbsp;|  &nbsp;|--&nbsp;[README.md](./Tools/frp/README.md)  
 |  &nbsp;|  &nbsp;|--&nbsp;[旧版frp(配置文件还是ini)](./Tools/frp/旧版frp(配置文件还是ini))  
 |  &nbsp;|  &nbsp;|  &nbsp;|--&nbsp;[docker-compose.yml](./Tools/frp/旧版frp(配置文件还是ini)/docker-compose.yml)  
 |  &nbsp;|  &nbsp;|  &nbsp;|--&nbsp;[frpc-client.ini](./Tools/frp/旧版frp(配置文件还是ini)/frpc-client.ini)  

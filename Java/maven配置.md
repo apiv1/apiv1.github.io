@@ -36,3 +36,8 @@ pom.xml
   </mirrors>
 </settings>
 ```
+
+* maven 打包跳过test构建运行
+```shell
+mvn package -Dmaven.test.skip=true
+```

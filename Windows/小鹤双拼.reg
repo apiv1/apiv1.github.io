@@ -4,5 +4,4 @@ Windows Registry Editor Version 5.00
 "LangBar Force On"=dword:00000000
 "EnableExtraDomainType"=dword:00000001
 "Enable Double Pinyin"=dword:00000001
-"UserDefinedDoublePinyinScheme0"="XiaoHe-Shuangpin*2*^*iuvdjhcwfg^xmlnpbksqszxkrltvyovt"
-
+"UserDefinedDoublePinyinScheme0"="小鹤双拼*2*^*iuvdjhcwfg^xmlnpbksqszxkrltvyovt"

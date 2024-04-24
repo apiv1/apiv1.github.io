@@ -10,6 +10,12 @@ reg add HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters /v IPEnableRoute
 ```
 
 * 开启路由转发服务
+```cmd
+sc config RemoteAccess start= auto
+sc start RemoteAccess
+```
+
+~~手动设置~~
 ```
 services.msc -> Routing and Remote Access, 启用，启动
 ```

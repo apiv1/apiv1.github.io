@@ -76,5 +76,5 @@ RUN --mount=type=cache,target=/var/cache/apt/archives,id=apt_${TARGETOS}_${TARGE
     && rm -rf /var/lib/apt/lists/*
 RUN unlink /usr/bin/google-chrome && \
     unlink /usr/bin/google-chrome-stable && \
-    echo /etc/alternatives/google-chrome --disable-dev-shm-usage '"$@"' > /usr/bin/google-chrome && chmod +x /usr/bin/google-chrome && \
+    echo /opt/google/chrome/google-chrome --disable-dev-shm-usage '"$@"' > /usr/bin/google-chrome && chmod +x /usr/bin/google-chrome && \
     echo /opt/google/chrome/google-chrome --disable-dev-shm-usage '"$@"' > /usr/bin/google-chrome-stable && chmod +x /usr/bin/google-chrome-stable

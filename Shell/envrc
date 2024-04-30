@@ -1,11 +1,10 @@
 export __ENVRC_HOME__="${ENVRC_HOME:-"$HOME/.envrc.d"}"
 load_envs() {
-  local ENV_PATH="${__ENVRC_HOME__}"
-  for item in $(ls -A ${ENV_PATH} 2>/dev/null)
+  for item in $(ls -A "${__ENVRC_HOME__}"/* 2>/dev/null)
   do
-    . "$ENV_PATH/$item"
+    . "$item"
     local __RESULT_CODE__=$?
-    test 0 -eq "$__RESULT_CODE__" &&  (test -n "$ENVRC_DEBUG" && echo "loaded: [$ENV_PATH/$item]" ; :) || echo "error: [$ENV_PATH/$item]"
+    test 0 -eq "$__RESULT_CODE__" &&  (test -n "$ENVRC_DEBUG" && echo "loaded: [$item]" ; :) || echo "error: [$item]"
   done
 }
 load_envs

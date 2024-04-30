@@ -24,17 +24,11 @@ usermod -aG docker ${USERNAME}
 
 set -e
 
-test -n "$*" && $*
+test -n "$@" && "$@"
 
-test -z "$DISABLE_CODE_SERVER" && su - ${USERNAME} -c "PASSWORD='$CODE_SERVER_PASSWORD' \
-HASHED_PASSWORD='$CODE_SERVER_HASHED_PASSWORD' \
-CODE_SERVER_ARGS='$CODE_SERVER_ARGS' \
-CODE_SERVER_PROXY_DOMAIN='$CODE_SERVER_PROXY_DOMAIN' \
-CODE_SERVER_WORKSPACE='$CODE_SERVER_WORKSPACE' \
-CODE_SERVER_BIND_ADDR='$CODE_SERVER_BIND_ADDR' \
-/init.d/code-server.sh" &
-test -z "$DISABLE_XRDP" && /init.d/xrdp.sh &
-test -z "$DISABLE_SSHD" && /init.d/sshd.sh &
-test -z "$DISABLE_DOCKERD" && /init.d/dockerd.sh &
+for item in `ls /init.d/*.service.sh 2>/dev/null`
+do
+    ($item && echo "launching $item...")&
+done
 
 sleep infinity

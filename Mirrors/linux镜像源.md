@@ -29,7 +29,7 @@ apt-get update --allow-unauthenticated
 
 ### Ubuntu(新)
 ```bash
-cp /etc/apt/sources.list.d/ubuntu.source /etc/apt/sources.list.d/ubuntu.source.bak
+cp /etc/apt/sources.list.d/ubuntu.sources /etc/apt/sources.list.d/ubuntu.sources.bak
 sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/ubuntu.sources
 sed -i 's/ports.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/ubuntu.sources
 sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/ubuntu.sources

@@ -31,8 +31,7 @@ FROM ${STAGE_BUILDER} as stage-builder
 FROM ubuntu:24.04 as deploy
 ARG TARGETOS
 ARG TARGETARCH
-RUN --mount=type=cache,target=/var/cache/apt/archives,id=apt_${TARGETOS}_${TARGETARCH} \
-    sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/ubuntu.sources && \
+RUN   sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/ubuntu.sources && \
     sed -i 's/ports.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/ubuntu.sources && \
     sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/ubuntu.sources && \
     DEBIAN_FRONTEND="noninteractive" apt-get install --update -y --no-install-recommends \
@@ -65,8 +64,7 @@ ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
 FROM ${STAGE_DEPLOY} as stage-deploy
 
 FROM stage-deploy AS chrome
-RUN --mount=type=cache,target=/var/cache/apt/archives,id=apt_${TARGETOS}_${TARGETARCH} \
-    apt-get --update install -y \
+RUN apt-get --update install -y \
     wget \
     gpg && \
     echo 'deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/google-chrome.list && \

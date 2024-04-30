@@ -23,17 +23,9 @@ configs:
   .bash_aliases:
     content: |
       envrc_install() {
-        mkdir -p ~/.envrc.d
-        wget -qO ~/.envrc.d/.envrc https://apiv1.github.io/Shell/envrc
-        load_envs
+        wget -O ~/.envrc https://apiv1.github.io/Shell/envrc
+        test -f ~/.envrc && . ~/.envrc
       }
-      load_envs() {
-        local ENV_PATH=~/.envrc.d
-        for item in $$(ls -A $${ENV_PATH} 2>/dev/null)
-        do
-          . "$$ENV_PATH/$$item"
-        done
-      }
-      load_envs
+      test -f ~/.envrc && . ~/.envrc
 volumes:
   home:

@@ -1,4 +1,4 @@
-#!bin/sh
+#!/bin/sh
 
 if test -n "${PASSWORD}" -o -n "${HASHED_PASSWORD}"; then
     AUTH="password"

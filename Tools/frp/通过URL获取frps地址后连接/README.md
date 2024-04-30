@@ -39,7 +39,7 @@ frps部署地址能通过url获取, 以应对frps部署在家用公网IP网络�
 #### frpc proxy 部署
 
 文件夹内容
-[visitors.frpc.compose.yml](./frps.compose.yml) => ```compose.yml```
+[visitors.frpc.compose.yml](./visitors.frpc.compose.yml) => ```compose.yml```
 不用改
 
 [.env.example](./.env.example) => ```.env```
@@ -51,8 +51,11 @@ frps部署地址能通过url获取, 以应对frps部署在家用公网IP网络�
 #### frpc visitor 部署
 
 文件夹内容
-[visitors.frpc.compose.yml](./frps.compose.yml) => ```compose.yml```
-在service.ports 域需要自己配置 **映射到本地的端口**
+[visitors.frpc.compose.yml](./visitors.frpc.compose.yml) => ```compose.yml```
+不用改
+
+[visitors.frpc.compose.override.yml](./visitors.frpc.compose.override.yml) => ```compose.override.yml```
+在service.frpc.ports 域需要自己配置 **映射到本地的端口**
 
 [.env.example](./.env.example) => ```.env```
 需要

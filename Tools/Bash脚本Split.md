@@ -45,13 +45,17 @@ $(echo $item | sed -e 's/^[^\/]*\///g') # minio/minio:latest
 ### 扩展名
 
 ```shell
-${TARGET_FILE##*.}
+TARGET_FILE=1.tar.gz
+echo ${TARGET_FILE#*.} # tar.gz
+echo ${TARGET_FILE##*.} # gz
 ```
 
 ### 去扩展名
 
 ```shell
-${TARGET_FILE%.*}
+TARGET_FILE=1.tar.gz
+echo ${TARGET_FILE%.*} # 1.tar
+echo ${TARGET_FILE%%.*} # 1
 ```
 
 ### 替换换行符
@@ -83,4 +87,10 @@ for i in "${my_array[@]}"
 do
     echo $i
 done
+```
+
+取HOST:PORT
+```shell
+HOST=${HOST_ADDR%%:*}
+PORT=$(echo $HOST_ADDR | sed 's/^[^:]*[:]*//g')
 ```

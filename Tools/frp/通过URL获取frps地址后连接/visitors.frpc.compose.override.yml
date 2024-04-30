@@ -1,0 +1,4 @@
+services:
+  frpc:
+    ports:
+      - 2222:2222

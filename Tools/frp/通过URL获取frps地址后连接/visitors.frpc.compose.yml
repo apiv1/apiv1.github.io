@@ -7,8 +7,12 @@ services:
     command: |
       -c '
         HOST_ADDR=${FRPC_SERVER_HOST_ADDR:-$(wget -qO - ${FRPC_SERVER_HOST_ADDR_FROM_URL:-})}
+        HOST=$${HOST_ADDR%%:*}
+        PORT=$$(echo $$HOST_ADDR | sed 's/^[^:]*[:]*//g')
+        PORT=$${PORT:-${FRPS_BIND_PORT}}
         cp /config.toml /tmp/config.toml
-        sed -i "s/\$$SERVER_ADDR/$$HOST_ADDR/g" /tmp/config.toml
+        sed -i "s/\$$SERVER_HOST/$$HOST/g" /tmp/config.toml
+        sed -i "s/\$$SERVER_PORT/$$PORT/g" /tmp/config.toml
         if test -n "${DEBUG:-}"; then
           echo -------------------------
           cat /tmp/config.toml
@@ -22,14 +26,13 @@ services:
       - source: config.toml
         target: /config.toml
     restart: always
-    ports: []
 configs:
   config.toml:
     content: |
       auth.method = "token"
       auth.token = "${FRPS_TOKEN}"
 
-      serverAddr = "$$SERVER_ADDR"
-      serverPort = ${FRPS_BIND_PORT}
+      serverAddr = "$$SERVER_HOST"
+      serverPort = $$SERVER_PORT
 
       ${FRPC_VISITORS:-}

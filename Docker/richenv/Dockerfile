@@ -31,7 +31,12 @@ ENTRYPOINT ["/init.sh"]
 FROM ${STAGE_CORE} as full
 # dockerd service
 COPY --from=apiv1/dockerd /usr/local/bin/* /usr/local/bin/
+COPY --from=apiv1/docker-compose /usr/local/bin/* /usr/local/bin/
+COPY --from=apiv1/docker-buildx /usr/local/bin/* /usr/local/bin/
 COPY --chmod=0755 init.d/dockerd.service.sh /init.d/
+RUN mkdir -p /usr/local/lib/docker/cli-plugins && \
+  ln -s $(which docker-compose) /usr/local/lib/docker/cli-plugins/ && \
+  ln -s $(which docker-buildx) /usr/local/lib/docker/cli-plugins/
 
 # code-server service
 COPY --from=apiv1/code-server /code-server /code-server

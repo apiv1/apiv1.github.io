@@ -17,7 +17,11 @@ docker container create --name buildx-container apiv1/docker-buildx
 docker container cp buildx-container:/usr/local/bin/docker-buildx .
 docker container remove buildx-container
 
+# user
 type docker-buildx && ln -s $(which docker-buildx) ~/.docker/cli-plugins/
+
+# system
+type docker-buildx && mkdir -p /usr/local/lib/docker/cli-plugins && ln -s $(which docker-buildx) /usr/local/lib/docker/cli-plugins/
 ```
 
 ### 函数式安装docker-buildx

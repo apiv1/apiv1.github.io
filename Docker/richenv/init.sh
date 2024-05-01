@@ -24,11 +24,16 @@ usermod -aG docker ${USERNAME}
 
 set -e
 
-test -n "$@" && "$@"
-
 for item in `ls /init.d/*.service.sh 2>/dev/null`
 do
     ($item && echo "launching $item...")&
 done
+
+for item in `ls /init.d/*.rc.sh 2>/dev/null`
+do
+    . $item && echo "loading $item..."
+done
+
+test -n "$*" && $*
 
 sleep infinity

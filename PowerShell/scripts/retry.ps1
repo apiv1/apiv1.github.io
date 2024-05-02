@@ -1,5 +1,5 @@
 # https://stackoverflow.com/questions/32348794/how-to-get-status-of-invoke-expression-successful-or-failed
-function retry() {
+function global:retry() {
   do {
     try {
       $global:LASTEXITCODE = 0

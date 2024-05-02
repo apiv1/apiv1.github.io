@@ -3,7 +3,9 @@ tmux_session() {
   if type tmux > /dev/null 2>&1 && test -z "$TMUX"; then
     tmux a -t "$SESSION_NAME" > /dev/null 2>&1
     test "$?" -ne 0 && tmux new -s "$SESSION_NAME" > /dev/null 2>&1
+    return 0
   fi
+  return 1
 }
 
 tmux_conf_install() {

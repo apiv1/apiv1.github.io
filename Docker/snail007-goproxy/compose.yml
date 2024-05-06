@@ -1,0 +1,17 @@
+version: '3.9'
+services:
+  goproxy:
+    image: snail007/goproxy
+    entrypoint: sh
+    command: |
+      -c '
+        # 端口转发
+        /proxy tcp -p ":33080" -T tcp -P "192.168.22.33:22" --daemon
+        # http代理
+        /proxy http -t tcp -p "0.0.0.0:33180" --daemon
+        # socks5 代理
+        /proxy socks -t tcp -p "0.0.0.0:33181" --daemon
+        sleep infinity
+      '
+    ports:
+      - 33000-34000:33000-34000

@@ -221,7 +221,7 @@
 |  &nbsp;|  &nbsp;+--&nbsp;[docker-compose.yml](./Docker/shadowsocks/docker-compose.yml)  
 |  &nbsp;|--&nbsp;[snail007-goproxy](./Docker/snail007-goproxy)  
 |  &nbsp;|  &nbsp;|--&nbsp;[README.md](./Docker/snail007-goproxy/README.md)  
-|  &nbsp;|  &nbsp;+--&nbsp;[docker-compose.yml](./Docker/snail007-goproxy/docker-compose.yml)  
+|  &nbsp;|  &nbsp;+--&nbsp;[compose.yml](./Docker/snail007-goproxy/compose.yml)  
 |  &nbsp;|--&nbsp;[sshd](./Docker/sshd)  
 |  &nbsp;|  &nbsp;|--&nbsp;[Dockerfile](./Docker/sshd/Dockerfile)  
 |  &nbsp;|  &nbsp;+--&nbsp;[README.md](./Docker/sshd/README.md)  

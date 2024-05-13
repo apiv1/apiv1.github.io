@@ -10,17 +10,21 @@ docker buildx build . --target docker-compose --platform linux/amd64,linux/arm64
 ### Linux下安装docker-compose (从容器里拷贝到当前目录)
 [手动安装文档参考](https://docs.docker.com/compose/install/linux/#install-the-plugin-manually)
 ```shell
-cd /bin # 可选 安装到 /bin
+# 可选 需要 root 权限
+sudo -s
 
-docker container create --name docker-compose-container apiv1/docker-compose
+# 可选 安装到 /bin, 或者自己设置的路径
+cd /bin
+
+docker container create --pull always --name docker-compose-container apiv1/docker-compose
 docker container cp docker-compose-container:/usr/local/bin/docker-compose .
 docker container remove docker-compose-container
 
-# user
-type docker-compose && ln -s $(which docker-compose) ~/.docker/cli-plugins/
-
-# system
+# 默认 装在system目录
 type docker-compose && mkdir -p /usr/local/lib/docker/cli-plugins && ln -s $(which docker-compose) /usr/local/lib/docker/cli-plugins/
+
+# 可选 装在user目录
+type docker-compose && ln -s $(which docker-compose) ~/.docker/cli-plugins/
 ```
 
 ### 函数式安装docker-compose

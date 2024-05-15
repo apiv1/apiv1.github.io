@@ -15,7 +15,11 @@ sc config RemoteAccess start= auto
 sc start RemoteAccess
 ```
 
-~~手动设置~~
+* 手动设置
+
+如果发现设置了上面的, ip转发还没好, 就手动启停一下
+
+这个不用关防火墙的
 ```
 services.msc -> Routing and Remote Access, 启用，启动
 ```

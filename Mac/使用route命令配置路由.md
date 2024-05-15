@@ -8,4 +8,7 @@ route add -mtu 1400 $SUB_NET $GATEWAY
 
 # 删除
 route delete $SUB_NET
+
+# 查看路由
+netstat -rn
 ```

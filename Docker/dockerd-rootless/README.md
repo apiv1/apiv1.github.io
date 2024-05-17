@@ -9,19 +9,19 @@ wget -q -O install.sh https://apiv1.github.io/Docker/dockerd-rootless/install.sh
 . .envrc
 ```
 
-### ~~~可选: Linux下使用Docker安装Docker组件(速度快)~~~
+### 可选: Linux下使用Docker安装Docker组件(速度快)
 ```shell
 cd ./bin
 
 # 安装 docker-compose
-docker container create --name docker-compose-container apiv1/docker-compose
-docker container cp docker-compose-container:/docker-compose .
+docker container create --pull always --name docker-compose-container apiv1/docker-compose
+docker container cp docker-compose-container:/usr/local/bin/docker-compose .
 docker container remove docker-compose-container
 test -f ~/.docker/cli-plugins/docker-compose || (mkdir -p ~/.docker/cli-plugins; ln -s $PWD/docker-compose ~/.docker/cli-plugins/docker-compose)
 
 # 安装docker-buildx
-docker container create --name buildx-container apiv1/docker-buildx
-docker container cp buildx-container:/docker-buildx docker-buildx
+docker container create --pull always --name buildx-container apiv1/docker-buildx
+docker container cp buildx-container:/usr/local/bin/docker-buildx .
 docker container remove buildx-container
 test -f ~/.docker/cli-plugins/docker-buildx || (mkdir -p ~/.docker/cli-plugins; ln -s $PWD/docker-buildx ~/.docker/cli-plugins/docker-buildx)
 ```

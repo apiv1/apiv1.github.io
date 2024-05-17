@@ -360,6 +360,7 @@
 |  &nbsp;|--&nbsp;[卸载阿里云盾.md](./Linux/卸载阿里云盾.md)  
 |  &nbsp;|--&nbsp;[命令行查外网IP.md](./Linux/命令行查外网IP.md)  
 |  &nbsp;|--&nbsp;[挂载硬盘.md](./Linux/挂载硬盘.md)  
+|  &nbsp;|--&nbsp;[文件监视数量超限.md](./Linux/文件监视数量超限.md)  
 |  &nbsp;|--&nbsp;[查看PCI设备网卡等.md](./Linux/查看PCI设备网卡等.md)  
 |  &nbsp;|--&nbsp;[树莓派装k8s.md](./Linux/树莓派装k8s.md)  
 |  &nbsp;|--&nbsp;[远程唤醒.md](./Linux/远程唤醒.md)  

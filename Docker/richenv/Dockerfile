@@ -20,7 +20,7 @@ RUN apt-get install --update -y \
   x11vnc \
   skopeo \
   fonts-droid-fallback \
-  remmina remmina-plugin-rdp remmina-plugin-secret \
+  remmina \
   && rm -rf /var/lib/apt/lists/* \
   && rm /usr/local/bin/entrypoint.sh
 COPY --from=apiv1/aes /aes /usr/local/sbin/aes

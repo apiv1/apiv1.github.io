@@ -1,0 +1,28 @@
+services:
+  tracker:
+    command: tracker
+    image: 'ygqygq2/fastdfs-nginx:latest'
+    volumes:
+      - 'tracker:/var/fdfs'
+  storage0:
+    command: storage
+    image: 'ygqygq2/fastdfs-nginx:latest'
+    volumes:
+      - 'storage0:/var/fdfs'
+    ports:
+      - '18080:8080'
+    environment:
+      - 'TRACKER_SERVER=tracker:22122'
+  storage1:
+    command: storage
+    image: 'ygqygq2/fastdfs-nginx:latest'
+    volumes:
+      - 'storage1:/var/fdfs'
+    ports:
+      - '28080:8080'
+    environment:
+      - 'TRACKER_SERVER=tracker:22122'
+volumes:
+  tracker:
+  storage0:
+  storage1:

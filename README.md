@@ -70,6 +70,8 @@
 |  &nbsp;|  &nbsp;|--&nbsp;[compose.override.yml](./Docker/dood-sshd/compose.override.yml)  
 |  &nbsp;|  &nbsp;|--&nbsp;[compose.yml](./Docker/dood-sshd/compose.yml)  
 |  &nbsp;|  &nbsp;+--&nbsp;[example.md](./Docker/dood-sshd/example.md)  
+|  &nbsp;|--&nbsp;[fastdfs](./Docker/fastdfs)  
+|  &nbsp;|  &nbsp;+--&nbsp;[compose.yml](./Docker/fastdfs/compose.yml)  
 |  &nbsp;|--&nbsp;[gerrit](./Docker/gerrit)  
 |  &nbsp;|  &nbsp;+--&nbsp;[docker-compose.yml](./Docker/gerrit/docker-compose.yml)  
 |  &nbsp;|--&nbsp;[gitea](./Docker/gitea)  

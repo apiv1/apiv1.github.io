@@ -51,13 +51,13 @@ configs:
       fi
   authorized_keys:
     content: |
-      ${AUTH_KEYS}
+      ${AUTH_KEYS:-}
   ssh.conf:
     content: |
-      ${SSH_CONF}
+      ${SSH_CONF:-}
   sshd.conf:
     content: |
-      ${SSHD_CONF}
+      ${SSHD_CONF:-}
   docker-daemon.json:
     content: |
-      ${DOCKER_DAEMON_JSON}
+      ${DOCKER_DAEMON_JSON:-{}}

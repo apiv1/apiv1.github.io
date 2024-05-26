@@ -11,6 +11,7 @@ bundle config mirror.https://rubygems.org http://mirrors.tuna.tsinghua.edu.cn/ru
 
 # RVM
 git clone https://github.com/rvm/rvm ~/.rvm
-~/.rvm/bin/rvm-installer
+mkdir -p ~/.rvm/user
 echo "ruby_url=https://cache.ruby-china.com/pub/ruby" > ~/.rvm/user/db
+~/.rvm/bin/rvm-installer
 ```

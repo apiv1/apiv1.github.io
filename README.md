@@ -361,6 +361,7 @@
 |  &nbsp;|--&nbsp;[卸载腾讯云的服务.md](./Linux/卸载腾讯云的服务.md)  
 |  &nbsp;|--&nbsp;[卸载阿里云盾.md](./Linux/卸载阿里云盾.md)  
 |  &nbsp;|--&nbsp;[命令行查外网IP.md](./Linux/命令行查外网IP.md)  
+|  &nbsp;|--&nbsp;[字符模式和图形模式切换.md](./Linux/字符模式和图形模式切换.md)  
 |  &nbsp;|--&nbsp;[挂载硬盘.md](./Linux/挂载硬盘.md)  
 |  &nbsp;|--&nbsp;[文件监视数量超限.md](./Linux/文件监视数量超限.md)  
 |  &nbsp;|--&nbsp;[查看PCI设备网卡等.md](./Linux/查看PCI设备网卡等.md)  

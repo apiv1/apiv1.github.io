@@ -5,4 +5,7 @@ lspci | grep Network # 无线网卡型号
 
 # 网络设备信息
 lspci | grep -i net
+
+# 查询网卡驱动型号
+lshw -C network
 ```

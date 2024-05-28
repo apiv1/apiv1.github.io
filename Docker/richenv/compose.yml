@@ -36,6 +36,12 @@ services:
         target: /etc/ssh/sshd_config.d/sshd.conf
       - source: docker-daemon.json
         target: /etc/docker/daemon.json
+    # 设置cpu内存限额 https://docs.docker.com/compose/compose-file/deploy/#resources
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '10'
+    #       memory: 10G
 volumes:
   home:
   dockerd:

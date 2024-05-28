@@ -2,11 +2,13 @@ services:
   tracker:
     command: tracker
     image: 'ygqygq2/fastdfs-nginx:latest'
+    restart: always
     volumes:
       - 'tracker:/var/fdfs'
   storage0:
     command: storage
     image: 'ygqygq2/fastdfs-nginx:latest'
+    restart: always
     volumes:
       - 'storage0:/var/fdfs'
     ports:
@@ -16,6 +18,7 @@ services:
   storage1:
     command: storage
     image: 'ygqygq2/fastdfs-nginx:latest'
+    restart: always
     volumes:
       - 'storage1:/var/fdfs'
     ports:

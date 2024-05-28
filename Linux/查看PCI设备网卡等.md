@@ -8,4 +8,7 @@ lspci | grep -i net
 
 # 查询网卡驱动型号
 lshw -C network
+
+# 检查 IOMMU 是否已启用
+dmesg | grep DMAR
 ```

@@ -19,3 +19,5 @@ route print
 ```
 
 Windows route命令无法设置 mtu值, 设置mtu值参考[这里](./netsh设置.md)
+
+开启IP转发, 参考[这里](./开启IP转发.md)

@@ -5,5 +5,5 @@
 
 搜索阻止的提示文字
 
-<allow_any>XXXXXX</allow_any> 改成 <allow_any>auth_self_keep</allow_any>
+<allow_any>auth_self_keep</allow_any> 或者 <allow_any>XXXXX</allow_any> 改成 <allow_any>no</allow_any>
 ```

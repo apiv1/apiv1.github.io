@@ -1,0 +1,18 @@
+services:
+  redis:
+    image: redis:7.2.5-alpine
+    ports:
+      - 6379:6379
+    command: redis-server --appendonly yes
+    restart: always
+    volumes:
+      - redis-data:/data
+    configs:
+      - source: redis.conf
+        target: /usr/local/etc/redis/redis.conf
+volumes:
+  redis-data:
+configs:
+  redis.conf:
+    content: |
+      ${REDIS_CONF:-}

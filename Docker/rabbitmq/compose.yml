@@ -1,13 +1,14 @@
-version: '3'
 services:
   rabbitmq:
-    image: rabbitmq:3.8.16-management-alpine
+    image: rabbitmq:3.13.2-management-alpine
     restart: always
     ports:
       - 15672:15672
       - 5672:5672
     volumes:
-      - ./data:/var/lib/rabbitmq
+      - rabbitmq:/var/lib/rabbitmq
     environment:
       - RABBITMQ_DEFAULT_USER=root
       - RABBITMQ_DEFAULT_PASS=root
+volumes:
+  rabbitmq:

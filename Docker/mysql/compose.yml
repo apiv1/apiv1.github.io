@@ -1,0 +1,46 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:8.2.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_USER: 'dev_user'
+      MYSQL_PASSWORD: 'pwd_dev_user_555'
+      MYSQL_ROOT_PASSWORD: '_root_pwd_890_'
+      LANG: C.UTF-8
+    working_dir: /home/app
+    ports:
+      - 3306:3306
+    volumes:
+      - .:/home/app
+      - ./docker/config/mysql/init.d:/docker-entrypoint-initmysql.d
+      - mysql:/var/lib/mysql
+    configs:
+      - source: my.cnf
+        target: /etc/mysql/conf.d/my.cnf
+volumes:
+  mysql:
+configs:
+  my.cnf:
+    content: |
+      [client]
+      default-character-set = utf8
+
+      [mysqld]
+      character-set-server = utf8
+      lower_case_table_names=1
+
+      general_log = 1
+      general_log_file = /var/lib/mysql/general.log
+      slow_query_log = on
+      slow-query-log-file = /var/lib/mysql/slowquery.log
+      long_query_time = 2
+
+      default-time-zone='+8:00'
+
+
+# 导出数据
+# docker run --rm -it -v "${PWD}:/app" -w "/app" --network host mysql:8.2.0 bash
+# (或者) docker compose run --rm -it mysql bash
+# mysqldump --host=localhost -p --port=3306 --default-character-set=utf8 --user=root --protocol=tcp --hex-blob=TRUE --all-databases

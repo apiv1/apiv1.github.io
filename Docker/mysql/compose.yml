@@ -5,6 +5,7 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
+      # MYSQL_DATABASE: ''
       MYSQL_USER: 'dev_user'
       MYSQL_PASSWORD: 'pwd_dev_user_555'
       MYSQL_ROOT_PASSWORD: '_root_pwd_890_'

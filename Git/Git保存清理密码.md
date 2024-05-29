@@ -20,10 +20,10 @@ git config credential.helper ‘cache --timeout=3600’
 
 格式
 ```
-http://<username>:<password>@<git-http-url>
+http://<username>:<password>@<git-http-host>
 ```
 
 添加命令
 ```shell
-echo "http://${USERNAME}:${PASSWORD}@${GIT_REPO_URL}" >> ~/.git-credentials
+echo "http://${USERNAME}:${PASSWORD}@${GIT_REPO_HOST}" >> ~/.git-credentials
 ```

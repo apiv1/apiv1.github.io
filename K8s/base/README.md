@@ -19,6 +19,13 @@ vim cluster-issuer-<env>.yml # 修改配置, 设置邮箱
 kubectl apply -f cluster-issuer-<env>.yml
 ```
 
+证书更新失败处理
+* [Certificate not renewing, referencing unknown order? #3494](https://github.com/cert-manager/cert-manager/discussions/3494)
+```shell
+kubectl get cert
+```
+删除READY为false的证书, 等待重新生成
+
 3. 安装 ingress-nginx
 ```bash
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx

@@ -402,6 +402,7 @@
 |  &nbsp;|  &nbsp;|--&nbsp;[random_string.ps1](./PowerShell/scripts/random_string.ps1)  
 |  &nbsp;|  &nbsp;+--&nbsp;[retry.ps1](./PowerShell/scripts/retry.ps1)  
 |  &nbsp;|--&nbsp;[乱码.md](./PowerShell/乱码.md)  
+|  &nbsp;|--&nbsp;[从文件内逐行读取.md](./PowerShell/从文件内逐行读取.md)  
 |  &nbsp;+--&nbsp;[历史搜索补全.md](./PowerShell/历史搜索补全.md)  
 |--&nbsp;[Python](./Python)  
 |  &nbsp;|--&nbsp;[24point.py](./Python/24point.py)  

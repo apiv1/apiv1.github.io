@@ -1,6 +1,6 @@
 services:
   nacos:
-    image: apiv1/nacos:2.0.0
+    image: apiv1/nacos
     ports:
       - "7848:7848"
       - "8848:8848"

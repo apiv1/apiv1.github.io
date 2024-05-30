@@ -135,6 +135,8 @@
 |  &nbsp;|  &nbsp;|--&nbsp;[myvim.envrc](./Docker/myvim/myvim.envrc)  
 |  &nbsp;|  &nbsp;+--&nbsp;[myvim.ps1](./Docker/myvim/myvim.ps1)  
 |  &nbsp;|--&nbsp;[nacos](./Docker/nacos)  
+|  &nbsp;|  &nbsp;|--&nbsp;[Dockerfile](./Docker/nacos/Dockerfile)  
+|  &nbsp;|  &nbsp;|--&nbsp;[README.md](./Docker/nacos/README.md)  
 |  &nbsp;|  &nbsp;+--&nbsp;[compose.yml](./Docker/nacos/compose.yml)  
 |  &nbsp;|--&nbsp;[nextcloud](./Docker/nextcloud)  
 |  &nbsp;|  &nbsp;+--&nbsp;[docker-compose.yml](./Docker/nextcloud/docker-compose.yml)  

@@ -3,7 +3,7 @@ services:
     image: redis:7.2.5-alpine
     ports:
       - 6379:6379
-    command: redis-server --appendonly yes
+    command: redis-server --appendonly yes --requirepass redis
     restart: always
     volumes:
       - redis-data:/data

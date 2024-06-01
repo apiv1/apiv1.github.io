@@ -1,0 +1,40 @@
+services:
+  pptp-client:
+    build:
+      dockerfile_inline: |
+        FROM alpine
+        RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories && \
+          apk add --no-cache \
+          --repository http://mirrors.ustc.edu.cn/alpine/edge/testing/ \
+          pptpclient
+    command: pon ${IPPARAM} debug dump logfd 2 nodetach persist
+    privileged: true
+    network_mode: host
+    restart: always
+    configs:
+    - source: peers.conf
+      target: /etc/ppp/peers/${IPPARAM}
+    - source: ip-up
+      target: /etc/ppp/ip-up
+      mode: 0777
+    - source: ip-down
+      target: /etc/ppp/ip-down
+      mode: 0777
+configs:
+  ip-up:
+    content: |
+      #!/bin/sh
+      ${IP_UP:-}
+  ip-down:
+    content: |
+      #!/bin/sh
+      ${IP_DOWN:-}
+  peers.conf:
+    content: |
+      pty "pptp ${SERVER} --nolaunchpppd"
+      name "${USERNAME}"
+      password "${PASSWORD}"
+      remotename PPTP
+      require-mppe-128
+      file /etc/ppp/options.pptp
+      ipparam "${IPPARAM}"

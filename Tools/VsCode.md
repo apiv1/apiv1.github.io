@@ -17,3 +17,10 @@ settings.json
   "java.format.enabled": false
 }
 ```
+
+### 中文搜索匹配
+
+使用正则表达式
+```
+(.[\u4E00-\u9FA5]+)|([\u4E00-\u9FA5]+.)
+```

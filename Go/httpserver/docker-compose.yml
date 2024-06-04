@@ -1,4 +1,3 @@
-version: '3.9'
 services:
   httpserver:
     image: apiv1/httpserver

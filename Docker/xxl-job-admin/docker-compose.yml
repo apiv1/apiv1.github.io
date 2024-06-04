@@ -1,4 +1,3 @@
-version: '3.9'
 services:
   xxl-job-admin:
     image: xuxueli/xxl-job-admin:2.4.0

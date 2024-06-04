@@ -1,5 +1,4 @@
 name: 'ruby'
-version: '3.9'
 services:
   ruby:
     image: ${RUBY_IMAGE:-ruby:alpine}

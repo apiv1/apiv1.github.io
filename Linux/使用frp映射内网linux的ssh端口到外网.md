@@ -5,7 +5,6 @@
 **docker-compose.yml**
 ```bash
 cat <<EOF > docker-compose.yml
-version: '3'
 services:
   frp:
     image: snowdreamtech/frps
@@ -30,7 +29,6 @@ EOF
 **docker-compose.yml**
 ```yaml
 cat <<EOF > docker-compose.yml
-version: '3'
 services:
   frp:
     image: snowdreamtech/frpc

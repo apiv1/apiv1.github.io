@@ -1,4 +1,3 @@
-version: '3.9'
 services:
   android:
     image: budtmo/docker-android:emulator_13.0

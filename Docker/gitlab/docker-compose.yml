@@ -1,5 +1,4 @@
 # https://docs.gitlab.com/omnibus/docker/
-version: '3.6'
 services:
   web:
     image: 'gitlab/gitlab-ee:latest'

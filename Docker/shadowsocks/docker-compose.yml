@@ -1,4 +1,3 @@
-version: '3'
 services:
   # docker run -d --restart always --name ss-server -p 1080:1080 shadowsocks/shadowsocks-libev ss-server -s 0.0.0.0 -p 1080 -k ${SS_PASSWD:-passwd} -m chacha20-ietf-poly1305 -u
   ss-server:

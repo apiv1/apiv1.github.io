@@ -1,4 +1,3 @@
-version: '3'
 services:
   nextcloud:
     image: nextcloud:22.2.6-apache

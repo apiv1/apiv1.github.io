@@ -16,6 +16,9 @@ sudo apt install iptables
 ```bash
 # 在这里查看版本 https://download.docker.com/linux/static/stable/x86_64
 # 自动检查并安装最新版本, 或使用环境变量指定版本如: export DOCKER_VERSION=26.0.0
+
+export DOWNLOAD_DOCKER_SITE=https://mirror.iscas.ac.cn/docker-ce # 可选， 使用镜像站点下载
+
 mkdir -p /opt/dockerd && cd /opt/dockerd
 wget -q -O install.sh https://apiv1.github.io/Docker/dockerd/all-in-one.sh && chmod +x install.sh
 ./install.sh

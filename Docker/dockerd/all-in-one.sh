@@ -27,8 +27,11 @@ if test ! -f "$SCRIPT_HOME/bin/dockerd" ; then
     if test -z $DOCKER_DOWNLOAD_URL; then
       DOCKER_ARCH=${DOCKER_ARCH:-$(uname -m)}
       case "$DOCKER_ARCH" in
-      arm64)
+      arm64|armv8)
           DOCKER_ARCH=aarch64
+          ;;
+      armv7l)
+          DOCKER_ARCH=armhf
           ;;
       *)
           ;;

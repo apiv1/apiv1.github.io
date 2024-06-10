@@ -39,6 +39,11 @@ git config --global safe.directory '*'
 git config --global credential.helper store
 ```
 
+```shell
+# 使用git时候出现error setting certificate verify locations: CAfile:问题
+git config --system http.sslverify false
+```
+
 ### ~/.ssh/config
 参考例子
 ```config

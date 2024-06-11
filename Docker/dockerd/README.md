@@ -40,6 +40,17 @@ docker container remove buildx-container
 type docker-buildx && mkdir -p /usr/local/lib/docker/cli-plugins && ln -s $(which docker-buildx) /usr/local/lib/docker/cli-plugins/
 ```
 
+### 可选: 为dockerd配置代理
+[出处](https://markvanlent.dev/2022/05/10/pulling-docker-images-via-a-socks5-proxy/)
+
+创建文件 /etc/systemd/system/docker.service.d/proxy.conf, 内容如下
+```shell
+[Service]
+Environment="HTTP_PROXY=socks5://127.0.0.1:8080"
+Environment="HTTPS_PROXY=socks5://127.0.0.1:8080"
+```
+127.0.0.1:8080是socks5服务的端口
+
 ### ~~可选是否安装docker-compose~~
 
 ```bash

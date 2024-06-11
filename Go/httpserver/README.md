@@ -5,7 +5,7 @@ docker buildx build . --build-arg APP_NAME=httpserver --platform linux/amd64,lin
 ```
 
 ### run
-```bash
-docker run --rm -v $PWD:/data -p 8088:8088 apiv1/httpserver /data
-docker run --rm -v $PWD:/data --network host apiv1/httpserver /data
+```shell
+docker run --rm -v "${PWD}:/data" -p "8088:8088" apiv1/httpserver /data
+docker run --rm -v "${PWD}:/data" --network host apiv1/httpserver /data
 ```

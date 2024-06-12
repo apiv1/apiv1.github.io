@@ -28,3 +28,8 @@ skopeo() {
 ```shell
 skopeo copy --dest-creds=$USER:$PASS --dest-tls-verify=false docker-daemon:$UPLOAD_IMAGE docker://$UPLOAD_IMAGE
 ```
+
+镜像仓库之间对拷某个镜像
+```shell
+skopeo copy --multi-arch all --dest-creds=$USER:$PASS docker://$SRC_REGISTRY/$IMAGE_NAME docker://$DST_REGISTRY/$IMAGE_NAME
+```

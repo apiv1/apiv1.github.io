@@ -14,6 +14,22 @@ status:
 
 ---
 
+apiVersion: v1
+kind: Service
+metadata:
+  name: registry
+spec:
+  ports:
+    - name: "80"
+      port: 80
+      targetPort: 5000
+  selector:
+    name: registry-mirror
+status:
+  loadBalancer: {}
+
+---
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -31,6 +47,28 @@ spec:
         backend:
           service:
             name: registry
+            port:
+              number: 80
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: registry-mirror
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/proxy-body-size: "1G"
+spec:
+  tls:
+  rules:
+  - http:
+      paths:
+      - path: /v2
+        pathType: Prefix
+        backend:
+          service:
+            name: registry-mirror
             port:
               number: 80
 
@@ -91,6 +129,47 @@ spec:
           value: /auth/htpasswd
         - name: REGISTRY_AUTH_HTPASSWD_REALM
           value: Registry Realm
+        volumeMounts:
+        - name: registry-data
+          mountPath: /var/lib/registry
+        - name: registry-auth
+          mountPath: /auth
+        ports:
+        - containerPort: 5000
+          name: registry
+          protocol: TCP
+      volumes:
+      - name: registry-data
+        persistentVolumeClaim:
+          claimName: registry-data
+      - name: registry-auth
+        persistentVolumeClaim:
+          claimName: registry-auth
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: registry-mirror
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: registry-mirror
+  template:
+    metadata:
+      labels:
+        name: registry-mirror
+    spec:
+      containers:
+      - name: registry-mirror
+        image: registry:2.8.3
+        resources: {}
+        env:
+        - name: REGISTRY_HTTP_ADDR
+          value: :5000
+        - name: REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY
+          value: /var/lib/registry
         - name: REGISTRY_PROXY_REMOTEURL
           value: https://registry-1.docker.io
         volumeMounts:
@@ -100,7 +179,7 @@ spec:
           mountPath: /auth
         ports:
         - containerPort: 5000
-          name: registry
+          name: registry-mirror
           protocol: TCP
       volumes:
       - name: registry-data

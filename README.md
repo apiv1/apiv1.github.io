@@ -199,7 +199,7 @@
 |  &nbsp;|  &nbsp;|--&nbsp;[redsocks.tmpl](./Docker/redsocks/redsocks.tmpl)  
 |  &nbsp;|  &nbsp;+--&nbsp;[whitelist.txt](./Docker/redsocks/whitelist.txt)  
 |  &nbsp;|--&nbsp;[registry](./Docker/registry)  
-|  &nbsp;|  &nbsp;|--&nbsp;[compose.mirror.yml](./Docker/registry/compose.mirror.yml)  
+|  &nbsp;|  &nbsp;|--&nbsp;[README.md](./Docker/registry/README.md)  
 |  &nbsp;|  &nbsp;+--&nbsp;[compose.yml](./Docker/registry/compose.yml)  
 |  &nbsp;|--&nbsp;[remote-desktop](./Docker/remote-desktop)  
 |  &nbsp;|  &nbsp;|--&nbsp;[Dockerfile](./Docker/remote-desktop/Dockerfile)  

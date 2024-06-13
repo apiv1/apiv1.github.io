@@ -19,14 +19,36 @@ vim cluster-issuer-<env>.yml # 修改配置, 设置邮箱
 kubectl apply -f cluster-issuer-<env>.yml
 ```
 
-证书更新失败处理
+#### 证书更新失败处理
 * [Certificate not renewing, referencing unknown order? #3494](https://github.com/cert-manager/cert-manager/discussions/3494)
+
+查看生成失败原因
+```shell
+kubectl get CertificateRequest
+kubectl describe CertificateRequest/xxx
+```
+
+或者删除READY为false的证书, 等待重新生成
 ```shell
 kubectl get cert
 ```
-删除READY为false的证书, 等待重新生成
 
-3. 安装 ingress-nginx
+#### 注册https证书时, "All hosts are taken by other resources" 处理
+* [出处](https://www.coder.work/article/7749722)
+
+kubectl logs -f deploy/nginx-ingress-controller 报错 "All hosts are taken by other resources"
+
+* 解决: ingress内添加
+```yaml
+annotations:
+  acme.cert-manager.io/http01-edit-in-place: "true"
+```
+* (可选) 可能还要去掉一些 ```nginx.org/location-snippets```内定义的 ```rewrite``` 因为可能会影响证书服务器认证
+* 然后删除ingress重新创建
+
+### 安装步骤
+
+1. 安装 ingress-nginx
 ```bash
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm install ingress-nginx ingress-nginx/ingress-nginx

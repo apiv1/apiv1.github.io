@@ -315,6 +315,7 @@
 |  &nbsp;|--&nbsp;[random.js](./Javascript/random.js)  
 |  &nbsp;+--&nbsp;[数字转汉字.js](./Javascript/数字转汉字.js)  
 |--&nbsp;[K8s](./K8s)  
+|  &nbsp;|--&nbsp;[README.md](./K8s/README.md)  
 |  &nbsp;|--&nbsp;[base](./K8s/base)  
 |  &nbsp;|  &nbsp;|--&nbsp;[README.md](./K8s/base/README.md)  
 |  &nbsp;|  &nbsp;|--&nbsp;[cluster-issuer-prod.yml](./K8s/base/cluster-issuer-prod.yml)  

@@ -9,6 +9,9 @@ lspci | grep -i net
 
 # 查询网卡驱动型号
 lshw -C network
+
+# 显卡
+lspci | grep VGA
 ```
 
 ### 在grub配置iommu支持

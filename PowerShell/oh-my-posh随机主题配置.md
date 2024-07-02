@@ -1,9 +1,12 @@
 ### 下载安装
 二进制包在[这里](https://github.com/JanDeDobbeleer/oh-my-posh/releases), 选对应自己系统的二进制文件下载, 放进PATH环境变量中.
-```shell
-$env:PATH += ";$HOME/.bin" # for windows
-
-$env:PATH += ":$HOME/.bin" # for unix
+```powershell
+if(Get-Command -ErrorAction SilentlyContinue winver) {
+  $PATH_SEPERATOR=";"
+} else {
+  $PATH_SEPERATOR=":"
+}
+$env:PATH += "$PATH_SEPERATOR$HOME/.bin"
 ```
 比如下载好了放在 ```$HOME/.bin``` 文件夹里
 

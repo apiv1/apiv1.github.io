@@ -356,6 +356,7 @@
 |  &nbsp;|--&nbsp;[Linux和Windows时间一致.md](./Linux/Linux和Windows时间一致.md)  
 |  &nbsp;|--&nbsp;[Tmux使用说明.md](./Linux/Tmux使用说明.md)  
 |  &nbsp;|--&nbsp;[Ubuntu合盖不休眠.md](./Linux/Ubuntu合盖不休眠.md)  
+|  &nbsp;|--&nbsp;[Ubuntu等待网络卡很久.md](./Linux/Ubuntu等待网络卡很久.md)  
 |  &nbsp;|--&nbsp;[X11Vnc.md](./Linux/X11Vnc.md)  
 |  &nbsp;|--&nbsp;[Xrdp配置.md](./Linux/Xrdp配置.md)  
 |  &nbsp;|--&nbsp;[font.md](./Linux/font.md)  

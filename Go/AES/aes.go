@@ -21,7 +21,7 @@ func pKCS7UnPadding(origData []byte) []byte {
 
 func getMD5Encode(data []byte) []byte {
 	h := md5.New()
-	h.Write([]byte(data))
+	h.Write(data)
 	return h.Sum(nil)
 }
 

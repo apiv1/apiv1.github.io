@@ -21,8 +21,13 @@ sudo systemctl enable xrdp --now
 sudo systemctl disable firewalld --now # 可能要关闭防火墙
 ```
 
+编辑配置文件
+```shell
+vim /etc/xrdp/xrdp.ini
+```
+
+登录后不需要授权给管理器, （不一定需要执行这个）
 ```bash
-# 登录后不需要授权给管理器, 不一定需要执行这个
 cat <<EOF > /etc/polkit-1/localauthority.conf.d/02-allow-colord.conf
 polkit.addRule(function(action, subject) {
  if ((action.id == "org.freedesktop.color-manager.create-device" ||

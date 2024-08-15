@@ -77,3 +77,12 @@ https://fedorapeople.org/groups/virt
 # windows
 https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/
 ```
+
+#### KVM 映射文件夹到 Windows虚拟机
+
+Windows虚拟机内安装:
+[virtio-win-guest-tools](https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.262-2/virtio-win-guest-tools.exe)
+[winfsp](https://github.com/winfsp/winfsp/releases/download/v2.0/winfsp-2.0.23075.msi)
+
+重启Windows虚拟机
+启动virtio服务

@@ -7,7 +7,19 @@ services:
           apk add --no-cache \
           --repository http://mirrors.ustc.edu.cn/alpine/edge/testing/ \
           pptpclient
-    command: pon ${IPPARAM} debug dump logfd 2 nodetach persist
+    command: |
+      sh -c '
+        pon ${IPPARAM} debug dump logfd 2 nodetach persist &
+        if test -z "$KEEP_ALIVE_URL"; then
+          sleep infinity
+          return
+        fi
+        while true
+        do
+          wget --timeout 1 -qO - $KEEP_ALIVE_URL
+          sleep 15
+        done
+      '
     privileged: true
     network_mode: host
     restart: always

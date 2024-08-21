@@ -1,0 +1,38 @@
+services:
+  easyconnect:
+    image: hagb/docker-easyconnect:7.6.7
+    restart: always
+    hostname: ${HOST_NAME}
+    ports:
+      - 1080:1080 # proxy
+      - 5901:5901 # vnc
+      - 8080:8080 # noVnc, http://localhost:8080
+      - 8888:8888
+    networks:
+      default:
+        mac_address: ${MAC_ADDRESS}
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    environment:
+      - PASSWORD=${PASSWORD:-passwd654321!}
+      - URLWIN=1
+      - USE_NOVNC=1
+      - CLI_OPTS=-d ${URL}
+    volumes:
+      - home:/root
+  keepalive:
+    image: netdata/wget
+    network_mode: "service:easyconnect"
+    command: |
+      sh -c '
+        while true
+        do
+          wget --timeout 1 -qO - $KEEP_ALIVE_URL
+          date
+          sleep 15
+        done
+      '
+volumes:
+  home:

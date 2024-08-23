@@ -20,6 +20,7 @@ docker out of docker: 在容器里调用宿主机Docker服务实现功能
 
 * [Dockered](../dockerd/README.md) 环境中安装 dood
 ```shell
+mkdir -p $DOCKER_HOME/.envrc.d
 cd $DOCKER_HOME/.envrc.d
 wget https://apiv1.github.io/Docker/docker/docker.envrc
 cd -

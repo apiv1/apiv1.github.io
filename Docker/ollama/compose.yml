@@ -8,14 +8,3 @@ services:
     restart: always
 volumes:
   data:
-
-# compose进入命令交互界面
-# docker compose exec ollama ollama run llama3.1
-
-# ---------------------------------------------------
-
-# 使用docker run 命令
-# docker run --rm --name ollama -d -p 11434:11434 -v ollama_data:/root/.ollama ollama/ollama
-
-# 进入命令交互界面
-# docker exec ollama ollama run llama3.1

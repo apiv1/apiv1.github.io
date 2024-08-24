@@ -1,7 +1,8 @@
 name: ${COMPOSE_PROJECT_NAME:-richenv}
 services:
   richenv:
-    image: apiv1/richenv:full
+    hostname: ${HOSTNAME:-richenv}
+    image: ${RICHENV_IMAGE:-apiv1/richenv:full}
     restart: always
     command: sh /config/config.sh
     environment:

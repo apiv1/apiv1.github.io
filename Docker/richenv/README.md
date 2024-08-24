@@ -35,3 +35,19 @@ echo $DOCKERFILE_DOCKERD | docker buildx build -f - . --build-arg STAGE_CORE=api
 # chrome (only amd64)
 echo $DOCKERFILE_DOCKERD | docker buildx build -f - . --build-arg STAGE_CORE=apiv1/richenv:core-with-chrome --platform linux/amd64 --pull --push -t apiv1/richenv:dockerd-with-chrome
 ```
+
+### Run
+
+可选: [配置macvlan网络, 使用桥接, 获得局域网独立ip](../dind-sshd/example.md)
+
+```shell
+# 使用.compose.yml, 把内容复制进去
+# 配置macvlan网络 则需要复制compose.override.yml, 且可以设置macvlan的ip
+vim compose.yml
+
+# 配置.compose.yml中的环境变量
+vim .env
+
+# 启动
+docker compose up -d
+```

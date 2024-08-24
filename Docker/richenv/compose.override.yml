@@ -1,0 +1,10 @@
+services:
+  richenv:
+    networks:
+      default:
+      lan:
+        ipv4_address: ${BIND_IP}
+networks:
+  lan:
+    name: macvlan-network
+    external: true

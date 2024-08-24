@@ -465,6 +465,7 @@
 |  &nbsp;|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|--&nbsp;[visitors.frpc.compose.override.yml](./Tools/frp/通过URL获取frps地址后连接/visitors.frpc.compose.override.yml)  
 |  &nbsp;|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+--&nbsp;[visitors.frpc.compose.yml](./Tools/frp/通过URL获取frps地址后连接/visitors.frpc.compose.yml)  
 |  &nbsp;|--&nbsp;[it-tools.md](./Tools/it-tools.md)  
+|  &nbsp;|--&nbsp;[jq.md](./Tools/jq.md)  
 |  &nbsp;|--&nbsp;[nmap.md](./Tools/nmap.md)  
 |  &nbsp;|--&nbsp;[nvm安装.md](./Tools/nvm安装.md)  
 |  &nbsp;|--&nbsp;[ohmyzsh安装.md](./Tools/ohmyzsh安装.md)  

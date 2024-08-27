@@ -28,3 +28,7 @@ docker stop ollama
 ### Ubuntu开启nvidia容器支持
 [参考网站](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
 可能会遇到apt从nvidia.github.io下载清单和包受阻的情况, 需要给[APT配置代理](../../Linux/Apt使用代理.md)
+
+-------
+
+* golang和ollama交互例子 [client.go](./client/main.go)

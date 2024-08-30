@@ -217,8 +217,7 @@ WantedBy=multi-user.target
 
 [Service]
 Type='$SYSTEMD_TYPE'
-EnvironmentFile=-/etc/default/%N
-EnvironmentFile=-/etc/sysconfig/%N
+EnvironmentFile=-'$SCRIPT_HOME'/.envrc
 KillMode=process
 Delegate=yes
 LimitNOFILE=1048576
@@ -249,7 +248,7 @@ alias crictl='k3s crictl'
   fi
 
 cat <<EOF > "$K3S_ENV_FILE"
-K3S_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
+K3S_HOME=\$(cd "\$(dirname "\$0" 2>/dev/null)";pwd)
 alias k3s='k3s --data-dir \${K3S_HOME}/lib/k3s'
 ${EXTRA_ALIAS}
 export PATH="\$K3S_HOME/bin:\$PATH"

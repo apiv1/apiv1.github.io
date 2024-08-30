@@ -5,13 +5,13 @@
 ##### 安装服务端, 安装Server以及Agent的说明
 一键安装脚本, 比官方的更绿色
 ```bash
+# (废弃, 已经可以传参数禁用了): 裁剪编译了一个不含traefik组件的k3s, 放在这个链接, 如果有traefik组件还要特地删除一下, 一键安装比较麻烦.
+# export K3S_DOWNLOAD_URL=https://github.com/backrise/k3s/releases/download/v1.29.0%2Bk3s1-no-traefik/k3s # optional, if you don't need traefik
+
 # 可选: 添加你的IP, 加入tls. (部分主机需要此配置, 否则需要kubectl --insecure-skip-tls-verify命令来跳过tls校验)
 # https://docs.k3s.io/installation/configuration#registration-options-for-the-k3s-server
 export HOST_NAME=$(wget -qO - v4.ident.me)
 export SERVICE_ARGS=$SERVICE_ARGS" --tls-san $HOST_NAME"
-
-# (废弃, 已经可以传参数禁用了): 裁剪编译了一个不含traefik组件的k3s, 放在这个链接, 如果有traefik组件还要特地删除一下, 一键安装比较麻烦.
-export K3S_DOWNLOAD_URL=https://github.com/backrise/k3s/releases/download/v1.29.0%2Bk3s1-no-traefik/k3s # optional, if you don't need traefik
 
 # 禁用traefik(推荐)
 export SERVICE_ARGS=$SERVICE_ARGS" --disable traefik"

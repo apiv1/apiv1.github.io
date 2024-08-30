@@ -73,6 +73,7 @@ Documentation=https://docs.docker.com
 Type=notify
 User=root
 Group=root
+EnvironmentFile=-'$SCRIPT_HOME'/.envrc
 Environment="PATH='$DOCKER_BIN':/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 ExecStart='$DOCKER_BIN'/dockerd '$DOCKERD_ARGS'
 ExecReload=/bin/kill -s HUP $MAINPID

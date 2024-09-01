@@ -4,6 +4,10 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
 
 	"github.com/ollama/ollama/api"
 )
@@ -13,19 +17,36 @@ func main() {
 	if err != nil {
 		log.Fatalf("创建客户端失败: %v", err)
 	}
-	ctx := context.Background()
+
 	var conversation []api.Message
 
-	fmt.Println("欢迎使用Ollama聊天机器人! 输入'退出'结束对话。")
+	fmt.Print("欢迎使用Ollama聊天机器人! 连按Ctrl+C结束对话。")
 
+	sigs := make(chan os.Signal, 1)
+	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
+
+	var userQuitAt int64
+FOR:
 	for {
 		var userInput string
-		fmt.Print("你: ")
+		fmt.Println()
+		fmt.Print("> ")
 		fmt.Scanln(&userInput)
+		select {
+		case <-sigs:
+			now := time.Now().UnixMilli()
+			if now-userQuitAt < 2000 {
+				break FOR
+			}
+			fmt.Println()
+			fmt.Print("再按Ctrl+C结束对话")
+			userQuitAt = now
+			continue
+		case <-time.After(500 * time.Millisecond):
+		}
 
-		if userInput == "退出" {
-			fmt.Println("再见!")
-			break
+		if userInput == "" {
+			continue
 		}
 
 		conversation = append(conversation, api.Message{Role: "user", Content: userInput})
@@ -35,19 +56,34 @@ func main() {
 			Messages: conversation,
 		}
 
+		ctx, safeQuit := context.WithCancel(context.Background())
+		defer safeQuit()
+
+		userQuit := false
+		go func() {
+			select {
+			case <-ctx.Done():
+			case <-sigs:
+				safeQuit()
+				userQuit = true
+			}
+		}()
+
 		var fullResponse string
 		err = client.Chat(ctx, request, func(response api.ChatResponse) error {
 			fullResponse += response.Message.Content
 			fmt.Print(response.Message.Content)
 			return nil
 		})
+		if userQuit {
+			continue
+		}
 
 		if err != nil {
 			log.Printf("生成回复时出错: %v", err)
 			continue
 		}
 
-		fmt.Println()
 		conversation = append(conversation, api.Message{Role: "assistant", Content: fullResponse})
 	}
 }

@@ -395,6 +395,7 @@
 |--&nbsp;[Mac](./Mac)  
 |  &nbsp;|--&nbsp;[使用route命令配置路由.md](./Mac/使用route命令配置路由.md)  
 |  &nbsp;|--&nbsp;[删除DS_Store文件.md](./Mac/删除DS_Store文件.md)  
+|  &nbsp;|--&nbsp;[命令行控制全局代理.md](./Mac/命令行控制全局代理.md)  
 |  &nbsp;|--&nbsp;[找不到音频设备.md](./Mac/找不到音频设备.md)  
 |  &nbsp;|--&nbsp;[显示隐藏文件.md](./Mac/显示隐藏文件.md)  
 |  &nbsp;|--&nbsp;[电源管理.md](./Mac/电源管理.md)  

@@ -56,6 +56,27 @@ services:
       NGINXLDAP_LDAP_BIND_DN: cn=admin,dc=xxxx,dc=com
       NGINXLDAP_LDAP_BIND_PASSWORD: <password>
       NGINXLDAP_LDAP_FILTER: "(cn=%(username)s)"
+  ssp-ldap:
+    image: ltbproject/self-service-password:latest
+    restart: always
+    ports:
+      - 10006:80
+    configs:
+      - source: ssp.conf.php
+        target: /var/www/conf/config.inc.local.php
+configs:
+  ssp.conf.php:
+    content: |
+      <?php // My SSP configuration
+      $ldap_url = "ldap://openldap";
+      $ldap_starttls = false;
+      $ldap_binddn = "cn=admin,dc=xxxx,dc=com";
+      $ldap_bindpw = "<password>";
+      $ldap_base = "ou=users,dc=xxxx,dc=com";
+      $ldap_login_attribute = "cn";
+      $keyphrase = "mysecret";
+      $debug = true;
+      ?>
 
 # 查询验证
 # docker-compose exec openldap ldapsearch -x -H ldap://localhost -b dc=my-company,dc=com -D "cn=admin,dc=my-company,dc=com" -w 123456

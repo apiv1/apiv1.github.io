@@ -119,7 +119,7 @@
 |  &nbsp;|--&nbsp;[jupyter-datascience-notebook](./Docker/jupyter-datascience-notebook)  
 |  &nbsp;|  &nbsp;+--&nbsp;[docker-compose.yml](./Docker/jupyter-datascience-notebook/docker-compose.yml)  
 |  &nbsp;|--&nbsp;[ldap](./Docker/ldap)  
-|  &nbsp;|  &nbsp;+--&nbsp;[docker-compose.yml](./Docker/ldap/docker-compose.yml)  
+|  &nbsp;|  &nbsp;+--&nbsp;[compose.yml](./Docker/ldap/compose.yml)  
 |  &nbsp;|--&nbsp;[libretranslate](./Docker/libretranslate)  
 |  &nbsp;|  &nbsp;+--&nbsp;[compose.yml](./Docker/libretranslate/compose.yml)  
 |  &nbsp;|--&nbsp;[mongo](./Docker/mongo)  

@@ -12,14 +12,18 @@ docker compose down
 
 ### docker run 启动
 ```shell
+OLLAMA_DATA=ollama_data
+
 # 启动服务
-docker run --rm --name ollama -d -p 11434:11434 -v ollama_data:/root/.ollama ollama/ollama
+docker run --rm --name ollama -e OLLAMA_HOST=0.0.0.0:11434 -d -p 11434:11434 -v "$OLLAMA_DATA":/root/.ollama ollama/ollama
 
 # 启动服务(使用gpu, 需要配置docker服务, 开启gpu容器支持)
-docker run --gpus all --rm --name ollama -d -p 11434:11434 -v ollama_data:/root/.ollama ollama/ollama
+docker run --gpus all --rm --name ollama -e OLLAMA_HOST=0.0.0.0:11434 -d -p 11434:11434 -v "$OLLAMA_DATA":/root/.ollama ollama/ollama
 
 # 命令交互
-docker exec -it ollama ollama run llama3.1
+docker exec -e OLLAMA_HOST=0.0.0.0:11434 -it ollama ollama run llama3.1
+
+docker run -it --rm --name ollama -e OLLAMA_HOST=0.0.0.0:11434 ollama/ollama run llama3.1
 
 # 停止服务
 docker stop ollama

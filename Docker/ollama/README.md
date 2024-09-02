@@ -23,7 +23,7 @@ docker run --gpus all --rm --name ollama -e OLLAMA_HOST=0.0.0.0:11434 -d -p 1143
 # 命令交互
 docker exec -e OLLAMA_HOST=0.0.0.0:11434 -it ollama ollama run llama3.1
 
-docker run -it --rm --name ollama -e OLLAMA_HOST=0.0.0.0:11434 ollama/ollama run llama3.1
+docker run -it --rm --name ollama-client --add-host host.docker.internal:host-gateway -e OLLAMA_HOST=host.docker.internal:11434 ollama/ollama run llama3.1
 
 # 停止服务
 docker stop ollama

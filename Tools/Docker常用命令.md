@@ -36,3 +36,19 @@ get_command_4_run_container $CONTAINER_ID # 传container名字/ID
 docker buildx build --buildkitd-config FILE # 指定配置文件
 # 默认 ~/.docker/buildx/buildkitd.default.toml
 ```
+
+##### Docker容器内配置代理
+[参考文档](https://docs.docker.com/engine/cli/proxy/)
+
+~/.docker/config.json
+```json
+{
+ "proxies": {
+   "default": {
+     "httpProxy": "http://proxy.example.com:3128",
+     "httpsProxy": "https://proxy.example.com:3129",
+     "noProxy": "*.test.example.com,.example.org,127.0.0.0/8"
+   }
+ }
+}
+```

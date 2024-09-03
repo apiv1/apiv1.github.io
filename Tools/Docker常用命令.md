@@ -36,7 +36,7 @@ get_command_4_run_container $CONTAINER_ID # 传container名字/ID
 mkdir -p ~/.docker/buildx
 vim ~/.docker/buildx/buildkitd.default.toml
 
-docker buildx build --buildkitd-config ~/.docker/buildx/buildkitd.default.toml # 默认配置文件,不写也可以
+docker buildx create --buildkitd-config ~/.docker/buildx/buildkitd.default.toml # 默认配置文件,不写也可以
 ```
 
 buildkitd.default.toml

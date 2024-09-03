@@ -33,12 +33,23 @@ get_command_4_run_container $CONTAINER_ID # 传container名字/ID
 
 [配置文件例子](https://github.com/moby/buildkit/blob/master/docs/buildkitd.toml.md)
 ```shell
-docker buildx build --buildkitd-config FILE # 指定配置文件
-# 默认 ~/.docker/buildx/buildkitd.default.toml
+mkdir -p ~/.docker/buildx
+vim ~/.docker/buildx/buildkitd.default.toml
+
+docker buildx build --buildkitd-config ~/.docker/buildx/buildkitd.default.toml # 默认配置文件,不写也可以
+```
+
+buildkitd.default.toml
+```toml
+# 配置代理仓库例子
+[registry."docker.io"]
+  mirrors = ["registry.docker-cn.com"]
 ```
 
 ##### Docker容器内配置代理
 [参考文档](https://docs.docker.com/engine/cli/proxy/)
+
+客户端版
 
 ~/.docker/config.json
 ```json
@@ -51,4 +62,15 @@ docker buildx build --buildkitd-config FILE # 指定配置文件
    }
  }
 }
+```
+
+Linux Server版
+
+找到docker.service文件, 加这两行
+
+```
+[Service]
+...
+Environment="HTTP_PROXY=socks5://localhost:1080/"
+Environment="NO_PROXY=localhost,127.0.0.1,registry-1.docker.io"
 ```

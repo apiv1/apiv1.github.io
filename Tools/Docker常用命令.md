@@ -1,3 +1,5 @@
+##### 常用命令
+
 ```shell
 # 删除已退出的容器
 docker rm $(docker ps -a | grep Exited | awk '{print $1}')
@@ -26,3 +28,11 @@ get_command_4_run_container $CONTAINER_ID # 传container名字/ID
 密码存储程序的前缀是 ```docker-credential-```, 系统里会安装多个.
 
 有多个不同的存储程序可选装: [docker/docker-credential-helpers](https://github.com/docker/docker-credential-helpers)
+
+##### buildx 配置文件设置: [参考文档](https://github.com/docker/buildx/blob/master/docs/reference/buildx_create.md#buildkitd-config)
+
+[配置文件例子](https://github.com/moby/buildkit/blob/master/docs/buildkitd.toml.md)
+```shell
+docker buildx build --buildkitd-config FILE # 指定配置文件
+# 默认 ~/.docker/buildx/buildkitd.default.toml
+```

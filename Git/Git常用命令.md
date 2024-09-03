@@ -17,6 +17,9 @@ git config --global core.autocrlf false # 关闭自动替换换行符
 ```shell
 # Git LFS错误: Encountered 7 file(s) that should have been pointers
 git rm --cached -r .;git reset --hard;git rm .gitattributes;git reset .;git checkout .
+
+# 简化版
+git rm .gitattributes; git reset --hard HEAD
 ```
 
 ```shell

@@ -96,7 +96,7 @@ WantedBy=multi-user.target
 chmod +x $DOCKER_SERVICE_FILE
 
 cat <<EOF > "$SCRIPT_HOME/.envrc"
-DOCKER_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
+DOCKER_HOME=\$(cd "\$(dirname "$0" 2>/dev/null)";pwd)
 export PATH="\$DOCKER_HOME/bin:\$PATH"
 export DOCKER_HOST="$DOCKER_UNIX_SOCK"
 load_docker_envs() {

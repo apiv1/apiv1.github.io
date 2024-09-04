@@ -7,9 +7,9 @@ export FLUTTER_GIT_URL=https://gitee.com/mirrors/Flutter.git
 export FVM_FLUTTER_URL=https://gitee.com/mirrors/Flutter.git
 export PUB_HOSTED_URL=https://pub.flutter-io.cn
 export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
-export FVM_CACHE_PATH="~/.fvm" # 缓存目录
-export PUB_CACHE="~/.pub-cache" # pub cache 目录, 不设置的话 windows: ~\AppData\Local\Pub\Cache, Mac/Linux: ~/.pub-cache
-export FLUTTER_HOME="~/flutter"
+export FVM_CACHE_PATH=~/.fvm # 缓存目录
+export PUB_CACHE=~/.pub-cache # pub cache 目录, 不设置的话 windows: ~\AppData\Local\Pub\Cache, Mac/Linux: ~/.pub-cache
+export FLUTTER_HOME=~/flutter
 ```
 
 执行命令

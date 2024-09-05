@@ -453,6 +453,7 @@
 |  &nbsp;|--&nbsp;[VsCode.md](./Tools/VsCode.md)  
 |  &nbsp;|--&nbsp;[asdf安装.md](./Tools/asdf安装.md)  
 |  &nbsp;|--&nbsp;[bash算md5.md](./Tools/bash算md5.md)  
+|  &nbsp;|--&nbsp;[brew.md](./Tools/brew.md)  
 |  &nbsp;|--&nbsp;[curl.md](./Tools/curl.md)  
 |  &nbsp;|--&nbsp;[du命令.md](./Tools/du命令.md)  
 |  &nbsp;|--&nbsp;[ffmpeg.md](./Tools/ffmpeg.md)  

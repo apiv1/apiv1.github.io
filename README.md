@@ -231,6 +231,7 @@
 |  &nbsp;|  &nbsp;|  &nbsp;+--&nbsp;[xrdp.service.sh](./Docker/richenv/init.d/xrdp.service.sh)  
 |  &nbsp;|  &nbsp;+--&nbsp;[init.sh](./Docker/richenv/init.sh)  
 |  &nbsp;|--&nbsp;[rocket.chat](./Docker/rocket.chat)  
+|  &nbsp;|  &nbsp;|--&nbsp;[compose.yml](./Docker/rocket.chat/compose.yml)  
 |  &nbsp;|  &nbsp;+--&nbsp;[run.sh](./Docker/rocket.chat/run.sh)  
 |  &nbsp;|--&nbsp;[ruby](./Docker/ruby)  
 |  &nbsp;|  &nbsp;|--&nbsp;[README.md](./Docker/ruby/README.md)  

@@ -1,0 +1,25 @@
+services:
+  db:
+    image: mongo:4.4
+    restart: always
+    volumes:
+      - rocketchat-db:/data/db
+    command: --replSet rs0 --oplogSize 128
+
+  rocketchat:
+    image: rocket.chat
+    restart: always
+    platform: linux/amd64
+    ports:
+      - "8000:3000"
+    depends_on:
+      - db
+    environment:
+      - MONGO_OPLOG_URL=mongodb://db:27017/local
+      - ROOT_URL=http://0.0.0.0
+
+volumes:
+  rocketchat-db:
+
+# 首次运行需执行
+# docker compose exec -ti db mongo --eval "printjson(rs.initiate())"

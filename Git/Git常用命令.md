@@ -10,8 +10,13 @@ git config --global url."git@$DOMAIN_NAME:".insteadOf "https://$DOMAIN_NAME/" # 
 git config --global url."https://$DOMAIN_NAME/".insteadOf "git@$DOMAIN_NAME:" # https 替换 ssh
 ```
 
+参考[配置 Git 处理行结束符](https://docs.github.com/zh/get-started/getting-started-with-git/configuring-git-to-handle-line-endings)
 ```bash
 git config --global core.autocrlf false # 关闭自动替换换行符
+
+# 多系统项目协作时
+git config --global core.autocrlf true # Windows使用这个
+git config --global core.autocrlf input # Linux,Mac使用这个
 ```
 
 ```shell

@@ -58,30 +58,3 @@ git_config_install() {
 myvim_install () {
   git clone https://github.com/myvim/.vim ~/.vim
 }
-
-ssh_keys_decrypt() {
-  echo "decrypt: ~/.ssh.enc => ~/.ssh"
-  test -d ~/.ssh.enc || return 1
-  test -z $AES_KEY && echo -n 'password: ' && read -s AES_KEY && export AES_KEY && echo
-  for item in `ls ~/.ssh.enc`
-  do
-    cat ~/.ssh.enc/$item | base64 -d | aes -d > ~/.ssh/$item
-    chmod 400 ~/.ssh/$item
-    echo "decrypt: ~/.ssh.enc/$item => ~/.ssh/$item"
-  done
-}
-
-ssh_keys_encrypt() {
-  echo "encrypt: ~/.ssh => ~/.ssh.enc"
-  test -z $AES_KEY && echo -n 'password: ' && read -s AES_KEY && export AES_KEY && echo
-  mkdir -p ~/.ssh.enc
-  for item in `ls ~/.ssh`
-  do
-    cat ~/.ssh/$item | aes -e | base64 -w 0 > ~/.ssh.enc/$item
-    echo "encrypt: ~/.ssh/$item => ~/.ssh.enc/$item"
-  done
-}
-
-ssh_keys_install () {
-  git clone https://github.com/apiv1/.ssh.enc ~/.ssh.enc
-}

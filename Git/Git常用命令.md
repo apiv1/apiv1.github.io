@@ -5,6 +5,12 @@ git config --global pull.rebase true # git pull强制使用--rebase选项
 git config --global http.postBuffer 5G # 设置提交大小上限
 ```
 
+设置代理
+```bash
+git config --global https.proxy socks5://127.0.0.1:1080
+```
+
+设置替换url
 ```bash
 git config --global url."git@$DOMAIN_NAME:".insteadOf "https://$DOMAIN_NAME/" # ssh 替换 https
 git config --global url."https://$DOMAIN_NAME/".insteadOf "git@$DOMAIN_NAME:" # https 替换 ssh

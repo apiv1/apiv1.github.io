@@ -11,4 +11,4 @@ docker pull snail007/goproxy
 proxy tcp -p ":33080" -T tcp -P "192.168.22.33:22"
 ```
 
-[docker-compose.yml 例子](./docker-compose.yml)
+[compose.yml 例子](./compose.yml)

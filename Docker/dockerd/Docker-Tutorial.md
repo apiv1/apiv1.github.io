@@ -69,7 +69,7 @@ docker-compose logs
 * 作用是构建镜像, ```docker build```执行构建
 * [这本手册](../../README.md)里有很多写好的Dockerfile, 在 ```/Docker```文件夹里
 
-### [写docker-compose.yml](https://docs.docker.com/compose/compose-file/)
+### [写compose.yml](https://docs.docker.com/compose/compose-file/)
 ---
 * 作用是组合多个docker容器协同工作, ```docker-compose```读取yml配置进行操作.
-* [这本手册](../../README.md)里有很多写好的docker-compose.yml, 在 ```/Docker```文件夹里
+* [这本手册](../../README.md)里有很多写好的compose.yml, 在 ```/Docker```文件夹里

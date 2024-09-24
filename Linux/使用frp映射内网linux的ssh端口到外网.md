@@ -2,9 +2,9 @@
 1. 两个系统都装docker, 还有docker-compose得有
 1. VPS配置: 建个文件夹, 执行几个命令, 会生成文件
 
-**docker-compose.yml**
+**compose.yml**
 ```bash
-cat <<EOF > docker-compose.yml
+cat <<EOF > compose.yml
 services:
   frp:
     image: snowdreamtech/frps
@@ -26,9 +26,9 @@ EOF
 
 4. 内网客户端配置: 也是建个文件夹 执行几个命令, 会生成文件
 
-**docker-compose.yml**
+**compose.yml**
 ```yaml
-cat <<EOF > docker-compose.yml
+cat <<EOF > compose.yml
 services:
   frp:
     image: snowdreamtech/frpc

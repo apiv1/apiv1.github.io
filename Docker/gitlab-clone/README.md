@@ -4,7 +4,7 @@ docker buildx build . --platform linux/amd64,linux/arm64 --target runner --push 
 docker buildx build . --platform linux/amd64,linux/arm64 --push -t apiv1/gitlab:clone # gitlab-clone
 ```
 
-[docker-compose.yml](./docker-compose.yml)
+[compose.yml](./compose.yml)
 ```shell
 # if use http
 cp ~/.git-credentials .git-credentials

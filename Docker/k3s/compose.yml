@@ -1,0 +1,32 @@
+name: k3s
+services:
+  k3s:
+    image: rancher/k3s
+    command: server --disable traefik
+    restart: always
+    network_mode: host
+    privileged: true
+    volumes:
+      - data:/var/lib/rancher
+      - config:/etc/rancher
+    configs:
+      - source: registries.yaml
+        target: /etc/rancher/k3s/registries.yaml
+volumes:
+  data:
+  config:
+configs:
+  registries.yaml:
+    content: |
+      # mirrors:
+      #   "${IMAGE_MIRROR_REGISTRY}":
+      #     endpoint:
+      #       - "${IMAGE_MIRROR_REGISTRY_URL}"
+      #   "${IMAGE_PRIVATE_REGISTRY}":
+      #     endpoint:
+      #       - "${IMAGE_PRIVATE_REGISTRY_URL}"
+      # configs:
+      #   "${IMAGE_PRIVATE_REGISTRY}":
+      #     auth:
+      #       username: ${USERNAME}
+      #       password: ${PASSWORD}

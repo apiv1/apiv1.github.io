@@ -9,6 +9,6 @@ jq -s '.[0] * .[1]' 1.json 2.json
 ```shell
 export ORG='项目名'
 
-wget -qO - https://api.github.com/orgs/$ORG/repos | jq -r '.[].ssh_url' # ssh url
-wget -qO - https://api.github.com/orgs/$ORG/repos | jq -r '.[].clone_url' # https url
+wget -qO - "https://api.github.com/orgs/$ORG/repos?page=0&per_page=1000000000000000" | jq -r '.[].ssh_url' # ssh url
+wget -qO - "https://api.github.com/orgs/$ORG/repos?page=0&per_page=1000000000000000" | jq -r '.[].clone_url' # https url
 ```

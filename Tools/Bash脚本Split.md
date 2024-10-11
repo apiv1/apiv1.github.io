@@ -94,3 +94,8 @@ done
 HOST=${HOST_ADDR%%:*}
 PORT=$(echo $HOST_ADDR | sed 's/^[^:]*[:]*//g')
 ```
+
+提取文件中引号内的内容
+```shell
+awk -F'"' '{for(i=2; i<=NF; i+=2) print $i}' example.txt
+```

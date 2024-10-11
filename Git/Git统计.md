@@ -18,7 +18,7 @@ recount() {
     do
         LOCAL=$(git log --pretty=tformat: --numstat --author="$name" $@ | _count)
         LOCAL_ADD=$(echo $LOCAL | awk "{print \$1}") LOCAL_SUBS=$(echo $LOCAL | awk "{print \$2}") LOCAL_LOC=$(echo $LOCAL | awk "{print \$3}")
-        printf "\033[31m+\033[0m:%-8s  \033[32m-\033[0m:%-8s  \033[33m△\033[0m:%-12s  \033[33m↑\033[0m:%-12s $name\n" $LOCAL_ADD $LOCAL_SUBS "$LOCAL_LOC($(($LOCAL_LOC*100/$TOTAL_LOC))%)" "$count($(($count*100/$TOTAL_COMMIT))%)"
+        printf "\033[31m+\033[0m:%-8s  \033[32m-\033[0m:%-8s  \033[33m△\033[0m:%-12s  \033[33m↑\033[0m:%-12s $name\n" $LOCAL_ADD $LOCAL_SUBS "$LOCAL_LOC($((${LOCAL_LOC:-0}*100/$TOTAL_LOC))%)" "$count($((${count:-0}*100/$TOTAL_COMMIT))%)"
     done;
 }; recount'
 ```

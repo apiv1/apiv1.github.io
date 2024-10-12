@@ -15,7 +15,7 @@ sudo apt install iptables
 
 ```bash
 # 在这里查看版本 https://download.docker.com/linux/static/stable/x86_64
-# 自动检查并安装最新版本, 或使用环境变量指定版本如: export DOCKER_VERSION=26.0.0
+# 自动检查并安装最新版本, 或使用环境变量指定版本如: export DOCKER_VERSION=x.y.z
 
 export DOWNLOAD_DOCKER_SITE=https://mirror.iscas.ac.cn/docker-ce # 可选， 使用镜像站点下载
 
@@ -79,7 +79,7 @@ ln -s $INSTALL_FILE_PATH ~/.docker/cli-plugins/docker-buildx
 
 ```bash
 mkdir -p /opt/dockerd && cd /opt/dockerd
-export DOCKER_VERSION=26.0.0
+export DOCKER_VERSION=27.3.1
 wget https://download.docker.com/linux/static/stable/$(uname -m)/docker-$DOCKER_VERSION.tgz
 tar zxvf docker-$DOCKER_VERSION.tgz && rm -rf docker-$DOCKER_VERSION.tgz
 mv docker bin

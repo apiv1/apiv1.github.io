@@ -1,15 +1,15 @@
 ### build
 
 ```shell
-export DOCKER_VERSION=26.0.0
+export DOCKER_VERSION=27.3.1
 
 # apiv1/dockerd
-docker build . --build-arg DOCKER_VERSION=$DOCKER_VERSION --target dockerd -t apiv1/dockerd -t apiv1/dockerd-$DOCKER_VERSION
-docker buildx build . --platform linux/amd64,linux/arm64 --build-arg DOCKER_VERSION=$DOCKER_VERSION --target dockerd --push -t apiv1/dockerd -t apiv1/dockerd-$DOCKER_VERSION
+docker build . --build-arg DOCKER_VERSION=$DOCKER_VERSION --target dockerd -t apiv1/dockerd -t apiv1/dockerd:$DOCKER_VERSION
+docker buildx build . --platform linux/amd64,linux/arm64 --build-arg DOCKER_VERSION=$DOCKER_VERSION --target dockerd --push -t apiv1/dockerd -t apiv1/dockerd:$DOCKER_VERSION
 
 # apiv1/docker
-docker build . --build-arg DOCKER_VERSION=$DOCKER_VERSION --build-arg DOCKERD_STAGE=apiv1/dockerd-$DOCKER_VERSION  -t apiv1/docker -t apiv1/docker:$DOCKER_VERSION
-docker buildx build . --platform linux/amd64,linux/arm64 --build-arg DOCKER_VERSION=$DOCKER_VERSION --build-arg DOCKERD_STAGE=apiv1/dockerd-$DOCKER_VERSION --push -t apiv1/docker -t apiv1/docker:$DOCKER_VERSION
+docker build . --build-arg DOCKER_VERSION=$DOCKER_VERSION --build-arg DOCKERD_STAGE=apiv1/dockerd:$DOCKER_VERSION  -t apiv1/docker -t apiv1/docker:$DOCKER_VERSION
+docker buildx build . --platform linux/amd64,linux/arm64 --build-arg DOCKER_VERSION=$DOCKER_VERSION --build-arg DOCKERD_STAGE=apiv1/dockerd:$DOCKER_VERSION --push -t apiv1/docker -t apiv1/docker:$DOCKER_VERSION
 ```
 
 ### Dood

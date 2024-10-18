@@ -66,7 +66,7 @@ bin/dockerd-rootless-setuptool.sh install
 DOCKER_UNIX_SOCK="unix://${XDG_RUNTIME_DIR}/docker.sock"
 
 cat <<EOF > "$SCRIPT_HOME/.envrc"
-DOCKER_HOME=\$(cd "\$(dirname "$0" 2>/dev/null)";pwd)
+DOCKER_HOME="$SCRIPT_HOME"
 export PATH="\$DOCKER_HOME/bin:\$PATH"
 export DOCKER_HOST="$DOCKER_UNIX_SOCK"
 load_docker_envs() {

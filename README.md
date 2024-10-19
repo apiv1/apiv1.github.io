@@ -1,6 +1,7 @@
 # Contents
 [/](.)  
 |--&nbsp;[Android](./Android)  
+|  &nbsp;|--&nbsp;[AndroidManifest.xml合并冲突解决.md](./Android/AndroidManifest.xml合并冲突解决.md)  
 |  &nbsp;|--&nbsp;[ftp-server.md](./Android/ftp-server.md)  
 |  &nbsp;|--&nbsp;[http-server.md](./Android/http-server.md)  
 |  &nbsp;+--&nbsp;[network_security](./Android/network_security)  

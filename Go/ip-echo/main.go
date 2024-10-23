@@ -38,7 +38,12 @@ func (f *ipServerWraper) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	if updateIp := r.URL.Query().Get("update_ip"); len(updateIp) > 0 {
-		ipMap.Store(updateIp, ip)
+		if r.URL.Query().Get("token") == os.Getenv("TOKEN") {
+			ipMap.Store(updateIp, ip)
+		} else {
+			http.Error(w, "'update_ip' Unauthorized", http.StatusUnauthorized)
+			return
+		}
 	}
 	w.Write([]byte(ip))
 }

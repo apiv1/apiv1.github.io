@@ -5,13 +5,26 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"sync"
 )
+
+var ipMap sync.Map
 
 type ipServerWraper struct {
 }
 
 func (f *ipServerWraper) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	println("Request: " + r.RemoteAddr + " | " + r.URL.String())
+	if getIp := r.URL.Query().Get("get_ip"); len(getIp) > 0 {
+		if v, ok := ipMap.Load(getIp); ok {
+			if ip, ok := v.(string); ok {
+				w.Write([]byte(ip))
+				return
+			}
+		}
+		http.Error(w, "Not found ip ["+getIp+"]", http.StatusNotFound)
+		return
+	}
 	ip := ""
 	var err error
 	xffIPs := r.Header.Get("X-FORWARDED-FOR")
@@ -23,6 +36,9 @@ func (f *ipServerWraper) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Error parsing remote address ["+r.RemoteAddr+"]", http.StatusInternalServerError)
 			return
 		}
+	}
+	if updateIp := r.URL.Query().Get("update_ip"); len(updateIp) > 0 {
+		ipMap.Store(updateIp, ip)
 	}
 	w.Write([]byte(ip))
 }

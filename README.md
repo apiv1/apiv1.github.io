@@ -120,6 +120,7 @@
 |  &nbsp;|--&nbsp;[jupyter-datascience-notebook](./Docker/jupyter-datascience-notebook)  
 |  &nbsp;|  &nbsp;+--&nbsp;[compose.yml](./Docker/jupyter-datascience-notebook/compose.yml)  
 |  &nbsp;|--&nbsp;[k3s](./Docker/k3s)  
+|  &nbsp;|  &nbsp;|--&nbsp;[README.md](./Docker/k3s/README.md)  
 |  &nbsp;|  &nbsp;|--&nbsp;[compose.yml](./Docker/k3s/compose.yml)  
 |  &nbsp;|  &nbsp;+--&nbsp;[run.sh](./Docker/k3s/run.sh)  
 |  &nbsp;|--&nbsp;[ldap](./Docker/ldap)  

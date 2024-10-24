@@ -10,7 +10,8 @@
 
 # 可选: 添加你的IP, 加入tls. (部分主机需要此配置, 否则需要kubectl --insecure-skip-tls-verify命令来跳过tls校验)
 # https://docs.k3s.io/installation/configuration#registration-options-for-the-k3s-server
-export HOST_NAME=$(wget -qO - v4.ident.me)
+
+export HOST_NAME=$(wget -qO - v4.ident.me) # 通过IP访问, 如果是通过域名访问, 那就直接写域名就行
 export SERVICE_ARGS=$SERVICE_ARGS" --tls-san $HOST_NAME"
 
 # 禁用traefik(推荐)

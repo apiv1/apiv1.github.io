@@ -26,7 +26,7 @@ vi ~/.bashrc # 非登录shell会加载此文件，如果需要配置docker相关
 ```
 本地配置远程Docker连接(临时)
 ```shell
-export $DOCKER_HOST=ssh://docker@docker.server:22
+export DOCKER_HOST=ssh://docker@docker.server:22
 
 ssh $DOCKER_HOST # 测试连接,确认密钥配置生效
 

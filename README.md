@@ -351,6 +351,8 @@
 |  &nbsp;|  &nbsp;|--&nbsp;[ingress-nginx-bitnami.yml](./K8s/helm/ingress-nginx-bitnami.yml)  
 |  &nbsp;|  &nbsp;|--&nbsp;[ingress-nginx.yml](./K8s/helm/ingress-nginx.yml)  
 |  &nbsp;|  &nbsp;+--&nbsp;[k3s-static-charts.yml](./K8s/helm/k3s-static-charts.yml)  
+|  &nbsp;|--&nbsp;[k3d](./K8s/k3d)  
+|  &nbsp;|  &nbsp;+--&nbsp;[README.md](./K8s/k3d/README.md)  
 |  &nbsp;|--&nbsp;[k3s](./K8s/k3s)  
 |  &nbsp;|  &nbsp;|--&nbsp;[PORTABLE_INSTALL.md](./K8s/k3s/PORTABLE_INSTALL.md)  
 |  &nbsp;|  &nbsp;|--&nbsp;[README.md](./K8s/k3s/README.md)  

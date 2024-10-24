@@ -39,6 +39,7 @@ docker ps -a
 # 使用本地 docker(还原)
 unset $DOCKER_HOST
 ```
+* 为主系统ssh安全性考虑, 推荐使用[dood-sshd](../Docker/dood-sshd/README.md)的独立ssh提供远程Docker服务
 
 本地配置远程Docker连接(永久)
 ```shell

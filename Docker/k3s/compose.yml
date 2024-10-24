@@ -1,20 +1,19 @@
 name: k3s
 services:
   k3s:
-    image: rancher/k3s
-    command: server ${SERVICE_ARGS:-""} --disable traefik
+    image: rancher/k3s:v1.28.3-k3s1
+    command: server ${SERVICE_ARGS:-""} --disable agent --disable traefik
     restart: always
     network_mode: host
+    hostname: k3s
     privileged: true
     volumes:
-      - data:/var/lib
-      - config:/etc/rancher
+      - data:/var/lib/rancher/k3s
     configs:
       - source: registries.yaml
         target: /etc/rancher/k3s/registries.yaml
 volumes:
   data:
-  config:
 configs:
   registries.yaml:
     content: |

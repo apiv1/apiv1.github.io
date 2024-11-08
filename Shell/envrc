@@ -1,17 +1,35 @@
 export __ENVRC_HOME__="${ENVRC_HOME:-"$HOME/.envrc.d"}"
 load_envs() {
-  for item in $(ls -A "${__ENVRC_HOME__}"/* 2>/dev/null)
+  for item in $(ls -A "${__ENVRC_HOME__}" 2>/dev/null)
   do
-    . "$item"
+    . "${__ENVRC_HOME__}/$item"
     local __RESULT_CODE__=$?
     test 0 -eq "$__RESULT_CODE__" &&  (test -n "$ENVRC_DEBUG" && echo "loaded: [$item]" ; :) || echo "error: [$item]"
   done
 }
 load_envs
 
+download_url() {
+  URL=$1
+  FILE=$2
+  if command -v wget >/dev/null 2&>1; then
+    if test -n "$FILE"; then
+      wget -O $FILE $URL
+    else
+      wget $URL
+    fi
+  elif command -v curl >/dev/null 2&>1; then
+    if test -n "$FILE"; then
+      curl -sSLko $FILE $URL
+    else
+      curl -sSLkO $URL
+    fi
+  fi
+}
+
 envrc_install() {
   local __ENVRC__="${ENVRC:-"$HOME/.envrc"}"
-  wget -O "${__ENVRC__}" https://apiv1.github.io/Shell/envrc
+  download_url https://apiv1.github.io/Shell/envrc "${__ENVRC__}"
   . "${__ENVRC__}"
 echo '
 Put it into your shell rc file:
@@ -22,7 +40,7 @@ Put it into your shell rc file:
 __envrc_install__() {
   mkdir -p "${__ENVRC_HOME__}"
   cd "${__ENVRC_HOME__}"
-  wget $1
+  download_url $1
   cd -
   load_envs
 }

@@ -72,7 +72,3 @@ dict_install() {
 git_config_install() {
   wget -O ~/.gitconfig https://apiv1.github.io/Git/gitconfig
 }
-
-myvim_install () {
-  git clone https://github.com/myvim/.vim ~/.vim
-}

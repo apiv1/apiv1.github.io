@@ -12,13 +12,13 @@ load_envs
 download_url() {
   URL=$1
   FILE=$2
-  if command -v wget >/dev/null 2&>1; then
+  if command -v wget >/dev/null 2>&1; then
     if test -n "$FILE"; then
       wget -O $FILE $URL
     else
       wget $URL
     fi
-  elif command -v curl >/dev/null 2&>1; then
+  elif command -v curl >/dev/null 2>&1; then
     if test -n "$FILE"; then
       curl -sSLko $FILE $URL
     else
@@ -70,5 +70,5 @@ dict_install() {
 }
 
 git_config_install() {
-  wget -O ~/.gitconfig https://apiv1.github.io/Git/gitconfig
+  download_url https://apiv1.github.io/Git/gitconfig ~/.gitconfig
 }

@@ -8,6 +8,7 @@ rich_shell() {
         ;;
     esac
     __richrc__git_info_env() {
+        test -n "$RICHENV_SKIP_GIT" && return
         git_info_inner() {
             if type git >/dev/null; then
                 GIT_BRANCH=$(git symbolic-ref --short HEAD)
@@ -21,9 +22,10 @@ rich_shell() {
     }
 
     __richrc__docker_context_env() {
-        DOCKER_BIN=$(test -z "${BASH_VERSION}" && which -p docker 2>/dev/null || which docker)
+        test -n "$RICHENV_SKIP_DOCKER" && return
+        DOCKER_BIN=$(command -v docker)
         docker_context_inner() {
-            if test -n "${DOCKER_BIN}" && type docker >/dev/null; then
+            if test -n "${DOCKER_BIN}"; then
                 DOCKER_CONTEXT=$("${DOCKER_BIN}" version -f '{{.Client.Version}}')
                 if test -n "$("${DOCKER_BIN}" 2>&1 | grep context)" ; then
                     DOCKER_CONTEXT="$DOCKER_CONTEXT@$("${DOCKER_BIN}" context show)"

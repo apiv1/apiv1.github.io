@@ -8,12 +8,16 @@ services:
     entrypoint: sh
     command: |
       -c '
-        groupadd --gid $${PGID} $${USERNAME}
-        useradd --shell /bin/sh --uid $${PUID} --gid $${PGID} --password $$(openssl passwd $${PASSWORD}) --create-home --home-dir /home/$${USERNAME} $${USERNAME}
-        usermod -aG docker $${USERNAME}
+        groupadd --gid $${PGID} $${SSHD_USERNAME}
+        useradd --shell /bin/sh --uid $${PUID} --gid $${PGID} --password $$(openssl passwd $${SSHD_PASSWORD}) --create-home --home-dir /home/$${SSHD_USERNAME} $${SSHD_USERNAME}
+        usermod -aG docker $${SSHD_USERNAME}
 
-        chown -R $${USERNAME}:$${USERNAME} /home/$${USERNAME}
-        chmod 400 /home/$${USERNAME}/.ssh/authorized_keys
+        chown -R $${SSHD_USERNAME}:$${SSHD_USERNAME} /home/$${SSHD_USERNAME}
+
+        chmod 744 /home/$${SSHD_USERNAME}/.ssh
+        AUTH_KEY_FILE="/home/$${SSHD_USERNAME}/.ssh/authorized_keys"
+        test -f "$AUTH_KEY_FILE" && chmod 400 "$AUTH_KEY_FILE"
+
         export DOCKERD_OPT="--data-root /dockerd/lib/docker --exec-root /tmp/dockerd/run/docker -p /tmp/dockerd/run/docker.pid $${DOCKERD_OPT}"
         exec /entrypoint.sh
       '
@@ -21,8 +25,8 @@ services:
       - PUID=${PUID:-2000}
       - PGID=${PGID:-2000}
       - DOCKERD_OPT=${DOCKERD_OPT:-}
-      - USERNAME=${USERNAME:-docker}
-      - PASSWORD=${PASSWORD:-passwd654321!}
+      - SSHD_USERNAME=${SSHD_USERNAME:-docker}
+      - SSHD_PASSWORD=${SSHD_PASSWORD:-passwd654321!}
     volumes:
       - dockerd:/dockerd
       - ssh:/etc/ssh

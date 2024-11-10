@@ -7,11 +7,11 @@ services:
     environment:
       - PUID=2000
       - PGID=2000
-      - USERNAME=${USERNAME:-docker}
-      - PASSWORD=${PASSWORD:-passwd654321!}
+      - SSHD_USERNAME=${SSHD_USERNAME:-docker}
+      - SSHD_PASSWORD=${SSHD_PASSWORD:-passwd654321!}
     configs:
       - source: authorized_keys
-        target: /home/${USERNAME:-docker}/.ssh/authorized_keys
+        target: /home/${SSHD_USERNAME:-docker}/.ssh/authorized_keys
       - source: ssh.conf
         target: /etc/ssh/ssh_config.d/ssh.conf
       - source: sshd.conf
@@ -25,5 +25,6 @@ configs:
 
   sshd.conf:
     content: |
+      PasswordAuthentication Yes
       ListenAddress 0.0.0.0
       Port 2222

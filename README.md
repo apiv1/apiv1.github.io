@@ -320,6 +320,7 @@
 |  &nbsp;|  &nbsp;|--&nbsp;[go.mod](./Go/serialserver/go.mod)  
 |  &nbsp;|  &nbsp;|--&nbsp;[go.sum](./Go/serialserver/go.sum)  
 |  &nbsp;|  &nbsp;+--&nbsp;[server.go](./Go/serialserver/server.go)  
+|  &nbsp;|--&nbsp;[stringer.md](./Go/stringer.md)  
 |  &nbsp;|--&nbsp;[可重置倒计时.md](./Go/可重置倒计时.md)  
 |  &nbsp;|--&nbsp;[打印命令行参数](./Go/打印命令行参数)  
 |  &nbsp;|  &nbsp;|--&nbsp;[go.mod](./Go/打印命令行参数/go.mod)  

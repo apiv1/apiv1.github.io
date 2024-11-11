@@ -316,6 +316,7 @@
 |  &nbsp;|  &nbsp;|--&nbsp;[go.mod](./Go/ip-echo/go.mod)  
 |  &nbsp;|  &nbsp;|--&nbsp;[k8s.yaml](./Go/ip-echo/k8s.yaml)  
 |  &nbsp;|  &nbsp;+--&nbsp;[main.go](./Go/ip-echo/main.go)  
+|  &nbsp;|--&nbsp;[map()方法转换数组元素类型.md](./Go/map()方法转换数组元素类型.md)  
 |  &nbsp;|--&nbsp;[serialserver](./Go/serialserver)  
 |  &nbsp;|  &nbsp;|--&nbsp;[go.mod](./Go/serialserver/go.mod)  
 |  &nbsp;|  &nbsp;|--&nbsp;[go.sum](./Go/serialserver/go.sum)  

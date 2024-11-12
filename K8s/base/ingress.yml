@@ -38,6 +38,9 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-connect-timeout: '300'
     nginx.ingress.kubernetes.io/proxy-read-timeout: '300'
     nginx.ingress.kubernetes.io/proxy-send-timeout: '300'
+    # 跳转示例, 申请证书时可能需要注释掉
+    #nginx.org/location-snippets: |
+      # rewrite ^/(.*)$ https://xxx/$1;
 spec:
   ingressClassName: nginx
   rules:

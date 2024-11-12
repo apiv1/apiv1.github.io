@@ -15,16 +15,21 @@ docker run -d \
   -c '
     export SSHD_USERNAME='${SSHD_USERNAME:-docker}'
     export SSHD_PASSWORD='${SSHD_PASSWORD:-'passwd654321!'}'
-    groupadd --gid $PGID $SSHD_USERNAME && \
-    useradd --shell /bin/sh --uid $PUID --gid $PGID --password $(openssl passwd $SSHD_PASSWORD) --create-home --home-dir /home/$SSHD_USERNAME $SSHD_USERNAME && \
-    usermod -aG docker $SSHD_USERNAME && \
-    chown -R $SSHD_USERNAME:$SSHD_USERNAME /home/$SSHD_USERNAME && \
-    chown -R $SSHD_USERNAME:$SSHD_USERNAME /var/run/docker.sock && \
-    chmod 744 /home/$SSHD_USERNAME/.ssh && \
-    AUTH_KEY_FILE="/home/$SSHD_USERNAME/.ssh/authorized_keys" && \
-    test -f "$AUTH_KEY_FILE" && chmod 400 "$AUTH_KEY_FILE" && \
+
+    groupadd --gid $PGID $SSHD_USERNAME
+    useradd --shell /bin/sh --uid $PUID --gid $PGID --password $(openssl passwd $SSHD_PASSWORD) --create-home --home-dir /home/$SSHD_USERNAME $SSHD_USERNAME
+    usermod -aG docker $SSHD_USERNAME
+
+    chown -R $SSHD_USERNAME:$SSHD_USERNAME /home/$SSHD_USERNAME
+    chown -R $SSHD_USERNAME:$SSHD_USERNAME /var/run/docker.sock
+
+    chmod 744 /home/$SSHD_USERNAME/.ssh
+    AUTH_KEY_FILE="/home/$SSHD_USERNAME/.ssh/authorized_keys"
+    test -f "$AUTH_KEY_FILE" && chmod 400 "$AUTH_KEY_FILE"
+
     mkdir -p /etc/ssh/sshd_config.d
     printf "PasswordAuthentication Yes\nListenAddress 0.0.0.0\n" > /etc/ssh/sshd_config.d/sshd.conf
+
     exec /entrypoint.sh
   '
 ```

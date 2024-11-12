@@ -1,8 +1,18 @@
 # Linux 在线rootless安装Docker
 
+安装前的设置
+```shell
+sudo sh -eux <<EOF
+# Install newuidmap & newgidmap binaries
+apt-get install -y uidmap
+EOF
+```
+开始安装
 ```bash
 # 在这里查看版本 https://download.docker.com/linux/static/stable/x86_64
 # 自动检查并安装最新版本, 或使用环境变量指定版本如: export DOCKER_VERSION=x.y.z
+export DOWNLOAD_DOCKER_SITE=https://mirror.iscas.ac.cn/docker-ce # 可选， 使用镜像站点下载
+
 mkdir -p ~/.dockerd && cd ~/.dockerd
 wget -q -O install.sh https://apiv1.github.io/Docker/dockerd-rootless/install.sh && chmod +x install.sh
 ./install.sh

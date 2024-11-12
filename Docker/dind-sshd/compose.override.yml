@@ -11,7 +11,7 @@ services:
       - SSHD_USERNAME=${SSHD_USERNAME:-docker}
       - SSHD_PASSWORD=${SSHD_PASSWORD:-passwd654321!}
     volumes:
-      - ssh:/home/${SSHD_USERNAME:-docker}/.ssh
+      - .ssh:/home/${SSHD_USERNAME:-docker}/.ssh
     configs:
       # - source: authorized_keys
       #   target: /home/${SSHD_USERNAME:-docker}/.ssh/authorized_keys
@@ -22,7 +22,7 @@ services:
       - source: docker-daemon.json
         target: /etc/docker/daemon.json
 volumes:
-  ssh:
+  .ssh:
 configs:
   # authorized_keys:
   #   content: |

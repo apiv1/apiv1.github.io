@@ -9,16 +9,20 @@ services:
       - PGID=2000
       - SSHD_USERNAME=${SSHD_USERNAME:-docker}
       - SSHD_PASSWORD=${SSHD_PASSWORD:-passwd654321!}
+    volumes:
+      - .ssh:/home/${SSHD_USERNAME:-docker}/.ssh
     configs:
-      - source: authorized_keys
-        target: /home/${SSHD_USERNAME:-docker}/.ssh/authorized_keys
+      # - source: authorized_keys
+      #   target: /home/${SSHD_USERNAME:-docker}/.ssh/authorized_keys
       - source: ssh.conf
         target: /etc/ssh/ssh_config.d/ssh.conf
       - source: sshd.conf
         target: /etc/ssh/sshd_config.d/sshd.conf
+volumes:
+  .ssh:
 configs:
-  authorized_keys:
-    content: |
+  # authorized_keys:
+  #   content: |
 
   ssh.conf:
     content: |

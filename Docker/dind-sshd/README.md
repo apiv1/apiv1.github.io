@@ -19,7 +19,7 @@ bash
 
 ```shell
 dind-sshd () {
-  test -f compose.override.yml && local RUN_OPT="$RUN_OPT -f ./compose.override.yml" || local RUN_OPT="$RUN_OPT -f /compose.override.yml"
+  test -f compose.override.yml && local RUN_OPT="$RUN_OPT -f ./compose.override.yml"
   dood-run apiv1/dind-sshd:compose --project-directory "$PWD"  -f /compose.yml $RUN_OPT "$@"
 }
 dind-sshd-config-file () {
@@ -34,7 +34,7 @@ powershell
 
 ```powershell
 function global:dind-sshd () {
-  if(Test-Path compose.override.yml) { $RUN_OPT="$RUN_OPT -f ./compose.override.yml" } else { $RUN_OPT="$RUN_OPT -f /compose.override.yml" }
+  if(Test-Path compose.override.yml) { $RUN_OPT="$RUN_OPT -f ./compose.override.yml" }
   dood-run apiv1/dind-sshd:compose --project-directory $( docker-path $PWD.Path ) -f /compose.yml $RUN_OPT $($args -join ' ')
 }
 

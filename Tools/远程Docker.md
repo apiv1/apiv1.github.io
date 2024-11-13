@@ -18,7 +18,7 @@ ssh-keygen # 默认生成到 $HOME/.ssh/id_rsa.pub
 ```shell
 test -f ~/.ssh/authorized_keys && chmod +w ~/.ssh/authorized_keys # 改可读权限
 echo '贴入你的公钥内容' >> ~/.ssh/authorized_keys # 添加公钥信息
-chmod -w ~/.ssh/authorized_keys # 去掉可读权限
+chmod 400 ~/.ssh/authorized_keys # 设置权限
 ```
 
 (不推荐)~~在远程Docker机器上直接配置ssh docker账户~~

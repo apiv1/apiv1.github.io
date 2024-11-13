@@ -1,3 +1,5 @@
+#### Github拉取项目加速
+
 github mirror
 ```bash
 # GITHUB_MIRROR设为镜像源地址
@@ -25,4 +27,18 @@ https://gh.sb250.gq/
 https://gitclone.com/
 https://ghproxy.com/
 https://github.ur1.fun/
+```
+
+#### Github下载文件加速
+
+工具[gh-proxy](https://github.com/hunshcn/gh-proxy)
+
+站点
+```
+https://gitdl.cn/
+```
+
+用法: 拼后面
+```
+https://gitdl.cn/"$GITHUB_DOWNLOAD_FILE_URL"
 ```

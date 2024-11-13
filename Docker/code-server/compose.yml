@@ -12,13 +12,13 @@ services:
       - CODE_SERVER_BIND_ADDR=${CODE_SERVER_BIND_ADDR:-}
       - CODE_SERVER_ARGS=${CODE_SERVER_ARGS:-}
       - LC_ALL=C.UTF-8
-      - CODE_SERVER_WORKSPACE=${CODE_SERVER_WORKSPACE:-${PATH_PREFIX:-}${PWD}}
+      - CODE_SERVER_WORKSPACE=${CODE_SERVER_WORKSPACE:-${PATH_PREFIX:-}${PWD:-/workdir}}
       - LANG=C.UTF-8
       - TZ=Asia/Shanghai
     network_mode: ${NETWORK_MODE:-default}
     volumes:
       - home:/root
-      - .:${CODE_SERVER_WORKSPACE:-${PATH_PREFIX:-}${PWD}}
+      - .:${CODE_SERVER_WORKSPACE:-${PATH_PREFIX:-}${PWD:-/workdir}}
       - ${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock
     tmpfs:
       - /root/.ssh

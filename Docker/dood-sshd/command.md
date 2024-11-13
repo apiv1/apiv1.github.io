@@ -53,7 +53,8 @@ $SSHD_PASSWORD='passwd654321!'
 $PGID='2000'
 $PUID='2000'
 
-$dockerSock = if ($null -ne $DOCKER_HOST -and ($null -eq $DOCKER_SOCK)) { $DOCKER_HOST.Replace('unix://', '') } else { $null }
+$dockerSock = $DOCKER_SOCK
+$dockerSock = if ($null -ne $DOCKER_HOST -and ($null -eq $dockerSock)) { $DOCKER_HOST.Replace('unix://', '') } else { $null }
 $dockerSock = if (-not ($dockerSock)) { "/var/run/docker.sock" } else { $dockerSock }
 docker run -d --name dood-sshd --restart always -e "PGID=${PGID}" -e "PUID=${PUID}" -v "${dockerSock}:/var/run/docker.sock:rw" -v dood-sshd_home_ssh:/home/docker/.ssh -v dood-sshd_ssh:/etc/ssh -p 2222:22 --entrypoint sh --init apiv1/sshd:docker -c ('
 export SSHD_USERNAME="{0}"

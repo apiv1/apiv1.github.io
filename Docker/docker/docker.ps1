@@ -19,7 +19,8 @@ function global:dood-run() {
   $projectDirectory = if (-not ($PROJECT_DIRECTORY)) { $PWD.Path } else { $PROJECT_DIRECTORY }
   $projectDirectory = docker-path $projectDirectory
 
-  $dockerSock = if ($null -ne $DOCKER_HOST -and ($null -eq $DOCKER_SOCK)) { $DOCKER_HOST.Replace('unix://', '') } else { $null }
+  $dockerSock = $DOCKER_SOCK
+  $dockerSock = if ($null -ne $DOCKER_HOST -and ($null -eq $dockerSock)) { $DOCKER_HOST.Replace('unix://', '') } else { $null }
   $ttyFlag = if (-not ($NO_TTY)) { '-t' } else { $null }
 
   $dockerSock = if (-not ($dockerSock)) { "/var/run/docker.sock" } else { $dockerSock }

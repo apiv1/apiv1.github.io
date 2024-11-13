@@ -1,6 +1,6 @@
 ### 直接从终端运行, 启动远程Docker服务
 
-启动后可以ssh登录, 修改```~/.ssh/authorized_keys```添加密钥
+可以ssh登录到新启动的sshd服务, 修改```~/.ssh/authorized_keys```添加密钥,以便远程Docker使用
 
 #### Bash
 

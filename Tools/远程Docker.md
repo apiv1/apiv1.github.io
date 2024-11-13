@@ -6,12 +6,22 @@
 假设账户为docker
 主机名为: docker.server
 - - -
-自己机器上先生成公钥```id_rsa.pub```
+自己机器上先生成公钥```id_rsa.pub```, 已有则可跳过
 ```shell
 ssh-keygen # 默认生成到 $HOME/.ssh/id_rsa.pub
 ```
+复制他的内容
 
-在远程Docker机器上
+#### (推荐)为主机ssh安全性考虑, 在主机上[安装dood-sshd](../Docker/dood-sshd/command.md), 使用```dood-sshd```的独立ssh提供远程Docker服务
+
+登录```dood-sshd```服务添加公钥
+```shell
+test -f ~/.ssh/authorized_keys && chmod +w ~/.ssh/authorized_keys # 改可读权限
+echo '贴入你的公钥内容' >> ~/.ssh/authorized_keys # 添加公钥信息
+chmod -w ~/.ssh/authorized_keys # 去掉可读权限
+```
+
+(不推荐)~~在远程Docker机器上直接配置ssh docker账户~~
 ```shell
 # docker机器需要有个docker账户, 需要配置docker访问权限
 useradd -m -s /bin/bash docker
@@ -39,7 +49,7 @@ docker ps -a
 # 使用本地 docker(还原)
 unset $DOCKER_HOST
 ```
-* 为主系统ssh安全性考虑, 推荐使用[dood-sshd](../Docker/dood-sshd/README.md)的独立ssh提供远程Docker服务
+
 
 本地配置远程Docker连接(永久)
 ```shell

@@ -502,6 +502,7 @@
 |  &nbsp;|--&nbsp;[nmap.md](./Tools/nmap.md)  
 |  &nbsp;|--&nbsp;[nvm安装.md](./Tools/nvm安装.md)  
 |  &nbsp;|--&nbsp;[ohmyzsh安装.md](./Tools/ohmyzsh安装.md)  
+|  &nbsp;|--&nbsp;[pandoc.md](./Tools/pandoc.md)  
 |  &nbsp;|--&nbsp;[protobuf.md](./Tools/protobuf.md)  
 |  &nbsp;|--&nbsp;[scrcpy.md](./Tools/scrcpy.md)  
 |  &nbsp;|--&nbsp;[skopeo.md](./Tools/skopeo.md)  

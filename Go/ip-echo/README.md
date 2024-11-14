@@ -23,5 +23,6 @@ IP_ECHO_UPDATE_URL="${IP_ECHO_UPDATE_BASE_URL}/?update_ip=${IP_ECHO_UPDATE_CODE}
 docker run -d --name ip-echo-update --restart always -it netdata/wget sh -c 'while true; do wget --timeout 2 -qO - "'${IP_ECHO_UPDATE_URL}'"; echo; sleep 16; done'
 
 # get updated ip
-wget -qO - "$IP_ECHO_UPDATE_URL"
+IP_ECHO_GET_URL="${IP_ECHO_UPDATE_BASE_URL}/?get_ip=${IP_ECHO_UPDATE_CODE}"
+wget -qO - "$IP_ECHO_GET_URL"
 ```

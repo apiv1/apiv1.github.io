@@ -25,4 +25,15 @@ docker run -d --name ip-echo-update --restart always -it netdata/wget sh -c 'whi
 # get updated ip
 IP_ECHO_GET_URL="${IP_ECHO_UPDATE_BASE_URL}/?get_ip=${IP_ECHO_UPDATE_CODE}"
 wget -qO - "$IP_ECHO_GET_URL"
+
+# update redirect
+IP_ECHO_UPDATE_BASE_URL="http://x.x.x.x"
+UPDATE_REDIRECT_CODE="Ewa5bSoN1HB1W6HG" # your update code (unique)
+REDIRECT_URL='https://$MY_IP/api'
+UPDATE_REDIRECT_URL="${IP_ECHO_UPDATE_BASE_URL}/?update_redirect=${UPDATE_REDIRECT_CODE}&url=${REDIRECT_URL}&token=${IP_ECHO_TOKEN}"
+docker run -d --name ip-echo-update --restart always -it netdata/wget sh -c 'while true; do wget --timeout 2 -qO - "'${UPDATE_REDIRECT_URL}'"; echo; sleep 16; done'
+
+# get redirect ip
+GET_REDIRECT_URL="${IP_ECHO_UPDATE_BASE_URL}/?get_redirect=${UPDATE_REDIRECT_CODE}"
+wget -qO - "$GET_REDIRECT_URL"
 ```

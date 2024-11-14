@@ -6,7 +6,9 @@ sudo yum -y install tmux # centos
 sudo apt install -y tmux # ubuntu
 ```
 
-2. 执行这个命令 生成一个脚本 放在用户目录里
+2. 配置直接用[tmuxrc](../Shell/tmuxrc), 配到配置文件里
+
+~~2. 执行这个命令 生成一个脚本 放在用户目录里~~
 
 _**.reuse_session.sh**_
 
@@ -22,7 +24,7 @@ fi
 EOF
 ```
 
-3. 把脚本添加到登录脚本里
+~~3. 把脚本添加到登录脚本里~~
 
 ```bash
 #  bash用户加 .bash_profile
@@ -40,7 +42,7 @@ echo '. ~/.reuse_session.sh' >> ~/.zprofile
 - 多终端的时候 Ctrl + b后按着 上下左右可以换不同的终端, 按着alt(有的电脑是按着ctrl) 再按上下左右可以调整终端窗口大小
 - 其他的我也不知道, 可以按Ctrl + b 然后按?看帮助
 
-6. tmux配置文件
+~~6. tmux配置文件~~
 
 ```bash
 cat <<EOF > ~/.tmux.conf
@@ -54,10 +56,3 @@ EOF
 
 配色使用xterm-256  
 分屏保留路径  
-
-6. 连接命令  
-
-```bash
-# 和别人共用一个账户的情况
-ssh -t xxx@xxx.com USER=<自己特定的用户名> <zsh/bash> --login
-```

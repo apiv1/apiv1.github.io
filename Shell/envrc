@@ -13,16 +13,18 @@ download_url() {
   URL=$1
   FILE=$2
   if command -v wget >/dev/null 2>&1; then
+    local WGET_ARGS='--timeout=3 --tries=10'
     if test -n "$FILE"; then
-      wget -O $FILE $URL
+      wget $WGET_ARGS -O $FILE $URL
     else
-      wget $URL
+      wget $WGET_ARGS $URL
     fi
   elif command -v curl >/dev/null 2>&1; then
+    local CURL_ARGS='-m 3 --retry 10 -sSLk'
     if test -n "$FILE"; then
-      curl -sSLko $FILE $URL
+      curl $CURL_ARGS -o $FILE $URL
     else
-      curl -sSLkO $URL
+      curl $CURL_ARGS -O $URL
     fi
   fi
 }

@@ -1,8 +1,8 @@
 package main
 
 import (
+	"flag"
 	"net/http"
-	"os"
 	"path/filepath"
 )
 
@@ -17,19 +17,31 @@ func (f *fileServerWrapper) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	if len(os.Args) < 2 {
+	useTls := flag.Bool("tls", false, "use tls")
+	certFile := flag.String("cert", "crt.pem", "cert file path (default: crt.pem)")
+	keyFile := flag.String("key", "key.pem", "cert file path (default: key.pem)")
+	flag.Parse()
+
+	args := flag.Args()
+	if len(args) < 1 {
 		println("Usage: <dir> [listen-addr]")
 		return
 	}
-	p, _ := filepath.Abs(os.Args[1])
+	dir := args[0]
+	p, _ := filepath.Abs(dir)
 	http.Handle("/", &fileServerWrapper{http.FileServer(http.Dir(p))})
 	addr := ":8088"
-	if len(os.Args) >= 3 {
-		addr = os.Args[2]
+	if len(args) >= 2 {
+		addr = args[1]
 	}
-	println("Running dir '", os.Args[1], "', on: '", addr, "'")
+	println("Running dir '", dir, "', on: '", addr, "'")
 	defer println("Quit")
-	err := http.ListenAndServe(addr, nil)
+	var err error
+	if *useTls {
+		err = http.ListenAndServeTLS(addr, *certFile, *keyFile, nil)
+	} else {
+		err = http.ListenAndServe(addr, nil)
+	}
 	if err != nil {
 		println(err.Error())
 	}

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"net"
 	"net/http"
 	"net/url"
@@ -111,14 +112,25 @@ func (f *ipServerWraper) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	useTls := flag.Bool("tls", false, "use tls")
+	certFile := flag.String("cert", "crt.pem", "cert file path (default: crt.pem)")
+	keyFile := flag.String("key", "key.pem", "cert file path (default: key.pem)")
+	flag.Parse()
+
 	http.Handle("/", &ipServerWraper{})
 	addr := ":8089"
-	if len(os.Args) >= 2 {
-		addr = os.Args[1]
+	args := flag.Args()
+	if len(args) >= 1 {
+		addr = args[0]
 	}
 	println("addr = ", addr)
 	defer println("Quit")
-	err := http.ListenAndServe(addr, nil)
+	var err error
+	if *useTls {
+		err = http.ListenAndServeTLS(addr, *certFile, *keyFile, nil)
+	} else {
+		err = http.ListenAndServe(addr, nil)
+	}
 	if err != nil {
 		println(err.Error())
 	}

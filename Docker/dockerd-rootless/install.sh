@@ -4,7 +4,7 @@ set -e
 
 SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
 
-alias wget='wget --no-check-certificate'
+alias wget='wget --no-check-certificate --timeout=3 --tries=10'
 
 DOCKER_ARCH=${DOCKER_ARCH:-$(uname -m)}
 case "$DOCKER_ARCH" in

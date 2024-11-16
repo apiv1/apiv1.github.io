@@ -20,7 +20,7 @@ if test -f "$DOCKER_SERVICE_FILE" ; then
 fi
 
 if test ! -f "$SCRIPT_HOME/bin/dockerd" ; then
-  alias wget='wget --no-check-certificate'
+  alias wget='wget --no-check-certificate --timeout=3 --tries=10'
   DOCKER_FILE_NAME=docker.tgz
   DOWNLOAD_DOCKER_SITE=${DOWNLOAD_DOCKER_SITE:-https://download.docker.com}
   if test ! -f $DOCKER_FILE_NAME; then

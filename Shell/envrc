@@ -13,7 +13,7 @@ download_url() {
   URL=$1
   FILE=$2
   if command -v wget >/dev/null 2>&1; then
-    local WGET_ARGS='--timeout=3 --tries=10'
+    local WGET_ARGS='--no-check-certificate --timeout=3 --tries=10'
     if test -n "$FILE"; then
       wget $WGET_ARGS -O $FILE $URL
     else

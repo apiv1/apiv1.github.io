@@ -6,7 +6,7 @@ services:
     entrypoint: sh
     command: |
       -c '
-        HOST_ADDR=${FRPC_SERVER_HOST_ADDR:-$(wget -qO - ${FRPC_SERVER_HOST_ADDR_FROM_URL:-})}
+        HOST_ADDR=${FRPC_SERVER_HOST_ADDR:-$(wget --no-check-certificate --timeout=3 --tries=10 -qO - ${FRPC_SERVER_HOST_ADDR_FROM_URL:-})}
         HOST=$${HOST_ADDR%%:*}
         PORT=$$(echo $$HOST_ADDR | sed 's/^[^:]*[:]*//g')
         PORT=$${PORT:-${FRPS_BIND_PORT}}

@@ -172,7 +172,7 @@ fi
 
 if test ! -f "$K3S_BIN/k3s" ; then
     mkdir -p "$K3S_BIN"
-    alias wget='wget --no-check-certificate'
+    alias wget='wget --no-check-certificate --timeout=3 --tries=10'
     if test -z ${K3S_DOWNLOAD_URL}; then
       K3S_DOWNLOAD_VERSION=$(wget -SqO /dev/null https://update.k3s.io/v1-release/channels/stable 2>&1 | grep -i Location | sed -e 's|.*/||')
       K3S_FILE=k3s

@@ -22,21 +22,10 @@ services:
       - ${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock
     tmpfs:
       - /root/.ssh
-    configs:
-      - source: .bash_aliases
-        target: /root/.bash_aliases
     ports:
       - ${LISTEN_ADDR:-127.0.0.1:8443}:8443
     restart: unless-stopped
     extra_hosts:
       - "host.docker.internal:host-gateway"
-configs:
-  .bash_aliases:
-    content: |
-      envrc_install() {
-        wget -O ~/.envrc https://apiv1.github.io/Shell/envrc
-        test -f ~/.envrc && . ~/.envrc
-      }
-      test -f ~/.envrc && . ~/.envrc
 volumes:
   home:

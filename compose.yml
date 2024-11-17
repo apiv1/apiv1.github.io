@@ -10,22 +10,11 @@ services:
       - ${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock
     tmpfs:
       - /root/.ssh
-    configs:
-      - source: .bash_aliases
-        target: /root/.bash_aliases
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
       - LC_ALL=C.UTF-8
       - LANG=C.UTF-8
       - TZ=Asia/Shanghai
-configs:
-  .bash_aliases:
-    content: |
-      envrc_install() {
-        wget -O ~/.envrc https://apiv1.github.io/Shell/envrc
-        test -f ~/.envrc && . ~/.envrc
-      }
-      test -f ~/.envrc && . ~/.envrc
 volumes:
   home:

@@ -1,0 +1,1 @@
+docker run -d --name ddns-go --restart=always -p 9876:9876 -v ddns-go-home:/root jeessy/ddns-go

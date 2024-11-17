@@ -42,6 +42,8 @@
 |  &nbsp;|  &nbsp;|--&nbsp;[compose.yml](./Docker/consul/compose.yml)  
 |  &nbsp;|  &nbsp;+--&nbsp;[config](./Docker/consul/config)  
 |  &nbsp;|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+--&nbsp;[acl.json](./Docker/consul/config/acl.json)  
+|  &nbsp;|--&nbsp;[ddns-go](./Docker/ddns-go)  
+|  &nbsp;|  &nbsp;+--&nbsp;[run.sh](./Docker/ddns-go/run.sh)  
 |  &nbsp;|--&nbsp;[dind-sshd](./Docker/dind-sshd)  
 |  &nbsp;|  &nbsp;|--&nbsp;[README.md](./Docker/dind-sshd/README.md)  
 |  &nbsp;|  &nbsp;|--&nbsp;[compose.override.yml](./Docker/dind-sshd/compose.override.yml)  

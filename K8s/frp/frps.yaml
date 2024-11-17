@@ -24,20 +24,20 @@ spec:
             - frps
           args:
             - -c
-            - /etc/frp/frps.ini
+            - /config.toml
           name: frp-server
           resources: {}
           volumeMounts:
-            - mountPath: /etc/frp/frps.ini
+            - mountPath: /config.toml
               name: frp-server-cm0
-              subPath: frps.ini
+              subPath: config.toml
       hostNetwork: true
       restartPolicy: Always
       volumes:
         - configMap:
             items:
-              - key: frps.ini
-                path: frps.ini
+              - key: config.toml
+                path: config.toml
             name: frp-server-cm0
           name: frp-server-cm0
 status: {}
@@ -45,11 +45,11 @@ status: {}
 ---
 apiVersion: v1
 data:
-  frps.ini: |
-    [common]
-    bind_port = 12345
-    bind_udp_port = 12345
-    token = pDfD0R1VQQSaEsx1
+  config.toml: |
+    bindPort = ${FRPS_BIND_PORT}
+
+    auth.method = "token"
+    auth.token = "${FRPS_TOKEN}"
 kind: ConfigMap
 metadata:
   annotations:

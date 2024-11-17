@@ -79,3 +79,9 @@ Linux Server版
 Environment="HTTP_PROXY=socks5://localhost:1080/"
 Environment="NO_PROXY=localhost,127.0.0.1,registry-1.docker.io"
 ```
+
+### Linux免root使用docker
+```shell
+sudo groupadd docker
+sudo usermod -aG docker $USER
+```

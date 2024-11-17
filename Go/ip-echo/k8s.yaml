@@ -21,11 +21,14 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
       containers:
         - args:
-            - :31009
+            - :8089
           image: apiv1/ip-echo
           name: ip-echo
           ports:
-            - containerPort: 31009
+            - containerPort: 8089
           resources: {}
+          env:
+            - name: TOKEN
+              value: ''
       restartPolicy: Always
 status: {}

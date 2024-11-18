@@ -466,6 +466,8 @@
 |  &nbsp;|--&nbsp;[AES加密](./Ruby/AES加密)  
 |  &nbsp;|  &nbsp;+--&nbsp;[crypto.rb](./Ruby/AES加密/crypto.rb)  
 |  &nbsp;+--&nbsp;[obj_filter.rb](./Ruby/obj_filter.rb)  
+|--&nbsp;[Rust](./Rust)  
+|  &nbsp;+--&nbsp;[README.md](./Rust/README.md)  
 |--&nbsp;[Shell](./Shell)  
 |  &nbsp;|--&nbsp;[envrc](./Shell/envrc)  
 |  &nbsp;|--&nbsp;[hoster](./Shell/hoster)  

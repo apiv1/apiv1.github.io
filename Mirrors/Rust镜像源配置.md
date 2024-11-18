@@ -1,6 +1,6 @@
 #### config
 
-$HOME/.cargo/config
+$HOME/.cargo/config.toml
 
 ```ini
 [source.crates-io]
@@ -14,6 +14,9 @@ index = "https://rsproxy.cn/crates.io-index"
 
 [net]
 git-fetch-with-cli = true
+
+[registry]
+default = "rsproxy"
 ```
 
 #### env

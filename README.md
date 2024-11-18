@@ -537,6 +537,7 @@
 |  &nbsp;|--&nbsp;[使用route设置路由.md](./Windows/使用route设置路由.md)  
 |  &nbsp;|--&nbsp;[使用vbs隐藏命令行窗口运行bat.md](./Windows/使用vbs隐藏命令行窗口运行bat.md)  
 |  &nbsp;|--&nbsp;[启动项路径.md](./Windows/启动项路径.md)  
+|  &nbsp;|--&nbsp;[命令行控制全局代理.md](./Windows/命令行控制全局代理.md)  
 |  &nbsp;|--&nbsp;[壁纸路径.md](./Windows/壁纸路径.md)  
 |  &nbsp;|--&nbsp;[安装Tree命令.md](./Windows/安装Tree命令.md)  
 |  &nbsp;|--&nbsp;[安装服务工具.md](./Windows/安装服务工具.md)  

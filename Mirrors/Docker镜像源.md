@@ -32,5 +32,5 @@ daemon.json
 
 改完设置重启服务
 ```shell
-sudo systemctl restart docker
+systemctl restart docker
 ```

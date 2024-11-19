@@ -26,7 +26,7 @@ wget -q -O install.sh https://apiv1.github.io/Docker/dockerd/all-in-one.sh && ch
 . .envrc
 ```
 ***他会提示你把```source /path/to/.envrc```加到shell启动配置脚本里*** 下次进这个shell就还能用docker
-如果安装完成启动失败了, [装缺失服务](#安装前的设置), 然后重启docker服务```sudo systemctl restart docker```
+如果安装完成启动失败了, [装缺失服务](#安装前的设置), 然后重启docker服务```systemctl restart docker```
 
 ### 可选: Linux下使用Docker安装Docker组件(速度快)
 ```shell

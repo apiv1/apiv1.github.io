@@ -8,6 +8,7 @@
 docker rm -f dind-sshd 2>/dev/null
 docker run -d \
   --name dind-sshd \
+  --hostname dind-sshd \
   --restart always \
   --privileged \
   -e PUID=${PUID:-$(id -u)} \
@@ -53,9 +54,9 @@ $PGID='2000'
 $PUID='2000'
 
 docker run -d --name dind-sshd --restart always --privileged -e "PGID=${PGID}" -e "PUID=${PUID}" -v dind-sshd_home:/home -v dind-sshd_ssh:/etc/ssh -v dind-sshd_dockerd:/dockerd -p "${SSHD_PORT}:22" --entrypoint sh --init apiv1/sshd:dockerd -c ('
-export SSHD_USERNAME="{0}"
-export SSHD_PASSWORD="{1}"
-export DOCKERD_OPT={2}
+export SSHD_USERNAME=\"{0}\"
+export SSHD_PASSWORD=\"{1}\"
+export DOCKERD_OPT=\"{2}\"
 
 groupadd --gid $PGID $SSHD_USERNAME
 useradd --shell /bin/sh --uid $PUID --gid $PGID --password $(openssl passwd $SSHD_PASSWORD) --create-home --home-dir /home/$SSHD_USERNAME $SSHD_USERNAME

@@ -3,7 +3,6 @@
 daemon.json
 ```json
 {
-  ...
   "registry-mirrors": [
     "https://dockerpull.org",
     "https://docker.1panel.dev",
@@ -28,6 +27,10 @@ daemon.json
     "https://atomhub.openatom.cn",
     "https://docker.m.daocloud.io"
   ]
-  ...
 }
+```
+
+改完设置重启服务
+```shell
+sudo systemctl restart docker
 ```

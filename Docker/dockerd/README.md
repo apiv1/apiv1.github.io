@@ -24,9 +24,13 @@ alias wget='wget --no-check-certificate --timeout=3 --tries=10'
 wget -q -O install.sh https://apiv1.github.io/Docker/dockerd/all-in-one.sh && chmod +x install.sh
 ./install.sh
 . .envrc
+```
+***他会提示你把```source /path/to/.envrc```加到shell启动配置脚本里*** 下次进这个shell就还能用docker
+如果安装完成启动失败了, [装缺失服务](#安装前的设置), 然后重启docker服务```sudo systemctl restart docker```
 
-# 可选: Linux下使用Docker安装Docker组件(速度快)
-cd ./bin
+### 可选: Linux下使用Docker安装Docker组件(速度快)
+```shell
+cd $DOCKER_HOME/bin
 
 # 安装 docker-compose
 docker container create --pull always --name docker-compose-container apiv1/docker-compose

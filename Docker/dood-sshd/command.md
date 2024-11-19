@@ -26,7 +26,6 @@ groupadd --gid $PGID $SSHD_USERNAME
 useradd --shell /bin/sh --uid $PUID --gid $PGID --password $(openssl passwd $SSHD_PASSWORD) --create-home --home-dir /home/$SSHD_USERNAME $SSHD_USERNAME
 usermod -aG docker $SSHD_USERNAME
 
-chown -R $SSHD_USERNAME:$SSHD_USERNAME /home/$SSHD_USERNAME
 chown -R $SSHD_USERNAME:$SSHD_USERNAME /var/run/docker.sock
 
 AUTH_KEY_FILE="/home/$SSHD_USERNAME/.ssh/authorized_keys"
@@ -64,7 +63,6 @@ groupadd --gid $PGID $SSHD_USERNAME
 useradd --shell /bin/sh --uid $PUID --gid $PGID --password $(openssl passwd $SSHD_PASSWORD) --create-home --home-dir /home/$SSHD_USERNAME $SSHD_USERNAME
 usermod -aG docker $SSHD_USERNAME
 
-chown -R $SSHD_USERNAME:$SSHD_USERNAME /home/$SSHD_USERNAME
 chown -R $SSHD_USERNAME:$SSHD_USERNAME /var/run/docker.sock
 
 AUTH_KEY_FILE="/home/$SSHD_USERNAME/.ssh/authorized_keys"

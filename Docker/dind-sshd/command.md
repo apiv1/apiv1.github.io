@@ -27,8 +27,6 @@ groupadd --gid $PGID $SSHD_USERNAME
 useradd --shell /bin/sh --uid $PUID --gid $PGID --password $(openssl passwd $SSHD_PASSWORD) --create-home --home-dir /home/$SSHD_USERNAME $SSHD_USERNAME
 usermod -aG docker $SSHD_USERNAME
 
-chown -R $SSHD_USERNAME:$SSHD_USERNAME /home/$SSHD_USERNAME
-
 AUTH_KEY_FILE="/home/$SSHD_USERNAME/.ssh/authorized_keys"
 test -f "$AUTH_KEY_FILE" && chmod 400 "$AUTH_KEY_FILE"
 
@@ -62,8 +60,6 @@ export DOCKERD_OPT={2}
 groupadd --gid $PGID $SSHD_USERNAME
 useradd --shell /bin/sh --uid $PUID --gid $PGID --password $(openssl passwd $SSHD_PASSWORD) --create-home --home-dir /home/$SSHD_USERNAME $SSHD_USERNAME
 usermod -aG docker $SSHD_USERNAME
-
-chown -R $SSHD_USERNAME:$SSHD_USERNAME /home/$SSHD_USERNAME
 
 AUTH_KEY_FILE="/home/$SSHD_USERNAME/.ssh/authorized_keys"
 test -f "$AUTH_KEY_FILE" && chmod 400 "$AUTH_KEY_FILE"

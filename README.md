@@ -46,6 +46,7 @@
 |  &nbsp;|  &nbsp;+--&nbsp;[run.sh](./Docker/ddns-go/run.sh)  
 |  &nbsp;|--&nbsp;[dind-sshd](./Docker/dind-sshd)  
 |  &nbsp;|  &nbsp;|--&nbsp;[README.md](./Docker/dind-sshd/README.md)  
+|  &nbsp;|  &nbsp;|--&nbsp;[command.md](./Docker/dind-sshd/command.md)  
 |  &nbsp;|  &nbsp;|--&nbsp;[compose.override.yml](./Docker/dind-sshd/compose.override.yml)  
 |  &nbsp;|  &nbsp;|--&nbsp;[compose.yml](./Docker/dind-sshd/compose.yml)  
 |  &nbsp;|  &nbsp;+--&nbsp;[example.md](./Docker/dind-sshd/example.md)  

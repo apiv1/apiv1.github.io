@@ -19,6 +19,7 @@ ssh-keygen # 默认生成到 $HOME/.ssh/id_rsa.pub
 登录```dood-sshd```服务添加公钥
 ```shell
 test -f ~/.ssh/authorized_keys && chmod +w ~/.ssh/authorized_keys # 改可读权限
+mkdir -p ~/.ssh
 echo '贴入你的公钥内容' >> ~/.ssh/authorized_keys # 添加公钥信息
 chmod 400 ~/.ssh/authorized_keys # 设置权限
 ```

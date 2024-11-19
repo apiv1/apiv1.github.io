@@ -3,7 +3,7 @@ services:
   dind:
     network_mode: default
     ports:
-      - 2222:2222
+      - 2022:2022
     environment:
       - PUID=2000
       - PGID=2000
@@ -34,7 +34,7 @@ configs:
     content: |
       PasswordAuthentication Yes
       ListenAddress 0.0.0.0
-      Port 2222
+      Port 2022
   docker-daemon.json:
     content: |
       {

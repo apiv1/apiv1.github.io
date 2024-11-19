@@ -9,8 +9,8 @@ docker rm -f dood-sshd 2>/dev/null
 docker run -d \
   --name dood-sshd \
   --restart always \
-  -e PUID=${PUID:-2000} \
-  -e PGID=${PGID:-2000} \
+  -e PUID=${PUID:-$(id -u)} \
+  -e PGID=${PGID:-$(id -g)} \
   -v ${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock:rw \
   -v dood-sshd_home_ssh:/home/docker/.ssh \
   -v dood-sshd_ssh:/etc/ssh \
@@ -50,8 +50,8 @@ docker rm -f dood-sshd
 
 $SSHD_USERNAME='docker'
 $SSHD_PASSWORD='passwd654321!'
-$PGID='2000'
-$PUID='2000'
+$PGID=$(id -u)
+$PUID=$(id -g)
 
 $dockerSock = $DOCKER_SOCK
 $dockerSock = if ($null -ne $DOCKER_HOST -and ($null -eq $dockerSock)) { $DOCKER_HOST.Replace('unix://', '') } else { $null }

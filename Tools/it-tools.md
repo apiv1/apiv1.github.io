@@ -3,7 +3,7 @@
 
 ### docker 部署
 ```shell
-docker run -d --name it-tools --restart unless-stopped -p 8080:80 corentinth/it-tools:latest
+docker run -d --name it-tools --restart always -p 8080:80 corentinth/it-tools:latest
 ```
 
 ### 在线网站

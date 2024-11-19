@@ -1,7 +1,7 @@
 services:
   libretranslate:
     image: libretranslate/libretranslate
-    restart: unless-stopped
+    restart: always
     ports:
       - "50000:5000"
     tty: true

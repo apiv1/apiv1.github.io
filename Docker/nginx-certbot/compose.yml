@@ -2,7 +2,7 @@
 services:
   nginx:
     image: jonasal/nginx-certbot:latest
-    restart: unless-stopped
+    restart: always
     environment:
       - CERTBOT_EMAIL
       - STAGING

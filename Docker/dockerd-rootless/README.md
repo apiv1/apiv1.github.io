@@ -1,5 +1,7 @@
 # Linux 在线rootless安装Docker
 
+**需要登录(ssh/图形界面)非root账户, 不能直接用su切换用户, 会导致XDG_RUNTIME_DIR环境变量异常**
+
 安装前的设置
 ```shell
 sudo sh -eux <<EOF
@@ -18,6 +20,12 @@ alias wget='wget --no-check-certificate --timeout=3 --tries=10'
 wget -q -O install.sh https://apiv1.github.io/Docker/dockerd-rootless/install.sh && chmod +x install.sh
 ./install.sh
 . .envrc
+```
+
+dockerd默认配置文件 ```~/.config/docker/daemon.json```
+```shell
+mkdir -p ~/.config/docker
+vim ~/.config/docker/daemon.json
 ```
 
 ### 可选: Linux下使用Docker安装Docker组件(速度快)

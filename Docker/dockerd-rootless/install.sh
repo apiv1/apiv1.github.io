@@ -4,6 +4,11 @@ set -e
 
 SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
 
+if test ! -w "$XDG_RUNTIME_DIR"; then
+  echo "XDG_RUNTIME_DIR needs to be set and writable"
+  exit 1
+fi
+
 alias wget='wget --no-check-certificate --timeout=3 --tries=10'
 
 DOCKER_ARCH=${DOCKER_ARCH:-$(uname -m)}
@@ -83,6 +88,18 @@ load_docker_envs() {
 }
 load_docker_envs
 EOF
+
+cat <<EOF > "$SCRIPT_HOME/uninstall.sh"
+#!/bin/sh
+
+set -e
+
+SCRIPT_HOME=\$(cd "\$(dirname "\$0" 2>/dev/null)";pwd)
+
+export PATH="\$SCRIPT_HOME/bin:\$PATH"
+"\$SCRIPT_HOME/bin/dockerd-rootless-setuptool.sh" uninstall
+EOF
+chmod +x "$SCRIPT_HOME/uninstall.sh"
 
 echo '
 Put it into your shell rc file:

@@ -7,9 +7,10 @@ export FLUTTER_GIT_URL=https://gitee.com/mirrors/Flutter.git
 export FVM_FLUTTER_URL=https://gitee.com/mirrors/Flutter.git
 export PUB_HOSTED_URL=https://pub.flutter-io.cn
 export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
-export FVM_CACHE_PATH=~/.fvm # 缓存目录
-export PUB_CACHE=~/.pub-cache # pub cache 目录, 不设置的话 windows: ~\AppData\Local\Pub\Cache, Mac/Linux: ~/.pub-cache
-export FLUTTER_HOME=~/flutter
+export FLUTTER_INSTALL_DIR="$HOME"
+export FVM_CACHE_PATH="$FLUTTER_INSTALL_DIR/.fvm" # 缓存目录
+export PUB_CACHE="$FLUTTER_INSTALL_DIR/.pub-cache" # pub cache 目录, 不设置的话 windows: ~\AppData\Local\Pub\Cache, Mac/Linux: ~/.pub-cache
+export FLUTTER_HOME="$FLUTTER_INSTALL_DIR/flutter"
 ```
 
 执行命令
@@ -27,9 +28,10 @@ $env:FLUTTER_GIT_URL="https://gitee.com/mirrors/Flutter.git"
 $env:FVM_FLUTTER_URL="https://gitee.com/mirrors/Flutter.git"
 $env:PUB_HOSTED_URL="https://pub.flutter-io.cn";
 $env:FLUTTER_STORAGE_BASE_URL="https://storage.flutter-io.cn"
-$env:FVM_CACHE_PATH="$HOME/.fvm" # 缓存目录
-$env:PUB_CACHE="$HOME/.pub-cache" # pub cache 目录, 不设置的话 windows: ~\AppData\Local\Pub\Cache, Mac/Linux: ~/.pub-cache
-$env:FLUTTER_HOME="$HOME/flutter"
+$env:FLUTTER_INSTALL_DIR="$HOME"
+$env:FVM_CACHE_PATH="$env:FLUTTER_INSTALL_DIR/.fvm" # 缓存目录
+$env:PUB_CACHE="$env:FLUTTER_INSTALL_DIR/.pub-cache" # pub cache 目录, 不设置的话 windows: ~\AppData\Local\Pub\Cache, Mac/Linux: ~/.pub-cache
+$env:FLUTTER_HOME="$env:FLUTTER_INSTALL_DIR/flutter"
 
 if(Get-Command -ErrorAction SilentlyContinue winver) {
   $PATH_SEPERATOR=";"

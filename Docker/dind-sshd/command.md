@@ -2,6 +2,8 @@
 
 可以ssh登录到新启动的sshd服务, 修改```~/.ssh/authorized_keys```添加密钥,以便远程Dind使用
 
+[Docker镜像源](../../Mirrors/Docker镜像源.md)
+
 #### Bash
 
 ```shell
@@ -11,6 +13,7 @@ docker run -d \
   --hostname dind-sshd \
   --restart always \
   --privileged \
+  --tmpfs /tmp:exec,rw \
   -e PUID=${PUID:-$(id -u)} \
   -e PGID=${PGID:-$(id -g)} \
   -v dind-sshd_home:/home \
@@ -37,7 +40,12 @@ PasswordAuthentication Yes
 ListenAddress 0.0.0.0
 EOF
 
-export DOCKERD_OPT="--data-root /dockerd/lib/docker --exec-root /tmp/dockerd/run/docker -p /tmp/dockerd/run/docker.pid '${DOCKERD_OPT}'"
+test -f /dockerd/daemon.json || cat <<EOF > /dockerd/daemon.json
+{
+}
+EOF
+
+export DOCKERD_OPT="--config-file /dockerd/daemon.json --data-root /dockerd/lib/docker --exec-root /tmp/dockerd/run/docker -p /tmp/dockerd/run/docker.pid '${DOCKERD_OPT}'"
 exec /entrypoint.sh
 '
 ```
@@ -53,7 +61,7 @@ $SSHD_PORT='2022'
 $PGID='2000'
 $PUID='2000'
 
-docker run -d --name dind-sshd --restart always --privileged -e "PGID=${PGID}" -e "PUID=${PUID}" -v dind-sshd_home:/home -v dind-sshd_ssh:/etc/ssh -v dind-sshd_dockerd:/dockerd -p "${SSHD_PORT}:22" --entrypoint sh --init apiv1/sshd:dockerd -c ('
+docker run -d --name dind-sshd --restart always --privileged --tmpfs /tmp:exec,rw -e "PGID=${PGID}" -e "PUID=${PUID}" -v dind-sshd_home:/home -v dind-sshd_ssh:/etc/ssh -v dind-sshd_dockerd:/dockerd -p "${SSHD_PORT}:22" --entrypoint sh --init apiv1/sshd:dockerd -c ('
 export SSHD_USERNAME=\"{0}\"
 export SSHD_PASSWORD=\"{1}\"
 export DOCKERD_OPT=\"{2}\"
@@ -71,7 +79,12 @@ PasswordAuthentication Yes
 ListenAddress 0.0.0.0
 EOF
 
-export DOCKERD_OPT=\"--data-root /dockerd/lib/docker --exec-root /tmp/dockerd/run/docker -p /tmp/dockerd/run/docker.pid $DOCKERD_OPT\"
+test -f /dockerd/daemon.json || cat <<EOF > /dockerd/daemon.json
+{
+}
+EOF
+
+export DOCKERD_OPT=\"--config-file /dockerd/daemon.json --data-root /dockerd/lib/docker --exec-root /tmp/dockerd/run/docker -p /tmp/dockerd/run/docker.pid $DOCKERD_OPT\"
 exec /entrypoint.sh
 ' -f ${SSHD_USERNAME},${SSHD_PASSWORD},${DOCKERD_OPT} )
 ```

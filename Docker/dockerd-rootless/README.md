@@ -2,13 +2,28 @@
 
 **需要登录(ssh/图形界面)非root账户, 不能直接用su切换用户, 会导致XDG_RUNTIME_DIR环境变量异常**
 
-安装前的设置
+##### 安装前的设置
 ```shell
 sudo sh -eux <<EOF
 # Install newuidmap & newgidmap binaries
 apt-get install -y uidmap
 EOF
 ```
+
+##### 设置安全规则
+
+临时
+```shell
+sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 # 临时设置
+```
+
+永久设置
+```shell
+sudo vim /etc/sysctl.conf # 添加/修改 kernel.apparmor_restrict_unprivileged_userns=0
+sudo sysctl -p # 应用变更
+```
+
+
 开始安装
 ```bash
 # 在这里查看版本 https://download.docker.com/linux/static/stable/x86_64
@@ -23,9 +38,11 @@ wget -q -O install.sh https://apiv1.github.io/Docker/dockerd-rootless/install.sh
 ```
 
 dockerd默认配置文件 ```~/.config/docker/daemon.json```
+[Docker镜像源](../../Mirrors/Docker镜像源.md)
 ```shell
 mkdir -p ~/.config/docker
 vim ~/.config/docker/daemon.json
+systemctl --user restart docker # 重启应用配置
 ```
 
 ### 可选: Linux下使用Docker安装Docker组件(速度快)

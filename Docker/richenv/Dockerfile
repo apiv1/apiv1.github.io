@@ -28,7 +28,7 @@ COPY --chmod=0755 init.d/xrdp*.sh init.d/sshd*.sh /init.d/
 COPY --chmod=0755 init.sh /init.sh
 ENTRYPOINT ["/init.sh"]
 
-FROM ${STAGE_CORE} as full
+FROM ${STAGE_CORE} AS full
 # dockerd service
 COPY --from=apiv1/dockerd /usr/local/bin/* /usr/local/bin/
 COPY --from=apiv1/docker-compose /usr/local/bin/* /usr/local/bin/

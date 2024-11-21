@@ -49,12 +49,11 @@ volumes:
 configs:
   config.sh:
     content: |
-      USERNAME=${USERNAME:-docker}
       if test -f /config/.ssh/authorized_keys ; then
-        mkdir -p /home/${USERNAME}/.ssh
-        cp /config/.ssh/authorized_keys /home/${USERNAME}/.ssh/authorized_keys
-        chown $USERNAME:$USERNAME -R /home/${USERNAME}/.ssh
-        chmod 400 -R /home/${USERNAME}/.ssh/authorized_keys
+        mkdir -p /home/$${USERNAME}/.ssh
+        cp /config/.ssh/authorized_keys /home/$${USERNAME}/.ssh/authorized_keys
+        chown $${USERNAME}:$${USERNAME} -R /home/$${USERNAME}/.ssh
+        chmod 400 -R /home/$${USERNAME}/.ssh/authorized_keys
       fi
   authorized_keys:
     content: |

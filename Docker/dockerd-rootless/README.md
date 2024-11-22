@@ -32,8 +32,8 @@ export DOWNLOAD_DOCKER_SITE=https://mirror.iscas.ac.cn/docker-ce # 可选， 使
 
 mkdir -p ~/.dockerd && cd ~/.dockerd
 alias wget='wget --no-check-certificate --timeout=3 --tries=10'
-wget -q -O install.sh https://apiv1.github.io/Docker/dockerd-rootless/install.sh && chmod +x install.sh
-./install.sh
+wget -q -O install-rootless.sh https://apiv1.github.io/Docker/dockerd-rootless/install.sh && chmod +x install-rootless.sh
+./install-rootless.sh
 . .envrc
 ```
 

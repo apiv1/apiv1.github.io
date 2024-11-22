@@ -68,6 +68,25 @@ if test ! -f "$SCRIPT_HOME/bin/dockerd-rootless.sh" ; then
   rmdir docker-rootless-extras
 fi
 
+DOCKERD_HOME_REAL="$SCRIPT_HOME/lib/docker"
+DOCKERD_HOME=~/.local/share/docker
+
+mkdir -p "$DOCKERD_HOME_REAL"
+mkdir -p $(dirname $DOCKERD_HOME)
+ln -sf $DOCKERD_HOME_REAL $DOCKERD_HOME
+
+DOCKER_DAEMON_JSON_REAL="$SCRIPT_HOME/daemon.json"
+DOCKER_DAEMON_JSON=~/.config/docker/daemon.json
+
+if test ! -f "$SCRIPT_HOME/daemon.json" ; then
+cat <<EOF > "$SCRIPT_HOME/daemon.json"
+{
+}
+EOF
+fi
+mkdir -p $(dirname $DOCKER_DAEMON_JSON)
+ln -sf $DOCKER_DAEMON_JSON_REAL $DOCKER_DAEMON_JSON
+
 PATH=$PATH:"$SCRIPT_HOME/bin"
 bin/dockerd-rootless-setuptool.sh uninstall || :
 bin/dockerd-rootless-setuptool.sh install
@@ -89,7 +108,8 @@ load_docker_envs() {
 load_docker_envs
 EOF
 
-cat <<EOF > "$SCRIPT_HOME/uninstall.sh"
+UNINSTALL_ROOTLESS_FILE="$SCRIPT_HOME/uninstall-rootless.sh"
+cat <<EOF > "$UNINSTALL_ROOTLESS_FILE"
 #!/bin/sh
 
 set -e
@@ -99,7 +119,7 @@ SCRIPT_HOME=\$(cd "\$(dirname "\$0" 2>/dev/null)";pwd)
 export PATH="\$SCRIPT_HOME/bin:\$PATH"
 "\$SCRIPT_HOME/bin/dockerd-rootless-setuptool.sh" uninstall
 EOF
-chmod +x "$SCRIPT_HOME/uninstall.sh"
+chmod +x "$UNINSTALL_ROOTLESS_FILE"
 
 echo '
 Put it into your shell rc file:

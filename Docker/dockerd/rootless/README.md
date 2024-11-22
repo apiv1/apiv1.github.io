@@ -37,7 +37,7 @@ wget -q -O install-rootless.sh https://apiv1.github.io/Docker/dockerd/rootless/i
 . .envrc
 ```
 
-***他会提示你把```source /path/to/.envrc```加到shell启动配置脚本里*** 下次进这个shell就还能用docker
+***他会提示你把```. /path/to/.envrc```加到shell启动配置脚本里*** 下次进这个shell就还能用docker
 * 如果安装失败了, [装缺失依赖](#安装前的设置), 然后重新安装```./install-rootless```
 
 dockerd配置文件, 可配置[Docker镜像源](../../Mirrors/Docker镜像源.md)

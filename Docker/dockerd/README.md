@@ -28,7 +28,7 @@ wget -q -O install.sh https://apiv1.github.io/Docker/dockerd/install.sh && chmod
 ./install.sh
 . .envrc
 ```
-***他会提示你把```source /path/to/.envrc```加到shell启动配置脚本里*** 下次进这个shell就还能用docker
+***他会提示你把```. /path/to/.envrc```加到shell启动配置脚本里*** 下次进这个shell就还能用docker
 * 如果安装完成启动失败了, [装缺失依赖](#安装前的设置), 然后重启docker服务```systemctl restart docker```
 
 dockerd配置文件, 可配置[Docker镜像源](../../Mirrors/Docker镜像源.md)

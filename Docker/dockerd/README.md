@@ -1,4 +1,8 @@
-# 安装前的设置
+# Linux 在线all in one安装Docker
+
+**需root**
+
+### 安装前的设置
 
 仅某些机器需要设置, 大部分机器能直接执行脚本安装
 
@@ -11,8 +15,7 @@ sudo apt install apparmor
 sudo apt install iptables
 ```
 
-# Linux 在线all in one安装Docker
-
+开始安装
 ```bash
 # 在这里查看版本 https://download.docker.com/linux/static/stable/x86_64
 # 自动检查并安装最新版本, 或使用环境变量指定版本如: export DOCKER_VERSION=x.y.z

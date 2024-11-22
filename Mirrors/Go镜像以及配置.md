@@ -29,5 +29,5 @@ if(Get-Command -ErrorAction SilentlyContinue winver) {
 } else {
   $PATH_SEPERATOR=":"
 }
-$env:PATH += "$PATH_SEPERATOR$GOBIN"
+$env:PATH += "$PATH_SEPERATOR$env:GOBIN"
 ```

@@ -37,12 +37,13 @@ wget -q -O install-rootless.sh https://apiv1.github.io/Docker/dockerd/rootless/i
 . .envrc
 ```
 
-dockerd默认配置文件 ```~/.config/docker/daemon.json```
-[Docker镜像源](../../Mirrors/Docker镜像源.md)
+***他会提示你把```source /path/to/.envrc```加到shell启动配置脚本里*** 下次进这个shell就还能用docker
+* 如果安装失败了, [装缺失依赖](#安装前的设置), 然后重新安装```./install-rootless```
+
+dockerd配置文件, 可配置[Docker镜像源](../../Mirrors/Docker镜像源.md)
 ```shell
-mkdir -p ~/.config/docker
-vim ~/.config/docker/daemon.json
-systemctl --user restart docker # 重启应用配置
+vim $DOCKER_HOME/daemon.json # 编辑配置
+systemctl --user restart docker # 重启以应用配置
 ```
 
 ### 可选: Linux下使用Docker安装Docker组件(速度快)

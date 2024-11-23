@@ -1,12 +1,12 @@
 
 services:
   postgres:
-    image: postgres:14.2-alpine
+    image: postgres:17-alpine
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
       - 5432:5432
-    privileged: true
+    restart: always
     expose:
       - 5432
     environment:

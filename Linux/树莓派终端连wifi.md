@@ -3,7 +3,7 @@
 # 查看无线网卡
 ip addr
 
-$NETCARD=wlan0
+NETCARD=wlan0
 
 # 搜索
 sudo iwlist $NETCARD scan | less

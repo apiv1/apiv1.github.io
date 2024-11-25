@@ -99,3 +99,15 @@ PORT=$(echo $HOST_ADDR | sed 's/^[^:]*[:]*//g')
 ```shell
 awk -F'"' '{for(i=2; i<=NF; i+=2) print $i}' example.txt
 ```
+
+大小写
+```shell
+# 把变量中的第一个字符换成大写
+echo ${var^}
+# 把变量中的所有小写字母，全部替换为大写
+echo ${var^^}
+# 把变量中的第一个字符换成小写
+echo ${var,}
+# 把变量中的所有大写字母，全部替换为小写
+echo ${var,,}
+```

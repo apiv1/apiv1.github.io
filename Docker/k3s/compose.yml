@@ -1,7 +1,7 @@
 name: k3s
 services:
   k3s:
-    image: rancher/k3s:v1.31.1-k3s1
+    image: rancher/k3s:v1.31.2-k3s1
     command: server ${SERVICE_ARGS:-""} --disable agent --disable traefik
     restart: always
     network_mode: host
@@ -12,9 +12,14 @@ services:
     configs:
       - source: registries.yaml
         target: /etc/rancher/k3s/registries.yaml
+      - source: config.yaml
+        target: /etc/rancher/k3s/config.yaml
 volumes:
   data:
 configs:
   registries.yaml:
     content: |
-      ${REGISTRY_CONFIG}
+      ${REGISTRY_YAML}
+  config.yaml:
+    content: |
+      ${CONFIG_YAML}

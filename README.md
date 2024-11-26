@@ -373,6 +373,7 @@
 |  &nbsp;|--&nbsp;[k3d](./K8s/k3d)  
 |  &nbsp;|  &nbsp;+--&nbsp;[README.md](./K8s/k3d/README.md)  
 |  &nbsp;|--&nbsp;[k3s](./K8s/k3s)  
+|  &nbsp;|  &nbsp;|--&nbsp;[OLD_INSTALL_MIGRATE_INTO_DOCKER.md](./K8s/k3s/OLD_INSTALL_MIGRATE_INTO_DOCKER.md)  
 |  &nbsp;|  &nbsp;|--&nbsp;[PORTABLE_INSTALL.md](./K8s/k3s/PORTABLE_INSTALL.md)  
 |  &nbsp;|  &nbsp;|--&nbsp;[README.md](./K8s/k3s/README.md)  
 |  &nbsp;|  &nbsp;|--&nbsp;[install.sh](./K8s/k3s/install.sh)  

@@ -1,6 +1,6 @@
 services:
   redis:
-    image: redis:7.2.5-alpine
+    image: redis:redis:8.0-M02-alpine
     ports:
       - 6379:6379
     command: redis-server --appendonly yes --requirepass redis

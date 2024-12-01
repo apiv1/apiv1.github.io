@@ -330,6 +330,7 @@
 |  &nbsp;|  &nbsp;|--&nbsp;[go.mod](./Go/self-cert/go.mod)  
 |  &nbsp;|  &nbsp;+--&nbsp;[main.go](./Go/self-cert/main.go)  
 |  &nbsp;|--&nbsp;[serialserver](./Go/serialserver)  
+|  &nbsp;|  &nbsp;|--&nbsp;[README.md](./Go/serialserver/README.md)  
 |  &nbsp;|  &nbsp;|--&nbsp;[go.mod](./Go/serialserver/go.mod)  
 |  &nbsp;|  &nbsp;|--&nbsp;[go.sum](./Go/serialserver/go.sum)  
 |  &nbsp;|  &nbsp;+--&nbsp;[server.go](./Go/serialserver/server.go)  

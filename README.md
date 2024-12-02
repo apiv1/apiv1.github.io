@@ -559,5 +559,6 @@
 |  &nbsp;|--&nbsp;[有线和无线同时联网.md](./Windows/有线和无线同时联网.md)  
 |  &nbsp;|--&nbsp;[有线和无线同时联网.reg](./Windows/有线和无线同时联网.reg)  
 |  &nbsp;|--&nbsp;[禁用更新.reg](./Windows/禁用更新.reg)  
-|  &nbsp;+--&nbsp;[自带杀软设置排除文件.md](./Windows/自带杀软设置排除文件.md)  
+|  &nbsp;|--&nbsp;[自带杀软设置排除文件.md](./Windows/自带杀软设置排除文件.md)  
+|  &nbsp;+--&nbsp;[远程桌面剪贴板失效.md](./Windows/远程桌面剪贴板失效.md)  
 +--&nbsp;[compose.yml](./compose.yml)  

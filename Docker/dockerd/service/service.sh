@@ -108,13 +108,12 @@ dockerd-rootless:
 }
 
 dockerd_envrc_install () {
-local DOCKER_UNIX_SOCK=unix:///tmp/${SERVICE_NAME}.sock
 cat <<EOF > "$SCRIPT_HOME/.envrc"
 export DOCKERD_HOME="$SCRIPT_HOME"
 
 dockerd-load-envs() {
 if test -n "\$USE_ROOT_DOCKERD" -o "\$(id -u)" = "0"; then
-  export DOCKER_HOST="$DOCKER_UNIX_SOCK"
+  export DOCKER_HOST="unix:///tmp/\${SERVICE_NAME:-docker}.sock"
 else
   if test ! -w "\$XDG_RUNTIME_DIR"; then
     echo "dockerd-load-envs: ERROR: XDG_RUNTIME_DIR needs to be set and writable"
@@ -153,7 +152,7 @@ fi
 local DOCKER_UNIX_SOCK=unix:///tmp/${SERVICE_NAME}.sock
 local DOCKERD_TMP_DIR=/tmp/${SERVICE_NAME}
 local DOCKER_BIN="$SCRIPT_HOME/bin"
-local DOCKERD_ARGS='-H '$DOCKER_UNIX_SOCK' --exec-root '$DOCKERD_TMP_DIR'/run/docker -p '$DOCKERD_TMP_DIR'/run/docker.pid --config-file '$SCRIPT_HOME'/daemon.json --data-root '$SCRIPT_HOME'/lib/docker'
+local DOCKERD_ARGS='-H '$DOCKER_UNIX_SOCK' --exec-root '$DOCKERD_TMP_DIR'/run/docker -p '$DOCKERD_TMP_DIR'/run/docker.pid --config-file '$SCRIPT_HOME'/daemon.json --data-root '$SCRIPT_HOME'/lib/'$SERVICE_NAME
 
 if test ! -f "$SCRIPT_HOME/daemon.json" ; then
 cat <<EOF > "$SCRIPT_HOME/daemon.json"

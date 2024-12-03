@@ -487,6 +487,7 @@
 |  &nbsp;|--&nbsp;[didRegisterForRemoteNotificationsWithDeviceToken.md](./Swift/didRegisterForRemoteNotificationsWithDeviceToken.md)  
 |  &nbsp;+--&nbsp;[hexString.swift](./Swift/hexString.swift)  
 |--&nbsp;[Tools](./Tools)  
+|  &nbsp;|--&nbsp;[Bash循环.md](./Tools/Bash循环.md)  
 |  &nbsp;|--&nbsp;[Bash脚本Split.md](./Tools/Bash脚本Split.md)  
 |  &nbsp;|--&nbsp;[Chrome插件与配置.md](./Tools/Chrome插件与配置.md)  
 |  &nbsp;|--&nbsp;[Docker-Tutorial.md](./Tools/Docker-Tutorial.md)  

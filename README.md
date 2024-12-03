@@ -519,6 +519,7 @@
 |  &nbsp;|--&nbsp;[it-tools.md](./Tools/it-tools.md)  
 |  &nbsp;|--&nbsp;[jq.md](./Tools/jq.md)  
 |  &nbsp;|--&nbsp;[kubectl.md](./Tools/kubectl.md)  
+|  &nbsp;|--&nbsp;[netcat.md](./Tools/netcat.md)  
 |  &nbsp;|--&nbsp;[nmap.md](./Tools/nmap.md)  
 |  &nbsp;|--&nbsp;[nvm安装.md](./Tools/nvm安装.md)  
 |  &nbsp;|--&nbsp;[ohmyzsh安装.md](./Tools/ohmyzsh安装.md)  

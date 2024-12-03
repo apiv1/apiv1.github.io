@@ -4,6 +4,7 @@ set -e
 
 SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
 
+SERVICE_NAME=${SERVICE_NAME:-docker}
 DOCKER_ARCH=${DOCKER_ARCH:-$(uname -m)}
 case "$DOCKER_ARCH" in
 arm64|armv8)
@@ -107,12 +108,13 @@ dockerd-rootless:
 }
 
 dockerd_envrc_install () {
+local DOCKER_UNIX_SOCK=unix:///tmp/${SERVICE_NAME}.sock
 cat <<EOF > "$SCRIPT_HOME/.envrc"
 export DOCKERD_HOME="$SCRIPT_HOME"
 
 dockerd-load-envs() {
 if test -n "\$USE_ROOT_DOCKERD" -o "\$(id -u)" = "0"; then
-  export DOCKER_HOST="unix:///tmp/dockerd.sock"
+  export DOCKER_HOST="$DOCKER_UNIX_SOCK"
 else
   if test ! -w "\$XDG_RUNTIME_DIR"; then
     echo "dockerd-load-envs: ERROR: XDG_RUNTIME_DIR needs to be set and writable"
@@ -142,15 +144,14 @@ EOF
 
 # System Service
 dockerd_service_install () {
-local SERVICE_NAME=${SERVICE_NAME:-docker}
 local DOCKER_SERVICE_FILE="${DOCKER_SERVICE_FILE:-/etc/systemd/system/${SERVICE_NAME}.service}"
 if test -f "$DOCKER_SERVICE_FILE" ; then
   echo "'$DOCKER_SERVICE_FILE' already exist. delete or move it manually to continue install."
   return 1
 fi
 
-local DOCKER_UNIX_SOCK=unix:///tmp/dockerd.sock
-local DOCKERD_TMP_DIR=/tmp/dockerd
+local DOCKER_UNIX_SOCK=unix:///tmp/${SERVICE_NAME}.sock
+local DOCKERD_TMP_DIR=/tmp/${SERVICE_NAME}
 local DOCKER_BIN="$SCRIPT_HOME/bin"
 local DOCKERD_ARGS='-H '$DOCKER_UNIX_SOCK' --exec-root '$DOCKERD_TMP_DIR'/run/docker -p '$DOCKERD_TMP_DIR'/run/docker.pid --config-file '$SCRIPT_HOME'/daemon.json --data-root '$SCRIPT_HOME'/lib/docker'
 
@@ -199,7 +200,6 @@ systemctl status --no-pager "$SERVICE_NAME"
 }
 
 dockerd_service_uninstall () {
-  local SERVICE_NAME=${SERVICE_NAME:-docker}
   local DOCKER_SERVICE_FILE="${DOCKER_SERVICE_FILE:-/etc/systemd/system/${SERVICE_NAME}.service}"
 
   systemctl stop "$SERVICE_NAME"

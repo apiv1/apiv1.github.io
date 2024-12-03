@@ -2,10 +2,10 @@
 
 set -e
 
-SERVICE_NAME=docker
-DOCKER_SERVICE_FILE=${DOCKER_SERVICE_FILE:-/etc/systemd/system/${SERVICE_NAME}.service}
-
 SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
+
+SERVICE_NAME=${SERVICE_NAME:-docker}
+DOCKER_SERVICE_FILE=${DOCKER_SERVICE_FILE:-/etc/systemd/system/${SERVICE_NAME}.service}
 
 echo '
   systemctl stop '$SERVICE_NAME'
@@ -52,8 +52,8 @@ if test ! -f "$SCRIPT_HOME/bin/dockerd" ; then
   rmdir docker
 fi
 
-DOCKER_UNIX_SOCK=unix:///tmp/dockerd.sock
-DOCKERD_TMP_DIR=/tmp/dockerd
+DOCKER_UNIX_SOCK=unix:///tmp/${SERVICE_NAME}.sock
+DOCKERD_TMP_DIR=/tmp/${SERVICE_NAME}
 DOCKER_BIN="$SCRIPT_HOME/bin"
 DOCKERD_ARGS='-H '$DOCKER_UNIX_SOCK' --exec-root '$DOCKERD_TMP_DIR'/run/docker -p '$DOCKERD_TMP_DIR'/run/docker.pid --config-file '$SCRIPT_HOME'/daemon.json --data-root '$SCRIPT_HOME'/lib/docker'
 

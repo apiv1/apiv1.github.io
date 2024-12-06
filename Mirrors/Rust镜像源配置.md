@@ -1,3 +1,5 @@
+参考 [rxproxy](https://rsproxy.cn/)
+
 #### config
 
 $HOME/.cargo/config.toml

@@ -1,0 +1,10 @@
+services:
+  web:
+    image: nginx:stable-alpine
+    volumes:
+      - ./html:/usr/share/nginx/html
+    ports:
+      - "80:80"
+    environment:
+      - NGINX_HOST=0.0.0.0
+      - NGINX_PORT=80

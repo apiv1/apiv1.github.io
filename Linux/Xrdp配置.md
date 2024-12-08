@@ -1,5 +1,7 @@
 Linux配置xrdp: [https://docs.microsoft.com/zh-cn/azure/virtual-machines/linux/use-remote-desktop](https://docs.microsoft.com/zh-cn/azure/virtual-machines/linux/use-remote-desktop)
 
+### 安装
+
 ```bash
 # 安装xfce4(可选)
 sudo apt-get -y install xfce4
@@ -21,12 +23,17 @@ sudo systemctl enable xrdp --now
 sudo systemctl disable firewalld --now # 可能要关闭防火墙
 ```
 
-编辑配置文件
+### Ubuntu命令行注销桌面, 以便xrdp远程登录(重启后登不上去有时候也是这情况)
+```shell
+gnome-session-quit --no-prompt
+```
+
+#### 编辑配置文件
 ```shell
 vim /etc/xrdp/xrdp.ini
 ```
 
-登录后不需要授权给管理器, （不一定需要执行这个）
+#### 登录后不需要授权给管理器, （不一定需要执行这个）
 ```bash
 cat <<EOF > /etc/polkit-1/localauthority.conf.d/02-allow-colord.conf
 polkit.addRule(function(action, subject) {
@@ -98,9 +105,4 @@ ResultInactive=auth_admin
 ResultActive=yes
 EOF
 sudo systemctl restart polkit
-```
-
-Ubuntu命令行注销桌面, 以便xrdp远程登录
-```shell
-gnome-session-quit --no-prompt
 ```

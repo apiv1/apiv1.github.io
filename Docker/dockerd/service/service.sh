@@ -99,7 +99,13 @@ If use root dockerd in non-root user:
     USE_ROOT_DOCKERD=1 . '$SCRIPT_HOME'/.envrc
 And:
   sudo sh -c "groupadd docker; usermod -aG docker ${USER}"
-  # may need reboot host
+  sudo systemctl restart docker
+
+  # enable now
+  newgrp docker # shell temporary
+  pkill X # restart X-session
+  sudo reboot # reboot host
+  exit # ssh relogin
 
 dockerd-rootless:
   exec-root: ~/.local/share/docker/

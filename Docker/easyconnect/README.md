@@ -2,7 +2,7 @@
 
 启动
 ```shell
-cp .env.example .env
+cp env.example .env
 vim .env
 docker compose up -d
 ```

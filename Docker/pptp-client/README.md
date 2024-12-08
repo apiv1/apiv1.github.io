@@ -6,7 +6,7 @@
 
 ### 启动
 ```shell
-cp .env.example .env
+cp env.example .env
 vim .env # 配置服务器,用户名,密码,虚拟子网路由等
 docker compose up -d
 ```

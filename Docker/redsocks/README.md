@@ -23,7 +23,7 @@ docker rm -f redsocks
 
 docker-compose
 ```shell
-# .env.example 复制为 .env, 使用.env中环境变量参数设置代理
+# env.example 复制为 .env, 使用.env中环境变量参数设置代理
 # 启动服务
 docker-compose up -d
 

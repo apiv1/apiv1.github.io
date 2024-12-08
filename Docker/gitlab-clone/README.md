@@ -12,7 +12,7 @@ cp ~/.git-credentials .git-credentials
 # if use ssh
 cp ~/.ssh/id_rsa id_rsa
 
-cp .env.example .env
+cp env.example .env
 vim .env # set env here
 
 docker-compose up

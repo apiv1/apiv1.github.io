@@ -17,6 +17,10 @@ groupadd --gid ${PGID} ${USERNAME}
 useradd --shell /bin/bash --uid ${PUID} --gid ${PGID} --password $(openssl passwd ${PASSWORD}) --create-home --home-dir /home/${USERNAME} ${USERNAME}
 usermod -aG sudo ${USERNAME}
 
+/usr/sbin/xrdp-sesman -k
+/usr/sbin/xrdp -k
+rm -rf /run/xrdp/xrdp.pid /run/xrdp/xrdp-sesman.pid
+
 # Start xrdp sesman service
 /usr/sbin/xrdp-sesman
 

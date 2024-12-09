@@ -14,11 +14,11 @@ const (
 )
 
 const (
-	ParityNone  Parity = 'N'
-	ParityOdd   Parity = 'O'
-	ParityEven  Parity = 'E'
-	ParityMark  Parity = 'M' // parity bit is always 1
-	ParitySpace Parity = 'S' // parity bit is always 0
+	ParityNone  Parity = 'N' // 0x4E
+	ParityOdd   Parity = 'O' // 0x4F
+	ParityEven  Parity = 'E' // 0x45
+	ParityMark  Parity = 'M' // 0x4d, parity bit is always 1
+	ParitySpace Parity = 'S' // 0x53, parity bit is always 0
 )
 
 // Config contains the information needed to open a serial port.

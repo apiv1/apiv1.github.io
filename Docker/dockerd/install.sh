@@ -96,12 +96,12 @@ WantedBy=multi-user.target
 chmod +x $DOCKER_SERVICE_FILE
 
 cat <<EOF > "$SCRIPT_HOME/.envrc"
-DOCKER_HOME="$SCRIPT_HOME"
-export PATH="\$DOCKER_HOME/bin:\$PATH"
+DOCKERD_HOME="$SCRIPT_HOME"
+export PATH="\$DOCKERD_HOME/bin:\$PATH"
 export DOCKER_HOST="$DOCKER_UNIX_SOCK"
 test -n "\$DOCKER_HOST" -a -z "\$DOCKER_SOCK" && export DOCKER_SOCK=\${DOCKER_HOST//unix:\/\//}
 load_docker_envs() {
-  local ENV_PATH="\$DOCKER_HOME/.envrc.d"
+  local ENV_PATH="\$DOCKERD_HOME/.envrc.d"
   for item in \$(ls -A \${ENV_PATH} 2>/dev/null)
   do
     . "\$ENV_PATH/\$item"

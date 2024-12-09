@@ -33,13 +33,13 @@ wget -q -O install.sh https://apiv1.github.io/Docker/dockerd/install.sh && chmod
 
 dockerd配置文件, 可配置[Docker镜像源](../../Mirrors/Docker镜像源.md)
 ```shell
-vim $DOCKER_HOME/daemon.json # 编辑配置
+vim $DOCKERD_HOME/daemon.json # 编辑配置
 systemctl restart docker # 重启以应用配置
 ```
 
 ### 可选: Linux下使用Docker安装Docker组件(速度快)
 ```shell
-cd $DOCKER_HOME/bin
+cd $DOCKERD_HOME/bin
 
 # 安装 docker-compose
 docker container create --pull always --name docker-compose-container apiv1/docker-compose

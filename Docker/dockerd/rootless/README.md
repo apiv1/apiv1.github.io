@@ -42,7 +42,7 @@ wget -q -O install-rootless.sh https://apiv1.github.io/Docker/dockerd/rootless/i
 
 dockerd配置文件, 可配置[Docker镜像源](../../Mirrors/Docker镜像源.md)
 ```shell
-vim $DOCKER_HOME/daemon.json # 编辑配置
+vim $DOCKERD_HOME/daemon.json # 编辑配置
 systemctl --user restart docker # 重启以应用配置
 ```
 

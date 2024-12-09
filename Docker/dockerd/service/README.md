@@ -10,6 +10,7 @@ alias wget='wget --no-check-certificate --timeout=10 --tries=10'
 # root
 mkdir -p /opt/dockerd && cd /opt/dockerd
 wget -q -O service.sh https://apiv1.github.io/Docker/dockerd/service/service.sh && chmod +x service.sh
+./service.sh install
 ./service.sh up
 . .envrc
 # -------------------
@@ -17,6 +18,7 @@ wget -q -O service.sh https://apiv1.github.io/Docker/dockerd/service/service.sh 
 # rootless only
 mkdir -p ~/.dockerd && cd ~/.dockerd
 wget -q -O service.sh https://apiv1.github.io/Docker/dockerd/service/service.sh && chmod +x service.sh
+./service.sh install-rootless
 ./service.sh up
 . .envrc
 # -------------------

@@ -9,7 +9,7 @@ if test ! -w "$XDG_RUNTIME_DIR"; then
   exit 1
 fi
 
-alias wget='wget --no-check-certificate --timeout=3 --tries=10'
+alias wget='wget --no-check-certificate --timeout=10 --tries=10'
 
 DOCKER_ARCH=${DOCKER_ARCH:-$(uname -m)}
 case "$DOCKER_ARCH" in

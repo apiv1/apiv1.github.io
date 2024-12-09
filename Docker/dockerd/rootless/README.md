@@ -31,7 +31,7 @@ sudo sysctl -p # 应用变更
 export DOWNLOAD_DOCKER_SITE=https://mirror.iscas.ac.cn/docker-ce # 可选， 使用镜像站点下载
 
 mkdir -p ~/.dockerd && cd ~/.dockerd
-alias wget='wget --no-check-certificate --timeout=3 --tries=10'
+alias wget='wget --no-check-certificate --timeout=10 --tries=10'
 wget -q -O install-rootless.sh https://apiv1.github.io/Docker/dockerd/rootless/install-rootless.sh && chmod +x install-rootless.sh
 ./install-rootless.sh
 . .envrc

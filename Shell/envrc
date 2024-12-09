@@ -13,14 +13,14 @@ download_url() {
   URL=$1
   FILE=$2
   if command -v wget >/dev/null 2>&1; then
-    local WGET_ARGS='--no-check-certificate --timeout=3 --tries=10'
+    local WGET_ARGS='--no-check-certificate --timeout=10 --tries=10'
     if test -n "$FILE"; then
       wget $WGET_ARGS -O $FILE $URL
     else
       wget $WGET_ARGS $URL
     fi
   elif command -v curl >/dev/null 2>&1; then
-    local CURL_ARGS='-m 3 --retry 10 -sSLk'
+    local CURL_ARGS='-m 10 --retry 10 -sSLk'
     if test -n "$FILE"; then
       curl $CURL_ARGS -o $FILE $URL
     else
@@ -71,10 +71,10 @@ dict_install() {
   __envrc_install__ https://apiv1.github.io/Docker/node-dict/node-dict.envrc
 }
 
-git_config_install() {
-  download_url https://apiv1.github.io/Git/gitconfig ~/.gitconfig
-}
-
 z_install() {
   __envrc_install__ https://apiv1.github.io/z/z.sh
+}
+
+git_config_install() {
+  download_url https://apiv1.github.io/Git/gitconfig ~/.gitconfig
 }

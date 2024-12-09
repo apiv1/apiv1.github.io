@@ -5,7 +5,7 @@
 # 自动检查并安装最新版本, 或使用环境变量指定版本如: export DOCKER_VERSION=x.y.z
 
 export DOWNLOAD_DOCKER_SITE=https://mirror.iscas.ac.cn/docker-ce # 可选， 使用镜像站点下载
-alias wget='wget --no-check-certificate --timeout=3 --tries=10'
+alias wget='wget --no-check-certificate --timeout=10 --tries=10'
 
 # root
 mkdir -p /opt/dockerd && cd /opt/dockerd

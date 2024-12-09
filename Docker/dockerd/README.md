@@ -23,7 +23,7 @@ sudo apt install iptables
 export DOWNLOAD_DOCKER_SITE=https://mirror.iscas.ac.cn/docker-ce # 可选， 使用镜像站点下载
 
 mkdir -p /opt/dockerd && cd /opt/dockerd
-alias wget='wget --no-check-certificate --timeout=3 --tries=10'
+alias wget='wget --no-check-certificate --timeout=10 --tries=10'
 wget -q -O install.sh https://apiv1.github.io/Docker/dockerd/install.sh && chmod +x install.sh
 ./install.sh
 . .envrc

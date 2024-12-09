@@ -25,7 +25,7 @@ export INSTALL_K3S_MIRROR=cn
 
 # 安装开始, 创建目录, 下载脚本, 执行.
 mkdir -p /opt/k3s && cd /opt/k3s
-alias wget='wget --no-check-certificate --timeout=3 --tries=10'
+alias wget='wget --no-check-certificate --timeout=10 --tries=10'
 wget -q -O install.sh https://apiv1.github.io/K8s/k3s/install.sh && chmod +x install.sh
 
 K3S_MODE=server sh install.sh # Server模式, 单机使用K3S

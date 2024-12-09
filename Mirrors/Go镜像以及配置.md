@@ -31,3 +31,10 @@ if(Get-Command -ErrorAction SilentlyContinue winver) {
 }
 $env:PATH += "$PATH_SEPERATOR$env:GOBIN"
 ```
+
+安装工具
+```shell
+go install -v golang.org/x/tools/gopls@latest
+go install -v golang.org/x/tools/cmd/goimports@latest
+go install -v honnef.co/go/tools/cmd/staticcheck@latest
+```

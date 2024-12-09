@@ -11,7 +11,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/tarm/serial"
+	"github.com/goburrow/serial"
 	"gopkg.in/yaml.v2"
 )
 
@@ -47,7 +47,7 @@ func handleListener(ctx context.Context, listener net.Listener, serialOptions *s
 	defer conn.Close()
 	log.Println("connect")
 
-	serialHandler, err := serial.OpenPort(serialOptions)
+	serialHandler, err := serial.Open(serialOptions)
 	if err != nil {
 		log.Printf("serial open failed: %v", err.Error())
 		return true

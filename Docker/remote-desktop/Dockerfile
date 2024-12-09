@@ -1,6 +1,6 @@
 ARG STAGE_BUILDER=builder
 ARG STAGE_DEPLOY=deploy
-FROM ubuntu:20.04 as builder
+FROM ubuntu:20.04 AS builder
 RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list \
     && sed -i 's/ports.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list \
     && sed -i -E 's/^# deb-src /deb-src /g' /etc/apt/sources.list \
@@ -25,10 +25,10 @@ RUN git clone https://github.com/neutrinolabs/pulseaudio-module-xrdp.git /pulsea
     && make \
     && make install
 
-FROM ${STAGE_BUILDER} as stage-builder
+FROM ${STAGE_BUILDER} AS stage-builder
 
 # Build the final image
-FROM ubuntu:24.04 as deploy
+FROM ubuntu:24.04 AS deploy
 ARG TARGETOS
 ARG TARGETARCH
 RUN   sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/ubuntu.sources && \
@@ -53,7 +53,7 @@ RUN   sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.
 RUN sed -i -E 's/^; autospawn =.*/autospawn = yes/' /etc/pulse/client.conf \
     && [ -f /etc/pulse/client.conf.d/00-disable-autospawn.conf ] && sed -i -E 's/^(autospawn=.*)/# \1/' /etc/pulse/client.conf.d/00-disable-autospawn.conf || : \
     && locale-gen en_US.UTF-8
-ENV LANG en_US.UTF-8
+ENV LANG=en_US.UTF-8
 
 COPY --from=stage-builder /usr/lib/pulse-*/modules/module-xrdp-sink.so /usr/lib/pulse-*/modules/module-xrdp-source.so /var/lib/xrdp-pulseaudio-installer/
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
@@ -61,7 +61,7 @@ RUN chmod +x /usr/local/bin/*
 EXPOSE 3389/tcp
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
 
-FROM ${STAGE_DEPLOY} as stage-deploy
+FROM ${STAGE_DEPLOY} AS stage-deploy
 
 FROM stage-deploy AS chrome
 RUN apt-get --update install -y \

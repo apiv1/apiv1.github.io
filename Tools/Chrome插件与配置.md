@@ -25,3 +25,12 @@ rm -rf ~/.config/google-chrome/Singleton*
 ```shell
 google-chrome --no-sandbox --headless --remote-debugging-address=0.0.0.0 --remote-debugging-port=9222 --user-data-dir="$HOME/.chrome-user-data"
 ```
+
+### 配置文件夹路径
+* Windows
+```%localappdata%\Google\Chrome\User Data\```
+* Linux
+```~/.config/google-chrome/```
+```~/.local/share/google-chrome/```
+* Mac
+```~/Library/Application Support/Google/Chrome/```

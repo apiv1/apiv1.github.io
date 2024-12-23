@@ -584,6 +584,7 @@
 |  &nbsp;|--&nbsp;[禁用更新.md](./Windows/禁用更新.md)  
 |  &nbsp;|--&nbsp;[禁用更新.reg](./Windows/禁用更新.reg)  
 |  &nbsp;|--&nbsp;[自带杀软设置排除文件.md](./Windows/自带杀软设置排除文件.md)  
+|  &nbsp;|--&nbsp;[获得管理员PowerShell.md](./Windows/获得管理员PowerShell.md)  
 |  &nbsp;|--&nbsp;[装OpenSSH.md](./Windows/装OpenSSH.md)  
 |  &nbsp;|--&nbsp;[远程唤醒.md](./Windows/远程唤醒.md)  
 |  &nbsp;+--&nbsp;[远程桌面剪贴板失效.md](./Windows/远程桌面剪贴板失效.md)  

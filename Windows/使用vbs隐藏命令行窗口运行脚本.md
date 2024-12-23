@@ -10,3 +10,9 @@ run.bat
 ```cmd
 for /l %%a in (0,0,1) ping localhost
 ```
+
+## 执行ps1脚本
+```vbs
+Set objShell = WScript.CreateObject("WScript.Shell")
+objShell.Run "powershell -noexit -file C:\ps1\run.ps1", 0
+```

@@ -569,7 +569,7 @@
 |  &nbsp;|--&nbsp;[netsh设置.md](./Windows/netsh设置.md)  
 |  &nbsp;|--&nbsp;[休眠.md](./Windows/休眠.md)  
 |  &nbsp;|--&nbsp;[使用route设置路由.md](./Windows/使用route设置路由.md)  
-|  &nbsp;|--&nbsp;[使用vbs隐藏命令行窗口运行bat.md](./Windows/使用vbs隐藏命令行窗口运行bat.md)  
+|  &nbsp;|--&nbsp;[使用vbs隐藏命令行窗口运行脚本.md](./Windows/使用vbs隐藏命令行窗口运行脚本.md)  
 |  &nbsp;|--&nbsp;[启动项路径.md](./Windows/启动项路径.md)  
 |  &nbsp;|--&nbsp;[命令行控制全局代理.md](./Windows/命令行控制全局代理.md)  
 |  &nbsp;|--&nbsp;[壁纸路径.md](./Windows/壁纸路径.md)  

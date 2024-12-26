@@ -49,6 +49,10 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 curl --proto '=https' --tlsv1.2 -sSf https://rsproxy.cn/rustup-init.sh | sh
 ```
 
+Windows 安装:
+[文档](https://forge.rust-lang.org/infra/other-installation-methods.html#other-ways-to-install-rustup)
+[rustup-init.exe](https://static.rust-lang.org/rustup/dist/i686-pc-windows-gnu/rustup-init.exe)
+
 rust
 
 ```shell

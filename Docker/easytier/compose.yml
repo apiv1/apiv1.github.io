@@ -1,0 +1,14 @@
+services:
+  easytier:
+    image: easytier/easytier:latest
+    command: ${COMMAND:-}
+    restart: always
+    privileged: true
+    hostname: easytier
+    network_mode: host
+    volumes:
+    - home:/root
+    environment:
+    - TZ=Asia/Shanghai
+volumes:
+  home:

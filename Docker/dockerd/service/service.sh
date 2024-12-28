@@ -93,11 +93,7 @@ echo '
 Put it into your shell rc file:
     . '$SCRIPT_HOME'/.envrc
 
-root user for root-dockerd, non-root user for dockerd-rootless
-
 If use root dockerd in non-root user:
-    USE_ROOT_DOCKERD=1 . '$SCRIPT_HOME'/.envrc
-And:
   sudo sh -c "groupadd docker; usermod -aG docker ${USER}"
   sudo systemctl restart docker
 
@@ -107,6 +103,9 @@ And:
   sudo reboot # reboot host
   exit # ssh relogin
 
+For dockerd-rootless on non-root user,
+Put it into your shell rc file:
+    USE_ROOTLESS_DOCKERD=1 . '$SCRIPT_HOME'/.envrc
 dockerd-rootless:
   exec-root: ~/.local/share/docker/
   config-file: ~/.config/docker/daemon.json
@@ -116,9 +115,10 @@ dockerd-rootless:
 dockerd_envrc_install () {
 cat <<EOF > "$SCRIPT_HOME/.envrc"
 export DOCKERD_HOME="$SCRIPT_HOME"
+export USE_ROOTLESS_DOCKERD="\$USE_ROOTLESS_DOCKERD"
 
 dockerd-load-envs() {
-if test -n "\$USE_ROOT_DOCKERD" -o "\$(id -u)" = "0"; then
+if test -z "\$USE_ROOTLESS_DOCKERD"; then
   export DOCKER_HOST="unix:///tmp/\${SERVICE_NAME:-docker}.sock"
 else
   if test ! -w "\$XDG_RUNTIME_DIR"; then

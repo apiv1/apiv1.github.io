@@ -4,7 +4,7 @@ services:
     command: ${COMMAND:-}
     restart: always
     privileged: true
-    hostname: easytier
+    hostname: ${HOSTNAME}
     network_mode: host
     volumes:
     - home:/root

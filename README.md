@@ -445,7 +445,7 @@
 |  &nbsp;|--&nbsp;[文件监视数量超限.md](./Linux/文件监视数量超限.md)  
 |  &nbsp;|--&nbsp;[时区设置.md](./Linux/时区设置.md)  
 |  &nbsp;|--&nbsp;[查看PCI设备网卡等.md](./Linux/查看PCI设备网卡等.md)  
-|  &nbsp;|--&nbsp;[树莓派终端连wifi.md](./Linux/树莓派终端连wifi.md)  
+|  &nbsp;|--&nbsp;[树莓派终端连网.md](./Linux/树莓派终端连网.md)  
 |  &nbsp;|--&nbsp;[树莓派装k8s.md](./Linux/树莓派装k8s.md)  
 |  &nbsp;|--&nbsp;[远程唤醒.md](./Linux/远程唤醒.md)  
 |  &nbsp;|--&nbsp;[远程桌面系统策略阻止xxx的解决办法.md](./Linux/远程桌面系统策略阻止xxx的解决办法.md)  

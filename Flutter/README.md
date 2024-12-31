@@ -14,6 +14,8 @@ dart pub global activate fvm
 
 ### 代码自动整理命令
 
+[Dart lint](../Dart/lint.md)
+
 ```shell
 fvm dart fix --apply
 ```

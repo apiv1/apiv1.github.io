@@ -450,6 +450,7 @@
 |  &nbsp;|--&nbsp;[查看PCI设备网卡等.md](./Linux/查看PCI设备网卡等.md)  
 |  &nbsp;|--&nbsp;[树莓派终端连网.md](./Linux/树莓派终端连网.md)  
 |  &nbsp;|--&nbsp;[树莓派装k8s.md](./Linux/树莓派装k8s.md)  
+|  &nbsp;|--&nbsp;[树莓派设置显存.md](./Linux/树莓派设置显存.md)  
 |  &nbsp;|--&nbsp;[进入桌面后自动启动程序.md](./Linux/进入桌面后自动启动程序.md)  
 |  &nbsp;|--&nbsp;[远程唤醒.md](./Linux/远程唤醒.md)  
 |  &nbsp;|--&nbsp;[远程桌面系统策略阻止xxx的解决办法.md](./Linux/远程桌面系统策略阻止xxx的解决办法.md)  

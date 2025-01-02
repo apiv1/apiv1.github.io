@@ -6,6 +6,7 @@ daemon.json
   "registry-mirrors": [
     "https://dockerpull.org",
     "https://docker.1panel.dev",
+    "https://docker.foreverlink.love",
     "https://docker.fxxk.dedyn.io",
     "https://docker.xn--6oq72ry9d5zx.cn",
     "https://docker.zhai.cm",
@@ -25,7 +26,13 @@ daemon.json
     "https://hub.geekery.cn",
     "https://docker.1panelproxy.com",
     "https://atomhub.openatom.cn",
-    "https://docker.m.daocloud.io"
+    "https://docker.m.daocloud.io",
+    "https://docker.1ms.run",
+    "https://docker.linkedbus.com",
+    "https://dytt.online",
+    "https://func.ink",
+    "https://lispy.org",
+    "https://docker.xiaogenban1993.com"
   ]
 }
 ```

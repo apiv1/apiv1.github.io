@@ -26,8 +26,8 @@ type Config struct {
 serial.yml
 ```yaml
 address: COM7
-baudRate: 115200
-stopBits: 1
-dataBits: 8
+baudrate: 115200
+stopbits: 1
+databits: 8
 parity: N
 ```

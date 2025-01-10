@@ -2,16 +2,16 @@
 
 set -e
 
-SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
+export SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
 
-SERVICE_NAME=${SERVICE_NAME:-docker}
-DOCKER_ARCH=${DOCKER_ARCH:-$(uname -m)}
+export SERVICE_NAME=${SERVICE_NAME:-docker}
+export DOCKER_ARCH=${DOCKER_ARCH:-$(uname -m)}
 case "$DOCKER_ARCH" in
 arm64|armv8)
-    DOCKER_ARCH=aarch64
+    export DOCKER_ARCH=aarch64
     ;;
 armv7l)
-    DOCKER_ARCH=armhf
+    export DOCKER_ARCH=armhf
     ;;
 *)
     ;;
@@ -230,7 +230,7 @@ if test "$#" -lt 1; then
   exit 1
 fi
 
-ACTION=$1
+export ACTION=$1
 case $ACTION in
 install)
   dockerd_install

@@ -291,6 +291,8 @@
 |  &nbsp;|  &nbsp;+--&nbsp;[compose.yml](./Docker/verdaccio/compose.yml)  
 |  &nbsp;|--&nbsp;[webvirtmgr](./Docker/webvirtmgr)  
 |  &nbsp;|  &nbsp;+--&nbsp;[compose.yml](./Docker/webvirtmgr/compose.yml)  
+|  &nbsp;|--&nbsp;[x-ui](./Docker/x-ui)  
+|  &nbsp;|  &nbsp;+--&nbsp;[run.sh](./Docker/x-ui/run.sh)  
 |  &nbsp;|--&nbsp;[xray](./Docker/xray)  
 |  &nbsp;|  &nbsp;|--&nbsp;[README.md](./Docker/xray/README.md)  
 |  &nbsp;|  &nbsp;|--&nbsp;[compose.yml](./Docker/xray/compose.yml)  

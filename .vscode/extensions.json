@@ -1,5 +1,6 @@
 {
     "recommendations": [
+        "rushfrisby.encryptor",
         "hediet.vscode-drawio",
         "yzhang.markdown-all-in-one",
         "davidanson.vscode-markdownlint",

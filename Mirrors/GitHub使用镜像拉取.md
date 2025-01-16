@@ -35,10 +35,5 @@ https://github.ur1.fun/
 
 站点
 ```
-https://gitdl.cn/
-```
-
-用法: 拼后面
-```
-https://gitdl.cn/"$GITHUB_DOWNLOAD_FILE_URL"
+https://gh.api.99988866.xyz/
 ```

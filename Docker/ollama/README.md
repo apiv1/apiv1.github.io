@@ -13,8 +13,11 @@ docker compose down
 ### docker run 启动
 ```shell
 OLLAMA_DATA=ollama_data # bash/zsh
-
 $OLLAMA_DATA="ollama_data" # powershell
+
+# 指定models路径(可选), 当前文件夹.ollama
+$env:OLLAMA_MODELS='$PWD\.ollama' # Windows
+OLLAMA_MODELS="$PWD/.ollama" # Linux/Mac
 
 # 启动服务
 docker run --rm --name ollama -e OLLAMA_HOST=0.0.0.0:11434 -d -p 11434:11434 -v "${OLLAMA_DATA}:/root/.ollama" ollama/ollama

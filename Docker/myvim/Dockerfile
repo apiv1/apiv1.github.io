@@ -15,5 +15,3 @@ RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/
   && rm -rf /var/lib/apt/lists/* \
   && \
   busybox --install /usr/local/bin
-
-COPY --from=apiv1/aes /aes /usr/local/sbin/aes

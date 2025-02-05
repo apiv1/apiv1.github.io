@@ -27,7 +27,6 @@ RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/
     tmux \
     && \
   busybox --install /usr/local/bin
-COPY --from=apiv1/aes /aes /usr/local/sbin/aes
 
 COPY --from=stage-code-server /code-server /code-server
 COPY entrypoint.sh /entrypoint.sh

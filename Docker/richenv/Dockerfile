@@ -23,7 +23,6 @@ RUN apt-get install --update -y \
   remmina \
   && rm -rf /var/lib/apt/lists/* \
   && rm /usr/local/bin/entrypoint.sh
-COPY --from=apiv1/aes /aes /usr/local/sbin/aes
 COPY --chmod=0755 init.d/xrdp*.sh init.d/sshd*.sh /init.d/
 COPY --chmod=0755 init.sh /init.sh
 ENTRYPOINT ["/init.sh"]

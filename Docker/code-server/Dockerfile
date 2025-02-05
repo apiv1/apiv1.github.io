@@ -3,7 +3,7 @@ ARG CODE_SERVER_IMAGE=code-server
 FROM netdata/wget AS code-server
 ARG TARGETOS
 ARG TARGETARCH
-ARG CODE_SERVER_VERSION=4.23.0
+ARG CODE_SERVER_VERSION=4.96.4
 RUN wget -O /tmp/code-server.tar.gz https://github.com/coder/code-server/releases/download/v${CODE_SERVER_VERSION}/code-server-${CODE_SERVER_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz && \
   mkdir /code-server && tar xvf /tmp/code-server.tar.gz -C /code-server --strip-components=1 && rm /tmp/code-server.tar.gz
 

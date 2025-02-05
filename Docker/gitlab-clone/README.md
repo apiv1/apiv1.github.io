@@ -1,7 +1,7 @@
 build
 ```bash
-docker buildx build . --platform linux/amd64,linux/arm64 --target runner --push -t apiv1/gitlab # gitlab-runner
-docker buildx build . --platform linux/amd64,linux/arm64 --push -t apiv1/gitlab:clone # gitlab-clone
+docker buildx build . --platform linux/amd64,linux/arm64 --target runner --pull --push -t apiv1/gitlab # gitlab-runner
+docker buildx build . --platform linux/amd64,linux/arm64 --pull --push -t apiv1/gitlab:clone # gitlab-clone
 ```
 
 [compose.yml](./compose.yml)

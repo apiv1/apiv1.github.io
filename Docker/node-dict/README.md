@@ -1,6 +1,6 @@
 ### build
 ```shell
-docker buildx build . --build-arg v2.0.1 --platform linux/amd64,linux/arm64 --push -t apiv1/node-dict
+docker buildx build . --build-arg v2.0.1 --platform linux/amd64,linux/arm64 --pull --push -t apiv1/node-dict
 ```
 
 ### install

@@ -1,7 +1,7 @@
 ### build
 ```bash
 docker build . --build-arg APP_NAME=httpserver -t apiv1/httpserver
-docker buildx build . --build-arg APP_NAME=httpserver --platform linux/amd64,linux/arm64 --push -t apiv1/httpserver # buildkit
+docker buildx build . --build-arg APP_NAME=httpserver --platform linux/amd64,linux/arm64 --pull --push -t apiv1/httpserver # buildkit
 ```
 
 ### run

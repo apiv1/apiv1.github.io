@@ -5,7 +5,7 @@ export DOCKER_BUILDX_VERSION=v0.13.1
 # apiv1/docker-buildx
 docker build . --build-arg DOCKER_BUILDX_VERSION=$DOCKER_BUILDX_VERSION  -t apiv1/docker-buildx -t apiv1/docker-buildx:$DOCKER_BUILDX_VERSION
 
-docker buildx build . --platform linux/amd64,linux/arm64 --build-arg DOCKER_BUILDX_VERSION=$DOCKER_BUILDX_VERSION --push -t apiv1/docker-buildx -t apiv1/docker-buildx:$DOCKER_BUILDX_VERSION
+docker buildx build . --platform linux/amd64,linux/arm64 --build-arg DOCKER_BUILDX_VERSION=$DOCKER_BUILDX_VERSION --pull --push -t apiv1/docker-buildx -t apiv1/docker-buildx:$DOCKER_BUILDX_VERSION
 ```
 
 ### Linux下安装docker-buildx (从容器里拷贝到当前目录)

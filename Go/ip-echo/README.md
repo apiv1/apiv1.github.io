@@ -1,7 +1,7 @@
 ### build
 ```bash
 docker build . --build-arg APP_NAME=ip-echo -t apiv1/ip-echo
-docker buildx build . --build-arg APP_NAME=ip-echo --platform linux/amd64,linux/arm64 --push -t apiv1/ip-echo # buildkit
+docker buildx build . --build-arg APP_NAME=ip-echo --platform linux/amd64,linux/arm64 --pull --push -t apiv1/ip-echo # buildkit
 ```
 
 ### run

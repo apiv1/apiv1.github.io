@@ -4,7 +4,7 @@
 export DOCKER_COMPOSE_VERSION=v2.26.1 # https://github.com/docker/compose/releases
 # apiv1/code-server
 docker build . --target docker-compose --build-arg DOCKER_COMPOSE_VERSION=$DOCKER_COMPOSE_VERSION  -t apiv1/docker-compose -t apiv1/docker-compose:$DOCKER_COMPOSE_VERSION
-docker buildx build . --target docker-compose --platform linux/amd64,linux/arm64 --build-arg DOCKER_COMPOSE_VERSION=$DOCKER_COMPOSE_VERSION --push -t apiv1/docker-compose -t apiv1/docker-compose:$DOCKER_COMPOSE_VERSION
+docker buildx build . --target docker-compose --platform linux/amd64,linux/arm64 --build-arg DOCKER_COMPOSE_VERSION=$DOCKER_COMPOSE_VERSION --pull --push -t apiv1/docker-compose -t apiv1/docker-compose:$DOCKER_COMPOSE_VERSION
 ```
 
 ### Linux下安装docker-compose (从容器里拷贝到当前目录)
@@ -37,7 +37,7 @@ type docker-compose && ln -s $(which docker-compose) ~/.docker/cli-plugins/
 # 放置临时配置文件, 名字格式为 *compose*.yml
 # 下面选一个构建方式构建
 docker build . --build-arg DOCKER_COMPOSE_STAGE=apiv1/docker-compose --target docker-compose-pack -t $DOCKER_COMPOSE_IMAGE # legacy
-docker buildx build . --build-arg DOCKER_COMPOSE_STAGE=apiv1/docker-compose --target docker-compose-pack --platform linux/amd64,linux/arm64 --push -t $DOCKER_COMPOSE_IMAGE # recommended
+docker buildx build . --build-arg DOCKER_COMPOSE_STAGE=apiv1/docker-compose --target docker-compose-pack --platform linux/amd64,linux/arm64 --pull --push -t $DOCKER_COMPOSE_IMAGE # recommended
 rm *compose*.yml # 删除临时配置文件
 ```
 

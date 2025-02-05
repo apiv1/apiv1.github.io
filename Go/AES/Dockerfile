@@ -9,5 +9,5 @@ RUN GOPROXY=${GOPROXY} GO111MODULE=on CGO_ENABLED=0 GOOS=linux go build -ldflags
 
 FROM ${RUNTIME_IMAGE} AS runner
 COPY --from=builder /app/app /aes
-ENV PATH "/:$PATH"
+ENV PATH="/:$PATH"
 ENTRYPOINT [ "aes" ]

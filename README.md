@@ -433,6 +433,8 @@
 |  &nbsp;|--&nbsp;[X11Vnc.md](./Linux/X11Vnc.md)  
 |  &nbsp;|--&nbsp;[Xrdp配置.md](./Linux/Xrdp配置.md)  
 |  &nbsp;|--&nbsp;[font.md](./Linux/font.md)  
+|  &nbsp;|--&nbsp;[input](./Linux/input)  
+|  &nbsp;|  &nbsp;+--&nbsp;[rime.md](./Linux/input/rime.md)  
 |  &nbsp;|--&nbsp;[iptables.md](./Linux/iptables.md)  
 |  &nbsp;|--&nbsp;[kodi.md](./Linux/kodi.md)  
 |  &nbsp;|--&nbsp;[linux-command.md](./Linux/linux-command.md)  

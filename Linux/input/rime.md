@@ -93,3 +93,14 @@ bash rime-install :preset
 # 安装双拼
 bash rime-install double-pinyin
 ```
+
+### **默认使用简体**
+添加以下内容（若文件已存在，合并 `patch` 部分）：
+```yaml
+patch:
+  # 设置默认简体
+  switches:
+    - name: simplification
+      states: [ 漢字, 汉字 ]
+      reset: 1  # 0=繁体，1=简体（此处设为1）
+```

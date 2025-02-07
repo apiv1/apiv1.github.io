@@ -1,12 +1,4 @@
-创建入口程序```app.desktop```
-```shell
-mkdir -p ~/.config/autostart
-cd ~/.config/autostart
-vi app.desktop
-chmod +x app.desktop
-```
-
-app.desktop 例子
+### app.desktop 例子
 ```desktop
 [Desktop Entry]
 Name=MyProgram
@@ -20,11 +12,26 @@ Categories=Application;
 StartupNotify=true  # 可选，设置是否在程序启动时发送通知
 ```
 
-app.desktop 简化版例子
+### app.desktop 简化版例子
 ```desktop
 [Desktop Entry]
 Type=Application
 Name=testbootNo
 Display=true
 Exec=/home/pi/openchrom.sh
+```
+
+### 进入桌面后自动启动程序
+
+创建入口程序```app.desktop```
+```shell
+mkdir -p ~/.config/autostart
+cd ~/.config/autostart
+vi app.desktop
+chmod +x app.desktop
+```
+
+### desktop文件目录
+```shell
+~/.local/share/applications
 ```

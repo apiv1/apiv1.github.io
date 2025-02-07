@@ -20,6 +20,7 @@ RUN apt-get install --update -y \
   x11vnc \
   skopeo \
   fonts-droid-fallback \
+  ibus-rime \
   remmina \
   && rm -rf /var/lib/apt/lists/* \
   && rm /usr/local/bin/entrypoint.sh

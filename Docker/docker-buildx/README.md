@@ -1,7 +1,7 @@
 ### build
 
 ```shell
-export DOCKER_BUILDX_VERSION=v0.13.1
+export DOCKER_BUILDX_VERSION=v0.20.1 # https://github.com/docker/buildx/releases
 # apiv1/docker-buildx
 docker build . --build-arg DOCKER_BUILDX_VERSION=$DOCKER_BUILDX_VERSION  -t apiv1/docker-buildx -t apiv1/docker-buildx:$DOCKER_BUILDX_VERSION
 

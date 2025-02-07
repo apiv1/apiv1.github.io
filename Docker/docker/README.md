@@ -1,7 +1,7 @@
 ### build
 
 ```shell
-export DOCKER_VERSION=27.3.1
+export DOCKER_VERSION=27.5.1 # https://download.docker.com/linux/static/stable/x86_64/
 
 # apiv1/dockerd
 docker build . --build-arg DOCKER_VERSION=$DOCKER_VERSION --target dockerd -t apiv1/dockerd -t apiv1/dockerd:$DOCKER_VERSION

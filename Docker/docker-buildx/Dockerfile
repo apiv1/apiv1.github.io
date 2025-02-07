@@ -1,7 +1,7 @@
 FROM netdata/wget AS base
 ARG TARGETOS
 ARG TARGETARCH
-ARG DOCKER_BUILDX_VERSION=v0.13.1
+ARG DOCKER_BUILDX_VERSION
 RUN wget -O /usr/local/bin/docker-buildx https://github.com/docker/buildx/releases/download/$DOCKER_BUILDX_VERSION/buildx-$DOCKER_BUILDX_VERSION.$TARGETOS-$TARGETARCH && \
   chmod +x /usr/local/bin/docker-buildx
 

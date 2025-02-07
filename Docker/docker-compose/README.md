@@ -1,7 +1,7 @@
 ### build
 
 ```shell
-export DOCKER_COMPOSE_VERSION=v2.26.1 # https://github.com/docker/compose/releases
+export DOCKER_COMPOSE_VERSION=v2.32.4 # https://github.com/docker/compose/releases
 # apiv1/code-server
 docker build . --target docker-compose --build-arg DOCKER_COMPOSE_VERSION=$DOCKER_COMPOSE_VERSION  -t apiv1/docker-compose -t apiv1/docker-compose:$DOCKER_COMPOSE_VERSION
 docker buildx build . --target docker-compose --platform linux/amd64,linux/arm64 --build-arg DOCKER_COMPOSE_VERSION=$DOCKER_COMPOSE_VERSION --pull --push -t apiv1/docker-compose -t apiv1/docker-compose:$DOCKER_COMPOSE_VERSION

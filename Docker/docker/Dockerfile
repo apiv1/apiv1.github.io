@@ -3,7 +3,7 @@ ARG DOCKERD_STAGE=dockerd
 FROM netdata/wget AS base
 ARG TARGETOS
 ARG TARGETARCH
-ARG DOCKER_VERSION=27.3.1
+ARG DOCKER_VERSION
 RUN wget -O /docker.tgz https://download.docker.com/${TARGETOS}/static/stable/$(uname -m)/docker-$DOCKER_VERSION.tgz && \
   tar zxvf /docker.tgz && rm /docker.tgz
 

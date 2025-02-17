@@ -6,13 +6,19 @@ import (
 	"fmt"
 	"io"
 	"log"
-	"math"
 	"os"
 )
 
-const ATTACH_HEAD_LEN int64 = 2
-const ATTACH_TAIL_LEN int64 = 16
+// 附加数据相关的常量定义
+const (
+	ATTACH_HEAD_LEN int64 = 2
+	ATTACH_TAIL_LEN int64 = 16
+)
 
+// 文件操作相关函数
+// ================
+
+// seekToAttach 定位到文件的附加数据部分
 func seekToAttach(f *os.File) (int64, error) {
 	_, err := f.Seek(-ATTACH_TAIL_LEN, io.SeekEnd)
 	if err != nil {
@@ -23,19 +29,28 @@ func seekToAttach(f *os.File) (int64, error) {
 	if n != int(ATTACH_TAIL_LEN) || err != nil {
 		return 0, fmt.Errorf("read attach tail failed : %v", err)
 	}
+
 	var attachLength int64 = 0
-	for i, n := 0, int(ATTACH_TAIL_LEN); i < n; i++ {
-		c := tailBytes[n-1-i]
-		if c == 0 {
-			break
-		}
-		attachLength += int64(c) * int64(math.Pow(0x100, float64(i)))
-	}
 	var checksum int16 = 0
-	for i, n := 0, int(ATTACH_TAIL_LEN); i < n; i++ {
-		c := tailBytes[n-1-i]
-		checksum += int16(c)
+	{
+		i, n := 0, int(ATTACH_TAIL_LEN)
+		for ; i < n; i++ {
+			c := int16(tailBytes[i])
+			checksum += c
+
+			if c == 0 {
+				break
+			}
+		}
+		for ; i < n; i++ {
+			c := int16(tailBytes[i])
+			checksum += c
+
+			attachLength <<= 8
+			attachLength += int64(c)
+		}
 	}
+
 	_, err = f.Seek(-(ATTACH_HEAD_LEN + ATTACH_TAIL_LEN + attachLength), io.SeekEnd)
 	if err != nil {
 		return 0, fmt.Errorf("seek file: attach head failed : %v", err)
@@ -56,6 +71,7 @@ func seekToAttach(f *os.File) (int64, error) {
 	return attachLength, nil
 }
 
+// ReadDataFromFile 从文件或标准输入读取数据
 func ReadDataFromFile(inFile *string, isAttach bool) ([]byte, error) {
 	if inFile == nil || *inFile == "-" {
 		return io.ReadAll(os.Stdin)
@@ -78,10 +94,17 @@ func ReadDataFromFile(inFile *string, isAttach bool) ([]byte, error) {
 	}
 	return io.ReadAll(f)
 }
+
+// WriteToFile 将数据写入文件或标准输出
 func WriteToFile(outFile *string, data []byte, isAttach bool) {
 	if isAttach {
 		tailBytes := make([]byte, ATTACH_TAIL_LEN)
 		rand.Read(tailBytes)
+		for i, n := 0, int(ATTACH_TAIL_LEN); i < n; i++ {
+			if tailBytes[i] == 0 {
+				tailBytes[i] = 0xFF
+			}
+		}
 		attachLength := len(data)
 		for i, n := 0, int(ATTACH_TAIL_LEN); i < n; i++ {
 			tailBytes[n-1-i] = byte(attachLength)
@@ -131,59 +154,66 @@ func WriteToFile(outFile *string, data []byte, isAttach bool) {
 	}
 }
 
+// 加密解密处理函数
+// ==============
+
+func handleEncrypt(inFile, outFile, key *string, isAttach bool) {
+	if key == nil || len(*key) == 0 {
+		log.Fatalf("key empty, quit")
+	}
+	keyData := []byte(*key)
+	data, err := ReadDataFromFile(inFile, false)
+	if err != nil {
+		log.Fatalf("ReadDataFromFile failed: %v", err.Error())
+	}
+	if outData, err := AesEncrypt(data, keyData); err != nil {
+		log.Fatalf("AesEncrypt failed: %v", err.Error())
+	} else {
+		WriteToFile(outFile, outData, isAttach)
+	}
+}
+
+func handleDecrypt(inFile, outFile, key *string, isAttach bool) {
+	if key == nil || len(*key) == 0 {
+		log.Fatalf("key empty, quit")
+	}
+	keyData := []byte(*key)
+	data, err := ReadDataFromFile(inFile, isAttach)
+	if err != nil {
+		log.Fatalf("ReadDataFromFile failed: %v", err.Error())
+	}
+	if outData, err := AesDecrypt(data, keyData); err != nil {
+		log.Fatalf("AesDecrypt failed: %v", err.Error())
+	} else {
+		WriteToFile(outFile, outData, false)
+	}
+}
+
+// 主程序入口
+// =========
+
 func main() {
+	// 命令行参数定义
 	inFile := flag.String("i", "-", "read from file, or - for stdin")
 	outFile := flag.String("o", "-", "write to file, or - for stdout")
-
 	key := flag.String("k", "", "encrypt/decrypt key")
-
 	isEncrypt := flag.Bool("e", false, "encrypt")
 	isDecrypt := flag.Bool("d", false, "decrypt")
 	isAttach := flag.Bool("a", false, "attach mode (read from file attach / attach into file)")
 	flag.Parse()
 
+	// 从环境变量获取密钥
 	if key == nil || len(*key) == 0 {
 		if v, ok := os.LookupEnv("AES_KEY"); ok && len(v) > 0 {
 			key = &v
 		}
 	}
 
-	handleEncrypt := func() {
-		if key == nil || len(*key) == 0 {
-			log.Fatalf("key empty, quit")
-		}
-		keyData := []byte(*key)
-		data, err := ReadDataFromFile(inFile, false)
-		if err != nil {
-			log.Fatalf("ReadDataFromFile failed: %v", err.Error())
-		}
-		if outData, err := AesEncrypt(data, keyData); err != nil {
-			log.Fatalf("AesEncrypt failed: %v", err.Error())
-		} else {
-			WriteToFile(outFile, outData, *isAttach)
-		}
-	}
-
-	handleDecrypt := func() {
-		if key == nil || len(*key) == 0 {
-			log.Fatalf("key empty, quit")
-		}
-		keyData := []byte(*key)
-		data, err := ReadDataFromFile(inFile, *isAttach)
-		if err != nil {
-			log.Fatalf("ReadDataFromFile failed: %v", err.Error())
-		}
-		if outData, err := AesDecrypt(data, keyData); err != nil {
-			log.Fatalf("AesDecrypt failed: %v", err.Error())
-		} else {
-			WriteToFile(outFile, outData, false)
-		}
-	}
-
+	// 执行加密或解密操作
 	if isEncrypt != nil && *isEncrypt {
-		handleEncrypt()
+		handleEncrypt(inFile, outFile, key, *isAttach)
 	} else if isDecrypt != nil && *isDecrypt {
-		handleDecrypt()
+		handleDecrypt(inFile, outFile, key, *isAttach)
 	} else {
 		flag.Usage()
 	}

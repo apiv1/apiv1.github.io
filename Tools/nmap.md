@@ -7,5 +7,5 @@ alias nmap='docker run --rm -it --net host instrumentisto/nmap'
 
 powershell
 ```powershell
-function nmap { docker run --rm -it --net host instrumentisto/nmap $args }
+function global:nmap { docker run --rm -it --net host instrumentisto/nmap $args }
 ```

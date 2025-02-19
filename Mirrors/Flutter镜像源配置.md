@@ -11,6 +11,8 @@ export FLUTTER_INSTALL_DIR="$HOME"
 export FVM_CACHE_PATH="$FLUTTER_INSTALL_DIR/.fvm" # 缓存目录
 export PUB_CACHE="$FLUTTER_INSTALL_DIR/.pub-cache" # pub cache 目录, 不设置的话 windows: ~\AppData\Local\Pub\Cache, Mac/Linux: ~/.pub-cache
 export FLUTTER_HOME="$FLUTTER_INSTALL_DIR/flutter"
+
+export PATH="$FLUTTER_HOME/bin:$PATH"
 ```
 
 执行命令

@@ -18,7 +18,7 @@ export PATH="$PUB_CACHE/bin:$FLUTTER_HOME/bin:$PATH"
 执行命令
 
 ```shell
-git clone "$FLUTTER_GIT_URL" "$FLUTTER_HOME"
+git clone -b stable "$FLUTTER_GIT_URL" "$FLUTTER_HOME"
 ```
 
 ### Powershell

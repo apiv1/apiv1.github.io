@@ -1,0 +1,33 @@
+services:
+  cloudreve:
+    build:
+      dockerfile_inline: |
+        FROM cloudreve/cloudreve:latest
+        RUN mv /cloudreve/cloudreve /usr/local/bin/
+        ENTRYPOINT ["cloudreve"]
+    environment:
+      - TZ=Asia/Shanghai
+    restart: always
+    ports:
+      - "5212:5212"
+    volumes:
+      - temp_data:/data
+      - ./data/cloudreve:/cloudreve
+    depends_on:
+      - aria2
+  aria2:
+    image: p3terx/aria2-pro
+    restart: always
+    environment:
+      - RPC_SECRET=your_aria_rpc_token
+      - RPC_PORT=6800
+    volumes:
+      - temp_data:/data
+      - ./data/aria2/config:/config
+volumes:
+  temp_data:
+
+# 在之后的控制面板中，按照如下配置
+# [不可修改] RPC 服务器地址 => http://aria2:6800
+# [可修改, 需保持和 docker-compose.yml 文件一致] RPC 授权令牌 => your_aria_rpc_token
+# [不可修改] Aria2 用作临时下载目录的 节点上的绝对路径 => /data

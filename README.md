@@ -467,6 +467,7 @@
 |  &nbsp;+--&nbsp;[麒麟系统关安全弹窗.md](./Linux/麒麟系统关安全弹窗.md)  
 |--&nbsp;[Mac](./Mac)  
 |  &nbsp;|--&nbsp;[NSUserDefault操作.md](./Mac/NSUserDefault操作.md)  
+|  &nbsp;|--&nbsp;[launchd.md](./Mac/launchd.md)  
 |  &nbsp;|--&nbsp;[使用route命令配置路由.md](./Mac/使用route命令配置路由.md)  
 |  &nbsp;|--&nbsp;[删除DS_Store文件.md](./Mac/删除DS_Store文件.md)  
 |  &nbsp;|--&nbsp;[命令行控制全局代理.md](./Mac/命令行控制全局代理.md)  

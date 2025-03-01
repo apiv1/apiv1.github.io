@@ -45,13 +45,13 @@ cd $DOCKERD_HOME/bin
 docker container create --pull always --name docker-compose-container apiv1/docker-compose
 docker container cp docker-compose-container:/usr/local/bin/docker-compose .
 docker container remove docker-compose-container
-type docker-compose && mkdir -p /usr/local/lib/docker/cli-plugins && ln -s $(which docker-compose) /usr/local/lib/docker/cli-plugins/
+type docker-compose && mkdir -p /usr/local/lib/docker/cli-plugins && ln -sf $(which docker-compose) /usr/local/lib/docker/cli-plugins/
 
 # 安装docker-buildx
 docker container create --pull always --name buildx-container apiv1/docker-buildx
 docker container cp buildx-container:/usr/local/bin/docker-buildx .
 docker container remove buildx-container
-type docker-buildx && mkdir -p /usr/local/lib/docker/cli-plugins && ln -s $(which docker-buildx) /usr/local/lib/docker/cli-plugins/
+type docker-buildx && mkdir -p /usr/local/lib/docker/cli-plugins && ln -sf $(which docker-buildx) /usr/local/lib/docker/cli-plugins/
 ```
 
 ### 可选: 为dockerd配置代理

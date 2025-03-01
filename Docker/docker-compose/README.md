@@ -21,10 +21,10 @@ docker container cp docker-compose-container:/usr/local/bin/docker-compose .
 docker container remove docker-compose-container
 
 # 默认 装在system目录
-type docker-compose && mkdir -p /usr/local/lib/docker/cli-plugins && ln -s $(which docker-compose) /usr/local/lib/docker/cli-plugins/
+type docker-compose && mkdir -p /usr/local/lib/docker/cli-plugins && ln -sf $(which docker-compose) /usr/local/lib/docker/cli-plugins/
 
 # 可选 装在user目录
-type docker-compose && ln -s $(which docker-compose) ~/.docker/cli-plugins/
+type docker-compose && ln -sf $(which docker-compose) ~/.docker/cli-plugins/
 ```
 
 ### 函数式安装docker-compose

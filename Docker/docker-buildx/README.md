@@ -22,10 +22,10 @@ docker container cp buildx-container:/usr/local/bin/docker-buildx .
 docker container remove buildx-container
 
 # 默认 装在system目录
-type docker-buildx && mkdir -p /usr/local/lib/docker/cli-plugins && ln -s $(which docker-buildx) /usr/local/lib/docker/cli-plugins/
+type docker-buildx && mkdir -p /usr/local/lib/docker/cli-plugins && ln -sf $(which docker-buildx) /usr/local/lib/docker/cli-plugins/
 
 # 可选 装在user目录
-type docker-buildx && ln -s $(which docker-buildx) ~/.docker/cli-plugins/
+type docker-buildx && ln -sf $(which docker-buildx) ~/.docker/cli-plugins/
 ```
 
 ### 函数式安装docker-buildx

@@ -576,6 +576,7 @@
 |  &nbsp;|  &nbsp;|--&nbsp;[NAT类型说明.md](./Tools/stun/NAT类型说明.md)  
 |  &nbsp;|  &nbsp;|--&nbsp;[README.md](./Tools/stun/README.md)  
 |  &nbsp;|  &nbsp;+--&nbsp;[公用STUN服务器列表.md](./Tools/stun/公用STUN服务器列表.md)  
+|  &nbsp;|--&nbsp;[xray.md](./Tools/xray.md)  
 |  &nbsp;|--&nbsp;[yq.md](./Tools/yq.md)  
 |  &nbsp;|--&nbsp;[z.md](./Tools/z.md)  
 |  &nbsp;|--&nbsp;[命令生成date.md](./Tools/命令生成date.md)  

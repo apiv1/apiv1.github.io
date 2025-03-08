@@ -36,4 +36,5 @@ https://github.ur1.fun/
 站点
 ```
 https://gh.api.99988866.xyz/
+https://github.moeyy.xyz/
 ```

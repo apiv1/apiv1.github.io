@@ -446,6 +446,7 @@
 |  &nbsp;|--&nbsp;[netstat查看连接状态.md](./Linux/netstat查看连接状态.md)  
 |  &nbsp;|--&nbsp;[rc.local开机执行命令.md](./Linux/rc.local开机执行命令.md)  
 |  &nbsp;|--&nbsp;[ssh设置不超时断开.md](./Linux/ssh设置不超时断开.md)  
+|  &nbsp;|--&nbsp;[zfs.md](./Linux/zfs.md)  
 |  &nbsp;|--&nbsp;[一行代码卡死电脑.md](./Linux/一行代码卡死电脑.md)  
 |  &nbsp;|--&nbsp;[从stdin执行source.md](./Linux/从stdin执行source.md)  
 |  &nbsp;|--&nbsp;[使用frp映射内网linux的ssh端口到外网.md](./Linux/使用frp映射内网linux的ssh端口到外网.md)  

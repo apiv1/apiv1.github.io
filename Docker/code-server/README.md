@@ -57,3 +57,21 @@ cd ../docker-compose
 dood-run apiv1/code-server:compose -f /compose.yml up -d # 若从未启动过环境, 需要先启动一次, 初始化卷数据
 wget -O - https://apiv1.github.io/Docker/myenv/install-docker.yml | NO_TTY=1 dood-run apiv1/code-server:compose -f - run --rm --build install-docker
 ```
+
+#### 设置https
+```shell
+openssl genrsa -out code-server.key 2048
+
+openssl req -new -out code-server.csr -key code-server.key
+
+openssl x509 -req -days 3650 -in code-server.csr -signkey code-server.key -out code-server.crt -extensions v3_req
+```
+
+配置文件(code-server启动的环境)
+
+~/.config/code-server/config.yaml
+```yaml
+...
+cert: /path/to/cert/code-server.crt
+cert-key: /path/to/cert/code-server.key
+```

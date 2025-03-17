@@ -1,14 +1,27 @@
+# 单用户单文件夹命令行
+# docker run -it --rm --name samba -p 445:445 -e "USER=samba" -e "PASS=secret" -v ${PWD:-.}/samba:/storage dockurr/samba
+
 services:
   samba:
     image: dockurr/samba
-    environment:
-      NAME: "Data"
-      USER: "samba"
-      PASS: "secret"
     ports:
       - 445:445
     volumes:
       - ./samba:/storage
     restart: always
-
-# docker run -it --rm --name samba -p 445:445 -e "USER=samba" -e "PASS=secret" -v ${PWD:-.}/samba:/storage dockurr/samba
+    environment: # 使用 user.conf 配置文件 将忽略环境变量
+      NAME: "$SMB_NAME"
+      USER: "$SMB_USER"
+      PASS: "$SMB_PASS"
+    configs: # 可选：配置文件
+      - source: smb.conf
+        target: /etc/samba/smb.conf
+      - source: user.conf
+        target: /etc/samba/user.conf
+configs: # 可选：配置文件
+  smb.conf:
+    content: |
+      ${SMB_CONF}
+  user.conf:
+    content: |
+      ${USER_CONF}

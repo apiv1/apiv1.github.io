@@ -1,0 +1,18 @@
+# docker run -d --restart=always -v /etc/alist:/opt/alist/data -p 5244:5244 -e PUID=0 -e PGID=0 -e UMASK=022 --name="alist" xhofe/alist:latest
+# docker exec -it alist ./alist admin random # 密码随机
+# docker exec -it alist ./alist admin set NEW_PASSWORD # 设置密码
+
+
+services:
+  alist:
+    image: xhofe/alist:latest
+    restart: always
+    ports:
+      - "5244:5244"    # 映射端口（主机端口:容器端口）
+    volumes:
+      - "./data:/opt/alist/data"  # 持久化配置目录
+      - "./media:/Media" # 要播放的媒体, 挂载进来, 然后在管理页面里添加
+    environment:
+      - PUID=0         # 用户ID（0=root，需注意权限安全）
+      - PGID=0         # 用户组ID
+      - UMASK=022      # 文件权限掩码

@@ -32,6 +32,8 @@
 |--&nbsp;[Docker](./Docker)  
 |  &nbsp;|--&nbsp;[adminer](./Docker/adminer)  
 |  &nbsp;|  &nbsp;+--&nbsp;[compose.yml](./Docker/adminer/compose.yml)  
+|  &nbsp;|--&nbsp;[alist](./Docker/alist)  
+|  &nbsp;|  &nbsp;+--&nbsp;[compose.yml](./Docker/alist/compose.yml)  
 |  &nbsp;|--&nbsp;[cloudreve](./Docker/cloudreve)  
 |  &nbsp;|  &nbsp;+--&nbsp;[compose.yml](./Docker/cloudreve/compose.yml)  
 |  &nbsp;|--&nbsp;[code-server](./Docker/code-server)  

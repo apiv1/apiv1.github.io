@@ -1,7 +1,7 @@
 services:
   goproxy:
     image: snail007/goproxy
-    # image: snail007/goproxy:arm64-v13.4, for arm64
+    # image: snail007/goproxy:arm64-v13.4 # for arm64
     entrypoint: sh
     command: |
       -c '
@@ -11,7 +11,10 @@ services:
         /proxy http -t tcp -p "0.0.0.0:33180" --daemon
         # socks5 代理
         /proxy socks -t tcp -p "0.0.0.0:33181" --daemon
-        sleep infinity
+        while true
+        do
+          sleep 1d
+        done
       '
     ports:
       - 33000-34000:33000-34000

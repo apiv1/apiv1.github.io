@@ -1,0 +1,16 @@
+ARG STAGE_DEPLOY=deploy
+FROM ${STAGE_DEPLOY} AS stage-deploy
+
+FROM stage-deploy AS chrome
+RUN apt-get --update install -y \
+  wget \
+  gpg && \
+  echo 'deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/google-chrome.list && \
+  wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor > /etc/apt/trusted.gpg.d/chrome.gpg && \
+  apt-get install -y --update \
+  google-chrome-stable \
+  && rm -rf /var/lib/apt/lists/*
+RUN unlink /usr/bin/google-chrome && \
+  unlink /usr/bin/google-chrome-stable && \
+  echo /opt/google/chrome/google-chrome --disable-dev-shm-usage '"$@"' > /usr/bin/google-chrome && chmod +x /usr/bin/google-chrome && \
+  echo /opt/google/chrome/google-chrome --disable-dev-shm-usage '"$@"' > /usr/bin/google-chrome-stable && chmod +x /usr/bin/google-chrome-stable

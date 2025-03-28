@@ -22,8 +22,7 @@ RUN apt-get install --update -y \
   fonts-droid-fallback \
   ibus-rime \
   remmina \
-  && rm -rf /var/lib/apt/lists/* \
-  && rm /usr/local/bin/entrypoint.sh
+  && rm -rf /var/lib/apt/lists/*
 COPY --chmod=0755 init.d/xrdp*.sh init.d/sshd*.sh /init.d/
 COPY --chmod=0755 init.sh /init.sh
 ENTRYPOINT ["/init.sh"]

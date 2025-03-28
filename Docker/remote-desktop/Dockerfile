@@ -1,5 +1,4 @@
 ARG STAGE_BUILDER=builder
-ARG STAGE_DEPLOY=deploy
 FROM ubuntu:20.04 AS builder
 RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list \
     && sed -i 's/ports.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list \
@@ -56,23 +55,3 @@ RUN sed -i -E 's/^; autospawn =.*/autospawn = yes/' /etc/pulse/client.conf \
 ENV LANG=en_US.UTF-8
 
 COPY --from=stage-builder /usr/lib/pulse-*/modules/module-xrdp-sink.so /usr/lib/pulse-*/modules/module-xrdp-source.so /var/lib/xrdp-pulseaudio-installer/
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/*
-EXPOSE 3389/tcp
-ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
-
-FROM ${STAGE_DEPLOY} AS stage-deploy
-
-FROM stage-deploy AS chrome
-RUN apt-get --update install -y \
-    wget \
-    gpg && \
-    echo 'deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/google-chrome.list && \
-    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor > /etc/apt/trusted.gpg.d/chrome.gpg && \
-    apt-get install -y --update \
-    google-chrome-stable \
-    && rm -rf /var/lib/apt/lists/*
-RUN unlink /usr/bin/google-chrome && \
-    unlink /usr/bin/google-chrome-stable && \
-    echo /opt/google/chrome/google-chrome --disable-dev-shm-usage '"$@"' > /usr/bin/google-chrome && chmod +x /usr/bin/google-chrome && \
-    echo /opt/google/chrome/google-chrome --disable-dev-shm-usage '"$@"' > /usr/bin/google-chrome-stable && chmod +x /usr/bin/google-chrome-stable

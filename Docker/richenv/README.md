@@ -30,10 +30,10 @@ RUN mkdir -p /usr/local/lib/docker/cli-plugins && \
   ln -s $(which docker-buildx) /usr/local/lib/docker/cli-plugins/
 '
 
-echo $DOCKERFILE_DOCKERD | docker buildx build -f - . --build-arg STAGE_CORE=apiv1/richenv:core --platform linux/amd64,linux/arm64 --pull --push -t apiv1/richenv:dockerd
+printf "$DOCKERFILE_DOCKERD" | docker buildx build -f - . --build-arg STAGE_CORE=apiv1/richenv:core --platform linux/amd64,linux/arm64 --pull --push -t apiv1/richenv:dockerd
 
 # chrome (only amd64)
-echo $DOCKERFILE_DOCKERD | docker buildx build -f - . --build-arg STAGE_CORE=apiv1/richenv:core-with-chrome --platform linux/amd64 --pull --push -t apiv1/richenv:dockerd-with-chrome
+printf "$DOCKERFILE_DOCKERD" | docker buildx build -f - . --build-arg STAGE_CORE=apiv1/richenv:core-with-chrome --platform linux/amd64 --pull --push -t apiv1/richenv:dockerd-with-chrome
 ```
 
 ### Run

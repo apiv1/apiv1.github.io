@@ -5,6 +5,40 @@ import random
 import netifaces
 import threading
 import os
+import time
+
+class CPUMonitor:
+    def __init__(self):
+        self.prev_stats = None
+        self.prev_time = None
+
+    def get_cpu_usage(self):
+        """无延时的 CPU 使用率计算（需连续调用）"""
+        current_stats = self._read_cpu_stats()
+        current_time = time.time()
+
+        if self.prev_stats is None:
+            self.prev_stats = current_stats
+            self.prev_time = current_time
+            return 0.0  # 首次调用返回0
+
+        # 计算差值
+        total_diff = sum(current_stats) - sum(self.prev_stats)
+        idle_diff = current_stats[3] - self.prev_stats[3]
+        time_diff = current_time - self.prev_time
+
+        # 保存状态
+        self.prev_stats = current_stats
+        self.prev_time = current_time
+
+        if total_diff == 0 or time_diff <= 0:
+            return 0.0
+        return round(100 * (total_diff - idle_diff) / total_diff, 1)
+
+    def _read_cpu_stats(self):
+        with open("/proc/stat") as f:
+            line = f.readline().split()
+        return list(map(int, line[1:]))
 
 class CustomClock:
     def __init__(self):
@@ -28,6 +62,8 @@ class CustomClock:
         self.sys_font = (self.time_font[0], self.time_font[1]//5, 'bold')
         self.ip_font = (self.time_font[0], self.time_font[1]//4, 'bold')
         self.margin = int(self.time_font[1] * 0.5)
+
+        self.cpu_monitor = CPUMonitor()
 
         # 顶部状态栏
         self.top_bar_height = 50
@@ -73,7 +109,7 @@ class CustomClock:
             fg="#1CBEB3",
             bg="black",
         )
-        self.status_label.place(x=0, y=self.vertical_padding)
+        self.status_label.place(x=10, y=self.vertical_padding)
 
         self.root.update_idletasks()
         self.label_width = self.time_label.winfo_width()
@@ -120,7 +156,7 @@ class CustomClock:
         return round(100 * (total - available) / total, 1)
 
     def get_cpu_use(self):
-        return(str(os.popen("top -n1 | awk '/Cpu\(s\):/ {print $2}'").readline().strip()))
+        return(self.cpu_monitor.get_cpu_usage())
 
     def sys_resource_monitor(self):
         while self.monitor_active:

@@ -4,6 +4,7 @@ import math
 import random
 import netifaces
 import threading
+import os
 
 class CustomClock:
     def __init__(self):
@@ -24,6 +25,7 @@ class CustomClock:
         self.init_font_size = 100
         self.time_font = self.find_optimal_font()
         self.date_font = (self.time_font[0], self.time_font[1]//3, 'bold')
+        self.sys_font = (self.time_font[0], self.time_font[1]//5, 'bold')
         self.ip_font = (self.time_font[0], self.time_font[1]//4, 'bold')
         self.margin = int(self.time_font[1] * 0.5)
 
@@ -53,7 +55,7 @@ class CustomClock:
         )
         self.ip_text = ""
         self.prev_ip_text = ""
-        self.ip_label.place(x=10, y=self.vertical_padding)
+        self.ip_label.place(x=10, y=self.screen_height - self.margin)
 
         # 时间标签
         self.time_label = tk.Label(
@@ -81,25 +83,65 @@ class CustomClock:
         self.breath_speed = 0.03
         self.need_scroll = False
         self.scroll_offset = 0
-        self.network_check_interval = 2
+        self.check_interval = 2
 
-        # 网络监控线程
-        self.network_monitor_active = True
+        # 监控线程
+        self.monitor_active = True
         threading.Thread(target=self.network_monitor, daemon=True).start()
+        threading.Thread(target=self.sys_resource_monitor, daemon=True).start()
 
         self.update_network_display()
         self.update_clock()
         self.root.mainloop()
 
+    def get_cpu_temperature(self):
+        res = os.popen('vcgencmd measure_temp').readline()
+        return(res.replace("temp=","").replace("\n", ""))
+
+    def get_mem_usage(self):
+        """获取内存使用百分比"""
+        with open("/proc/meminfo") as f:
+            meminfo = {line.split(':')[0]: line.split(':')[1].strip()
+                    for line in f.readlines()}
+
+        total = int(meminfo["MemTotal"].split()[0])
+        available = int(meminfo.get("MemAvailable", meminfo["MemFree"]).split()[0])
+
+        return round(100 * (total - available) / total, 1)
+
+    def get_cpu_use(self):
+        return(str(os.popen("top -n1 | awk '/Cpu\(s\):/ {print $2}'").readline().strip()))
+
+    def sys_resource_monitor(self):
+        while self.monitor_active:
+            # 获取当前 CPU 和内存使用率
+            mem_percent = self.get_mem_usage()
+            temp = self.get_cpu_temperature()
+            cpu = self.get_cpu_use()
+
+            # 格式化显示
+            status = f"tem: {temp} | cpu: {cpu}% | mem: {mem_percent}%"
+
+            status_label = tk.Label(
+                self.root,
+                text=status,
+                font=self.sys_font,
+                fg="#1CBEB3",
+                bg="black",
+                anchor='ne'
+            )
+            status_label.place(x=10, y=self.vertical_padding)
+            threading.Event().wait(self.check_interval)
+
     def network_monitor(self):
         """网络状态持续监控"""
-        while self.network_monitor_active:
+        while self.monitor_active:
             new_ip = self.get_network_info()
             if new_ip != self.prev_ip_text:
                 self.prev_ip_text = new_ip
                 self.ip_text = new_ip
                 self.root.after(0, self.update_network_display)
-            threading.Event().wait(self.network_check_interval)  # 修复的缩进位置
+            threading.Event().wait(self.check_interval)
 
     def update_network_display(self):
         """更新网络显示"""
@@ -107,7 +149,7 @@ class CustomClock:
         self.root.update_idletasks()
 
         text_width = self.ip_label.winfo_reqwidth()
-        available_width = self.screen_width - 200
+        available_width = self.screen_width - self.margin
         new_need_scroll = text_width > available_width
 
         if new_need_scroll != self.need_scroll:
@@ -143,31 +185,19 @@ class CustomClock:
 
     def get_network_info(self):
         """获取网络信息（支持多接口）"""
-        interfaces = {
-            'eth': ['eth0', 'eth1'],
-            'wifi': ['wlan0', 'wlp2s0']
-        }
         info = []
 
-        # 检测有线网络
-        for eth in interfaces['eth']:
-            try:
-                addr = netifaces.ifaddresses(eth).get(netifaces.AF_INET, [{}])[0].get('addr')
-                if addr:
-                    info.append(f"ETH: {addr}")
-                    break
-            except (ValueError, KeyError):
-                continue
-
-        # 检测无线网络
-        for wlan in interfaces['wifi']:
-            try:
-                addr = netifaces.ifaddresses(wlan).get(netifaces.AF_INET, [{}])[0].get('addr')
-                if addr:
-                    info.append(f"WIFI: {addr}")
-                    break
-            except (ValueError, KeyError):
-                continue
+        prefixs = ['wlan', 'eth']
+        for ifs in netifaces.interfaces():
+            for prefix in prefixs:
+                if ifs.find(prefix) == 0:
+                    try:
+                        addr = netifaces.ifaddresses(ifs).get(netifaces.AF_INET, [{}])[0].get('addr')
+                        if addr:
+                            info.append(f"{ifs}: {addr}")
+                            break
+                    except (ValueError, KeyError):
+                        continue
 
         return "  |  ".join(info) if info else "No Network Connection"
 
@@ -182,7 +212,7 @@ class CustomClock:
         if self.scroll_offset < -text_width:
             self.scroll_offset = self.screen_width
 
-        current_y = self.vertical_padding
+        current_y = self.screen_height - self.margin
         self.ip_label.place(x=self.scroll_offset, y=current_y)
         self.root.after(20, self.start_scroll)
 
@@ -227,7 +257,7 @@ class CustomClock:
 
     def safe_exit(self, event=None):
         """安全退出程序"""
-        self.network_monitor_active = False
+        self.monitor_active = False
         self.root.destroy()
 
 if __name__ == "__main__":

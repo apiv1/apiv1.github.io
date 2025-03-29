@@ -65,6 +65,16 @@ class CustomClock:
             bg="black"
         )
         self.time_label.place(x=0, y=self.top_bar_height)
+
+        self.status_label = tk.Label(
+            self.root,
+            text='',
+            font=self.sys_font,
+            fg="#1CBEB3",
+            bg="black",
+        )
+        self.status_label.place(x=0, y=self.vertical_padding)
+
         self.root.update_idletasks()
         self.label_width = self.time_label.winfo_width()
         self.label_height = self.time_label.winfo_height()
@@ -122,15 +132,7 @@ class CustomClock:
             # 格式化显示
             status = f"tem: {temp} | cpu: {cpu}% | mem: {mem_percent}%"
 
-            status_label = tk.Label(
-                self.root,
-                text=status,
-                font=self.sys_font,
-                fg="#1CBEB3",
-                bg="black",
-                anchor='ne'
-            )
-            status_label.place(x=10, y=self.vertical_padding)
+            self.status_label.config(text=status)
             threading.Event().wait(self.check_interval)
 
     def network_monitor(self):

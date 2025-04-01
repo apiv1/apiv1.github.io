@@ -17,3 +17,5 @@ test -d "$ASDF_DIR" && . "$ASDF_DIR/asdf.sh" && . "$ASDF_DIR/completions/asdf.ba
 * 下载二进制包 [Release](https://github.com/asdf-vm/asdf/releases)
 
 * golang 安装 ```go install github.com/asdf-vm/asdf/cmd/asdf@v0.16.0```
+
+* 配置 ```export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"```

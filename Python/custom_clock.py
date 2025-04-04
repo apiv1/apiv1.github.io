@@ -138,7 +138,23 @@ class CustomClock:
 
         self.update_network_display()
         self.update_clock()
+        self.check_fullscreen()
         self.root.mainloop()
+
+    def check_fullscreen(self):
+        """检查是否成功应用全屏，如果没有则重试"""
+        actual_width = self.root.winfo_width()
+        actual_height = self.root.winfo_height()
+        expected_width = self.root.winfo_screenwidth()
+        expected_height = self.root.winfo_screenheight()
+
+        # 如果窗口尺寸不匹配屏幕尺寸，重新应用全屏
+        if (actual_width < expected_width * 0.9 or actual_height < expected_height * 0.9):
+            self.root.attributes("-fullscreen", False)
+            self.root.update_idletasks()
+            self.root.attributes("-fullscreen", True)
+            self.root.update_idletasks()
+            self.root.after(500, self.check_fullscreen)
 
     def get_cpu_temperature(self):
         res = os.popen('vcgencmd measure_temp').readline()

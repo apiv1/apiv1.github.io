@@ -1,0 +1,22 @@
+services:
+  onlyoffice:
+    image: onlyoffice/documentserver:8.3.2
+    restart: always
+    environment:
+      - JWT_ENABLED=true
+      - JWT_SECRET=your_strong_secret_key_here # 替换为你的密钥
+      - TZ=Asia/Shanghai # 设置时区
+      - SSL_CERTIFICATE_PATH=/var/www/onlyoffice/Data/certs/onlyoffice.crt
+      - SSL_KEY_PATH=/var/www/onlyoffice/Data/certs/onlyoffice.key
+    ports:
+      - "10080:80"          # HTTP 访问端口
+      - "10443:443"         # HTTPS 访问端口
+    volumes:
+      - ./onlyoffice/data:/var/www/onlyoffice/Data
+      - ./onlyoffice/logs:/var/log/onlyoffice
+      - ./onlyoffice/lib:/var/lib/onlyoffice
+      - ./onlyoffice/db:/var/lib/postgresql
+      - ./onlyoffice/cache:/var/lib/redis
+
+# mkdir -p ./onlyoffice/data/certs && cd ./onlyoffice/data/certs
+# openssl req -x509 -newkey rsa:2048 -nodes -days 3650 -keyout onlyoffice.key -out onlyoffice.crt -subj "/CN=onlyoffice/O=cert/C=US"

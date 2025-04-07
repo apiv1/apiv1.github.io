@@ -198,6 +198,8 @@
 |  &nbsp;|  &nbsp;|  &nbsp;|--&nbsp;[go.sum](./Docker/ollama/client/go.sum)  
 |  &nbsp;|  &nbsp;|  &nbsp;+--&nbsp;[main.go](./Docker/ollama/client/main.go)  
 |  &nbsp;|  &nbsp;+--&nbsp;[compose.yml](./Docker/ollama/compose.yml)  
+|  &nbsp;|--&nbsp;[onlyoffice](./Docker/onlyoffice)  
+|  &nbsp;|  &nbsp;+--&nbsp;[compose.yml](./Docker/onlyoffice/compose.yml)  
 |  &nbsp;|--&nbsp;[openldap](./Docker/openldap)  
 |  &nbsp;|  &nbsp;+--&nbsp;[compose.yml](./Docker/openldap/compose.yml)  
 |  &nbsp;|--&nbsp;[openssh-server](./Docker/openssh-server)  

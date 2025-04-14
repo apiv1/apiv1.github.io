@@ -6,8 +6,6 @@ services:
     privileged: true
     hostname: ${HOSTNAME}
     network_mode: host
-    volumes:
-    - home:/root
     environment:
     - TZ=Asia/Shanghai
 volumes:

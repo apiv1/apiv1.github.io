@@ -441,6 +441,7 @@
 |  &nbsp;|--&nbsp;[Xrdp配置.md](./Linux/Xrdp配置.md)  
 |  &nbsp;|--&nbsp;[desktop文件.md](./Linux/desktop文件.md)  
 |  &nbsp;|--&nbsp;[font.md](./Linux/font.md)  
+|  &nbsp;|--&nbsp;[immortalwrt.md](./Linux/immortalwrt.md)  
 |  &nbsp;|--&nbsp;[input](./Linux/input)  
 |  &nbsp;|  &nbsp;+--&nbsp;[rime.md](./Linux/input/rime.md)  
 |  &nbsp;|--&nbsp;[iptables.md](./Linux/iptables.md)  

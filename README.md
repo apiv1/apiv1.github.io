@@ -451,6 +451,7 @@
 |  &nbsp;|--&nbsp;[macvlan.md](./Linux/macvlan.md)  
 |  &nbsp;|--&nbsp;[netplan.md](./Linux/netplan.md)  
 |  &nbsp;|--&nbsp;[netstat查看连接状态.md](./Linux/netstat查看连接状态.md)  
+|  &nbsp;|--&nbsp;[openwrt.md](./Linux/openwrt.md)  
 |  &nbsp;|--&nbsp;[rc.local开机执行命令.md](./Linux/rc.local开机执行命令.md)  
 |  &nbsp;|--&nbsp;[ssh设置不超时断开.md](./Linux/ssh设置不超时断开.md)  
 |  &nbsp;|--&nbsp;[zfs.md](./Linux/zfs.md)  

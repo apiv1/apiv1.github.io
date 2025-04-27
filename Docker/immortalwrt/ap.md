@@ -66,7 +66,7 @@ dhcp-range=10.1.1.50,10.1.1.150,255.255.255.0,12h
 #下发网关
 dhcp-option=3,10.1.1.1
 #下发dns
-dhcp-option=6,10.1.1.1,119.29.29.29,180.76.76.76
+dhcp-option=6,10.1.1.1,114.114.114.114,8.8.8.8
 ```
 网关和dns指向的旁路由, 如果旁路由没启动, 网络不通
 
@@ -83,16 +83,34 @@ net.ipv4.ip_forward=1
 #生效规则
 sudo sysctl -p
 
+# 禁用自带的dns服务
+sudo systemctl disable --now systemd-resolved  # 禁用开机启动
+sudo unlink /etc/resolv.conf               # 删除旧的 DNS 配置（备份可选）
+sudo vim /etc/resolv.conf # 因为禁用了systemd-resolved, 所以原来的/etc/resolv.conf 失效了, 要设置新的dns服务器
+# nameserver 114.114.114.114
+# nameserver 8.8.8.8
 
-#开启dnsmasq
+#开启dnsmasq, 并设置开机启动
 sudo dnsmasq --test #检查语法
-sudo systemctl enable dnsmasq --now
+sudo systemctl unmask dnsmasq
+sudo systemctl enable  --now dnsmasq
 
 # 开启热点
-sudo systemctl enable hostapd --now
+sudo systemctl unmask hostapd
+sudo systemctl start hostapd
 ```
 
 理论上能够连上WIFI上网了.
+
+#### hostapd 延时开机启动
+
+如果不延时启动, 会影响网卡设置, 导致失效.
+
+在/etc/rc.local/里面添加入
+```shell
+bash -c "sleep 10; systemctl start hostapd"
+```
+如果没有此脚本需要设置: [rc.local服务](../../Linux/rc.local开机执行命令.md)
 
 #### 停止服务
 ```shell

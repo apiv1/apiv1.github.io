@@ -30,7 +30,7 @@ config interface 'lan'
 	option netmask '255.255.255.0'
 	option ipaddr '10.1.1.1'
 	option gateway '10.1.1.254'
-	option dns '10.1.1.1'
+	option dns '10.1.1.254'
 	option device 'br-lan'
 
 config device

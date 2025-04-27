@@ -1,0 +1,1 @@
+docker run --rm -d --name ssh-chat --restart always -p 2022:2022 heywoodlh/ssh-chat

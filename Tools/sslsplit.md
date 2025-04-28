@@ -20,16 +20,14 @@ sysctl -w net.ipv4.ip_forward=1
 * iptables 规则, 重定向数据
 ```shell
 iptables -t nat -N SSLSPLIT
-
 iptables -t nat -A PREROUTING -j SSLSPLIT
 
-if [ -n "$INTERFACE" ]; then
-  iptables -t nat -A SSLSPLIT -i $INTERFACE -p tcp --dport 443 -j REDIRECT --to-ports 8443
-  iptables -t nat -A SSLSPLIT -i $INTERFACE -p tcp --dport 80 -j REDIRECT --to-ports 8080
-else
-  iptables -t nat -A SSLSPLIT -p tcp --dport 443 -j REDIRECT --to-ports 8443
-  iptables -t nat -A SSLSPLIT -p tcp --dport 80 -j REDIRECT --to-ports 8080
-fi
+IPTABLES_ARGS=''
+test -n "$INTERFACE" && IPTABLES_ARGS="-i $INTERFACE"
+test -n "$DST_HOST" && IPTABLES_ARGS="$IPTABLES_ARGS -d $DST_HOST"
+
+iptables -t nat -A SSLSPLIT -p tcp --dport 443 -j REDIRECT --to-ports 8443 $IPTABLES_ARGS
+iptables -t nat -A SSLSPLIT -p tcp --dport 80 -j REDIRECT --to-ports 8080 $IPTABLES_ARGS
 ```
 
 * 启动sshsplit

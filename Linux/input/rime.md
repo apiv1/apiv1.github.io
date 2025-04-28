@@ -104,3 +104,7 @@ patch:
       states: [ 漢字, 汉字 ]
       reset: 1  # 0=繁体，1=简体（此处设为1）
 ```
+
+### **配置文件设置**
+快捷键: ```default.custom.yaml```
+方案选单快捷键: ```default.yaml```

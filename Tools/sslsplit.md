@@ -11,6 +11,7 @@ mkdir -p ./cert
 openssl genrsa -out ./cert/ca.key 4096
 openssl req -new -x509 -days 3650 -key ./cert/ca.key -out ./cert/ca.crt -subj "/CN=SSLsplit Root CA"
 ```
+创建好了后在设备上把ca.crt安装一下就能抓明文https
 
 * 设置转发
 ```shell

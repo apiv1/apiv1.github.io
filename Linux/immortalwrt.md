@@ -11,6 +11,7 @@
   ```shell
     opkg update
     opkg install iptables
+    /etc/init.d/passwall restart
   ```
 
 #### Easytier

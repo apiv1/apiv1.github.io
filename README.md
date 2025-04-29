@@ -495,6 +495,7 @@
 |  &nbsp;|--&nbsp;[应用已损坏无法打开.md](./Mac/应用已损坏无法打开.md)  
 |  &nbsp;|--&nbsp;[找不到音频设备.md](./Mac/找不到音频设备.md)  
 |  &nbsp;|--&nbsp;[显示隐藏文件.md](./Mac/显示隐藏文件.md)  
+|  &nbsp;|--&nbsp;[服务改默认端口.md](./Mac/服务改默认端口.md)  
 |  &nbsp;|--&nbsp;[电源管理.md](./Mac/电源管理.md)  
 |  &nbsp;|--&nbsp;[远程桌面.md](./Mac/远程桌面.md)  
 |  &nbsp;+--&nbsp;[鼠须管配置.md](./Mac/鼠须管配置.md)  

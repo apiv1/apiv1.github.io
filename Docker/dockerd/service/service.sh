@@ -41,6 +41,7 @@ download_url() {
 
 dockerd_install () {
   if test ! -f "$SCRIPT_HOME/bin/dockerd" ; then
+    cd $SCRIPT_HOME
     local DOCKER_FILE_NAME=docker.tgz
     local DOWNLOAD_DOCKER_SITE=${DOWNLOAD_DOCKER_SITE:-https://download.docker.com}
     if test ! -f $DOCKER_FILE_NAME; then
@@ -59,6 +60,7 @@ dockerd_install () {
     mkdir -p bin
     mv docker/* bin/
     rmdir docker
+    cd -
   fi
 }
 
@@ -67,6 +69,7 @@ dockerd_rootless_install () {
   local DOCKER_ROOTLESS_VERSION=$DOCKER_VERSION
 
   if test ! -f "$SCRIPT_HOME/bin/dockerd-rootless.sh" ; then
+    cd $SCRIPT_HOME
     local DOCKER_ROOTLESS_FILE_NAME=docker-rootless-extras.tgz
     local DOWNLOAD_DOCKER_SITE=${DOWNLOAD_DOCKER_SITE:-https://download.docker.com}
     if test ! -f $DOCKER_ROOTLESS_FILE_NAME; then
@@ -85,6 +88,7 @@ dockerd_rootless_install () {
     mkdir -p bin
     mv docker-rootless-extras/* bin/
     rmdir docker-rootless-extras
+    cd -
   fi
 }
 

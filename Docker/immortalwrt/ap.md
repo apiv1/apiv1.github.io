@@ -46,6 +46,9 @@ wpa=2
 wpa_key_mgmt=WPA-PSK
 rsn_pairwise=CCMP
 
+# 热点隐藏功能, 0: none, 1: no ssid len=0, 2: no ssid len > 0
+ignore_broadcast_ssid=0
+
 # wifi名称
 ssid=AAA
 #密码
@@ -87,8 +90,9 @@ sudo sysctl -p
 sudo systemctl disable --now systemd-resolved  # 禁用开机启动
 sudo unlink /etc/resolv.conf               # 删除旧的 DNS 配置（备份可选）
 sudo vim /etc/resolv.conf # 因为禁用了systemd-resolved, 所以原来的/etc/resolv.conf 失效了, 要设置新的dns服务器
-# nameserver 114.114.114.114
-# nameserver 8.8.8.8
+
+nameserver 114.114.114.114
+nameserver 8.8.8.8
 
 #开启dnsmasq, 并设置开机启动
 sudo dnsmasq --test #检查语法

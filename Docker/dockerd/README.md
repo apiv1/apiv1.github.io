@@ -10,7 +10,7 @@
 
 # apparmor(https://github.com/docker/for-linux/issues/1199#issuecomment-1431571192)
 sudo apt install apparmor
-# 安装完成后需要重启
+# 安装完成后, 如果不能用就需要重启
 
 sudo apt install iptables
 ```

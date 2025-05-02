@@ -26,7 +26,7 @@ bridge=brlan
 #hw_mode=g
 # a是5Ghz 的wifi
 hw_mode=a
-# wifi频段
+# wifi频段, 0自动选择, 2.4g仅支持1-13,5g仅支持149、153、157、161、165
 channel=153
 # limit the frequencies used to those allowed in the country
 ieee80211d=1

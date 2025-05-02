@@ -18,27 +18,28 @@ docker run -d --restart always --name immortalwrt --network brlan --privileged -
 /etc/config/network
 ```
 config interface 'loopback'
+	option device 'lo'
 	option proto 'static'
 	option ipaddr '127.0.0.1'
 	option netmask '255.0.0.0'
-	option device 'lo'
 
 config globals 'globals'
-
-config interface 'lan'
-	option proto 'static'
-	option netmask '255.255.255.0'
-	option ipaddr '10.1.1.1'
-	option gateway '10.1.1.254'
-	option device 'br-lan'
-	list dns '10.1.1.254'
-	list dns '114.114.114.114'
-	list dns '8.8.8.8
 
 config device
 	option name 'br-lan'
 	option type 'bridge'
 	list ports 'eth0'
+
+config interface 'lan'
+	option device 'br-lan'
+	option proto 'static'
+	option ipaddr '10.1.1.1'
+	option gateway '10.1.1.254'
+	option netmask '255.255.255.0'
+	option ip6assign '60'
+	list dns '10.1.1.254'
+	list dns '114.114.114.114'
+	list dns '8.8.8.8
 ```
 
 执行命令

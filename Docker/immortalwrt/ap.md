@@ -112,7 +112,7 @@ sudo systemctl start hostapd
 
 在/etc/rc.local/里面添加入
 ```shell
-bash -c "sleep 10; systemctl start hostapd"
+bash -c "sleep 10; systemctl start hostapd" &
 ```
 如果没有此脚本需要设置: [rc.local服务](../../Linux/rc.local开机执行命令.md)
 

@@ -220,3 +220,15 @@ zfs get encryption,keylocation,keystatus mypool/secret_data
 ---
 
 通过加密功能，可以在共享存储或敏感数据场景中保护隐私。建议优先使用密钥文件+自动加载方案，避免频繁输入密码。
+
+
+---
+
+zfs-mount.sh
+```shell
+#!/bin/sh
+zpool import -f -a
+zfs load-key -a
+zfs mount -a
+```
+系统启动时调用，比如[使用rc.local](rc.local开机执行命令.md)

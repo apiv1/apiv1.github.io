@@ -11,6 +11,14 @@ docker network create -d bridge --subnet=10.1.1.0/24 --gateway=10.1.1.254 -o "co
 docker run -d --restart always --name immortalwrt --network brlan --privileged -v immortalwrt-config:/etc/config -v /lib/modules:/lib/modules --entrypoint /sbin/init immortalwrt:current
 ```
 
+### 创建macvlan地址（如果可用）
+参考: [docker中创建macvlan网络](../../Linux/macvlan.md#docker中创建-macvlan网络)
+```shell
+IP=192.168.0.211
+docker network connect immortalwrt macvlan-network --ip $IP
+```
+宿主机无法和容器通过macvlan互通，需要[额外设置](../../Linux/macvlan.md#创建macvlan网络). 局域网其他机器能和容器机直接互通.
+
 #### 旁路由设置
 
 * ip设置为10.1.1.1, 网关是10.1.1.254

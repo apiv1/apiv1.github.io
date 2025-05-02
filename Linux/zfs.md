@@ -13,7 +13,7 @@
   git clone https://github.com/openzfs/zfs.git
   cd zfs
   ./autogen.sh
-  ./configure
+  ./configure --with-linux=/usr/src/linux-headers-$(uname -r) --with-linux-obj=/usr/src/linux-headers-$(uname -r)
   make -j$(nproc)
   sudo make install
   ```

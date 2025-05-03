@@ -91,6 +91,7 @@
 |  &nbsp;|--&nbsp;[easytier](./Docker/easytier)  
 |  &nbsp;|  &nbsp;|--&nbsp;[README.md](./Docker/easytier/README.md)  
 |  &nbsp;|  &nbsp;|--&nbsp;[compose.yml](./Docker/easytier/compose.yml)  
+|  &nbsp;|  &nbsp;|--&nbsp;[config.toml.example](./Docker/easytier/config.toml.example)  
 |  &nbsp;|  &nbsp;+--&nbsp;[env.example](./Docker/easytier/env.example)  
 |  &nbsp;|--&nbsp;[fastdfs](./Docker/fastdfs)  
 |  &nbsp;|  &nbsp;+--&nbsp;[compose.yml](./Docker/fastdfs/compose.yml)  

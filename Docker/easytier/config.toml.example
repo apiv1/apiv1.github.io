@@ -1,0 +1,20 @@
+instance_name = "default"
+listeners = [
+    "tcp://0.0.0.0:11010",
+    "udp://0.0.0.0:11010",
+    "wg://0.0.0.0:11011",
+]
+ipv4 = "10.10.10.10/24"
+dhcp = true
+rpc_portal = "127.0.0.1:15888"
+
+[network_identity]
+network_name = "random"
+network_secret = "random"
+
+[[proxy_network]]
+cidr = "192.168.199.0/24"
+
+[flags]
+enable_kcp_proxy = true
+latency_first = true

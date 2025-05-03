@@ -99,6 +99,9 @@ sudo dnsmasq --test #检查语法
 sudo systemctl unmask dnsmasq
 sudo systemctl enable  --now dnsmasq
 
+# 一些设置, 如启动遇到问题可以执行
+sudo rfkill unblock wifi # 解除无线硬件阻塞
+
 # 开启热点
 sudo systemctl unmask hostapd
 sudo systemctl start hostapd

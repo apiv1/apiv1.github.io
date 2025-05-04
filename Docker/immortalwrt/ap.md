@@ -130,3 +130,27 @@ sudo systemctl stop hostapd
 sudo systemctl restart dnsmasq
 sudo systemctl restart hostapd
 ```
+
+#### 多个网卡时, 根据网卡mac锁定网卡接口名称
+获取设备信息
+```shell
+# 查看无线网卡的 MAC 地址和总线路径
+ip link show
+udevadm info -a /sys/class/net/wlan1
+udevadm info -a /sys/class/net/wlan2
+```
+创建 udev 规则文件
+```shell
+sudo vim /etc/udev/rules.d/10-persistent-net.rules
+```
+添加规则（示例）
+```
+# 通过 MAC 地址绑定名称（替换为实际值）
+SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="aa:bb:cc:dd:ee:ff", NAME="wlan1"
+SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="11:22:33:44:55:66", NAME="wlan2"
+```
+应用规则并重启
+```shell
+sudo udevadm control --reload
+sudo reboot
+```

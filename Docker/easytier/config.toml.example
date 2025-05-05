@@ -12,6 +12,9 @@ rpc_portal = "127.0.0.1:15888"
 network_name = "random"
 network_secret = "random"
 
+[[peer]]
+uri = "tcp://public.easytier.top:11010"
+
 [[proxy_network]]
 cidr = "192.168.199.0/24"
 

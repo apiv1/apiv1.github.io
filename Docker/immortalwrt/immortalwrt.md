@@ -12,7 +12,13 @@ docker run -d --restart always --name immortalwrt --network brlan --privileged -
 ```
 
 ### 创建macvlan地址（如果可用）
+***可用于设置旁路由模式***
+
 参考: [docker中创建macvlan网络](../../Linux/macvlan.md#docker中创建-macvlan网络)
+
+这里就算不设置--subnet和--gateway也不影响
+
+##### 暂时连接方式
 ```shell
 IP=192.168.0.211
 docker network connect immortalwrt macvlan-network --ip $IP
@@ -57,6 +63,14 @@ docker exec -it immortalwrt sh
 vi /etc/config/network # 设置上面的文件
 /etc/init.d/network restart # 重启网络
 ```
+
+#### 旁路由规则设置
+路由设置
+```shell
+iptables -t nat -A POSTROUTING -o br-lan -j MASQUERADE
+```
+***等价于***```后台管理->网络->防火墙->区域->lan 勾上 IP动态伪装```
+如果不设置这个, 旁路由没开启NAT上不了网.
 
 #### 软路由配置
 ```shell

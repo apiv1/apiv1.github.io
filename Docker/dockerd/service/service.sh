@@ -250,9 +250,11 @@ install-rootless)
 up)
   if test -n "$IS_ROOT"; then
     dockerd_install
+    dockerd_envrc_install
     dockerd_service_install
   else
     dockerd_install
+    dockerd_envrc_install
     dockerd_rootless_install
     dockerd_rootless_service_install
   fi

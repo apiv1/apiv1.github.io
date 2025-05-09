@@ -1,5 +1,8 @@
 ### 换mac地址(临时)
 
+[mac地址生成](https://it-tools.tech/mac-address-generator)
+命令生成的mac地址可能非法, 无法使用.
+
 ```shell
 random_mac() {
   echo $RANDOM | md5sum | sed 's/../&:/g' | cut -c 1-17

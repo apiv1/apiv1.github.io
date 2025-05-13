@@ -2,17 +2,30 @@ package main
 
 import (
 	"flag"
+	"mime"
 	"net/http"
 	"path/filepath"
 )
 
 type fileServerWrapper struct {
 	handler http.Handler
+	dir     string
 }
 
 func (f *fileServerWrapper) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	println("Request: " + r.RemoteAddr + " | " + r.URL.String())
-	w.Header().Set("Content-Type", "application/octet-stream")
+	path := filepath.Join(f.dir, r.URL.Path)
+
+	ext := filepath.Ext(path)
+	mimeType := mime.TypeByExtension(ext)
+
+	if mimeType == "" {
+		mimeType = "text/html"
+	}
+
+	println("Request: " + r.RemoteAddr + " | " + r.URL.String() + " | " + mimeType)
+
+	w.Header().Set("Content-Type", mimeType)
+
 	f.handler.ServeHTTP(w, r)
 }
 
@@ -29,7 +42,7 @@ func main() {
 	}
 	dir := args[0]
 	p, _ := filepath.Abs(dir)
-	http.Handle("/", &fileServerWrapper{http.FileServer(http.Dir(p))})
+	http.Handle("/", &fileServerWrapper{http.FileServer(http.Dir(p)), p})
 	addr := ":8088"
 	if len(args) >= 2 {
 		addr = args[1]

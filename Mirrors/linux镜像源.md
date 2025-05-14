@@ -84,3 +84,9 @@ wget -O /etc/yum.repos.d/CentOS-Tencent.repo https://mirrors.cloud.tencent.com/r
 mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
 echo 'Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist
 ```
+
+### Armbian
+```shell
+sed -i.bak 's#http://apt.armbian.com#https://mirrors.tuna.tsinghua.edu.cn/armbian#g' /etc/apt/sources.list.d/armbian.list
+apt update
+```

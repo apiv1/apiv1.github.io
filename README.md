@@ -460,6 +460,7 @@
 |  &nbsp;|  &nbsp;+--&nbsp;[rime.md](./Linux/input/rime.md)  
 |  &nbsp;|--&nbsp;[ip.md](./Linux/ip.md)  
 |  &nbsp;|--&nbsp;[iptables.md](./Linux/iptables.md)  
+|  &nbsp;|--&nbsp;[iscsi跨机器挂载.md](./Linux/iscsi跨机器挂载.md)  
 |  &nbsp;|--&nbsp;[kodi.md](./Linux/kodi.md)  
 |  &nbsp;|--&nbsp;[linux-command.md](./Linux/linux-command.md)  
 |  &nbsp;|--&nbsp;[mDns设置.md](./Linux/mDns设置.md)  

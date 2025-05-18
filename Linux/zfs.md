@@ -13,9 +13,12 @@
   git clone https://github.com/openzfs/zfs.git
   cd zfs
   ./autogen.sh
-  ./configure --with-linux=/usr/src/linux-headers-$(uname -r) --with-linux-obj=/usr/src/linux-headers-$(uname -r)
+  # 指定内核
+  # ./configure --with-linux=/usr/src/linux-headers-$(uname -r) --with-linux-obj=/usr/src/linux-headers-$(uname -r)
+  ./configure --with-linux=/lib/modules/$(uname -r)/build
   make -j$(nproc)
   sudo make install
+  sudo ldconfig # 更新库缓存
   ```
 
 #### **2. 创建存储池**

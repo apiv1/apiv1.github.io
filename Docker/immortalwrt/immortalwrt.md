@@ -72,6 +72,13 @@ iptables -t nat -A POSTROUTING -o br-lan -j MASQUERADE
 ***等价于***```后台管理->网络->防火墙->区域->lan 勾上 IP动态伪装```
 如果不设置这个, 旁路由没开启NAT上不了网.
 
+##### 用旁路由通过easytier转发到其他网段
+需要对easytier的网卡(这里是tun0)配置动态伪装,命令如下
+```shell
+iptables -t nat -A POSTROUTING -o tun0 -j MASQUERADE
+```
+***等价于***, 开启IP动态伪装时, 在```后台管理->网络->防火墙->区域->区域设置->涵盖的设备```加上tun0网卡。
+
 #### 软路由配置
 ```shell
 # 更新到镜像

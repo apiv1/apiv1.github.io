@@ -1,6 +1,6 @@
 ### iscsi跨机器挂载
 
-#### 服务端
+#### ~~服务端安装~~
 
 安装
 ```shell
@@ -25,6 +25,13 @@ sudo apt install -y tgt
 ```shell
 sudo systemctl start tgt
 ```
+
+#### Docker安装服务端
+
+[compose.yml](../Docker/tgtd/compose.yml)
+[.env](../Docker/tgtd/env.example) 这是例子
+
+配置（帐号密码卷等）放.env里
 
 #### 客户端
 

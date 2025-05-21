@@ -5,7 +5,8 @@
 #### **1. 安装 ZFS**
 - **Debian/Ubuntu**：
   ```bash
-  sudo apt install zfsutils-linux
+  # 先安装内核，然后执行这个。 如果没装内核，执行这个还不成功， 装了内核重装下面的。
+  sudo apt install zfs-dkms zfsutils-linux
   ```
 - **手动编译**（内核不匹配时）：
 - [安装依赖](https://openzfs.github.io/openzfs-docs/Developer%20Resources/Building%20ZFS.html#installing-dependencies)
@@ -235,3 +236,28 @@ zfs load-key -a
 zfs mount -a
 ```
 系统启动时调用，比如[使用rc.local](rc.local开机执行命令.md)
+
+---
+通过服务导入密钥
+
+```shell
+cat << 'EOF' > /etc/systemd/system/zfs-load-key.service
+[Unit]
+Description=Load ZFS keys
+DefaultDependencies=no
+Before=zfs-mount.service
+After=zfs-import.target
+Requires=zfs-import.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStartPre=/sbin/zfs mount -a
+ExecStart=/sbin/zfs load-key -a
+
+[Install]
+WantedBy=zfs-mount.service
+EOF
+
+systemctl enable zfs-load-key
+```

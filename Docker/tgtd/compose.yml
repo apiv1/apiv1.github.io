@@ -1,0 +1,26 @@
+services:
+  tgtd:
+    image: kolla/tgtd:2025.1-ubuntu-noble
+    # image: kolla/tgtd:2025.1-debian-bookworm-aarch64
+    restart: always
+    network_mode: host
+    privileged: true
+    entrypoint: sh
+    command: |
+      -c "
+        /usr/sbin/tgtd -f &
+        /usr/sbin/tgtadm --op update --mode sys --name State -v offline
+        /usr/sbin/tgt-admin -e -c /etc/tgt/targets.conf
+        /usr/sbin/tgtadm --op update --mode sys --name State -v ready
+
+         while true; do sleep 1d; done
+      "
+    volumes:
+      - /dev:/dev
+    configs:
+      - source: config.conf
+        target: /etc/tgt/conf.d/config.conf
+configs:
+  config.conf:
+    content: |
+      ${CONFIG_JSON:-}

@@ -58,6 +58,17 @@ echo ${TARGET_FILE%.*} # 1.tar
 echo ${TARGET_FILE%%.*} # 1
 ```
 
+### 删除路径最后的斜杠
+
+```shell
+path="/usr/local/bin/"
+# 只在末尾有斜杠时才删除
+path=${path%/}
+```
+* ${path%/} 中的 % 表示从结尾处匹配
+* / 是要匹配的字符（斜杠）
+* 这个操作会删除最后一个斜杠（如果存在的话
+
 ### 替换换行符
 
 ```shell

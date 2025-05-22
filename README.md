@@ -634,6 +634,7 @@
 |  &nbsp;|--&nbsp;[命令行控制全局代理.md](./Windows/命令行控制全局代理.md)  
 |  &nbsp;|--&nbsp;[壁纸路径.md](./Windows/壁纸路径.md)  
 |  &nbsp;|--&nbsp;[安装Tree命令.md](./Windows/安装Tree命令.md)  
+|  &nbsp;|--&nbsp;[安装VNC.md](./Windows/安装VNC.md)  
 |  &nbsp;|--&nbsp;[安装服务工具.md](./Windows/安装服务工具.md)  
 |  &nbsp;|--&nbsp;[小鹤双拼.md](./Windows/小鹤双拼.md)  
 |  &nbsp;|--&nbsp;[小鹤双拼.reg](./Windows/小鹤双拼.reg)  

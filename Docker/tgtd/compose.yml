@@ -5,6 +5,7 @@ services:
     restart: always
     network_mode: host
     privileged: true
+    init: true
     entrypoint: sh
     command: |
       -c "
@@ -12,8 +13,7 @@ services:
         /usr/sbin/tgtadm --op update --mode sys --name State -v offline
         /usr/sbin/tgt-admin -e -c /etc/tgt/targets.conf
         /usr/sbin/tgtadm --op update --mode sys --name State -v ready
-
-         while true; do sleep 1d; done
+        wait
       "
     volumes:
       - /dev:/dev

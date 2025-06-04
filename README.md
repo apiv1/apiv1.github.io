@@ -602,6 +602,7 @@
 |  &nbsp;|--&nbsp;[ohmyzsh安装.md](./Tools/ohmyzsh安装.md)  
 |  &nbsp;|--&nbsp;[protobuf.md](./Tools/protobuf.md)  
 |  &nbsp;|--&nbsp;[scrcpy.md](./Tools/scrcpy.md)  
+|  &nbsp;|--&nbsp;[shred.md](./Tools/shred.md)  
 |  &nbsp;|--&nbsp;[skopeo.md](./Tools/skopeo.md)  
 |  &nbsp;|--&nbsp;[sshfs.md](./Tools/sshfs.md)  
 |  &nbsp;|--&nbsp;[sslsplit.md](./Tools/sslsplit.md)  

@@ -13,23 +13,7 @@ openssl req -new -x509 -days 3650 -key ./cert/ca.key -out ./cert/ca.crt -subj "/
 ```
 创建好了后在设备上把ca.crt安装一下就能抓明文https
 
-* 设置转发
-```shell
-sysctl -w net.ipv4.ip_forward=1
-```
-
-* iptables 规则, 重定向数据
-```shell
-iptables -t nat -N SSLSPLIT
-iptables -t nat -A PREROUTING -j SSLSPLIT
-
-IPTABLES_ARGS=''
-test -n "$INTERFACE" && IPTABLES_ARGS="-i $INTERFACE"
-test -n "$DST_HOST" && IPTABLES_ARGS="$IPTABLES_ARGS -d $DST_HOST"
-
-iptables -t nat -A SSLSPLIT -p tcp --dport 443 -j REDIRECT --to-ports 8443 $IPTABLES_ARGS
-iptables -t nat -A SSLSPLIT -p tcp --dport 80 -j REDIRECT --to-ports 8080 $IPTABLES_ARGS
-```
+* [iptables 规则, 重定向数据](../Linux/iptables.md#重定向数据)
 
 * 启动sshsplit
 ```shell

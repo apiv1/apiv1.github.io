@@ -49,3 +49,30 @@ sudo ip route add $SUB_NET via $IP
 sudo iptables -t nat -A POSTROUTING -j MASQUERADE
 sudo iptables -t nat -L POSTROUTING # 检查
 ```
+
+#### 重定向数据
+
+例子: 重定向http
+```shell
+sysctl -w net.ipv4.ip_forward=1 # 开启转发
+
+iptables -t nat -N HTTP_REDIRECT
+iptables -t nat -A PREROUTING -j HTTP_REDIRECT
+
+IPTABLES_ARGS=''
+test -n "$INTERFACE" && IPTABLES_ARGS="-i $INTERFACE"
+test -n "$DST_HOST" && IPTABLES_ARGS="$IPTABLES_ARGS -d $DST_HOST"
+
+iptables -t nat -A HTTP_REDIRECT -p tcp --dport 443 -j REDIRECT --to-ports 8443 $IPTABLES_ARGS
+iptables -t nat -A HTTP_REDIRECT -p tcp --dport 80 -j REDIRECT --to-ports 8080 $IPTABLES_ARGS
+
+### 使用DNAT, 定向到指定IP的特定端口
+iptables -t nat -A HTTP_REDIRECT -p tcp --dport 80 -j DNAT --to-destination 192.168.1.100:8080 $IPTABLES_ARGS
+```
+
+删除
+```shell
+iptables -t nat -D PREROUTING -j HTTP_REDIRECT
+iptables -t nat -F HTTP_REDIRECT
+iptables -t nat -X HTTP_REDIRECT
+```

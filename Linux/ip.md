@@ -21,3 +21,10 @@ echo "MAC：" $(ip link show eth0 | grep link/ether)
 sudo ip addr add 192.168.1.255/24 dev eth0
 sudo ip addr del 192.168.1.255/24 dev eth0
 ```
+
+### 路由器关掉DHCP的配置
+设备要联网需要配置ip和默认网关
+```shell
+ip addr add 192.168.1.2/24 dev eth0
+route add default gw 192.168.1.1
+```

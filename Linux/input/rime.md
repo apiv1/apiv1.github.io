@@ -107,4 +107,16 @@ patch:
 
 ### **配置文件设置**
 快捷键: ```default.custom.yaml```
-方案选单快捷键: ```default.yaml```
+方案选单快捷键: ```default.yaml```, ```build/default.yaml```
+
+* 快捷键片段
+```yaml
+switcher:
+  abbreviate_options: true
+  caption: "〔方案選單〕"
+  fold_options: true
+  hotkeys:
+    - "Control+grave"
+    - "Control+Shift+grave"
+    - F4
+```

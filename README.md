@@ -457,6 +457,7 @@
 |  &nbsp;|--&nbsp;[desktop文件.md](./Linux/desktop文件.md)  
 |  &nbsp;|--&nbsp;[devices](./Linux/devices)  
 |  &nbsp;|  &nbsp;+--&nbsp;[8821cu.md](./Linux/devices/8821cu.md)  
+|  &nbsp;|--&nbsp;[encfs.md](./Linux/encfs.md)  
 |  &nbsp;|--&nbsp;[font.md](./Linux/font.md)  
 |  &nbsp;|--&nbsp;[immortalwrt.md](./Linux/immortalwrt.md)  
 |  &nbsp;|--&nbsp;[input](./Linux/input)  

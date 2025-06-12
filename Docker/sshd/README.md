@@ -14,6 +14,7 @@ docker buildx build . --platform linux/amd64,linux/arm64 --target dockerd --pull
 
 ### docker容器里建立ssh连接
 
+ssh-client.sh
 ```shell
 #!/bin/sh
 SSH_BASE_ARGS="-o ServerAliveInterval=60 -o ServerAliveCountMax=60 -o ConnectTimeout=30 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"

@@ -15,4 +15,4 @@ find . -name '._*' -exec rm -rvf {} \;
 禁止生成网络驱动器里的.DS_Store
 ```shell
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
-``` 
+```

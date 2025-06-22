@@ -62,7 +62,7 @@ $env:DOCKER_HOST="ssh://docker@docker.server:22" # powershell
 ssh $DOCKER_HOST # 测试连接,确认密钥配置生效
 
 docker context create --docker host=$DOCKER_HOST --description="docker-server" docker-server
-
+docker context create --docker host="$env:DOCKER_HOST" --description="docker-server" docker-server # powershell
 # 使用远程docker
 docker context use docker-server
 

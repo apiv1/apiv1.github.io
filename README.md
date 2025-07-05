@@ -478,6 +478,7 @@
 |  &nbsp;|--&nbsp;[ssh设置不超时断开.md](./Linux/ssh设置不超时断开.md)  
 |  &nbsp;|--&nbsp;[watchdog.md](./Linux/watchdog.md)  
 |  &nbsp;|--&nbsp;[zfs.md](./Linux/zfs.md)  
+|  &nbsp;|--&nbsp;[zfs快照备份.md](./Linux/zfs快照备份.md)  
 |  &nbsp;|--&nbsp;[一行代码卡死电脑.md](./Linux/一行代码卡死电脑.md)  
 |  &nbsp;|--&nbsp;[从stdin执行source.md](./Linux/从stdin执行source.md)  
 |  &nbsp;|--&nbsp;[使用frp映射内网linux的ssh端口到外网.md](./Linux/使用frp映射内网linux的ssh端口到外网.md)  

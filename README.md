@@ -598,6 +598,7 @@
 |  &nbsp;|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|--&nbsp;[frpc.ini](./Tools/frp/old/frpc.ini)  
 |  &nbsp;|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|--&nbsp;[frps.ini](./Tools/frp/old/frps.ini)  
 |  &nbsp;|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+--&nbsp;[模板.md](./Tools/frp/old/模板.md)  
+|  &nbsp;|--&nbsp;[gnirehtet.md](./Tools/gnirehtet.md)  
 |  &nbsp;|--&nbsp;[it-tools.md](./Tools/it-tools.md)  
 |  &nbsp;|--&nbsp;[jq.md](./Tools/jq.md)  
 |  &nbsp;|--&nbsp;[kubectl.md](./Tools/kubectl.md)  

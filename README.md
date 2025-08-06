@@ -622,6 +622,7 @@
 |  &nbsp;|--&nbsp;[yq.md](./Tools/yq.md)  
 |  &nbsp;|--&nbsp;[z.md](./Tools/z.md)  
 |  &nbsp;|--&nbsp;[命令生成date.md](./Tools/命令生成date.md)  
+|  &nbsp;|--&nbsp;[清理空白字符.md](./Tools/清理空白字符.md)  
 |  &nbsp;+--&nbsp;[远程Docker.md](./Tools/远程Docker.md)  
 |--&nbsp;[Vim](./Vim)  
 |  &nbsp;|--&nbsp;[vim替换^M.md](./Vim/vim替换^M.md)  

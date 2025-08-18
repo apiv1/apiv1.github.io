@@ -6,7 +6,7 @@
 docker run -d --name easytier --restart always --privileged --hostname "$HOSTNAME" --network host -e TZ=Asia/Shanghai easytier/easytier:latest $COMMAND
 ```
 #### 配置文件启动
-配置文件参考[env.example](./config.toml.example)
+配置文件参考[config.toml.example](./config.toml.example)
 ```shell
 docker run -d --name easytier --restart always --privileged --hostname "$HOSTNAME" --network host -e TZ=Asia/Shanghai -v $PWD/conf:/etc/easytier easytier/easytier:latest -c /etc/easytier/config.toml
 ```

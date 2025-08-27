@@ -26,6 +26,7 @@
 - **单磁盘池**（无冗余）：
   ```bash
   sudo zpool create mypool /dev/sda
+  sudo zpool create -m /mnt/mypool mypool /dev/sda
   ```
 - **镜像池**（推荐冗余）：
   ```bash
@@ -41,7 +42,7 @@
 ### **二、管理数据集**
 #### **1. 创建数据集（类似子目录）**
 ```bash
-sudo zfs create mypool/data
+sudo zfs create -o mountpoint=/mnt/data mypool/data
 ```
 #### **2. 设置挂载点**
 ```bash

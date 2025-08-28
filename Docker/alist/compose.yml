@@ -2,6 +2,10 @@
 # docker exec -it alist ./alist admin random # 密码随机
 # docker exec -it alist ./alist admin set NEW_PASSWORD # 设置密码
 
+# for compose
+# docker compose exec -it alist ./alist admin random # 密码随机
+# docker compose exec -it alist ./alist admin set NEW_PASSWORD # 设置密码
+
 
 services:
   alist:

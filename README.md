@@ -578,6 +578,7 @@
 |  &nbsp;|--&nbsp;[SSH端口转发.md](./Tools/SSH端口转发.md)  
 |  &nbsp;|--&nbsp;[VsCode.md](./Tools/VsCode.md)  
 |  &nbsp;|--&nbsp;[asdf安装.md](./Tools/asdf安装.md)  
+|  &nbsp;|--&nbsp;[bash反向Shell连接.md](./Tools/bash反向Shell连接.md)  
 |  &nbsp;|--&nbsp;[bash算md5.md](./Tools/bash算md5.md)  
 |  &nbsp;|--&nbsp;[brew.md](./Tools/brew.md)  
 |  &nbsp;|--&nbsp;[curl.md](./Tools/curl.md)  

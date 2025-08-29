@@ -4,10 +4,12 @@ bash
 
 ```shell
 alias netcat='docker run --rm -it --net host --init toolbelt/netcat'
+alias nc=netcat
 ```
 
 powershell
 
 ```powershell
 function global:netcat { docker run --rm -it --net host --init toolbelt/netcat $args }
+Set-Alias nc netcat
 ```

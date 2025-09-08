@@ -199,6 +199,9 @@ sudo zfs create -o encryption=on -o keylocation=file:///path/new_key mypool/data
 
 # 查看加密状态
 zfs get encryption,keylocation,keystatus mypool/secret_data
+
+# 加载密钥解密
+zfs load-key -L file:///path/to/keyfile -r mypool/secret_data
 ```
 
 ---

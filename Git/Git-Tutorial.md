@@ -9,6 +9,7 @@ ssh-keygen # 默认生成到 $HOME/.ssh/id_rsa.pub(公钥), $HOME/.ssh/id_rsa(�
 ```shell
 git clone $REPO_URL
 git clone --recurse-submodules --depth=1 $REPO_URL # 拉取所有子模块, 变更拷贝深度为1, 减少体积.(常用于仅使用项目, 不做变更和提交)
+git submodule update --init --recursive # 拉取子模块以及子模块的子模块
 ```
 
 更新本地项目

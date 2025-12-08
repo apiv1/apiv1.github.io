@@ -17,6 +17,9 @@ mkdir -p ~/.pip && printf '[global]\nindex-url = https://pypi.tuna.tsinghua.edu.
 ```bash
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 pip config set global.index-url https://mirrors.ustc.edu.cn/pypi/simple
+
+# 安装软件依赖示例
+pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 Windows放```$HOME\AppData\Roaming\pip``` 路径

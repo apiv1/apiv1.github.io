@@ -647,6 +647,7 @@
 |  &nbsp;|--&nbsp;[安装Tree命令.md](./Windows/安装Tree命令.md)  
 |  &nbsp;|--&nbsp;[安装VNC.md](./Windows/安装VNC.md)  
 |  &nbsp;|--&nbsp;[安装服务工具.md](./Windows/安装服务工具.md)  
+|  &nbsp;|--&nbsp;[小狼毫配置.md](./Windows/小狼毫配置.md)  
 |  &nbsp;|--&nbsp;[小鹤双拼.md](./Windows/小鹤双拼.md)  
 |  &nbsp;|--&nbsp;[小鹤双拼.reg](./Windows/小鹤双拼.reg)  
 |  &nbsp;|--&nbsp;[开启IP转发.md](./Windows/开启IP转发.md)  

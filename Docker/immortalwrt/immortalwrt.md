@@ -26,6 +26,9 @@ docker network connect immortalwrt macvlan-network --ip $IP
 宿主机无法和容器通过macvlan互通，需要[额外设置](../../Linux/macvlan.md#创建macvlan网络). 局域网其他机器能和容器机直接互通.
 如果使用macvlan旁路由功能，还需要在路由器的 网络->设备 里添加eth1网桥（新增的macvlan）， 在网络->接口里添加新接口，使用网桥。
 
+
+###### 如果使用macvlan， 则宿主同级局域网里其他机器能访问此软路由，否则只有软路由所在子网(如wifi连上的)和宿主能访问软路由。
+
 #### 旁路由设置
 
 * ip设置为10.1.1.1, 网关是10.1.1.254
@@ -54,7 +57,7 @@ config interface 'lan'
 	option ip6assign '60'
 	list dns '10.1.1.254'
 	list dns '114.114.114.114'
-	list dns '8.8.8.8
+	list dns '8.8.8.8'
 ```
 
 执行命令

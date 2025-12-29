@@ -638,6 +638,7 @@
 |  &nbsp;|--&nbsp;[WSL2挂载Linux分区.md](./Windows/WSL2挂载Linux分区.md)  
 |  &nbsp;|--&nbsp;[Win11离线装系统.md](./Windows/Win11离线装系统.md)  
 |  &nbsp;|--&nbsp;[Win11远程桌面多开.md](./Windows/Win11远程桌面多开.md)  
+|  &nbsp;|--&nbsp;[Windows自动登录.md](./Windows/Windows自动登录.md)  
 |  &nbsp;|--&nbsp;[host文件路径.md](./Windows/host文件路径.md)  
 |  &nbsp;|--&nbsp;[netsh设置.md](./Windows/netsh设置.md)  
 |  &nbsp;|--&nbsp;[休眠.md](./Windows/休眠.md)  

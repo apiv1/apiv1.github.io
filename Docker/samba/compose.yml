@@ -16,12 +16,12 @@ services:
     configs: # 可选：配置文件
       - source: smb.conf
         target: /etc/samba/smb.conf
-      - source: user.conf
-        target: /etc/samba/user.conf
+      - source: users.conf
+        target: /etc/samba/users.conf
 configs: # 可选：配置文件
   smb.conf:
     content: |
       ${SMB_CONF}
-  user.conf:
+  users.conf:
     content: |
       ${USER_CONF}

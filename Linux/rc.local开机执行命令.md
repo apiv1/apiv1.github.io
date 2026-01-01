@@ -24,7 +24,6 @@ Alias=rc-local.service
 2. 配置
 ```shell
 chmod +x /lib/systemd/system/rc-local.service.d/rc-local.service
-chmod +x /etc/rc.local
 ln -s /lib/systemd/system/rc-local.service.d/rc-local.service /etc/systemd/system/
 ```
 
@@ -35,4 +34,8 @@ ln -s /lib/systemd/system/rc-local.service.d/rc-local.service /etc/systemd/syste
 #!/bin/sh
 
 exit 0
+```
+可执行权限
+```shell
+chmod +x /etc/rc.local
 ```

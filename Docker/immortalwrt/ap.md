@@ -113,7 +113,7 @@ sudo systemctl start hostapd
 
 如果不延时启动, 会影响网卡设置, 导致失效.
 
-在/etc/rc.local/里面添加入
+在/etc/rc.local里面添加入
 ```shell
 bash -c "sleep 10; systemctl start hostapd" &
 ```

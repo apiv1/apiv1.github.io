@@ -1,6 +1,6 @@
 # 软路由使用
 Linux下使用Docker配置ImmortalWRT作为AP主路由
-* [从固件构建ImmortalWRT镜像](./build-image.md)
+* [从固件构建ImmortalWRT镜像](build-image.md)
 * [安装软路由和网桥](immortalwrt.md)
 * [安装热点和DNS服务](ap.md)
 

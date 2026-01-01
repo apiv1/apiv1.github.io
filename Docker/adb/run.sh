@@ -1,0 +1,1 @@
+docker run -d --name adbd --restart always --privileged --net host -v /dev/bus/usb:/dev/bus/usb -v $PWD/.android:/root/.android  -v $PWD:/app -w /app --entrypoint sh sorccu/adb -c "adb server; adb track-devices"

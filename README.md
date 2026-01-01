@@ -4,6 +4,7 @@
 |  &nbsp;|--&nbsp;[AndroidManifest.xml合并冲突解决.md](./Android/AndroidManifest.xml合并冲突解决.md)  
 |  &nbsp;|--&nbsp;[Android反编译.md](./Android/Android反编译.md)  
 |  &nbsp;|--&nbsp;[adb](./Android/adb)  
+|  &nbsp;|  &nbsp;|--&nbsp;[app.md](./Android/adb/app.md)  
 |  &nbsp;|  &nbsp;|--&nbsp;[http_proxy.md](./Android/adb/http_proxy.md)  
 |  &nbsp;|  &nbsp;+--&nbsp;[window.md](./Android/adb/window.md)  
 |  &nbsp;|--&nbsp;[ftp-server.md](./Android/ftp-server.md)  

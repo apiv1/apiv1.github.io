@@ -1,4 +1,5 @@
 开启
+
 ```bash
 echo "1" > /proc/sys/net/ipv4/ip_forward
 # or
@@ -27,6 +28,15 @@ iptables -t nat -A POSTROUTING -p tcp -d ${DST_HOST} --dport ${DST_PORT} -j SNAT
 
 
 ```bash
+# 查看所有iptables规则
+iptables -L -n -v
+
+# 查看所有NAT表规则
+iptables -t nat -L -n -v
+
+# 查看所有filter表规则（默认表）
+iptables -t filter -L -n -v
+
 # -- 查找所有规则
 iptables -L INPUT --line-numbers
 
@@ -53,6 +63,7 @@ sudo iptables -t nat -L POSTROUTING # 检查
 #### 重定向数据
 
 例子: 重定向http
+
 ```shell
 sysctl -w net.ipv4.ip_forward=1 # 开启转发
 
@@ -71,6 +82,7 @@ iptables -t nat -A HTTP_REDIRECT -p tcp --dport 80 -j DNAT --to-destination 192.
 ```
 
 删除
+
 ```shell
 iptables -t nat -D PREROUTING -j HTTP_REDIRECT
 iptables -t nat -F HTTP_REDIRECT

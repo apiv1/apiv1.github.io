@@ -1,0 +1,17 @@
+services:
+  bettercap:
+    build:
+      dockerfile_inline: |
+        FROM bettercap/bettercap:latest
+        RUN apk add iptables
+    entrypoint: bash
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    privileged: true
+    volumes:
+      - .:/workdir
+    working_dir: /workdir
+    stdin_open: true
+    tty: true

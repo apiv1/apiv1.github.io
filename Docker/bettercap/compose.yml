@@ -4,6 +4,7 @@ services:
       dockerfile_inline: |
         FROM bettercap/bettercap:latest
         RUN apk add iptables
+        ENV PATH $${PATH}:/app
     entrypoint: bash
     network_mode: host
     cap_add:

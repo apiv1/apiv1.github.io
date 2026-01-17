@@ -3,7 +3,7 @@ function onLoad() {
 }
 
 // 处理HTTP/HTTPS请求
-function onRequest(req, res) {
+function onRequest(req) {
     var client_ip = req.Client.IP;
     var method = req.Method;
     var hostname = req.Hostname;

@@ -1,4 +1,9 @@
+# Bettercap 透明代理
+
 ## iptables 重定向
+[iptables命令](../../../Linux/iptables.md)
+
+[iptables知识](../../../Linux/iptables_knowledge.md)
 
 在子网网关机器上配置
 

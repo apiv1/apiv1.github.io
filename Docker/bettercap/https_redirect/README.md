@@ -31,7 +31,7 @@ iptables -t nat -X HTTPS_REDIRECT
 
 ## proxy.cap
 
-[proxy.js](./proxy.js): 仅仅打印req/resp
+[proxy.js](./proxy.js): 打印req/resp, 并可输出日志到文件。
 
 不使用 ```https.proxy.redirect```来重定向连接，已经在上面自己手动配置了iptables
 
@@ -47,6 +47,17 @@ set http.proxy.script proxy.js
 set http.proxy.redirect false
 set http.proxy.port 8080
 set http.proxy.address 0.0.0.0
+
+# set http.proxy.blacklist *
+# set http.proxy.whitelist xxx.com
+# set https.proxy.blacklist *
+# set https.proxy.whitelist xxx.com
+
+set net.probe on
+set net.probe.throttle 10
+
+events.stream off
+
 https.proxy on
 http.proxy on
 ```

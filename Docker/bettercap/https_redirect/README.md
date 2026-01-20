@@ -15,6 +15,11 @@ PROXY_HTTPS_PORT=8083
 NET_INTERFACE=eth0
 IPTABLES_PARAMS="-i ${NET_INTERFACE}"
 
+# 可选，ip过滤
+ipset create http_redirect_ips hash:ip
+ipset add http_redirect_ips 11.22.33.44 # example.com
+IPTABLES_PARAMS="${IPTABLES_PARAMS} -m set --match-set http_redirect_ips dst"
+
 # 设置重定向
 iptables -t nat -N HTTPS_REDIRECT
 iptables -t nat -A PREROUTING -j HTTPS_REDIRECT
@@ -27,6 +32,7 @@ iptables -t nat -D POSTROUTING -o "$NET_INTERFACE" -j MASQUERADE
 iptables -t nat -D PREROUTING -j HTTPS_REDIRECT
 iptables -t nat -F HTTPS_REDIRECT
 iptables -t nat -X HTTPS_REDIRECT
+ipset destroy http_redirect_ips
 ```
 
 ## proxy.cap

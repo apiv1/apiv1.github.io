@@ -3,7 +3,7 @@ services:
     build:
       dockerfile_inline: |
         FROM bettercap/bettercap:latest
-        RUN apk add iptables
+        RUN apk add iptables ipset
         ENV PATH $${PATH}:/app
     entrypoint: bash
     network_mode: host

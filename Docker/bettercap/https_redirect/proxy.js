@@ -59,8 +59,11 @@ function formatResponseInfo(status, resHeaders, rawBody) {
 }
 
 // 处理HTTP/HTTPS请求
-function onRequest(req) {
+function onRequest(req, res) {
     var hostname = req.Hostname;
+    // ⚠️ 注意：如果在这里修改res（如设置res.Status/res.Body），请求将不会真正转发到目标服务器，
+    // 代理会直接返回你设置的res内容作为响应。这可用于拦截、阻断或伪造响应。
+    _ = res; // 避免未使用res警告
 
     // 读取body
     req.ReadBody();

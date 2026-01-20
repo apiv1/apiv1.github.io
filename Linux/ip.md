@@ -28,3 +28,8 @@ sudo ip addr del 192.168.1.255/24 dev eth0
 ip addr add 192.168.1.2/24 dev eth0
 route add default gw 192.168.1.1
 ```
+
+### ip only
+```shell
+ip addr show eth0 | awk -F'[/ ]+' '/inet / {print $3}'
+```

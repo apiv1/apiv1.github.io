@@ -5,7 +5,7 @@ var config = {
 
 function logToFile(data) {
     if (!config.logFilePath) return;
-    appendFile(config.logFilePath, data + "\n\n");
+    appendFile(config.logFilePath, JSON.stringify(data) + "\n");
 }
 
 function onLoad() {
@@ -74,7 +74,7 @@ function onRequest(req, res) {
         type: "request",
         request: req
     };
-    logToFile(JSON.stringify(fileData, null, 2));
+    logToFile(fileData);
 
     // 日志输出简化信息
     var client_ip = req.Client.IP;
@@ -103,7 +103,7 @@ function onResponse(req, res) {
         request: req,
         response: res
     };
-    logToFile(JSON.stringify(fileData, null, 2));
+    logToFile(fileData);
 
     // 日志输出简化信息
     var client_ip = req.Client.IP;

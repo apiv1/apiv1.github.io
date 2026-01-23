@@ -37,6 +37,21 @@ ipset destroy http_redirect_ips
 
 ## proxy.cap
 
+脚本格式:
+```js
+function onLoad() {
+  log_info("loaded");
+}
+function onRequest(req, res) {
+  log_info("onRequest");
+  return req;
+}
+function onResponse(req, res) {
+  log_info("onResponse");
+  return res;
+}
+```
+
 [proxy.js](./proxy.js): 打印req/resp, 并可输出日志到文件。
 
 不使用 ```https.proxy.redirect```来重定向连接，已经在上面自己手动配置了iptables
@@ -58,11 +73,6 @@ set http.proxy.address 0.0.0.0
 # set http.proxy.whitelist xxx.com
 # set https.proxy.blacklist *
 # set https.proxy.whitelist xxx.com
-
-set net.probe on
-set net.probe.throttle 10
-
-events.stream off
 
 https.proxy on
 http.proxy on

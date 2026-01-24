@@ -11,7 +11,8 @@ function logToFile(data) {
 function onLoad() {
     log_info("\n=== 加载成功 ===\n" +
         "Body 最大保留长度: " + config.bodyMaxLength + " 字节\n" +
-        "日志路径: " + config.logFilePath);
+        "日志路径: " + config.logFilePath + "\n" +
+        "WebSocket连接: 自动放行（请求和响应）");
 }
 
 // 截断字符串到指定长度
@@ -19,6 +20,25 @@ function truncateBody(body) {
     if (!body) return body;
     if (body.length <= config.bodyMaxLength) return body;
     return body.substring(0, config.bodyMaxLength) + "...";
+}
+
+// 检测WebSocket升级请求
+function isWebSocketUpgrade(req) {
+    if (!req.Headers) return false;
+
+    // 检查Upgrade头是否为websocket，且Connection头包含upgrade
+    var headers = req.Headers.toString().toLowerCase();
+    return headers.indexOf("upgrade: websocket") !== -1 &&
+           headers.indexOf("connection:") !== -1 &&
+           headers.indexOf("upgrade") !== -1;
+}
+
+// 检测WebSocket握手响应
+function isWebSocketHandshakeResponse(res) {
+    if (!res.Headers) return false;
+
+    // 检查状态码是否为101 Switching Protocols
+    return res.Status === 101;
 }
 
 // 格式化headers为可读字符串
@@ -65,6 +85,12 @@ function onRequest(req, res) {
     // 代理会直接返回你设置的res内容作为响应。这可用于拦截、阻断或伪造响应。
     _ = res; // 避免未使用res警告
 
+    // 检测WebSocket连接并直接放行
+    if (isWebSocketUpgrade(req)) {
+        log_info("🔄 WebSocket请求放行: " + hostname + req.Path);
+        return req; // 直接返回请求，跳过后续处理
+    }
+
     // 读取body
     req.ReadBody();
 
@@ -93,6 +119,12 @@ function onRequest(req, res) {
 // 处理HTTP/HTTPS响应
 function onResponse(req, res) {
     var hostname = req.Hostname;
+
+    // 检测WebSocket握手响应并放行
+    if (isWebSocketHandshakeResponse(res)) {
+        log_info("🔄 WebSocket响应放行: " + hostname + req.Path);
+        return res; // 直接返回响应
+    }
 
     res.ReadBody();
 

@@ -648,6 +648,7 @@
 |--&nbsp;[Windows](./Windows)  
 |  &nbsp;|--&nbsp;[Flutter构建设置.md](./Windows/Flutter构建设置.md)  
 |  &nbsp;|--&nbsp;[PowerShell显示主板温度.md](./Windows/PowerShell显示主板温度.md)  
+|  &nbsp;|--&nbsp;[Powershell乱码解决.md](./Windows/Powershell乱码解决.md)  
 |  &nbsp;|--&nbsp;[WSL2挂载Linux分区.md](./Windows/WSL2挂载Linux分区.md)  
 |  &nbsp;|--&nbsp;[Win11离线装系统.md](./Windows/Win11离线装系统.md)  
 |  &nbsp;|--&nbsp;[Win11远程桌面多开.md](./Windows/Win11远程桌面多开.md)  

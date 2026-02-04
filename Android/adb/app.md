@@ -32,3 +32,9 @@ adb pull "$(adb shell pm path "$PKG" | sed 's/package://')" "$PKG".apk
 $pkg = "com.example.app"
 adb pull (adb shell pm path $pkg | ForEach-Object { $_ -replace "package:", "" }) "$pkg.apk"
 ```
+
+### 通过包名解析启动Activty名
+
+```shell
+cmd package resolve-activity -a android.intent.action.MAIN -c android.intent.category.LAUNCHER -p <app 包名>
+```

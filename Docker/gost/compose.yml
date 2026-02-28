@@ -1,0 +1,8 @@
+services:
+  gost:
+    image: gogost/gost:latest
+    command:
+      - "-L"
+      - "socks5://:1080"
+    network_mode: host
+    restart: always

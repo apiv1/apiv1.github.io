@@ -145,6 +145,8 @@
 |  &nbsp;|  &nbsp;+--&nbsp;[Dockerfile.static_link](./Docker/golang-server/Dockerfile.static_link)  
 |  &nbsp;|--&nbsp;[goproxy](./Docker/goproxy)  
 |  &nbsp;|  &nbsp;+--&nbsp;[compose.yml](./Docker/goproxy/compose.yml)  
+|  &nbsp;|--&nbsp;[gost](./Docker/gost)  
+|  &nbsp;|  &nbsp;+--&nbsp;[compose.yml](./Docker/gost/compose.yml)  
 |  &nbsp;|--&nbsp;[htpasswd](./Docker/htpasswd)  
 |  &nbsp;|  &nbsp;+--&nbsp;[Dockerfile](./Docker/htpasswd/Dockerfile)  
 |  &nbsp;|--&nbsp;[immortalwrt](./Docker/immortalwrt)  

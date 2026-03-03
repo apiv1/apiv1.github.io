@@ -1,0 +1,1 @@
+docker run -d --name gost --restart always --net host gogost/gost:latest -L "socks5://:1080" -F "socks5://proxy:proxy123@192.168.22.33:1080"

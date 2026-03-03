@@ -2,7 +2,6 @@ services:
   gost:
     image: gogost/gost:latest
     command:
-      - "-L"
-      - "socks5://:1080"
+      - "-L socks5://:1080 -F socks5://proxy:proxy123@192.168.22.33:1080"
     network_mode: host
     restart: always

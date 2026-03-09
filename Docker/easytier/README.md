@@ -23,3 +23,6 @@ docker compose up -d
 # 查看所有主机
 docker compose exec easytier easytier-cli peer
 ```
+
+### 高级参数
+[使用出口节点](./exit-node.md)

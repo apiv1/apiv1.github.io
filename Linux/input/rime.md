@@ -19,6 +19,23 @@ sudo apt install fcitx5-rime  # Debian/Ubuntu
 
 安装后，在系统设置中启用 Fcitx5 或 IBus，并添加 RIME 输入法。
 
+要给他配置环境变量，
+
+~/.xprofile for xfce
+```shell
+export GTK_IM_MODULE=fcitx5
+export QT_IM_MODULE=fcitx5
+export XMODIFIERS=@im=fcitx5
+export INPUT_METHOD=fcitx5
+```
+
+配置开机启动
+~/.config/autostart/fcitx5.desktop
+```shell
+Exec=fcitx5
+```
+
+配置好了注销重新登
 --
 
 ### **2. 配置双拼输入方案**

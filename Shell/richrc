@@ -93,6 +93,12 @@ rich_shell() {
         }
         export PROMPT_COMMAND='___richrc__update_ps1' RPROMPT=''
     elif test -n "$ZSH_VERSION"; then
+        HISTFILE=${HISTFILE:-$HOME/.zsh_history}
+        HISTSIZE=50000
+        SAVEHIST=50000
+        setopt INC_APPEND_HISTORY
+        setopt EXTENDED_HISTORY
+
         __richrc__color_text() {
             echo $1$2'%f'
         }
@@ -128,9 +134,8 @@ rich_shell() {
         bindkey "^[[B" history-beginning-search-forward
 
         setopt PROMPT_SUBST
-        precmd() {
-            fc -W
-        }
+        __richrc__precmd() { fc -W }
+        precmd_functions+=(__richrc__precmd)
         RICH_PS1=''
         test -n "$__RICHRC__RICH_MODE" && export RICH_PS1=$___RICH_PREFIX___$'%F{red}▒▓█%F{white}%K{red}$(__richrc__sys_info)%k%F{red}█▓▒ %F{green}🕰️  [$(__richrc__date_fmt)]%f \n'$___RICH_MIDDLE___$'%F{11} <$(__richrc__tty_info)> %F{69}📂$(ls -1 | wc -l | sed "s: ::g") files %F{3}$(ls -lah | grep -m 1 total | sed "s/total //")b %f$(__richrc__prompt)\n'$___POOR_PREFIX___
         export PS1=$RICH_PS1$'%K{0}%F{cyan}(zsh) %F{135}%n%f@%F{166}%m%f %K{14}%F{0}'$___RICH_RIGHT_ARROW___$'%K{14}%F{0}%~%k%F{14}'$___RICH_RIGHT_ARROW___$'%k %f{%F{3}%?%f}\n%F{3}%U'$__richrc__symbol$'%u '

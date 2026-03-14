@@ -7,7 +7,7 @@
 
 [配置macvlan和docker macvlan](../../Linux/macvlan.md)
 
-部署镜像仓库服务```registry```, 减少重复拉取镜像. [部署配置参考这里](../registry/compose.mirror.yml)
+部署镜像仓库服务```registry```, 减少重复拉取镜像. [部署配置参考这里](../registry/compose.yml)
 
 ```shell
 vim compose.yml # registry部署配置

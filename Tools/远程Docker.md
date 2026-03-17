@@ -30,6 +30,7 @@ chmod 400 ~/.ssh/authorized_keys # 设置权限
 # docker机器需要有个docker账户, 需要配置docker访问权限
 useradd -m -s /bin/bash docker
 vi ~/.ssh/authorized_keys # 贴入你的公钥(生成的id_rsa.pub), 为了远程ssh访问docker
+chmod 400 ~/.ssh/authorized_keys # 设置权限
 # 配置好后在本机用ssh连接一下远程机器, 确认密钥, 避免使用ssh-docker时"确认密钥"流程阻塞住操作.
 
 vi ~/.bashrc # 非登录shell会加载此文件，如果需要配置docker相关的环境变量，在这里配置。其他地方配置没有用。
@@ -60,7 +61,9 @@ unset $DOCKER_HOST
 export DOCKER_HOST=ssh://docker@docker.server:22
 $env:DOCKER_HOST="ssh://docker@docker.server:22" # powershell
 
-ssh $DOCKER_HOST # 测试连接,确认密钥配置生效
+ssh $env:DOCKER_HOST # 测试连接,确认密钥配置生效
+vi ~/.ssh/authorized_keys # 贴入你的公钥(生成的id_rsa.pub), 为了远程ssh访问docker
+chmod 400 ~/.ssh/authorized_keys # 设置权限
 
 docker context create --docker host=$DOCKER_HOST --description="docker-server" docker-server
 docker context create --docker host="$env:DOCKER_HOST" --description="docker-server" docker-server # powershell

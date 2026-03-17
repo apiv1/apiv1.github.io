@@ -1,12 +1,20 @@
 services:
   easytier:
     image: easytier/easytier:latest
-    command: ${COMMAND:-}
+    command: ${COMMAND:- -c /etc/easytier/config.toml}
     restart: always
     privileged: true
     hostname: ${HOSTNAME}
     network_mode: host
     environment:
-    - TZ=Asia/Shanghai
+      - TZ=Asia/Shanghai
+    configs:
+      - source: easytier_config
+        target: /etc/easytier/config.toml
+
+configs:
+  easytier_config:
+    content: ${CONFIG_TOML:-}
+
 volumes:
   home:

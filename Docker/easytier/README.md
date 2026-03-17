@@ -16,8 +16,12 @@ docker exec -it easytier easytier-cli peer
 ```
 
 #### compose启动
+[compose.yml](./compose.yml)：
+- **命令方式**：在 .env 里设置 `COMMAND`（参考 [env.example](./env.example)）
+- **配置文件方式**：在 .env 里设置 `CONFIG_TOML` 为完整 config.toml 内容（参考 [env.config.example](./env.config.example)）。不设 `COMMAND` 时默认用 `-c /etc/easytier/config.toml` 启动；若设置了自定义 `COMMAND`，则按 `COMMAND` 启动，`CONFIG_TOML` 不一定生效
+
 ```shell
-vi .env # 参考 env.example
+vi .env # 按上面二选一或组合
 docker compose up -d
 
 # 查看所有主机

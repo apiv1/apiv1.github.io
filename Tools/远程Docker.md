@@ -15,8 +15,9 @@ ssh-keygen # 默认生成到 $HOME/.ssh/id_rsa.pub
 * 可参考[SSH客户端配置](../Tools/SSH客户端设置.md),为特定的ssh连接指定密钥
 
 #### (推荐)为主机ssh安全性考虑, 在主机上[安装dood-sshd](../Docker/dood-sshd/command.md), 使用```dood-sshd```的独立ssh提供远程Docker服务
+#### (更加推荐)为主机Docker环境安全性考虑,且能部署多个/独立Docker服务, 在主机上[安装dind-sshd](../Docker/dind-sshd/command.md), 使用```dind-sshd```的独立Dockerd over ssh提供远程Docker服务
 
-登录```dood-sshd```服务添加公钥
+登录```dood-sshd/dind-sshd```服务添加公钥
 ```shell
 test -f ~/.ssh/authorized_keys && chmod +w ~/.ssh/authorized_keys # 改可读权限
 mkdir -p ~/.ssh

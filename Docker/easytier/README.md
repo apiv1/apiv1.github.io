@@ -30,3 +30,16 @@ docker compose exec easytier easytier-cli peer
 
 ### 高级参数
 [使用出口节点](./exit-node.md)
+ - - - - - - - - - - - - - - -
+注入其他容器， 让其他容器在easytier子网上拥有ip入口
+```shell
+docker run --network container:<其他容器名> ...
+```
+或者 ```compose.yml```
+```yaml
+services:
+  easytier:
+    ...
+    network_mode: "service:app1"
+    ...
+```

@@ -499,6 +499,7 @@
 |  &nbsp;|--&nbsp;[openwrt.md](./Linux/openwrt.md)  
 |  &nbsp;|--&nbsp;[rc.local开机执行命令.md](./Linux/rc.local开机执行命令.md)  
 |  &nbsp;|--&nbsp;[ssh设置不超时断开.md](./Linux/ssh设置不超时断开.md)  
+|  &nbsp;|--&nbsp;[sudo不用输入密码.md](./Linux/sudo不用输入密码.md)  
 |  &nbsp;|--&nbsp;[sysrq指令.md](./Linux/sysrq指令.md)  
 |  &nbsp;|--&nbsp;[watchdog.md](./Linux/watchdog.md)  
 |  &nbsp;|--&nbsp;[zfs.md](./Linux/zfs.md)  

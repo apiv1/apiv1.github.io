@@ -1,0 +1,54 @@
+#!/bin/sh
+
+usage() {
+    echo "用法: $0 {start|stop} <IP_ADDRESS>"
+    echo "示例:"
+    echo "  $0 start 192.168.1.100   # 阻断该设备外网（立即断网）"
+    echo "  $0 stop  192.168.1.100   # 恢复该设备外网"
+    exit 1
+}
+
+if [ $# -ne 2 ]; then
+    usage
+fi
+
+ACTION="$1"
+DEVICE_IP="$2"
+
+# 简单验证 IP 格式
+if ! echo "$DEVICE_IP" | grep -Eq '^([0-9]{1,3}\.){3}[0-9]{1,3}$'; then
+    echo "错误: 无效的 IP 地址"
+    exit 1
+fi
+
+case "$ACTION" in
+    start)
+        echo "正在阻断设备 $DEVICE_IP 的外网访问..."
+        # 添加普通 DROP 规则（不匹配状态）
+        iptables -I FORWARD -s "$DEVICE_IP" -j DROP
+        iptables -I FORWARD -d "$DEVICE_IP" -j DROP
+
+        # 清除该设备相关的所有 conntrack 条目（立即断开现有连接）
+        if command -v conntrack >/dev/null 2>&1; then
+            conntrack -D -s "$DEVICE_IP" 2>/dev/null
+            conntrack -D -d "$DEVICE_IP" 2>/dev/null
+            echo "已清除现有连接记录。"
+        else
+            echo "警告: 未找到 conntrack 工具，现有连接可能需要等待超时。"
+        fi
+
+        echo "完成：设备 $DEVICE_IP 现已无法访问外网。"
+        ;;
+
+    stop)
+        echo "正在恢复设备 $DEVICE_IP 的外网访问..."
+        # 删除之前添加的 DROP 规则
+        iptables -D FORWARD -s "$DEVICE_IP" -j DROP 2>/dev/null
+        iptables -D FORWARD -d "$DEVICE_IP" -j DROP 2>/dev/null
+        echo "完成：设备 $DEVICE_IP 的外网访问已恢复。"
+        ;;
+
+    *)
+        usage
+        ;;
+esac

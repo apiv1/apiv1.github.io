@@ -10,6 +10,14 @@ docker run -d --name easytier --restart always --privileged --hostname "$HOSTNAM
 ```shell
 docker run -d --name easytier --restart always --privileged --hostname "$HOSTNAME" --network host -e TZ=Asia/Shanghai -v $PWD/conf:/etc/easytier easytier/easytier:latest -c /etc/easytier/config.toml
 ```
+或者使用脚本
+```shell
+#!/bin/sh
+SCRIPT_HOME=$(cd "$(dirname "$0" 2>/dev/null)";pwd)
+CONTAINER_NAME=easytier
+docker rm -f $CONTAINER_NAME
+docker run -d --name $CONTAINER_NAME --restart always --privileged --hostname "$HOSTNAME" --network host -e TZ=Asia/Shanghai -v $SCRIPT_HOME/conf:/etc/easytier easytier/easytier:latest -c /etc/easytier/config.toml
+```
 #### 查看所有主机
 ```shell
 docker exec -it easytier easytier-cli peer

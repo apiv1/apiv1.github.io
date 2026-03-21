@@ -6,6 +6,7 @@
 |  &nbsp;|--&nbsp;[adb](./Android/adb)  
 |  &nbsp;|  &nbsp;|--&nbsp;[app.md](./Android/adb/app.md)  
 |  &nbsp;|  &nbsp;|--&nbsp;[http_proxy.md](./Android/adb/http_proxy.md)  
+|  &nbsp;|  &nbsp;|--&nbsp;[network.md](./Android/adb/network.md)  
 |  &nbsp;|  &nbsp;|--&nbsp;[users.md](./Android/adb/users.md)  
 |  &nbsp;|  &nbsp;+--&nbsp;[window.md](./Android/adb/window.md)  
 |  &nbsp;|--&nbsp;[ftp-server.md](./Android/ftp-server.md)  

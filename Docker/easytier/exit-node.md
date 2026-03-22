@@ -11,6 +11,13 @@ easytier-core --exit-nodes <出口节点虚拟IP> [其他参数]
 easytier-core -i <出口节点虚拟IP> --enable-exit-node [其他参数]
 ```
 
+配置文件设置
+```toml
+exit_nodes = ["出口节点虚拟IP"]
+[flags]
+enable_exit_node = true
+```
+
 #### GUI客户端设置
 
 访问端
@@ -28,11 +35,13 @@ easytier-core -i <出口节点虚拟IP> --enable-exit-node [其他参数]
 ### 路由设置
 
 运行easytier看到出口节点设备后还要设置路由才能使用，不使用时可以手动删除路由。（关闭easytier或重启机器也会清除）
+
+#### 这里路由配置的IP是Gateway IP，要使用自己的easytier节点ip，不是exit node的ip。 先要查看自己的easytier节点的ip。
 - - -
 
 Windows，需要管理员终端
 ```powershell
-# 设置出口节点IP
+# 指定Gateway，是自己的easytier节点ip
 $IP="10.126.126.1"
 
 # 添加
@@ -46,7 +55,7 @@ route print
 
 Linux
 ```shell
-# 设置出口节点IP
+# 指定Gateway，是自己的easytier节点ip
 IP="10.126.126.1"
 
 # 添加
@@ -61,7 +70,7 @@ ip route show
 
 Mac
 ```shell
-# 设置出口节点IP
+# 指定Gateway，是自己的easytier节点ip
 IP="10.126.126.1"
 
 # 添加

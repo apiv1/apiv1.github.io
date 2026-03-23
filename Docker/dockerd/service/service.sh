@@ -117,6 +117,11 @@ dockerd-rootless:
 }
 
 dockerd_envrc_install () {
+if test -f "$SCRIPT_HOME/.envrc"; then
+  echo "info: '$SCRIPT_HOME/.envrc' already exists, skip rewriting"
+  return 0
+fi
+
 cat <<EOF > "$SCRIPT_HOME/.envrc"
 export DOCKERD_HOME="$SCRIPT_HOME"
 export USE_ROOTLESS_DOCKERD="\$USE_ROOTLESS_DOCKERD"
@@ -151,9 +156,54 @@ dockerd-service () {
 EOF
 }
 
-# System Service
-dockerd_service_install () {
-local DOCKER_SERVICE_FILE="${DOCKER_SERVICE_FILE:-/etc/systemd/system/${SERVICE_NAME}.service}"
+# Service backend detect
+dockerd_detect_systemd () {
+  command -v systemctl >/dev/null 2>&1 && test -d /run/systemd/system
+}
+
+dockerd_detect_sysv () {
+  command -v service >/dev/null 2>&1 && test -d /etc/init.d
+}
+
+dockerd_resolve_service_type () {
+  local WANT_TYPE=${DOCKER_SERVICE_TYPE:-auto}
+  case "$WANT_TYPE" in
+  auto)
+    if dockerd_detect_systemd; then
+      export DOCKER_SERVICE_TYPE_RESOLVED=systemd
+    elif dockerd_detect_sysv; then
+      export DOCKER_SERVICE_TYPE_RESOLVED=sysv
+    else
+      echo "error: no available service backend (systemd/sysv)"
+      return 1
+    fi
+    ;;
+  systemd)
+    dockerd_detect_systemd || (echo "error: DOCKER_SERVICE_TYPE=systemd unavailable"; return 1)
+    export DOCKER_SERVICE_TYPE_RESOLVED=systemd
+    ;;
+  sysv)
+    dockerd_detect_sysv || (echo "error: DOCKER_SERVICE_TYPE=sysv unavailable"; return 1)
+    export DOCKER_SERVICE_TYPE_RESOLVED=sysv
+    ;;
+  *)
+    echo "error: unsupported DOCKER_SERVICE_TYPE='$WANT_TYPE' (allowed: auto|systemd|sysv)"
+    return 1
+    ;;
+  esac
+
+  if test "$DOCKER_SERVICE_TYPE_RESOLVED" = "sysv"; then
+    if ! command -v update-rc.d >/dev/null 2>&1 && ! command -v chkconfig >/dev/null 2>&1; then
+      echo "warn: update-rc.d/chkconfig not found, auto-start registration will be skipped"
+    fi
+  fi
+
+  echo "service backend resolved: $DOCKER_SERVICE_TYPE_RESOLVED"
+}
+
+# Systemd Service
+dockerd_systemd_service_install () {
+local DOCKER_SERVICE_FILE="${DOCKER_SYSTEMD_SERVICE_FILE:-/etc/systemd/system/${SERVICE_NAME}.service}"
 if test -f "$DOCKER_SERVICE_FILE" ; then
   echo "'$DOCKER_SERVICE_FILE' already exist. delete or move it manually to continue install."
   return 1
@@ -208,18 +258,168 @@ systemctl enable "$SERVICE_NAME".service
 systemctl status --no-pager "$SERVICE_NAME"
 }
 
-dockerd_service_uninstall () {
-  local DOCKER_SERVICE_FILE="${DOCKER_SERVICE_FILE:-/etc/systemd/system/${SERVICE_NAME}.service}"
+dockerd_systemd_service_uninstall () {
+  local DOCKER_SERVICE_FILE="${DOCKER_SYSTEMD_SERVICE_FILE:-/etc/systemd/system/${SERVICE_NAME}.service}"
+  local UNIT_FILE="${SERVICE_NAME}.service"
+
+  if test ! -f "$DOCKER_SERVICE_FILE"; then
+    echo "down: systemd unit '$UNIT_FILE' not found, skip"
+    return 0
+  fi
 
   systemctl stop "$SERVICE_NAME"
-  systemctl disable "$SERVICE_NAME".service
-  rm "$DOCKER_SERVICE_FILE"
+  systemctl disable "$UNIT_FILE"
+  rm -f "$DOCKER_SERVICE_FILE"
+  systemctl daemon-reload
+}
+
+# SysV Service
+dockerd_sysv_service_install () {
+  local DOCKER_SERVICE_FILE="${DOCKER_SYSV_SERVICE_FILE:-/etc/init.d/${SERVICE_NAME}}"
+  if test -f "$DOCKER_SERVICE_FILE" ; then
+    echo "'$DOCKER_SERVICE_FILE' already exist. delete or move it manually to continue install."
+    return 1
+  fi
+
+  local DOCKER_UNIX_SOCK=unix:///tmp/${SERVICE_NAME}.sock
+  local DOCKERD_TMP_DIR=/tmp/${SERVICE_NAME}
+  local DOCKER_BIN="$SCRIPT_HOME/bin"
+  local DOCKERD_ARGS='-H '$DOCKER_UNIX_SOCK' --exec-root '$DOCKERD_TMP_DIR'/run/docker -p '$DOCKERD_TMP_DIR'/run/docker.pid --config-file '$SCRIPT_HOME'/daemon.json --data-root '$SCRIPT_HOME'/lib/'$SERVICE_NAME
+
+  if test ! -f "$SCRIPT_HOME/daemon.json" ; then
+cat <<EOF > "$SCRIPT_HOME/daemon.json"
+{
+}
+EOF
+  fi
+
+cat <<EOF > "$DOCKER_SERVICE_FILE"
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          ${SERVICE_NAME}
+# Required-Start:    \$remote_fs \$syslog
+# Required-Stop:     \$remote_fs \$syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Docker Application Container Engine
+### END INIT INFO
+
+NAME="${SERVICE_NAME}"
+PID_FILE="${DOCKERD_TMP_DIR}/run/docker.pid"
+DOCKERD_BIN="${DOCKER_BIN}/dockerd"
+DOCKERD_ARGS="${DOCKERD_ARGS}"
+PATH="${DOCKER_BIN}:\$PATH"
+
+start_service() {
+  if test -f "\$PID_FILE" && kill -0 \$(cat "\$PID_FILE") 2>/dev/null; then
+    echo "\$NAME is already running"
+    return 0
+  fi
+  mkdir -p "${DOCKERD_TMP_DIR}/run"
+  nohup "\$DOCKERD_BIN" \$DOCKERD_ARGS >/tmp/\${NAME}.log 2>&1 &
+  sleep 1
+  if test -f "\$PID_FILE" && kill -0 \$(cat "\$PID_FILE") 2>/dev/null; then
+    echo "Started \$NAME"
+  else
+    echo "Failed to start \$NAME"
+    return 1
+  fi
+}
+
+stop_service() {
+  if test ! -f "\$PID_FILE"; then
+    echo "\$NAME is not running"
+    return 0
+  fi
+  PID=\$(cat "\$PID_FILE")
+  if kill -0 "\$PID" 2>/dev/null; then
+    kill "\$PID" || true
+    sleep 1
+    kill -9 "\$PID" 2>/dev/null || true
+  fi
+  rm -f "\$PID_FILE"
+  echo "Stopped \$NAME"
+}
+
+status_service() {
+  if test -f "\$PID_FILE" && kill -0 \$(cat "\$PID_FILE") 2>/dev/null; then
+    echo "\$NAME is running (pid \$(cat "\$PID_FILE"))"
+    return 0
+  fi
+  echo "\$NAME is not running"
+  return 3
+}
+
+case "\$1" in
+start) start_service ;;
+stop) stop_service ;;
+restart) stop_service; start_service ;;
+status) status_service ;;
+*) echo "Usage: \$0 {start|stop|restart|status}"; exit 1 ;;
+esac
+EOF
+
+  chmod +x "$DOCKER_SERVICE_FILE"
+  if command -v update-rc.d >/dev/null 2>&1; then
+    update-rc.d "$SERVICE_NAME" defaults
+  elif command -v chkconfig >/dev/null 2>&1; then
+    chkconfig --add "$SERVICE_NAME"
+  fi
+  service "$SERVICE_NAME" start
+  service "$SERVICE_NAME" status
+}
+
+dockerd_sysv_service_uninstall () {
+  local DOCKER_SERVICE_FILE="${DOCKER_SYSV_SERVICE_FILE:-/etc/init.d/${SERVICE_NAME}}"
+
+  if test ! -f "$DOCKER_SERVICE_FILE"; then
+    echo "down: sysv script '$DOCKER_SERVICE_FILE' not found, skip"
+    return 0
+  fi
+
+  service "$SERVICE_NAME" stop
+  if command -v update-rc.d >/dev/null 2>&1; then
+    update-rc.d -f "$SERVICE_NAME" remove
+  elif command -v chkconfig >/dev/null 2>&1; then
+    chkconfig --del "$SERVICE_NAME"
+  fi
+  rm -f "$DOCKER_SERVICE_FILE" || return 1
+}
+
+dockerd_service_install_by_type () {
+  if test "$DOCKER_SERVICE_TYPE_RESOLVED" = "systemd"; then
+    dockerd_systemd_service_install
+  else
+    dockerd_sysv_service_install
+  fi
+}
+
+dockerd_service_uninstall () {
+  local WANT_TYPE=${DOCKER_SERVICE_TYPE:-auto}
+
+  if test "$WANT_TYPE" = "auto" || test "$WANT_TYPE" = "sysv"; then
+    if dockerd_detect_sysv; then
+      echo "down: try sysv backend"
+      dockerd_sysv_service_uninstall || echo "warn: sysv down failed, continue"
+    else
+      echo "down: sysv backend not available, skip"
+    fi
+  fi
+
+  if test "$WANT_TYPE" = "auto" || test "$WANT_TYPE" = "systemd"; then
+    if dockerd_detect_systemd; then
+      echo "down: try systemd backend"
+      dockerd_systemd_service_uninstall || echo "warn: systemd down failed, continue"
+    else
+      echo "down: systemd backend not available, skip"
+    fi
+  fi
 }
 
 dockerd_rootless_service_install () {
   PATH=$PATH:"$SCRIPT_HOME/bin"
   "$SCRIPT_HOME"/bin/dockerd-rootless-setuptool.sh uninstall
-  "$SCRIPT_HOME"/bin/dockerd-rootless-setuptool.sh install
+  "$SCRIPT_HOME"/bin/dockerd-rootless-setuptool.sh install "$@"
 }
 
 dockerd_rootless_service_uninstall () {
@@ -231,10 +431,12 @@ test "$(id -u)" = "0" && export IS_ROOT=1
 
 if test "$#" -lt 1; then
   echo "usage: <install|install-rootless|up|down|envrc|hint>"
+  echo "env: DOCKER_SERVICE_TYPE=auto|systemd|sysv (default: auto)"
   exit 1
 fi
 
 export ACTION=$1
+shift
 case $ACTION in
 install)
   dockerd_install
@@ -249,14 +451,19 @@ install-rootless)
   ;;
 up)
   if test -n "$IS_ROOT"; then
+    dockerd_resolve_service_type
     dockerd_install
     dockerd_envrc_install
-    dockerd_service_install
+    dockerd_service_install_by_type
   else
     dockerd_install
-    dockerd_envrc_install
+    if test -w "$SCRIPT_HOME"; then
+      dockerd_envrc_install
+    else
+      echo "warn: '$SCRIPT_HOME' is not writable, skip updating .envrc"
+    fi
     dockerd_rootless_install
-    dockerd_rootless_service_install
+    dockerd_rootless_service_install "$@"
   fi
   envrc_install_hint
   ;;

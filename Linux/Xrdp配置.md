@@ -26,6 +26,7 @@ sudo systemctl disable firewalld --now # 可能要关闭防火墙
 ### Ubuntu命令行注销桌面, 以便xrdp远程登录(重启后登不上去有时候也是这情况)
 ```shell
 gnome-session-quit --no-prompt
+xfce4-session-logout --logout # 使用xfce桌面系统
 ```
 
 #### 编辑配置文件

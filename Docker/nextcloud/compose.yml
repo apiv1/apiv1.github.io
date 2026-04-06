@@ -10,7 +10,7 @@ services:
       - APC_SHM_SIZE=128M
       - OPCACHE_MEM_SIZE=128
       - CRON_PERIOD=15m
-      - TZ=Aisa/Shanghai
+      - TZ=Asia/Shanghai
       - DB_TYPE=postgres
       - DB_NAME=nextcloud
       - DB_USER=${POSTGRES_USER:-username}

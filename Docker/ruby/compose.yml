@@ -1,7 +1,7 @@
 name: 'ruby'
 services:
   ruby:
-    image: ${RUBY_IMAGE:-ruby:alpine}
+    image: ${RUBY_IMAGE:-ruby:slim}
     working_dir: ${PATH_PREFIX:-}${PWD}
     volumes:
       - .:${PATH_PREFIX:-}${PWD}

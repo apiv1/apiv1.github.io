@@ -1,1 +1,1 @@
-docker run -d --name adbd --restart always --privileged --net host -v /dev/bus/usb:/dev/bus/usb -v $PWD/.android:/root/.android  -v $PWD:/app -w /app --entrypoint sh backplane/adb -c "adb -a nodaemon server start"
+docker run -d --name adb --restart always --privileged --net host -v /dev/bus/usb:/dev/bus/usb -v $PWD/.android:/root/.android  -v $PWD:/app -w /app --entrypoint sh backplane/adb -c "adb -a nodaemon server start"

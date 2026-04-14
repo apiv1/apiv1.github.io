@@ -7,14 +7,15 @@ ARG RUNTIME_IMAGE="alpine:latest"
 
 FROM ${BUILD_IMAGE} AS builder
 ARG GOPROXY="https://goproxy.cn,https://goproxy.io,direct"
+ARG GO_INSTALL_TARGET="github.com/go-delve/delve/cmd/dlv@latest"
 RUN export GOPROXY=${GOPROXY} GO111MODULE=on CGO_ENABLED=0 GOOS=linux; \
-  go install github.com/go-delve/delve/cmd/dlv@latest;
+  go install ${GO_INSTALL_TARGET};
 
 FROM ${RUNTIME_IMAGE} AS runner
 COPY --from=builder /go/bin/* /usr/local/bin/
 '
 
-echo $DOCKERFILE | docker buildx build -f - . -t dlv
+printf "$DOCKERFILE" | docker buildx build -f - . -t dlv
 ```
 
 启动调试

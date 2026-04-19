@@ -4,6 +4,11 @@ git config --global init.defaultBranch dev # 初始化默认分支为dev
 git config --global pull.rebase true # git pull强制使用--rebase选项
 git config --global http.postBuffer 5G # 设置提交大小上限
 git config --global user.useConfigOnly true # 每个新项目都提示你设置用户名和邮箱，而不是自动使用全局配置
+
+# 拉pr
+export PR_NO="" # PR编号
+git fetch origin pull/${PR_NO}/head:review-pr-${PR_NO}
+git switch review-pr-${PR_NO}
 ```
 
 代理

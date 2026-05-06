@@ -524,6 +524,7 @@
 |  &nbsp;|--&nbsp;[树莓派装k8s.md](./Linux/树莓派装k8s.md)  
 |  &nbsp;|--&nbsp;[树莓派设置显存.md](./Linux/树莓派设置显存.md)  
 |  &nbsp;|--&nbsp;[树莓派配置息屏时钟.md](./Linux/树莓派配置息屏时钟.md)  
+|  &nbsp;|--&nbsp;[禁用内核模块.md](./Linux/禁用内核模块.md)  
 |  &nbsp;|--&nbsp;[虚拟内存.md](./Linux/虚拟内存.md)  
 |  &nbsp;|--&nbsp;[远程唤醒.md](./Linux/远程唤醒.md)  
 |  &nbsp;|--&nbsp;[远程桌面系统策略阻止xxx的解决办法.md](./Linux/远程桌面系统策略阻止xxx的解决办法.md)  

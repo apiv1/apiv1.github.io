@@ -4,6 +4,7 @@ HandlePowerKey: 按下电源键后的行为，默认power off
 HandleSleepKey: 按下挂起键后的行为，默认suspend
 HandleHibernateKey: 按下休眠键后的行为，默认hibernate
 HandleLidSwitch: 合上笔记本盖后的行为，默认suspend
+HandleLidSwitchExternalPower: 插电合上笔记本盖后的行为，默认suspend
 
 ignore(无操作),
 poweroff(关闭系统并切断电源),

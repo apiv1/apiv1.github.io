@@ -1,9 +1,11 @@
 #### 本地端口映射到远端
+本地机器开端口，收到的数据转发给远端
 ```shell
 ssh -L 8080:localhost:80 -N user@remote-server
 ```
 
 #### 远程端口映射到本机
+远程机器开端口，收到的数据转发给本机
 ```shell
 ssh -R 8080:localhost:80 user@example.com -N
 ```

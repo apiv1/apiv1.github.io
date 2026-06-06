@@ -237,6 +237,8 @@
 |  &nbsp;|  &nbsp;|--&nbsp;[compose.override.yml](./Docker/openssh-server/compose.override.yml)  
 |  &nbsp;|  &nbsp;|--&nbsp;[compose.yml](./Docker/openssh-server/compose.yml)  
 |  &nbsp;|  &nbsp;+--&nbsp;[recommended.compose.yml](./Docker/openssh-server/recommended.compose.yml)  
+|  &nbsp;|--&nbsp;[openwebui](./Docker/openwebui)  
+|  &nbsp;|  &nbsp;+--&nbsp;[compose.yml](./Docker/openwebui/compose.yml)  
 |  &nbsp;|--&nbsp;[pack](./Docker/pack)  
 |  &nbsp;|  &nbsp;+--&nbsp;[README.md](./Docker/pack/README.md)  
 |  &nbsp;|--&nbsp;[photopea](./Docker/photopea)  

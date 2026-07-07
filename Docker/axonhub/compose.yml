@@ -1,0 +1,40 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: axonhub-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: axonhub
+      POSTGRES_PASSWORD: axonhub_p@ss_2026
+      POSTGRES_DB: axonhub
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U axonhub -d axonhub"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - axonhub-net
+
+  axonhub:
+    image: looplj/axonhub:latest
+    container_name: axonhub-app
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      AXONHUB_DB_DIALECT: postgres
+      AXONHUB_DB_DSN: postgres://axonhub:axonhub_p@ss_2026@postgres:5432/axonhub?sslmode=disable
+    ports:
+      - "8090:8090"
+    networks:
+      - axonhub-net
+
+volumes:
+  pg-data:
+
+networks:
+  axonhub-net:
+    driver: bridge

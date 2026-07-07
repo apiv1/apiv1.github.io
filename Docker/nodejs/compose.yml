@@ -1,0 +1,18 @@
+name: 'node'
+services:
+  node:
+    image: ${IMAGE:-node:slim}
+    working_dir: ${WORK_DIR:-/app}
+    volumes:
+      - .:${WORK_DIR:-/app}
+      - npm_global:/usr/local/lib/node_modules
+      - root:/root
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - LC_ALL=C.UTF-8
+      - LANG=C.UTF-8
+      - TZ=Asia/Shanghai
+volumes:
+  npm_global:
+  root:

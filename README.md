@@ -488,6 +488,7 @@
 |  &nbsp;|  &nbsp;+--&nbsp;[8821cu.md](./Linux/devices/8821cu.md)  
 |  &nbsp;|--&nbsp;[encfs.md](./Linux/encfs.md)  
 |  &nbsp;|--&nbsp;[font.md](./Linux/font.md)  
+|  &nbsp;|--&nbsp;[grub重置密码.md](./Linux/grub重置密码.md)  
 |  &nbsp;|--&nbsp;[immortalwrt.md](./Linux/immortalwrt.md)  
 |  &nbsp;|--&nbsp;[input](./Linux/input)  
 |  &nbsp;|  &nbsp;+--&nbsp;[rime.md](./Linux/input/rime.md)  

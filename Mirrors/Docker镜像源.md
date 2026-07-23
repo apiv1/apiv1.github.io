@@ -1,5 +1,13 @@
 [DockerHub镜像](https://github.com/dongyubin/DockerHub)
 
+daemon.json(empty)
+```json
+{
+  "registry-mirrors": [
+  ]
+}
+```
+
 daemon.json
 ```json
 {

@@ -598,6 +598,7 @@
 |  &nbsp;|--&nbsp;[README.md](./Rust/README.md)  
 |  &nbsp;|--&nbsp;[嵌入式开发.md](./Rust/嵌入式开发.md)  
 |  &nbsp;+--&nbsp;[转换.md](./Rust/转换.md)  
+|--&nbsp;[SKILL.md](./SKILL.md)  
 |--&nbsp;[Shell](./Shell)  
 |  &nbsp;|--&nbsp;[envrc](./Shell/envrc)  
 |  &nbsp;|--&nbsp;[hoster](./Shell/hoster)  

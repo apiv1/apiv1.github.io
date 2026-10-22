@@ -134,7 +134,7 @@ rich_shell() {
         bindkey "^[[B" history-beginning-search-forward
 
         setopt PROMPT_SUBST
-        __richrc__precmd() { fc -W }
+        __richrc__precmd() { fc -W; }
         precmd_functions+=(__richrc__precmd)
         RICH_PS1=''
         test -n "$__RICHRC__RICH_MODE" && export RICH_PS1=$___RICH_PREFIX___$'%F{red}▒▓█%F{white}%K{red}$(__richrc__sys_info)%k%F{red}█▓▒ %F{green}🕰️  [$(__richrc__date_fmt)]%f \n'$___RICH_MIDDLE___$'%F{11} <$(__richrc__tty_info)> %F{69}📂$(ls -1 | wc -l | sed "s: ::g") files %F{3}$(ls -lah | grep -m 1 total | sed "s/total //")b %f$(__richrc__prompt)\n'$___POOR_PREFIX___
